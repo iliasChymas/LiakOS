@@ -1,12 +1,15 @@
 #!/usr/bin/env sh
 set -eu
 
-ROOT_DIR=$(CDPATH= cd -- "$(dirname -- "$0")/../.." && pwd)
-BIN_PATH="${TMPDIR:-/tmp}/liakos-wallpaper-c"
+SCRIPT_DIR=$(CDPATH= cd -- "$(dirname -- "$0")" && pwd)
+APP_DIR=$(CDPATH= cd -- "$SCRIPT_DIR/.." && pwd)
+ROOT_DIR=$(CDPATH= cd -- "$APP_DIR/.." && pwd)
+BUILD_DIR="$APP_DIR/build"
+BIN_PATH="$BUILD_DIR/lpaper"
 
 cd "$ROOT_DIR"
-cc -O2 -Wall -Wextra \
-  wallpaper-app/tools/wallpaper-viewer-c.c \
-  -o "$BIN_PATH" \
-  $(pkg-config --cflags --libs gtk4 vips)
+mkdir -p "$BUILD_DIR"
+if [ ! -x "$BIN_PATH" ] || [ "$SCRIPT_DIR/wallpaper-viewer-c.c" -nt "$BIN_PATH" ]; then
+  "$APP_DIR/build.sh"
+fi
 exec "$BIN_PATH" "$@"

@@ -5,6 +5,12 @@ and shows a vertically scrollable five-column thumbnail grid. It generates
 256×144 thumbnails in the background with libvips and keeps them in memory;
 it does not create a thumbnail cache on disk.
 
+Build the executable to `wallpaper-app/build/lpaper` with:
+
+```sh
+wallpaper-app/build.sh
+```
+
 Run from any directory with:
 
 ```sh
@@ -18,8 +24,8 @@ from `pkg-config`. Regenerate it after changing development packages with:
 wallpaper-app/tools/update-clangd-flags.sh
 ```
 
-The script compiles the C application with `-O2` and runs it. Timing output is
-printed to the terminal with a `[timing-c]` prefix. **Apply wallpaper** runs
+The run script compiles `lpaper` if it is missing or stale, then runs it.
+Timing output is printed to the terminal with a `[timing-c]` prefix. **Apply wallpaper** runs
 `wal -i <selected-image>` and then `scripts/test-pywal-gtk-colors.sh`.
 
 To benchmark one image resize without opening GTK:
