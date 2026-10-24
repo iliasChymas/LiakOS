@@ -1,0 +1,1068 @@
+/// <reference path="./gstvideo-1.0.d.ts" />
+/// <reference path="./gstbase-1.0.d.ts" />
+/// <reference path="./gst-1.0.d.ts" />
+/// <reference path="./gobject-2.0.d.ts" />
+/// <reference path="./glib-2.0.d.ts" />
+/// <reference path="./gmodule-2.0.d.ts" />
+/// <reference path="./gstgl-1.0.d.ts" />
+/// <reference path="./cudagst-1.0.d.ts" />
+
+/**
+ * Type Definitions for Gjs (https://gjs.guide/)
+ *
+ * These type definitions are automatically generated, do not edit them by hand.
+ * If you found a bug fix it in `ts-for-gir` or create a bug report on https://github.com/gjsify/ts-for-gir
+ *
+ * The based EJS template file is used for the generated .d.ts file of each GIR module like Gtk-4.0, GObject-2.0, ...
+ */
+
+declare module 'gi://GstCuda?version=1.0' {
+
+// Module dependencies
+import type GstVideo from 'gi://GstVideo?version=1.0';
+import type GstBase from 'gi://GstBase?version=1.0';
+import type Gst from 'gi://Gst?version=1.0';
+import type GObject from 'gi://GObject?version=2.0';
+import type GLib from 'gi://GLib?version=2.0';
+import type GModule from 'gi://GModule?version=2.0';
+import type GstGL from 'gi://GstGL?version=1.0';
+import type CudaGst from 'gi://CudaGst?version=1.0';
+
+export namespace GstCuda {
+
+    /**
+     * GstCuda-1.0
+     */
+
+
+    /**
+     * @gir-type Enum
+     * @since 1.22
+     */
+    enum CudaGraphicsResourceType {
+        NONE = 0,
+        GL_BUFFER = 1,
+        D3D11_RESOURCE = 2,
+        /**
+         * Resource represents a EGL resource.
+         * @since 1.26
+         */
+        EGL_RESOURCE = 3,
+    }
+
+
+    /**
+     * @gir-type Enum
+     */
+    export namespace CudaMemoryAllocMethod {
+        export const $gtype: GObject.GType<CudaMemoryAllocMethod>;
+    }
+
+    /**
+     * CUDA memory allocation method
+     * @gir-type Enum
+     * @since 1.24
+     */
+    enum CudaMemoryAllocMethod {
+        /**
+         * @since 1.24
+         */
+        UNKNOWN = 0,
+        /**
+         * Memory allocated via cuMemAlloc or cuMemAllocPitch
+         * @since 1.24
+         */
+        MALLOC = 1,
+        /**
+         * Memory allocated via cuMemCreate and cuMemMap
+         * @since 1.24
+         */
+        MMAP = 2,
+    }
+
+
+    /**
+     * @gir-type Enum
+     * @since 1.22
+     */
+    enum CudaQuarkId {
+        GRAPHICS_RESOURCE = 0,
+        MAX = 1,
+    }
+
+
+    /**
+     * Name of the caps feature for indicating the use of {@link GstCuda.CudaMemory}
+     * @since 1.22
+     * @default memory:CUDAMemory
+     */
+    const CAPS_FEATURE_MEMORY_CUDA_MEMORY: string;
+
+    /**
+     * #G_TYPE_BOOLEAN Allows stream ordered allocation. Default is `false`
+     * @since 1.26
+     * @default GstCudaAllocator.stream-ordered
+     */
+    const CUDA_ALLOCATOR_OPT_STREAM_ORDERED: string;
+
+    /**
+     * @since 1.22
+     * @default gst.cuda.context
+     */
+    const CUDA_CONTEXT_TYPE: string;
+
+    /**
+     * Name of cuda memory type
+     * @since 1.22
+     * @default gst.cuda.memory
+     */
+    const CUDA_MEMORY_TYPE_NAME: string;
+
+    /**
+     * Flag indicating that we should map the CUDA device memory
+     * instead of to system memory.
+     * 
+     * Combining #GST_MAP_CUDA with #GST_MAP_WRITE has the same semantics as though
+     * you are writing to CUDA device/host memory.
+     * Conversely, combining #GST_MAP_CUDA with
+     * #GST_MAP_READ has the same semantics as though you are reading from
+     * CUDA device/host memory
+     * @since 1.22
+     * @default 131072
+     */
+    const MAP_CUDA: number;
+
+    /**
+     * GstMapFlags value alias for GST_MAP_READ | GST_MAP_CUDA
+     * @since 1.28
+     * @default 131073
+     */
+    const MAP_READ_CUDA: Gst.MapFlags;
+
+    /**
+     * GstMapFlags value alias for GST_MAP_WRITE | GST_MAP_CUDA
+     * @since 1.28
+     * @default 131074
+     */
+    const MAP_WRITE_CUDA: Gst.MapFlags;
+
+    /**
+     * Gets configured allocation method
+     * @param config a buffer pool config
+     * @since 1.24
+     */
+    function buffer_pool_config_get_cuda_alloc_method(config: Gst.Structure): CudaMemoryAllocMethod;
+
+    /**
+     * @param config a buffer pool config
+     * @returns the currently configured {@link GstCuda.CudaStream} on `config` or `null` if `config` doesn't hold {@link GstCuda.CudaStream}
+     * @since 1.24
+     */
+    function buffer_pool_config_get_cuda_stream(config: Gst.Structure): CudaStream | null;
+
+    /**
+     * @param config a buffer pool config
+     * @returns `true` stream ordered allocation option was specified
+     * @since 1.26
+     */
+    function buffer_pool_config_get_cuda_stream_ordered_alloc(config: Gst.Structure): [boolean, boolean];
+
+    /**
+     * Sets allocation method
+     * @param config a buffer pool config
+     * @param method 
+     * @since 1.24
+     */
+    function buffer_pool_config_set_cuda_alloc_method(config: Gst.Structure, method: CudaMemoryAllocMethod): void;
+
+    /**
+     * Sets `stream` on `config`
+     * @param config a buffer pool config
+     * @param stream a {@link GstCuda.CudaStream}
+     * @since 1.24
+     */
+    function buffer_pool_config_set_cuda_stream(config: Gst.Structure, stream: CudaStream): void;
+
+    /**
+     * Sets stream ordered allocation option
+     * @param config a buffer pool config
+     * @param stream_ordered whether stream ordered allocation is allowed
+     * @since 1.26
+     */
+    function buffer_pool_config_set_cuda_stream_ordered_alloc(config: Gst.Structure, stream_ordered: boolean): void;
+
+    /**
+     * @param cuda_ctx a {@link GstCuda.CudaContext}
+     * @returns a new {@link Gst.Context} embedding the `cuda_ctx`
+     * @since 1.22
+     */
+    function context_new_cuda_context(cuda_ctx: CudaContext): Gst.Context;
+
+    /**
+     * Creates new user token value
+     * @returns user token value
+     * @since 1.24
+     */
+    function cuda_create_user_token(): number;
+
+    /**
+     * Perform the steps necessary for retrieving a {@link GstCuda.CudaContext} from the
+     * surrounding elements or from the application using the {@link Gst.Context} mechanism.
+     * 
+     * If the content of `cuda_ctx` is not `null`, then no {@link Gst.Context} query is
+     * necessary for {@link GstCuda.CudaContext}.
+     * @param element the {@link Gst.Element} running the query
+     * @param device_id preferred device-id, pass device_id >=0 when             the device_id explicitly required. Otherwise, set -1.
+     * @param cuda_ctx the resulting {@link GstCuda.CudaContext}
+     * @returns whether a {@link GstCuda.CudaContext} exists in `cuda_ctx`
+     * @since 1.22
+     */
+    function cuda_ensure_element_context(element: Gst.Element, device_id: number, cuda_ctx: CudaContext): [boolean, CudaContext];
+
+    /**
+     * @param element a {@link Gst.Element}
+     * @param query a {@link Gst.Query} of type {@link Gst.QueryType.CONTEXT}
+     * @param cuda_ctx a {@link GstCuda.CudaContext}
+     * @returns Whether the `query` was successfully responded to from the passed          `context`.
+     * @since 1.22
+     */
+    function cuda_handle_context_query(element: Gst.Element, query: Gst.Query, cuda_ctx: CudaContext | null): boolean;
+
+    /**
+     * Helper function for implementing {@link Gst.ElementClass}.set_context() in
+     * CUDA capable elements.
+     * 
+     * Retrieves the {@link GstCuda.CudaContext} in `context` and places the result in `cuda_ctx`.
+     * @param element a {@link Gst.Element}
+     * @param context a {@link Gst.Context}
+     * @param device_id preferred device-id, pass device_id >=0 when             the device_id explicitly required. Otherwise, set -1.
+     * @param cuda_ctx location of a {@link GstCuda.CudaContext}
+     * @returns whether the `cuda_ctx` could be set successfully
+     * @since 1.22
+     */
+    function cuda_handle_set_context(element: Gst.Element, context: Gst.Context, device_id: number, cuda_ctx: CudaContext): [boolean, CudaContext];
+
+    /**
+     * Loads the cuda library
+     * @returns `true` if the libcuda could be loaded `false` otherwise
+     * @since 1.22
+     */
+    function cuda_load_library(): boolean;
+
+    /**
+     * Ensures that the {@link GstCuda.CudaAllocator} is initialized and ready to be used.
+     * @since 1.22
+     */
+    function cuda_memory_init_once(): void;
+
+    /**
+     * @param source Source code to compile
+     * @since 1.22
+     */
+    function cuda_nvrtc_compile(source: string): string;
+
+    /**
+     * @param source Source code to compile
+     * @param device CUDA device
+     * @returns Compiled CUDA assembly code if successful, otherwise `null`
+     * @since 1.24
+     */
+    function cuda_nvrtc_compile_cubin(source: string, device: number): string;
+
+    /**
+     * Loads the nvrtc library.
+     * @returns `true` if the library could be loaded, `false` otherwise
+     * @since 1.22
+     */
+    function cuda_nvrtc_load_library(): boolean;
+
+    /**
+     * Check if `mem` is a cuda memory
+     * @param mem A {@link Gst.Memory}
+     * @since 1.22
+     */
+    function is_cuda_memory(mem: Gst.Memory): boolean;
+
+    /**
+     * CUDA memory transfer flags
+     * @gir-type Flags
+     */
+    enum CudaMemoryTransfer {
+        /**
+         * the device memory needs downloading to the staging memory
+         * @since 1.22
+         */
+        DOWNLOAD = 1048576,
+        /**
+         * the staging memory needs uploading to the device memory
+         * @since 1.22
+         */
+        UPLOAD = 2097152,
+        /**
+         * the device memory needs synchronization
+         * @since 1.24
+         */
+        SYNC = 4194304,
+    }
+
+
+    namespace CudaAllocator {
+        // Signal signatures
+        interface SignalSignatures extends Gst.Allocator.SignalSignatures {
+            "notify::name": (pspec: GObject.ParamSpec) => void;
+            "notify::parent": (pspec: GObject.ParamSpec) => void;
+        }
+
+        // Constructor properties interface
+        interface ConstructorProps extends Gst.Allocator.ConstructorProps {}
+    }
+
+    /**
+     * A {@link Gst.Allocator} subclass for cuda memory
+     * @gir-type Class
+     * @since 1.22
+     */
+    class CudaAllocator extends Gst.Allocator {
+        static $gtype: GObject.GType<CudaAllocator>;
+
+        /**
+         * Compile-time signal type information.
+         *
+         * This instance property is generated only for TypeScript type checking.
+         * It is not defined at runtime and should not be accessed in JS code.
+         * @internal
+         */
+        $signals: CudaAllocator.SignalSignatures;
+
+        // Constructors
+        constructor(properties?: Partial<CudaAllocator.ConstructorProps>, ...args: any[]);
+
+        _init(...args: any[]): void;
+
+        // Signals
+        /** @signal */
+        connect<K extends keyof CudaAllocator.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, CudaAllocator.SignalSignatures[K]>): number;
+
+        /** @signal */
+        connect_after<K extends keyof CudaAllocator.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, CudaAllocator.SignalSignatures[K]>): number;
+
+        /** @signal */
+        emit<K extends keyof CudaAllocator.SignalSignatures>(signal: K, ...args: GObject.GjsParameters<CudaAllocator.SignalSignatures[K]>): void;
+
+        // Virtual methods
+        /**
+         * Controls the active state of `allocator`. Default {@link GstCuda.CudaAllocator} is
+         * stateless and therefore active state is ignored, but subclass implementation
+         * (e.g., {@link GstCuda.CudaPoolAllocator}) will require explicit active state control
+         * for its internal resource management.
+         * 
+         * This method is conceptually identical to gst_buffer_pool_set_active method.
+         * @param active the new active state
+         * @since 1.24
+         * @virtual
+         */
+        vfunc_set_active(active: boolean): boolean;
+
+        // Methods
+        /**
+         * @param context a {@link GstCuda.CudaContext}
+         * @param stream a {@link GstCuda.CudaStream}
+         * @param info a {@link GstVideo.VideoInfo}
+         * @returns a newly allocated {@link GstCuda.CudaMemory}
+         * @since 1.22
+         */
+        alloc(context: CudaContext, stream: CudaStream | null, info: GstVideo.VideoInfo): Gst.Memory | null;
+
+        /**
+         * @param args 
+         */
+    // Conflicted with Gst.Allocator.alloc
+        alloc(...args: never[]): any;
+
+        /**
+         * @param context a {@link GstCuda.CudaContext}
+         * @param stream a {@link GstCuda.CudaStream}
+         * @param info a {@link GstVideo.VideoInfo}
+         * @returns a newly allocated {@link GstCuda.CudaMemory}
+         * @since 1.28
+         */
+        alloc_stream_ordered(context: CudaContext, stream: CudaStream, info: GstVideo.VideoInfo): Gst.Memory | null;
+
+        /**
+         * Allocates a new memory that wraps the given CUDA device memory.
+         * 
+         * `info` must represent actual memory layout, in other words, offset, stride
+         * and size fields of `info` should be matched with memory layout of `dev_ptr`
+         * 
+         * By default, wrapped `dev_ptr` will be freed at the time when {@link Gst.Memory}
+         * is freed if `notify` is `null`. Otherwise, if caller sets `notify`,
+         * freeing `dev_ptr` is callers responsibility and default {@link GstCuda.CudaAllocator}
+         * will not free it.
+         * @param context a {@link GstCuda.CudaContext}
+         * @param stream a {@link GstCuda.CudaStream}
+         * @param info a {@link GstVideo.VideoInfo}
+         * @param dev_ptr a CUdeviceptr CUDA device memory
+         * @param notify Called with `user_data` when the memory is freed
+         * @returns a new {@link Gst.Memory}
+         * @since 1.24
+         */
+        alloc_wrapped(context: CudaContext, stream: CudaStream | null, info: GstVideo.VideoInfo, dev_ptr: CudaGst.deviceptr, notify: GLib.DestroyNotify | null): Gst.Memory;
+
+        /**
+         * Controls the active state of `allocator`. Default {@link GstCuda.CudaAllocator} is
+         * stateless and therefore active state is ignored, but subclass implementation
+         * (e.g., {@link GstCuda.CudaPoolAllocator}) will require explicit active state control
+         * for its internal resource management.
+         * 
+         * This method is conceptually identical to gst_buffer_pool_set_active method.
+         * @param active the new active state
+         * @returns `true` if active state of `allocator` was successfully updated.
+         * @since 1.24
+         */
+        set_active(active: boolean): boolean;
+
+        /**
+         * Allocates new {@link Gst.Memory} object with CUDA virtual memory.
+         * @param context a {@link GstCuda.CudaContext}
+         * @param stream a {@link GstCuda.CudaStream}
+         * @param info a {@link GstVideo.VideoInfo}
+         * @param prop allocation property
+         * @param granularity_flags allocation flags
+         * @returns a newly allocated memory object or `null` if allocation is not supported
+         * @since 1.24
+         */
+        virtual_alloc(context: CudaContext, stream: CudaStream, info: GstVideo.VideoInfo, prop: CudaGst.memAllocationProp, granularity_flags: CudaGst.memAllocationGranularity_flags): Gst.Memory | null;
+    }
+
+
+    namespace CudaBufferPool {
+        // Signal signatures
+        interface SignalSignatures extends Gst.BufferPool.SignalSignatures {
+            "notify::name": (pspec: GObject.ParamSpec) => void;
+            "notify::parent": (pspec: GObject.ParamSpec) => void;
+        }
+
+        // Constructor properties interface
+        interface ConstructorProps extends Gst.BufferPool.ConstructorProps {}
+    }
+
+    /**
+     * @gir-type Class
+     * @since 1.22
+     */
+    class CudaBufferPool extends Gst.BufferPool {
+        static $gtype: GObject.GType<CudaBufferPool>;
+
+        /**
+         * Compile-time signal type information.
+         *
+         * This instance property is generated only for TypeScript type checking.
+         * It is not defined at runtime and should not be accessed in JS code.
+         * @internal
+         */
+        $signals: CudaBufferPool.SignalSignatures;
+
+        // Fields
+        context: CudaContext;
+
+        // Constructors
+        constructor(properties?: Partial<CudaBufferPool.ConstructorProps>, ...args: any[]);
+
+        _init(...args: any[]): void;
+
+        static ["new"](context: CudaContext): CudaBufferPool;
+
+        // Conflicted with Gst.BufferPool.new
+        static ["new"](...args: never[]): any;
+
+        // Signals
+        /** @signal */
+        connect<K extends keyof CudaBufferPool.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, CudaBufferPool.SignalSignatures[K]>): number;
+
+        /** @signal */
+        connect_after<K extends keyof CudaBufferPool.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, CudaBufferPool.SignalSignatures[K]>): number;
+
+        /** @signal */
+        emit<K extends keyof CudaBufferPool.SignalSignatures>(signal: K, ...args: GObject.GjsParameters<CudaBufferPool.SignalSignatures[K]>): void;
+    }
+
+
+    namespace CudaContext {
+        // Signal signatures
+        interface SignalSignatures extends Gst.Object.SignalSignatures {
+            "notify::cuda-device-id": (pspec: GObject.ParamSpec) => void;
+            "notify::default-gpu-stack-size": (pspec: GObject.ParamSpec) => void;
+            "notify::external-resource-interop": (pspec: GObject.ParamSpec) => void;
+            "notify::os-handle": (pspec: GObject.ParamSpec) => void;
+            "notify::prefer-stream-ordered-alloc": (pspec: GObject.ParamSpec) => void;
+            "notify::stream-ordered-alloc": (pspec: GObject.ParamSpec) => void;
+            "notify::virtual-memory": (pspec: GObject.ParamSpec) => void;
+            "notify::name": (pspec: GObject.ParamSpec) => void;
+            "notify::parent": (pspec: GObject.ParamSpec) => void;
+        }
+
+        // Constructor properties interface
+        interface ConstructorProps extends Gst.Object.ConstructorProps {
+            cuda_device_id: number;
+            cudaDeviceId: number;
+            default_gpu_stack_size: number;
+            defaultGpuStackSize: number;
+            external_resource_interop: boolean;
+            externalResourceInterop: boolean;
+            os_handle: boolean;
+            osHandle: boolean;
+            prefer_stream_ordered_alloc: boolean;
+            preferStreamOrderedAlloc: boolean;
+            stream_ordered_alloc: boolean;
+            streamOrderedAlloc: boolean;
+            virtual_memory: boolean;
+            virtualMemory: boolean;
+        }
+    }
+
+    /**
+     * @gir-type Class
+     * @since 1.22
+     */
+    class CudaContext extends Gst.Object {
+        static $gtype: GObject.GType<CudaContext>;
+
+        // Properties
+        /**
+         * @construct-only
+         * @default 0
+         */
+        get cuda_device_id(): number;
+
+        /**
+         * @construct-only
+         * @default 0
+         */
+        get cudaDeviceId(): number;
+
+        /**
+         * The default stack size for each GPU thread.
+         * @since 1.26
+         * @default 1024
+         */
+        get default_gpu_stack_size(): number;
+        set default_gpu_stack_size(val: number);
+
+        /**
+         * The default stack size for each GPU thread.
+         * @since 1.26
+         * @default 1024
+         */
+        get defaultGpuStackSize(): number;
+        set defaultGpuStackSize(val: number);
+
+        /**
+         * External resource interop API support
+         * @since 1.26
+         * @read-only
+         * @default false
+         */
+        get external_resource_interop(): boolean;
+
+        /**
+         * External resource interop API support
+         * @since 1.26
+         * @read-only
+         * @default false
+         */
+        get externalResourceInterop(): boolean;
+
+        /**
+         * OS handle supportability in virtual memory management
+         * @since 1.24
+         * @read-only
+         * @default false
+         */
+        get os_handle(): boolean;
+
+        /**
+         * OS handle supportability in virtual memory management
+         * @since 1.24
+         * @read-only
+         * @default false
+         */
+        get osHandle(): boolean;
+
+        /**
+         * @since 1.26
+         * @default false
+         */
+        get prefer_stream_ordered_alloc(): boolean;
+        set prefer_stream_ordered_alloc(val: boolean);
+
+        /**
+         * @since 1.26
+         * @default false
+         */
+        get preferStreamOrderedAlloc(): boolean;
+        set preferStreamOrderedAlloc(val: boolean);
+
+        /**
+         * @since 1.26
+         * @read-only
+         * @default false
+         */
+        get stream_ordered_alloc(): boolean;
+
+        /**
+         * @since 1.26
+         * @read-only
+         * @default false
+         */
+        get streamOrderedAlloc(): boolean;
+
+        /**
+         * Virtual memory management supportability
+         * @since 1.24
+         * @read-only
+         * @default false
+         */
+        get virtual_memory(): boolean;
+
+        /**
+         * Virtual memory management supportability
+         * @since 1.24
+         * @read-only
+         * @default false
+         */
+        get virtualMemory(): boolean;
+
+        /**
+         * Compile-time signal type information.
+         *
+         * This instance property is generated only for TypeScript type checking.
+         * It is not defined at runtime and should not be accessed in JS code.
+         * @internal
+         */
+        $signals: CudaContext.SignalSignatures;
+
+        // Fields
+        object: Gst.Object;
+
+        // Constructors
+        constructor(properties?: Partial<CudaContext.ConstructorProps>, ...args: any[]);
+
+        _init(...args: any[]): void;
+
+        static ["new"](device_id: number): CudaContext;
+
+        static new_wrapped(handler: CudaGst.context, device: CudaGst.device): CudaContext;
+
+        // Signals
+        /** @signal */
+        connect<K extends keyof CudaContext.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, CudaContext.SignalSignatures[K]>): number;
+
+        /** @signal */
+        connect_after<K extends keyof CudaContext.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, CudaContext.SignalSignatures[K]>): number;
+
+        /** @signal */
+        emit<K extends keyof CudaContext.SignalSignatures>(signal: K, ...args: GObject.GjsParameters<CudaContext.SignalSignatures[K]>): void;
+
+        // Static methods
+        /**
+         * Finds the DXGI adapter LUID corresponding to the given CUDA device.
+         * This is useful for matching CUDA devices with Direct3D adapters on Windows.
+         * @param cuda_device a CUDA device index
+         * @since 1.28.2
+         */
+        static find_dxgi_adapter_luid(cuda_device: CudaGst.device): number;
+
+        /**
+         * Pops the current CUDA context from CPU thread
+         * @param cuda_ctx 
+         * @since 1.22
+         */
+        static pop(cuda_ctx: CudaGst.context): boolean;
+
+        // Methods
+        /**
+         * Query whether `ctx` can access any memory which belongs to `peer` directly.
+         * @param peer a {@link GstCuda.CudaContext}
+         * @returns `true` if `ctx` can access `peer` directly
+         * @since 1.22
+         */
+        can_access_peer(peer: CudaContext): boolean;
+
+        /**
+         * Get CUDA device context. Caller must not modify and/or destroy
+         * returned device context.
+         * @returns the {@link CudaGst.context} of `ctx`
+         * @since 1.22
+         */
+        get_handle(): null;
+
+        /**
+         * Get required texture alignment by device
+         * @returns the {@link CudaGst.context} of `ctx`
+         * @since 1.22
+         */
+        get_texture_alignment(): number;
+
+        /**
+         * Pushes the given `ctx` onto the CPU thread's stack of current contexts.
+         * The specified context becomes the CPU thread's current context,
+         * so all CUDA functions that operate on the current context are affected.
+         * @returns `true` if `ctx` was pushed without error.
+         * @since 1.22
+         */
+        push(): boolean;
+    }
+
+
+    namespace CudaPoolAllocator {
+        // Signal signatures
+        interface SignalSignatures extends CudaAllocator.SignalSignatures {
+            "notify::name": (pspec: GObject.ParamSpec) => void;
+            "notify::parent": (pspec: GObject.ParamSpec) => void;
+        }
+
+        // Constructor properties interface
+        interface ConstructorProps extends CudaAllocator.ConstructorProps {}
+    }
+
+    /**
+     * A {@link GstCuda.CudaAllocator} subclass for cuda memory pool
+     * @gir-type Class
+     * @since 1.24
+     */
+    class CudaPoolAllocator extends CudaAllocator {
+        static $gtype: GObject.GType<CudaPoolAllocator>;
+
+        /**
+         * Compile-time signal type information.
+         *
+         * This instance property is generated only for TypeScript type checking.
+         * It is not defined at runtime and should not be accessed in JS code.
+         * @internal
+         */
+        $signals: CudaPoolAllocator.SignalSignatures;
+
+        // Fields
+        context: CudaContext;
+
+        // Constructors
+        constructor(properties?: Partial<CudaPoolAllocator.ConstructorProps>, ...args: any[]);
+
+        _init(...args: any[]): void;
+
+        static ["new"](context: CudaContext, stream: CudaStream | null, info: GstVideo.VideoInfo): CudaPoolAllocator;
+
+        static new_for_virtual_memory(context: CudaContext, stream: CudaStream | null, info: GstVideo.VideoInfo, prop: CudaGst.memAllocationProp, granularity_flags: CudaGst.memAllocationGranularity_flags): CudaPoolAllocator;
+
+        static new_full(context: CudaContext, stream: CudaStream | null, info: GstVideo.VideoInfo, config: Gst.Structure | null): CudaPoolAllocator;
+
+        // Signals
+        /** @signal */
+        connect<K extends keyof CudaPoolAllocator.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, CudaPoolAllocator.SignalSignatures[K]>): number;
+
+        /** @signal */
+        connect_after<K extends keyof CudaPoolAllocator.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, CudaPoolAllocator.SignalSignatures[K]>): number;
+
+        /** @signal */
+        emit<K extends keyof CudaPoolAllocator.SignalSignatures>(signal: K, ...args: GObject.GjsParameters<CudaPoolAllocator.SignalSignatures[K]>): void;
+
+        // Methods
+        /**
+         * Acquires a {@link Gst.Memory} from `allocator`. `memory` should point to a memory
+         * location that can hold a pointer to the new {@link Gst.Memory}.
+         * @returns a {@link Gst.FlowReturn} such as {@link Gst.FlowReturn.FLUSHING} when the allocator is inactive.
+         * @since 1.24
+         */
+        acquire_memory(): [Gst.FlowReturn, Gst.Memory];
+    }
+
+
+    /**
+     * @gir-type Alias
+     */
+    type CudaAllocatorClass = typeof CudaAllocator;
+
+    /**
+     * @gir-type Struct
+     */
+    abstract class CudaAllocatorPrivate {
+        static $gtype: GObject.GType<CudaAllocatorPrivate>;
+    }
+
+
+    /**
+     * @gir-type Alias
+     */
+    type CudaBufferPoolClass = typeof CudaBufferPool;
+
+    /**
+     * @gir-type Struct
+     */
+    abstract class CudaBufferPoolPrivate {
+        static $gtype: GObject.GType<CudaBufferPoolPrivate>;
+    }
+
+
+    /**
+     * @gir-type Alias
+     */
+    type CudaContextClass = typeof CudaContext;
+
+    /**
+     * @gir-type Struct
+     */
+    abstract class CudaContextPrivate {
+        static $gtype: GObject.GType<CudaContextPrivate>;
+    }
+
+
+    /**
+     * @gir-type Struct
+     * @since 1.22
+     */
+    class CudaGraphicsResource {
+        static $gtype: GObject.GType<CudaGraphicsResource>;
+
+        // Fields
+        cuda_context: CudaContext;
+
+        graphics_context: Gst.Object;
+
+        type: CudaGraphicsResourceType;
+
+        resource: CudaGst.graphicsResource;
+
+        flags: CudaGst.graphicsRegisterFlags;
+
+        registered: boolean;
+
+        mapped: boolean;
+
+        // Methods
+        /**
+         * Free `resource`
+         * @since 1.22
+         */
+        free(): void;
+    }
+
+
+    /**
+     * @gir-type Struct
+     * @since 1.22
+     */
+    class CudaMemory {
+        static $gtype: GObject.GType<CudaMemory>;
+
+        // Fields
+        context: CudaContext;
+
+        // Static methods
+        /**
+         * Ensures that the {@link GstCuda.CudaAllocator} is initialized and ready to be used.
+         * @since 1.22
+         */
+        static init_once(): void;
+
+        // Methods
+        /**
+         * Exports virtual memory handle to OS specific handle.
+         * 
+         * On Windows, `os_handle` should be pointer to HANDLE (i.e., void **), and
+         * pointer to file descriptor (i.e., int *) on Linux.
+         * 
+         * The returned `os_handle` is owned by `mem` and therefore caller shouldn't
+         * close the handle.
+         * @returns `true` if successful
+         * @since 1.24
+         */
+        ["export"](): [boolean, null];
+
+        /**
+         * Query allocation method
+         * @since 1.24
+         */
+        get_alloc_method(): CudaMemoryAllocMethod;
+
+        /**
+         * Gets CUDA stream object associated with `mem`
+         * @returns a {@link GstCuda.CudaStream} or `null` if default CUDA stream is in use
+         * @since 1.24
+         */
+        get_stream(): CudaStream | null;
+
+        /**
+         * Creates CUtexObject with given parameters
+         * @param plane the plane index
+         * @param filter_mode filter mode
+         * @returns `true` if successful
+         * @since 1.24
+         */
+        get_texture(plane: number, filter_mode: CudaGst.filter_mode): [boolean, CudaGst.texObject];
+
+        /**
+         * Gets back user data pointer stored via `gst_cuda_memory_set_token_data()`
+         * @param token an user token
+         * @returns user data pointer or `null`
+         * @since 1.24
+         */
+        get_token_data(token: bigint | number): null;
+
+        /**
+         * Gets user data pointer stored via `gst_cuda_allocator_alloc_wrapped()`
+         * @returns the user data pointer
+         * @since 1.24
+         */
+        get_user_data(): null;
+
+        /**
+         * Sets an opaque user data on a {@link GstCuda.CudaMemory}
+         * @param token an user token
+         * @param data an user data
+         * @since 1.24
+         */
+        set_token_data(token: bigint | number, data: null): void;
+
+        /**
+         * Performs synchronization if needed
+         * @since 1.24
+         */
+        sync(): void;
+    }
+
+
+    /**
+     * @gir-type Struct
+     * @since 1.26
+     */
+    class CudaMemoryPool {
+        static $gtype: GObject.GType<CudaMemoryPool>;
+
+        // Fields
+        context: CudaContext;
+
+        // Constructors
+        constructor(context: CudaContext, props: CudaGst.memPoolProps | null);
+
+        static ["new"](context: CudaContext, props: CudaGst.memPoolProps | null): CudaMemoryPool;
+
+        // Methods
+        /**
+         * Get CUDA memory pool handle
+         * @returns a CUmemoryPool handle
+         * @since 1.26
+         */
+        get_handle(): CudaGst.memoryPool;
+
+        /**
+         * Increase the reference count of `pool`.
+         * @returns `pool`
+         * @since 1.26
+         */
+        ref(): CudaMemoryPool;
+
+        /**
+         * Decrease the reference count of `pool`.
+         * @since 1.26
+         */
+        unref(): void;
+    }
+
+
+    /**
+     * @gir-type Struct
+     */
+    abstract class CudaMemoryPoolPrivate {
+        static $gtype: GObject.GType<CudaMemoryPoolPrivate>;
+    }
+
+
+    /**
+     * @gir-type Struct
+     */
+    abstract class CudaMemoryPrivate {
+        static $gtype: GObject.GType<CudaMemoryPrivate>;
+    }
+
+
+    /**
+     * @gir-type Alias
+     */
+    type CudaPoolAllocatorClass = typeof CudaPoolAllocator;
+
+    /**
+     * @gir-type Struct
+     */
+    abstract class CudaPoolAllocatorPrivate {
+        static $gtype: GObject.GType<CudaPoolAllocatorPrivate>;
+    }
+
+
+    /**
+     * @gir-type Struct
+     * @since 1.24
+     */
+    class CudaStream {
+        static $gtype: GObject.GType<CudaStream>;
+
+        // Fields
+        context: CudaContext;
+
+        // Constructors
+        constructor(context: CudaContext);
+
+        static ["new"](context: CudaContext): CudaStream;
+
+        // Methods
+        /**
+         * Get CUDA stream handle
+         * @returns a {@link CudaGst.stream} handle of `stream` or `null` if `stream` is `null`
+         * @since 1.24
+         */
+        get_handle(): CudaGst.stream;
+
+        /**
+         * Increase the reference count of `stream`.
+         * @returns `stream`
+         * @since 1.24
+         */
+        ref(): CudaStream;
+
+        /**
+         * Decrease the reference count of `stream`.
+         * @since 1.24
+         */
+        unref(): void;
+    }
+
+
+    /**
+     * @gir-type Struct
+     */
+    abstract class CudaStreamPrivate {
+        static $gtype: GObject.GType<CudaStreamPrivate>;
+    }
+
+
+    /**
+     * Name of the imported GIR library
+     * `see` https://gitlab.gnome.org/GNOME/gjs/-/blob/master/gi/ns.cpp#L188
+     */
+    const __name__: string;
+
+    /**
+     * Version of the imported GIR library
+     * `see` https://gitlab.gnome.org/GNOME/gjs/-/blob/master/gi/ns.cpp#L189
+     */
+    const __version__: string;
+}
+
+export default GstCuda;
+
+}
+
+declare module 'gi://GstCuda' {
+    import GstCuda10 from 'gi://GstCuda?version=1.0';
+    export default GstCuda10;
+}
+// END

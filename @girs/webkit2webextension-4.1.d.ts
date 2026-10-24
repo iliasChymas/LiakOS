@@ -1,0 +1,25554 @@
+/// <reference path="./soup-3.0.d.ts" />
+/// <reference path="./gio-2.0.d.ts" />
+/// <reference path="./gobject-2.0.d.ts" />
+/// <reference path="./glib-2.0.d.ts" />
+/// <reference path="./gmodule-2.0.d.ts" />
+/// <reference path="./javascriptcore-4.1.d.ts" />
+/// <reference path="./gtk-3.0.d.ts" />
+/// <reference path="./xlib-2.0.d.ts" />
+/// <reference path="./gdk-3.0.d.ts" />
+/// <reference path="./cairo-1.0.d.ts" />
+/// <reference path="./cairo.d.ts" />
+/// <reference path="./pango-1.0.d.ts" />
+/// <reference path="./harfbuzz-0.0.d.ts" />
+/// <reference path="./freetype2-2.0.d.ts" />
+/// <reference path="./gdkpixbuf-2.0.d.ts" />
+/// <reference path="./atk-1.0.d.ts" />
+
+/**
+ * Type Definitions for Gjs (https://gjs.guide/)
+ *
+ * These type definitions are automatically generated, do not edit them by hand.
+ * If you found a bug fix it in `ts-for-gir` or create a bug report on https://github.com/gjsify/ts-for-gir
+ *
+ * The based EJS template file is used for the generated .d.ts file of each GIR module like Gtk-4.0, GObject-2.0, ...
+ */
+
+declare module 'gi://WebKit2WebExtension?version=4.1' {
+
+// Module dependencies
+import type Soup from 'gi://Soup?version=3.0';
+import type Gio from 'gi://Gio?version=2.0';
+import type GObject from 'gi://GObject?version=2.0';
+import type GLib from 'gi://GLib?version=2.0';
+import type GModule from 'gi://GModule?version=2.0';
+import type JavaScriptCore from 'gi://JavaScriptCore?version=4.1';
+import type Gtk from 'gi://Gtk?version=3.0';
+import type xlib from 'gi://xlib?version=2.0';
+import type Gdk from 'gi://Gdk?version=3.0';
+import type cairo from 'cairo';
+import type Pango from 'gi://Pango?version=1.0';
+import type HarfBuzz from 'gi://HarfBuzz?version=0.0';
+import type freetype2 from 'gi://freetype2?version=2.0';
+import type GdkPixbuf from 'gi://GdkPixbuf?version=2.0';
+import type Atk from 'gi://Atk?version=1.0';
+
+export namespace WebKit2WebExtension {
+
+    /**
+     * WebKit2WebExtension-4.1
+     */
+
+
+    /**
+     * @gir-type Enum
+     */
+    export namespace ConsoleMessageLevel {
+        export const $gtype: GObject.GType<ConsoleMessageLevel>;
+    }
+
+    /**
+     * Enum values used to denote the various levels of console messages.
+     * @gir-type Enum
+     * @since 2.12
+     */
+    enum ConsoleMessageLevel {
+        /**
+         * Information message.
+         */
+        INFO = 0,
+        /**
+         * Log message.
+         */
+        LOG = 1,
+        /**
+         * Warning message.
+         */
+        WARNING = 2,
+        /**
+         * Error message.
+         */
+        ERROR = 3,
+        /**
+         * Debug message.
+         */
+        DEBUG = 4,
+    }
+
+
+    /**
+     * @gir-type Enum
+     */
+    export namespace ConsoleMessageSource {
+        export const $gtype: GObject.GType<ConsoleMessageSource>;
+    }
+
+    /**
+     * Enum values used to denote the various sources of console messages.
+     * @gir-type Enum
+     * @since 2.12
+     */
+    enum ConsoleMessageSource {
+        /**
+         * Message produced by JavaScript.
+         */
+        JAVASCRIPT = 0,
+        /**
+         * Network messages.
+         */
+        NETWORK = 1,
+        /**
+         * Messages produced by console API.
+         */
+        CONSOLE_API = 2,
+        /**
+         * Security messages.
+         */
+        SECURITY = 3,
+        /**
+         * Other messages.
+         */
+        OTHER = 4,
+    }
+
+
+    /**
+     * Enum values used to denote the stock actions for
+     * {@link WebKit2WebExtension.ContextMenuItem} objects
+     * @gir-type Enum
+     */
+    enum ContextMenuAction {
+        /**
+         * No action, used by separator menu items.
+         */
+        NO_ACTION = 0,
+        /**
+         * Open current link.
+         */
+        OPEN_LINK = 1,
+        /**
+         * Open current link in a new window.
+         */
+        OPEN_LINK_IN_NEW_WINDOW = 2,
+        /**
+         * Download link destination.
+         */
+        DOWNLOAD_LINK_TO_DISK = 3,
+        /**
+         * Copy link location to the clipboard.
+         */
+        COPY_LINK_TO_CLIPBOARD = 4,
+        /**
+         * Open current image in a new window.
+         */
+        OPEN_IMAGE_IN_NEW_WINDOW = 5,
+        /**
+         * Download current image.
+         */
+        DOWNLOAD_IMAGE_TO_DISK = 6,
+        /**
+         * Copy current image to the clipboard.
+         */
+        COPY_IMAGE_TO_CLIPBOARD = 7,
+        /**
+         * Copy current image location to the clipboard.
+         */
+        COPY_IMAGE_URL_TO_CLIPBOARD = 8,
+        /**
+         * Open current frame in a new window.
+         */
+        OPEN_FRAME_IN_NEW_WINDOW = 9,
+        /**
+         * Load the previous history item.
+         */
+        GO_BACK = 10,
+        /**
+         * Load the next history item.
+         */
+        GO_FORWARD = 11,
+        /**
+         * Stop any ongoing loading operation.
+         */
+        STOP = 12,
+        /**
+         * Reload the contents of current view.
+         */
+        RELOAD = 13,
+        /**
+         * Copy current selection to the clipboard.
+         */
+        COPY = 14,
+        /**
+         * Cut current selection to the clipboard.
+         */
+        CUT = 15,
+        /**
+         * Paste clipboard contents.
+         */
+        PASTE = 16,
+        /**
+         * Delete current selection.
+         */
+        DELETE = 17,
+        /**
+         * Select all text.
+         */
+        SELECT_ALL = 18,
+        /**
+         * Input methods menu.
+         */
+        INPUT_METHODS = 19,
+        /**
+         * Unicode menu.
+         */
+        UNICODE = 20,
+        /**
+         * A proposed replacement for a misspelled word.
+         */
+        SPELLING_GUESS = 21,
+        /**
+         * An indicator that spellchecking found no proposed replacements.
+         */
+        NO_GUESSES_FOUND = 22,
+        /**
+         * Causes the spellchecker to ignore the word for this session.
+         */
+        IGNORE_SPELLING = 23,
+        /**
+         * Causes the spellchecker to add the word to the dictionary.
+         */
+        LEARN_SPELLING = 24,
+        /**
+         * Ignore grammar.
+         */
+        IGNORE_GRAMMAR = 25,
+        /**
+         * Font options menu.
+         */
+        FONT_MENU = 26,
+        /**
+         * Bold.
+         */
+        BOLD = 27,
+        /**
+         * Italic.
+         */
+        ITALIC = 28,
+        /**
+         * Underline.
+         */
+        UNDERLINE = 29,
+        /**
+         * Outline.
+         */
+        OUTLINE = 30,
+        /**
+         * Open current element in the inspector.
+         */
+        INSPECT_ELEMENT = 31,
+        /**
+         * Open current video element in a new window.
+         */
+        OPEN_VIDEO_IN_NEW_WINDOW = 32,
+        /**
+         * Open current audio element in a new window.
+         */
+        OPEN_AUDIO_IN_NEW_WINDOW = 33,
+        /**
+         * Copy video link location to the clipboard.
+         */
+        COPY_VIDEO_LINK_TO_CLIPBOARD = 34,
+        /**
+         * Copy audio link location to the clipboard.
+         */
+        COPY_AUDIO_LINK_TO_CLIPBOARD = 35,
+        /**
+         * Enable or disable media controls.
+         */
+        TOGGLE_MEDIA_CONTROLS = 36,
+        /**
+         * Enable or disable media loop.
+         */
+        TOGGLE_MEDIA_LOOP = 37,
+        /**
+         * Show current video element in fullscreen mode.
+         */
+        ENTER_VIDEO_FULLSCREEN = 38,
+        /**
+         * Play current media element.
+         */
+        MEDIA_PLAY = 39,
+        /**
+         * Pause current media element.
+         */
+        MEDIA_PAUSE = 40,
+        /**
+         * Mute current media element.
+         */
+        MEDIA_MUTE = 41,
+        /**
+         * Download video to disk. Since 2.2
+         */
+        DOWNLOAD_VIDEO_TO_DISK = 42,
+        /**
+         * Download audio to disk. Since 2.2
+         */
+        DOWNLOAD_AUDIO_TO_DISK = 43,
+        /**
+         * Insert an emoji. Since 2.26
+         */
+        INSERT_EMOJI = 44,
+        /**
+         * Paste clipboard contents as plain text. Since 2.30
+         */
+        PASTE_AS_PLAIN_TEXT = 45,
+        /**
+         * Custom action defined by applications.
+         */
+        CUSTOM = 10000,
+    }
+
+
+    /**
+     * @gir-type Enum
+     */
+    export namespace FormSubmissionStep {
+        export const $gtype: GObject.GType<FormSubmissionStep>;
+    }
+
+    /**
+     * Used to indicate a particular stage in form submission. See
+     * {@link WebKit2WebExtension.WebPage.SignalSignatures.will_submit_form | WebKit2WebExtension.WebPage::will-submit-form}.
+     * @gir-type Enum
+     * @since 2.20
+     * @deprecated since 2.40
+     */
+    enum FormSubmissionStep {
+        /**
+         * indicates the form's
+         * DOM submit event is about to be emitted.
+         */
+        SEND_DOM_EVENT = 0,
+        /**
+         * indicates the form is about
+         * to be submitted.
+         */
+        COMPLETE = 1,
+    }
+
+
+    /**
+     * Enum values used to denote errors happening when sending user messages.
+     * @gir-type Enum
+     * @since 2.28
+     */
+    enum UserMessageError {
+        /**
+         * The message was not handled by the receiver.
+         */
+        USER_MESSAGE_UNHANDLED_MESSAGE = 0,
+    }
+
+
+    /**
+     * @deprecated since 2.22: Use JavaScriptCore API instead
+     * @default 2
+     */
+    const DOM_CSS_RULE_CHARSET_RULE: number;
+
+    /**
+     * @deprecated since 2.22: Use JavaScriptCore API instead
+     * @default 5
+     */
+    const DOM_CSS_RULE_FONT_FACE_RULE: number;
+
+    /**
+     * @deprecated since 2.22: Use JavaScriptCore API instead
+     * @default 3
+     */
+    const DOM_CSS_RULE_IMPORT_RULE: number;
+
+    /**
+     * @deprecated since 2.22: Use JavaScriptCore API instead
+     * @default 4
+     */
+    const DOM_CSS_RULE_MEDIA_RULE: number;
+
+    /**
+     * @deprecated since 2.22: Use JavaScriptCore API instead
+     * @default 6
+     */
+    const DOM_CSS_RULE_PAGE_RULE: number;
+
+    /**
+     * @deprecated since 2.22: Use JavaScriptCore API instead
+     * @default 1
+     */
+    const DOM_CSS_RULE_STYLE_RULE: number;
+
+    /**
+     * @deprecated since 2.22: Use JavaScriptCore API instead
+     * @default 0
+     */
+    const DOM_CSS_RULE_UNKNOWN_RULE: number;
+
+    /**
+     * @deprecated since 2.22: Use JavaScriptCore API instead
+     * @default 3
+     */
+    const DOM_CSS_VALUE_CSS_CUSTOM: number;
+
+    /**
+     * @deprecated since 2.22: Use JavaScriptCore API instead
+     * @default 0
+     */
+    const DOM_CSS_VALUE_CSS_INHERIT: number;
+
+    /**
+     * @deprecated since 2.22: Use JavaScriptCore API instead
+     * @default 1
+     */
+    const DOM_CSS_VALUE_CSS_PRIMITIVE_VALUE: number;
+
+    /**
+     * @deprecated since 2.22: Use JavaScriptCore API instead
+     * @default 2
+     */
+    const DOM_CSS_VALUE_CSS_VALUE_LIST: number;
+
+    /**
+     * @deprecated since 2.22: Use JavaScriptCore API instead
+     * @default 1
+     */
+    const DOM_ELEMENT_ALLOW_KEYBOARD_INPUT: number;
+
+    /**
+     * @deprecated since 2.22: Use JavaScriptCore API instead
+     * @default 2
+     */
+    const DOM_EVENT_AT_TARGET: number;
+
+    /**
+     * @deprecated since 2.22: Use JavaScriptCore API instead
+     * @default 8192
+     */
+    const DOM_EVENT_BLUR: number;
+
+    /**
+     * @deprecated since 2.22: Use JavaScriptCore API instead
+     * @default 3
+     */
+    const DOM_EVENT_BUBBLING_PHASE: number;
+
+    /**
+     * @deprecated since 2.22: Use JavaScriptCore API instead
+     * @default 1
+     */
+    const DOM_EVENT_CAPTURING_PHASE: number;
+
+    /**
+     * @deprecated since 2.22: Use JavaScriptCore API instead
+     * @default 32768
+     */
+    const DOM_EVENT_CHANGE: number;
+
+    /**
+     * @deprecated since 2.22: Use JavaScriptCore API instead
+     * @default 64
+     */
+    const DOM_EVENT_CLICK: number;
+
+    /**
+     * @deprecated since 2.22: Use JavaScriptCore API instead
+     * @default 128
+     */
+    const DOM_EVENT_DBLCLICK: number;
+
+    /**
+     * @deprecated since 2.22: Use JavaScriptCore API instead
+     * @default 2048
+     */
+    const DOM_EVENT_DRAGDROP: number;
+
+    /**
+     * @deprecated since 2.22: Use JavaScriptCore API instead
+     * @default 4096
+     */
+    const DOM_EVENT_FOCUS: number;
+
+    /**
+     * @deprecated since 2.22: Use JavaScriptCore API instead
+     * @default 256
+     */
+    const DOM_EVENT_KEYDOWN: number;
+
+    /**
+     * @deprecated since 2.22: Use JavaScriptCore API instead
+     * @default 1024
+     */
+    const DOM_EVENT_KEYPRESS: number;
+
+    /**
+     * @deprecated since 2.22: Use JavaScriptCore API instead
+     * @default 512
+     */
+    const DOM_EVENT_KEYUP: number;
+
+    /**
+     * @deprecated since 2.22: Use JavaScriptCore API instead
+     * @default 1
+     */
+    const DOM_EVENT_MOUSEDOWN: number;
+
+    /**
+     * @deprecated since 2.22: Use JavaScriptCore API instead
+     * @default 32
+     */
+    const DOM_EVENT_MOUSEDRAG: number;
+
+    /**
+     * @deprecated since 2.22: Use JavaScriptCore API instead
+     * @default 16
+     */
+    const DOM_EVENT_MOUSEMOVE: number;
+
+    /**
+     * @deprecated since 2.22: Use JavaScriptCore API instead
+     * @default 8
+     */
+    const DOM_EVENT_MOUSEOUT: number;
+
+    /**
+     * @deprecated since 2.22: Use JavaScriptCore API instead
+     * @default 4
+     */
+    const DOM_EVENT_MOUSEOVER: number;
+
+    /**
+     * @deprecated since 2.22: Use JavaScriptCore API instead
+     * @default 2
+     */
+    const DOM_EVENT_MOUSEUP: number;
+
+    /**
+     * @deprecated since 2.22: Use JavaScriptCore API instead
+     * @default 0
+     */
+    const DOM_EVENT_NONE: number;
+
+    /**
+     * @deprecated since 2.22: Use JavaScriptCore API instead
+     * @default 16384
+     */
+    const DOM_EVENT_SELECT: number;
+
+    /**
+     * @deprecated since 2.22: Use JavaScriptCore API instead
+     * @default 1
+     */
+    const DOM_KEYBOARD_EVENT_KEY_LOCATION_LEFT: number;
+
+    /**
+     * @deprecated since 2.22: Use JavaScriptCore API instead
+     * @default 3
+     */
+    const DOM_KEYBOARD_EVENT_KEY_LOCATION_NUMPAD: number;
+
+    /**
+     * @deprecated since 2.22: Use JavaScriptCore API instead
+     * @default 2
+     */
+    const DOM_KEYBOARD_EVENT_KEY_LOCATION_RIGHT: number;
+
+    /**
+     * @deprecated since 2.22: Use JavaScriptCore API instead
+     * @default 0
+     */
+    const DOM_KEYBOARD_EVENT_KEY_LOCATION_STANDARD: number;
+
+    /**
+     * @deprecated since 2.22: Use JavaScriptCore API instead
+     * @default 2
+     */
+    const DOM_NODE_ATTRIBUTE_NODE: number;
+
+    /**
+     * @deprecated since 2.22: Use JavaScriptCore API instead
+     * @default 4
+     */
+    const DOM_NODE_CDATA_SECTION_NODE: number;
+
+    /**
+     * @deprecated since 2.22: Use JavaScriptCore API instead
+     * @default 8
+     */
+    const DOM_NODE_COMMENT_NODE: number;
+
+    /**
+     * @deprecated since 2.22: Use JavaScriptCore API instead
+     * @default 11
+     */
+    const DOM_NODE_DOCUMENT_FRAGMENT_NODE: number;
+
+    /**
+     * @deprecated since 2.22: Use JavaScriptCore API instead
+     * @default 9
+     */
+    const DOM_NODE_DOCUMENT_NODE: number;
+
+    /**
+     * @deprecated since 2.22: Use JavaScriptCore API instead
+     * @default 16
+     */
+    const DOM_NODE_DOCUMENT_POSITION_CONTAINED_BY: number;
+
+    /**
+     * @deprecated since 2.22: Use JavaScriptCore API instead
+     * @default 8
+     */
+    const DOM_NODE_DOCUMENT_POSITION_CONTAINS: number;
+
+    /**
+     * @deprecated since 2.22: Use JavaScriptCore API instead
+     * @default 1
+     */
+    const DOM_NODE_DOCUMENT_POSITION_DISCONNECTED: number;
+
+    /**
+     * @deprecated since 2.22: Use JavaScriptCore API instead
+     * @default 4
+     */
+    const DOM_NODE_DOCUMENT_POSITION_FOLLOWING: number;
+
+    /**
+     * @deprecated since 2.22: Use JavaScriptCore API instead
+     * @default 32
+     */
+    const DOM_NODE_DOCUMENT_POSITION_IMPLEMENTATION_SPECIFIC: number;
+
+    /**
+     * @deprecated since 2.22: Use JavaScriptCore API instead
+     * @default 2
+     */
+    const DOM_NODE_DOCUMENT_POSITION_PRECEDING: number;
+
+    /**
+     * @deprecated since 2.22: Use JavaScriptCore API instead
+     * @default 10
+     */
+    const DOM_NODE_DOCUMENT_TYPE_NODE: number;
+
+    /**
+     * @deprecated since 2.22: Use JavaScriptCore API instead
+     * @default 1
+     */
+    const DOM_NODE_ELEMENT_NODE: number;
+
+    /**
+     * @deprecated since 2.22: Use JavaScriptCore API instead
+     * @default 6
+     */
+    const DOM_NODE_ENTITY_NODE: number;
+
+    /**
+     * @deprecated since 2.22: Use JavaScriptCore API instead
+     * @default 5
+     */
+    const DOM_NODE_ENTITY_REFERENCE_NODE: number;
+
+    /**
+     * Accept the node. Use this macro as the return value of a `webkit_dom_node_filter_accept_node()`
+     * implementation to accept the given {@link WebKit2WebExtension.DOMNode}
+     * @since 2.6
+     * @deprecated since 2.22: Use JavaScriptCore API instead
+     * @default 1
+     */
+    const DOM_NODE_FILTER_ACCEPT: number;
+
+    /**
+     * Reject the node. Use this macro as the return value of a `webkit_dom_node_filter_accept_node()`
+     * implementation to reject the given {@link WebKit2WebExtension.DOMNode}. The children of the given node will
+     * be rejected too.
+     * @since 2.6
+     * @deprecated since 2.22: Use JavaScriptCore API instead
+     * @default 2
+     */
+    const DOM_NODE_FILTER_REJECT: number;
+
+    /**
+     * Show all nodes.
+     * @since 2.6
+     * @deprecated since 2.22: Use JavaScriptCore API instead
+     * @default 4294967295
+     */
+    const DOM_NODE_FILTER_SHOW_ALL: number;
+
+    /**
+     * Show {@link WebKit2WebExtension.DOMAttr} nodes.
+     * @since 2.6
+     * @deprecated since 2.22: Use JavaScriptCore API instead
+     * @default 2
+     */
+    const DOM_NODE_FILTER_SHOW_ATTRIBUTE: number;
+
+    /**
+     * Show `WebKitDOMCDataSection` nodes.
+     * @since 2.6
+     * @deprecated since 2.22: Use JavaScriptCore API instead
+     * @default 8
+     */
+    const DOM_NODE_FILTER_SHOW_CDATA_SECTION: number;
+
+    /**
+     * Show {@link WebKit2WebExtension.DOMComment} nodes.
+     * @since 2.6
+     * @deprecated since 2.22: Use JavaScriptCore API instead
+     * @default 128
+     */
+    const DOM_NODE_FILTER_SHOW_COMMENT: number;
+
+    /**
+     * Show {@link WebKit2WebExtension.DOMDocument} nodes.
+     * @since 2.6
+     * @deprecated since 2.22: Use JavaScriptCore API instead
+     * @default 256
+     */
+    const DOM_NODE_FILTER_SHOW_DOCUMENT: number;
+
+    /**
+     * Show {@link WebKit2WebExtension.DOMDocumentFragment} nodes.
+     * @since 2.6
+     * @deprecated since 2.22: Use JavaScriptCore API instead
+     * @default 1024
+     */
+    const DOM_NODE_FILTER_SHOW_DOCUMENT_FRAGMENT: number;
+
+    /**
+     * Show {@link WebKit2WebExtension.DOMDocumentType} nodes.
+     * @since 2.6
+     * @deprecated since 2.22: Use JavaScriptCore API instead
+     * @default 512
+     */
+    const DOM_NODE_FILTER_SHOW_DOCUMENT_TYPE: number;
+
+    /**
+     * Show {@link WebKit2WebExtension.DOMElement} nodes.
+     * @since 2.6
+     * @deprecated since 2.22: Use JavaScriptCore API instead
+     * @default 1
+     */
+    const DOM_NODE_FILTER_SHOW_ELEMENT: number;
+
+    /**
+     * Show `WebKitDOMEntity` nodes.
+     * @since 2.6
+     * @deprecated since 2.22: Use JavaScriptCore API instead
+     * @default 32
+     */
+    const DOM_NODE_FILTER_SHOW_ENTITY: number;
+
+    /**
+     * Show {@link WebKit2WebExtension.DOMEntityReference} nodes.
+     * @since 2.6
+     * @deprecated since 2.22: Use JavaScriptCore API instead
+     * @default 16
+     */
+    const DOM_NODE_FILTER_SHOW_ENTITY_REFERENCE: number;
+
+    /**
+     * Show `WebKitDOMNotation` nodes.
+     * @since 2.6
+     * @deprecated since 2.22: Use JavaScriptCore API instead
+     * @default 2048
+     */
+    const DOM_NODE_FILTER_SHOW_NOTATION: number;
+
+    /**
+     * Show {@link WebKit2WebExtension.DOMProcessingInstruction} nodes.
+     * @since 2.6
+     * @deprecated since 2.22: Use JavaScriptCore API instead
+     * @default 64
+     */
+    const DOM_NODE_FILTER_SHOW_PROCESSING_INSTRUCTION: number;
+
+    /**
+     * Show {@link WebKit2WebExtension.DOMText} nodes.
+     * @since 2.6
+     * @deprecated since 2.22: Use JavaScriptCore API instead
+     * @default 4
+     */
+    const DOM_NODE_FILTER_SHOW_TEXT: number;
+
+    /**
+     * Skip the node. Use this macro as the return value of a `webkit_dom_node_filter_accept_node()`
+     * implementation to skip the given {@link WebKit2WebExtension.DOMNode}. The children of the given node will
+     * not be skipped.
+     * @since 2.6
+     * @deprecated since 2.22: Use JavaScriptCore API instead
+     * @default 3
+     */
+    const DOM_NODE_FILTER_SKIP: number;
+
+    /**
+     * @deprecated since 2.22: Use JavaScriptCore API instead
+     * @default 7
+     */
+    const DOM_NODE_PROCESSING_INSTRUCTION_NODE: number;
+
+    /**
+     * @deprecated since 2.22: Use JavaScriptCore API instead
+     * @default 3
+     */
+    const DOM_NODE_TEXT_NODE: number;
+
+    /**
+     * @deprecated since 2.22: Use JavaScriptCore API instead
+     * @default 2
+     */
+    const DOM_RANGE_END_TO_END: number;
+
+    /**
+     * @deprecated since 2.22: Use JavaScriptCore API instead
+     * @default 3
+     */
+    const DOM_RANGE_END_TO_START: number;
+
+    /**
+     * @deprecated since 2.22: Use JavaScriptCore API instead
+     * @default 1
+     */
+    const DOM_RANGE_NODE_AFTER: number;
+
+    /**
+     * @deprecated since 2.22: Use JavaScriptCore API instead
+     * @default 0
+     */
+    const DOM_RANGE_NODE_BEFORE: number;
+
+    /**
+     * @deprecated since 2.22: Use JavaScriptCore API instead
+     * @default 2
+     */
+    const DOM_RANGE_NODE_BEFORE_AND_AFTER: number;
+
+    /**
+     * @deprecated since 2.22: Use JavaScriptCore API instead
+     * @default 3
+     */
+    const DOM_RANGE_NODE_INSIDE: number;
+
+    /**
+     * @deprecated since 2.22: Use JavaScriptCore API instead
+     * @default 1
+     */
+    const DOM_RANGE_START_TO_END: number;
+
+    /**
+     * @deprecated since 2.22: Use JavaScriptCore API instead
+     * @default 0
+     */
+    const DOM_RANGE_START_TO_START: number;
+
+    /**
+     * @deprecated since 2.22: Use JavaScriptCore API instead
+     * @default 0
+     */
+    const DOM_XPATH_RESULT_ANY_TYPE: number;
+
+    /**
+     * @deprecated since 2.22: Use JavaScriptCore API instead
+     * @default 8
+     */
+    const DOM_XPATH_RESULT_ANY_UNORDERED_NODE_TYPE: number;
+
+    /**
+     * @deprecated since 2.22: Use JavaScriptCore API instead
+     * @default 3
+     */
+    const DOM_XPATH_RESULT_BOOLEAN_TYPE: number;
+
+    /**
+     * @deprecated since 2.22: Use JavaScriptCore API instead
+     * @default 9
+     */
+    const DOM_XPATH_RESULT_FIRST_ORDERED_NODE_TYPE: number;
+
+    /**
+     * @deprecated since 2.22: Use JavaScriptCore API instead
+     * @default 1
+     */
+    const DOM_XPATH_RESULT_NUMBER_TYPE: number;
+
+    /**
+     * @deprecated since 2.22: Use JavaScriptCore API instead
+     * @default 5
+     */
+    const DOM_XPATH_RESULT_ORDERED_NODE_ITERATOR_TYPE: number;
+
+    /**
+     * @deprecated since 2.22: Use JavaScriptCore API instead
+     * @default 7
+     */
+    const DOM_XPATH_RESULT_ORDERED_NODE_SNAPSHOT_TYPE: number;
+
+    /**
+     * @deprecated since 2.22: Use JavaScriptCore API instead
+     * @default 2
+     */
+    const DOM_XPATH_RESULT_STRING_TYPE: number;
+
+    /**
+     * @deprecated since 2.22: Use JavaScriptCore API instead
+     * @default 4
+     */
+    const DOM_XPATH_RESULT_UNORDERED_NODE_ITERATOR_TYPE: number;
+
+    /**
+     * @deprecated since 2.22: Use JavaScriptCore API instead
+     * @default 6
+     */
+    const DOM_XPATH_RESULT_UNORDERED_NODE_SNAPSHOT_TYPE: number;
+
+    /**
+     * @gir-type Callback
+     */
+    interface WebExtensionInitializeFunction {
+        (extension: WebExtension): void;
+    }
+
+    /**
+     * @gir-type Callback
+     */
+    interface WebExtensionInitializeWithUserDataFunction {
+        (extension: WebExtension, user_data: GLib.Variant): void;
+    }
+
+    /**
+     * Enum values with flags representing the context of a {@link WebKit2WebExtension.HitTestResult}.
+     * @gir-type Flags
+     */
+    enum HitTestResultContext {
+        /**
+         * anywhere in the document.
+         */
+        DOCUMENT = 2,
+        /**
+         * a hyperlink element.
+         */
+        LINK = 4,
+        /**
+         * an image element.
+         */
+        IMAGE = 8,
+        /**
+         * a video or audio element.
+         */
+        MEDIA = 16,
+        /**
+         * an editable element
+         */
+        EDITABLE = 32,
+        /**
+         * a scrollbar element.
+         */
+        SCROLLBAR = 64,
+        /**
+         * a selected element. Since 2.8
+         */
+        SELECTION = 128,
+    }
+
+
+    namespace ContextMenu {
+        // Signal signatures
+        interface SignalSignatures extends GObject.Object.SignalSignatures {}
+
+        // Constructor properties interface
+        interface ConstructorProps extends GObject.Object.ConstructorProps {}
+    }
+
+    /**
+     * Represents the context menu in a `WebKitWebView`.
+     * 
+     * {@link WebKit2WebExtension.ContextMenu} represents a context menu containing
+     * {@link WebKit2WebExtension.ContextMenuItem}<!-- -->s in a `WebKitWebView`.
+     * 
+     * When a `WebKitWebView` is about to display the context menu, it
+     * emits the `WebKitWebView::context-menu` signal, which has the
+     * {@link WebKit2WebExtension.ContextMenu} as an argument. You can modify it, adding new
+     * submenus that you can create with `webkit_context_menu_new()`, adding
+     * new {@link WebKit2WebExtension.ContextMenuItem}<!-- -->s with
+     * `webkit_context_menu_prepend()`, `webkit_context_menu_append()` or
+     * `webkit_context_menu_insert()`, maybe after having removed the
+     * existing ones with `webkit_context_menu_remove_all()`.
+     * @gir-type Class
+     */
+    class ContextMenu extends GObject.Object {
+        static $gtype: GObject.GType<ContextMenu>;
+
+        /**
+         * Compile-time signal type information.
+         *
+         * This instance property is generated only for TypeScript type checking.
+         * It is not defined at runtime and should not be accessed in JS code.
+         * @internal
+         */
+        $signals: ContextMenu.SignalSignatures;
+
+        // Constructors
+        constructor(properties?: Partial<ContextMenu.ConstructorProps>, ...args: any[]);
+
+        _init(...args: any[]): void;
+
+        static ["new"](): ContextMenu;
+
+        static new_with_items(items: ContextMenuItem[]): ContextMenu;
+
+        // Signals
+        /** @signal */
+        connect<K extends keyof ContextMenu.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, ContextMenu.SignalSignatures[K]>): number;
+
+        /** @signal */
+        connect_after<K extends keyof ContextMenu.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, ContextMenu.SignalSignatures[K]>): number;
+
+        /** @signal */
+        emit<K extends keyof ContextMenu.SignalSignatures>(signal: K, ...args: GObject.GjsParameters<ContextMenu.SignalSignatures[K]>): void;
+
+        // Methods
+        /**
+         * Adds `item` at the end of the `menu`.
+         * @param item the {@link WebKit2WebExtension.ContextMenuItem} to add
+         */
+        append(item: ContextMenuItem): void;
+
+        /**
+         * Gets the first item in the `menu`.
+         * @returns the first {@link WebKit2WebExtension.ContextMenuItem} of `menu`,    or `null` if the {@link WebKit2WebExtension.ContextMenu} is empty.
+         */
+        first(): ContextMenuItem;
+
+        /**
+         * Gets the {@link Gdk.Event} that triggered the context menu. This function only returns a valid
+         * {@link Gdk.Event} when called for a {@link WebKit2WebExtension.ContextMenu} passed to `WebKitWebView::context-menu`
+         * signal; in all other cases, `null` is returned.
+         * 
+         * The returned {@link Gdk.Event} is expected to be one of the following types:
+         * <itemizedlist>
+         * <listitem><para>
+         * a {@link Gdk.EventButton} of type {@link Gdk.EventType.BUTTON_PRESS} when the context menu was triggered with mouse.
+         * </para></listitem>
+         * <listitem><para>
+         * a {@link Gdk.EventKey} of type {@link Gdk.EventType.KEY_PRESS} if the keyboard was used to show the menu.
+         * </para></listitem>
+         * <listitem><para>
+         * a generic {@link Gdk.Event} of type {@link Gdk.EventType.NOTHING} when the {@link Gtk.Widget.SignalSignatures.popup_menu | Gtk.Widget::popup-menu} signal was used to show the context menu.
+         * </para></listitem>
+         * </itemizedlist>
+         * @returns the menu event or `null`.
+         * @since 2.40
+         */
+        get_event(): Gdk.Event;
+
+        /**
+         * Gets the item at the given position in the `menu`.
+         * @param position the position of the item, counting from 0
+         * @returns the {@link WebKit2WebExtension.ContextMenuItem} at position `position` in `menu`,    or `null` if the position is off the end of the `menu`.
+         */
+        get_item_at_position(position: number): ContextMenuItem;
+
+        /**
+         * Returns the item list of `menu`.
+         * @returns a {@link GLib.List} of    {@link WebKit2WebExtension.ContextMenuItem}<!-- -->s
+         */
+        get_items(): ContextMenuItem[];
+
+        /**
+         * Gets the length of the `menu`.
+         * @returns the number of {@link WebKit2WebExtension.ContextMenuItem}<!-- -->s in `menu`
+         */
+        get_n_items(): number;
+
+        /**
+         * Gets the position in view coordinates where the context menu was triggered.
+         * 
+         * This function only returns valid coordinates when called for a {@link WebKit2WebExtension.ContextMenu}
+         * passed to `WebKitWebView::context-menu` signal.
+         * @returns `true` if valid position coordinates are available, `false` otherwise
+         * @since 2.52
+         */
+        get_position(): [boolean, number, number];
+
+        /**
+         * Gets the user data of `menu`.
+         * 
+         * This function can be used from the UI Process to get user data previously set
+         * from the Web Process with `webkit_context_menu_set_user_data()`.
+         * @returns the user data of `menu`, or `null` if `menu` doesn't have user data
+         * @since 2.8
+         */
+        get_user_data(): GLib.Variant;
+
+        /**
+         * Inserts `item` into the `menu` at the given position.
+         * 
+         * If `position` is negative, or is larger than the number of items
+         * in the {@link WebKit2WebExtension.ContextMenu}, the item is added on to the end of
+         * the `menu`. The first position is 0.
+         * @param item the {@link WebKit2WebExtension.ContextMenuItem} to add
+         * @param position the position to insert the item
+         */
+        insert(item: ContextMenuItem, position: number): void;
+
+        /**
+         * Gets the last item in the `menu`.
+         * @returns the last {@link WebKit2WebExtension.ContextMenuItem} of `menu`,    or `null` if the {@link WebKit2WebExtension.ContextMenu} is empty.
+         */
+        last(): ContextMenuItem;
+
+        /**
+         * Moves `item` to the given position in the `menu`.
+         * 
+         * If `position` is negative, or is larger than the number of items
+         * in the {@link WebKit2WebExtension.ContextMenu}, the item is added on to the end of
+         * the `menu`.
+         * The first position is 0.
+         * @param item the {@link WebKit2WebExtension.ContextMenuItem} to add
+         * @param position the new position to move the item
+         */
+        move_item(item: ContextMenuItem, position: number): void;
+
+        /**
+         * Adds `item` at the beginning of the `menu`.
+         * @param item the {@link WebKit2WebExtension.ContextMenuItem} to add
+         */
+        prepend(item: ContextMenuItem): void;
+
+        /**
+         * Removes `item` from the `menu`.
+         * 
+         * See also `webkit_context_menu_remove_all()` to remove all items.
+         * @param item the {@link WebKit2WebExtension.ContextMenuItem} to remove
+         */
+        remove(item: ContextMenuItem): void;
+
+        /**
+         * Removes all items of the `menu`.
+         */
+        remove_all(): void;
+
+        /**
+         * Sets user data to `menu`.
+         * 
+         * This function can be used from a Web Process extension to set user data
+         * that can be retrieved from the UI Process using `webkit_context_menu_get_user_data()`.
+         * If the `user_data` {@link GLib.Variant} is floating, it is consumed.
+         * @param user_data a {@link GLib.Variant}
+         * @since 2.8
+         */
+        set_user_data(user_data: GLib.Variant): void;
+    }
+
+
+    namespace ContextMenuItem {
+        // Signal signatures
+        interface SignalSignatures extends GObject.InitiallyUnowned.SignalSignatures {}
+
+        // Constructor properties interface
+        interface ConstructorProps extends GObject.InitiallyUnowned.ConstructorProps {}
+    }
+
+    /**
+     * One item of a {@link WebKit2WebExtension.ContextMenu}.
+     * 
+     * The {@link WebKit2WebExtension.ContextMenu} is composed of {@link WebKit2WebExtension.ContextMenuItem}<!--
+     * -->s. These items can be created from a {@link Gtk.Action}, from a
+     * {@link WebKit2WebExtension.ContextMenuAction} or from a {@link WebKit2WebExtension.ContextMenuAction} and a
+     * label. These {@link WebKit2WebExtension.ContextMenuAction}<!-- -->s denote stock actions
+     * for the items. You can also create separators and submenus.
+     * @gir-type Class
+     */
+    class ContextMenuItem extends GObject.InitiallyUnowned {
+        static $gtype: GObject.GType<ContextMenuItem>;
+
+        /**
+         * Compile-time signal type information.
+         *
+         * This instance property is generated only for TypeScript type checking.
+         * It is not defined at runtime and should not be accessed in JS code.
+         * @internal
+         */
+        $signals: ContextMenuItem.SignalSignatures;
+
+        // Constructors
+        constructor(properties?: Partial<ContextMenuItem.ConstructorProps>, ...args: any[]);
+
+        _init(...args: any[]): void;
+
+        static ["new"](action: Gtk.Action): ContextMenuItem;
+
+        static new_from_gaction(action: Gio.Action, label: string, target: GLib.Variant | null): ContextMenuItem;
+
+        static new_from_stock_action(action: ContextMenuAction): ContextMenuItem;
+
+        static new_from_stock_action_with_label(action: ContextMenuAction, label: string): ContextMenuItem;
+
+        static new_separator(): ContextMenuItem;
+
+        static new_with_submenu(label: string, submenu: ContextMenu): ContextMenuItem;
+
+        // Signals
+        /** @signal */
+        connect<K extends keyof ContextMenuItem.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, ContextMenuItem.SignalSignatures[K]>): number;
+
+        /** @signal */
+        connect_after<K extends keyof ContextMenuItem.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, ContextMenuItem.SignalSignatures[K]>): number;
+
+        /** @signal */
+        emit<K extends keyof ContextMenuItem.SignalSignatures>(signal: K, ...args: GObject.GjsParameters<ContextMenuItem.SignalSignatures[K]>): void;
+
+        // Methods
+        /**
+         * Gets the action associated to `item` as a {@link Gtk.Action}.
+         * @returns the {@link Gtk.Action} associated to the {@link WebKit2WebExtension.ContextMenuItem},    or `null` if `item` is a separator.
+         * @deprecated since 2.18: Use `webkit_context_menu_item_get_gaction()` instead.
+         */
+        get_action(): Gtk.Action;
+
+        /**
+         * Gets the action associated to `item` as a {@link Gio.Action}.
+         * @returns the {@link Gio.Action} associated to the {@link WebKit2WebExtension.ContextMenuItem},    or `null` if `item` is a separator.
+         * @since 2.18
+         */
+        get_gaction(): Gio.Action;
+
+        /**
+         * Gets the target {@link GLib.Variant} associated with `item`.
+         * @returns the target {@link GLib.Variant} of the {@link WebKit2WebExtension.ContextMenuItem},    or `null` if `item` was not created with `webkit_context_menu_item_new_from_gaction()`    or if no target was specified.
+         * @since 2.52
+         */
+        get_gaction_target(): GLib.Variant | null;
+
+        /**
+         * Gets the {@link WebKit2WebExtension.ContextMenuAction} of `item`.
+         * 
+         * If the {@link WebKit2WebExtension.ContextMenuItem} was not
+         * created for a stock action {@link WebKit2WebExtension.ContextMenuAction.CUSTOM} will be
+         * returned. If the {@link WebKit2WebExtension.ContextMenuItem} is a separator {@link WebKit2WebExtension.ContextMenuAction.NO_ACTION}
+         * will be returned.
+         * @returns the {@link WebKit2WebExtension.ContextMenuAction} of `item`
+         */
+        get_stock_action(): ContextMenuAction;
+
+        /**
+         * Gets the submenu of `item`.
+         * @returns the {@link WebKit2WebExtension.ContextMenu} representing the submenu of    `item` or `null` if `item` doesn't have a submenu.
+         */
+        get_submenu(): ContextMenu;
+
+        /**
+         * Gets the title of `item`.
+         * @returns the title of `item`, or `null` if `item` is a separator.
+         * @since 2.52
+         */
+        get_title(): string;
+
+        /**
+         * Checks whether `item` is a separator.
+         * @returns `true` is `item` is a separator or `false` otherwise
+         */
+        is_separator(): boolean;
+
+        /**
+         * Sets or replaces the `item` submenu.
+         * 
+         * If `submenu` is `null` the current
+         * submenu of `item` is removed.
+         * @param submenu a {@link WebKit2WebExtension.ContextMenu}
+         */
+        set_submenu(submenu: ContextMenu | null): void;
+    }
+
+
+    namespace DOMAttr {
+        // Signal signatures
+        interface SignalSignatures extends DOMNode.SignalSignatures {
+            "notify::local-name": (pspec: GObject.ParamSpec) => void;
+            "notify::name": (pspec: GObject.ParamSpec) => void;
+            "notify::namespace-uri": (pspec: GObject.ParamSpec) => void;
+            "notify::owner-element": (pspec: GObject.ParamSpec) => void;
+            "notify::prefix": (pspec: GObject.ParamSpec) => void;
+            "notify::specified": (pspec: GObject.ParamSpec) => void;
+            "notify::value": (pspec: GObject.ParamSpec) => void;
+            "notify::base-uri": (pspec: GObject.ParamSpec) => void;
+            "notify::child-nodes": (pspec: GObject.ParamSpec) => void;
+            "notify::first-child": (pspec: GObject.ParamSpec) => void;
+            "notify::last-child": (pspec: GObject.ParamSpec) => void;
+            "notify::next-sibling": (pspec: GObject.ParamSpec) => void;
+            "notify::node-name": (pspec: GObject.ParamSpec) => void;
+            "notify::node-type": (pspec: GObject.ParamSpec) => void;
+            "notify::node-value": (pspec: GObject.ParamSpec) => void;
+            "notify::owner-document": (pspec: GObject.ParamSpec) => void;
+            "notify::parent-element": (pspec: GObject.ParamSpec) => void;
+            "notify::parent-node": (pspec: GObject.ParamSpec) => void;
+            "notify::previous-sibling": (pspec: GObject.ParamSpec) => void;
+            "notify::text-content": (pspec: GObject.ParamSpec) => void;
+            "notify::core-object": (pspec: GObject.ParamSpec) => void;
+        }
+
+        // Constructor properties interface
+        interface ConstructorProps extends DOMNode.ConstructorProps, DOMEventTarget.ConstructorProps {
+            local_name: string;
+            localName: string;
+            name: string;
+            namespace_uri: string;
+            namespaceUri: string;
+            owner_element: DOMElement;
+            ownerElement: DOMElement;
+            prefix: string;
+            specified: boolean;
+            value: string;
+        }
+    }
+
+    /**
+     * @gir-type Class
+     */
+    class DOMAttr extends DOMNode implements DOMEventTarget {
+        static $gtype: GObject.GType<DOMAttr>;
+
+        // Properties
+        /**
+         * @read-only
+         */
+        get local_name(): string;
+
+        /**
+         * @read-only
+         */
+        get localName(): string;
+
+        /**
+         * @read-only
+         */
+        get name(): string;
+
+        /**
+         * @read-only
+         */
+        get namespace_uri(): string;
+
+        /**
+         * @read-only
+         */
+        get namespaceUri(): string;
+
+        /**
+         * @read-only
+         */
+        get owner_element(): DOMElement;
+
+        /**
+         * @read-only
+         */
+        get ownerElement(): DOMElement;
+
+        /**
+         * @read-only
+         */
+        get prefix(): string;
+
+        /**
+         * @read-only
+         * @default false
+         */
+        get specified(): boolean;
+
+        get value(): string;
+        set value(val: string);
+
+        /**
+         * Compile-time signal type information.
+         *
+         * This instance property is generated only for TypeScript type checking.
+         * It is not defined at runtime and should not be accessed in JS code.
+         * @internal
+         */
+        $signals: DOMAttr.SignalSignatures;
+
+        // Constructors
+        constructor(properties?: Partial<DOMAttr.ConstructorProps>, ...args: any[]);
+
+        _init(...args: any[]): void;
+
+        // Signals
+        /** @signal */
+        connect<K extends keyof DOMAttr.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, DOMAttr.SignalSignatures[K]>): number;
+
+        /** @signal */
+        connect_after<K extends keyof DOMAttr.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, DOMAttr.SignalSignatures[K]>): number;
+
+        /** @signal */
+        emit<K extends keyof DOMAttr.SignalSignatures>(signal: K, ...args: GObject.GjsParameters<DOMAttr.SignalSignatures[K]>): void;
+
+        // Methods
+        /**
+         * @returns A `gchar`
+         * @since 2.14
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_local_name(): string;
+
+        /**
+         * @returns A `gchar`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_name(): string;
+
+        /**
+         * @returns A `gchar`
+         * @since 2.14
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_namespace_uri(): string;
+
+        /**
+         * @returns A {@link WebKit2WebExtension.DOMElement}
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_owner_element(): DOMElement;
+
+        /**
+         * @returns A `gchar`
+         * @since 2.14
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_prefix(): string;
+
+        /**
+         * @returns A `gboolean`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_specified(): boolean;
+
+        /**
+         * @returns A `gchar`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_value(): string;
+
+        /**
+         * @param value A `gchar`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         * @throws GLib.Error
+         */
+        set_value(value: string): void;
+
+        /**
+         * Version of `webkit_dom_event_target_add_event_listener()` using a closure
+         * instead of callbacks for easier binding in other languages.
+         * @param event_name A `gchar`
+         * @param handler A {@link GObject.Closure}
+         * @param use_capture A `gboolean`
+         * @returns a `gboolean`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        add_event_listener(event_name: string, handler: GObject.Closure, use_capture: boolean): boolean;
+
+        /**
+         * @param event A {@link WebKit2WebExtension.DOMEvent}
+         * @returns a `gboolean`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         * @throws GLib.Error
+         */
+        dispatch_event(event: DOMEvent): boolean;
+
+        /**
+         * Version of `webkit_dom_event_target_remove_event_listener()` using a closure
+         * instead of callbacks for easier binding in other languages.
+         * @param event_name A `gchar`
+         * @param handler A {@link GObject.Closure}
+         * @param use_capture A `gboolean`
+         * @returns a `gboolean`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        remove_event_listener(event_name: string, handler: GObject.Closure, use_capture: boolean): boolean;
+
+        /**
+         * @param event_name 
+         * @param handler 
+         * @param use_capture 
+         * @virtual
+         */
+        vfunc_add_event_listener(event_name: string, handler: GObject.Closure, use_capture: boolean): boolean;
+
+        /**
+         * @param event A {@link WebKit2WebExtension.DOMEvent}
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         * @virtual
+         */
+        vfunc_dispatch_event(event: DOMEvent): boolean;
+
+        /**
+         * @param event_name A `gchar`
+         * @param handler A {@link GObject.Callback}
+         * @param use_capture A `gboolean`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         * @virtual
+         */
+        vfunc_remove_event_listener(event_name: string, handler: null, use_capture: boolean): boolean;
+    }
+
+
+    namespace DOMBlob {
+        // Signal signatures
+        interface SignalSignatures extends DOMObject.SignalSignatures {
+            "notify::size": (pspec: GObject.ParamSpec) => void;
+            "notify::core-object": (pspec: GObject.ParamSpec) => void;
+        }
+
+        // Constructor properties interface
+        interface ConstructorProps extends DOMObject.ConstructorProps {
+            size: bigint | number;
+        }
+    }
+
+    /**
+     * @gir-type Class
+     */
+    class DOMBlob extends DOMObject {
+        static $gtype: GObject.GType<DOMBlob>;
+
+        // Properties
+        /**
+         * @read-only
+         * @default 0
+         */
+        get size(): number;
+
+        /**
+         * Compile-time signal type information.
+         *
+         * This instance property is generated only for TypeScript type checking.
+         * It is not defined at runtime and should not be accessed in JS code.
+         * @internal
+         */
+        $signals: DOMBlob.SignalSignatures;
+
+        // Constructors
+        constructor(properties?: Partial<DOMBlob.ConstructorProps>, ...args: any[]);
+
+        _init(...args: any[]): void;
+
+        // Signals
+        /** @signal */
+        connect<K extends keyof DOMBlob.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, DOMBlob.SignalSignatures[K]>): number;
+
+        /** @signal */
+        connect_after<K extends keyof DOMBlob.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, DOMBlob.SignalSignatures[K]>): number;
+
+        /** @signal */
+        emit<K extends keyof DOMBlob.SignalSignatures>(signal: K, ...args: GObject.GjsParameters<DOMBlob.SignalSignatures[K]>): void;
+
+        // Methods
+        /**
+         * @returns A `guint64`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_size(): number;
+    }
+
+
+    namespace DOMCDATASection {
+        // Signal signatures
+        interface SignalSignatures extends DOMText.SignalSignatures {
+            "notify::whole-text": (pspec: GObject.ParamSpec) => void;
+            "notify::data": (pspec: GObject.ParamSpec) => void;
+            "notify::length": (pspec: GObject.ParamSpec) => void;
+            "notify::base-uri": (pspec: GObject.ParamSpec) => void;
+            "notify::child-nodes": (pspec: GObject.ParamSpec) => void;
+            "notify::first-child": (pspec: GObject.ParamSpec) => void;
+            "notify::last-child": (pspec: GObject.ParamSpec) => void;
+            "notify::next-sibling": (pspec: GObject.ParamSpec) => void;
+            "notify::node-name": (pspec: GObject.ParamSpec) => void;
+            "notify::node-type": (pspec: GObject.ParamSpec) => void;
+            "notify::node-value": (pspec: GObject.ParamSpec) => void;
+            "notify::owner-document": (pspec: GObject.ParamSpec) => void;
+            "notify::parent-element": (pspec: GObject.ParamSpec) => void;
+            "notify::parent-node": (pspec: GObject.ParamSpec) => void;
+            "notify::previous-sibling": (pspec: GObject.ParamSpec) => void;
+            "notify::text-content": (pspec: GObject.ParamSpec) => void;
+            "notify::core-object": (pspec: GObject.ParamSpec) => void;
+        }
+
+        // Constructor properties interface
+        interface ConstructorProps extends DOMText.ConstructorProps, DOMEventTarget.ConstructorProps {}
+    }
+
+    /**
+     * @gir-type Class
+     */
+    class DOMCDATASection extends DOMText implements DOMEventTarget {
+        static $gtype: GObject.GType<DOMCDATASection>;
+
+        /**
+         * Compile-time signal type information.
+         *
+         * This instance property is generated only for TypeScript type checking.
+         * It is not defined at runtime and should not be accessed in JS code.
+         * @internal
+         */
+        $signals: DOMCDATASection.SignalSignatures;
+
+        // Constructors
+        constructor(properties?: Partial<DOMCDATASection.ConstructorProps>, ...args: any[]);
+
+        _init(...args: any[]): void;
+
+        // Signals
+        /** @signal */
+        connect<K extends keyof DOMCDATASection.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, DOMCDATASection.SignalSignatures[K]>): number;
+
+        /** @signal */
+        connect_after<K extends keyof DOMCDATASection.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, DOMCDATASection.SignalSignatures[K]>): number;
+
+        /** @signal */
+        emit<K extends keyof DOMCDATASection.SignalSignatures>(signal: K, ...args: GObject.GjsParameters<DOMCDATASection.SignalSignatures[K]>): void;
+
+        /**
+         * Gets a named field from the objects table of associations (see `g_object_set_data()`).
+         * @param key name of the key for that association
+         * @returns the data if found,          or `null` if no such data exists.
+         */
+        get_data(key: string): null;
+
+        /**
+         * @param args 
+         */
+        // Conflicted with WebKit2WebExtension.DOMCharacterData.get_data
+        get_data(...args: never[]): any;
+
+        /**
+         * Each object carries around a table of associations from
+         * strings to pointers.  This function lets you set an association.
+         * 
+         * If the object already had an association with that name,
+         * the old association will be destroyed.
+         * 
+         * Internally, the `key` is converted to a {@link GLib.Quark} using `g_quark_from_string()`.
+         * This means a copy of `key` is kept permanently (even after `object` has been
+         * finalized) — so it is recommended to only use a small, bounded set of values
+         * for `key` in your program, to avoid the {@link GLib.Quark} storage growing unbounded.
+         * @param key name of the key
+         * @param data data to associate with that key
+         */
+        set_data(key: string, data: null): void;
+
+        /**
+         * @param args 
+         */
+        // Conflicted with WebKit2WebExtension.DOMCharacterData.set_data
+        set_data(...args: never[]): any;
+    }
+
+
+    namespace DOMCSSRule {
+        // Signal signatures
+        interface SignalSignatures extends DOMObject.SignalSignatures {
+            "notify::css-text": (pspec: GObject.ParamSpec) => void;
+            "notify::parent-rule": (pspec: GObject.ParamSpec) => void;
+            "notify::parent-style-sheet": (pspec: GObject.ParamSpec) => void;
+            "notify::type": (pspec: GObject.ParamSpec) => void;
+            "notify::core-object": (pspec: GObject.ParamSpec) => void;
+        }
+
+        // Constructor properties interface
+        interface ConstructorProps extends DOMObject.ConstructorProps {
+            css_text: string;
+            cssText: string;
+            parent_rule: DOMCSSRule;
+            parentRule: DOMCSSRule;
+            parent_style_sheet: DOMCSSStyleSheet;
+            parentStyleSheet: DOMCSSStyleSheet;
+            type: number;
+        }
+    }
+
+    /**
+     * @gir-type Class
+     */
+    class DOMCSSRule extends DOMObject {
+        static $gtype: GObject.GType<DOMCSSRule>;
+
+        // Properties
+        get css_text(): string;
+        set css_text(val: string);
+
+        get cssText(): string;
+        set cssText(val: string);
+
+        /**
+         * @read-only
+         */
+        get parent_rule(): DOMCSSRule;
+
+        /**
+         * @read-only
+         */
+        get parentRule(): DOMCSSRule;
+
+        /**
+         * @read-only
+         */
+        get parent_style_sheet(): DOMCSSStyleSheet;
+
+        /**
+         * @read-only
+         */
+        get parentStyleSheet(): DOMCSSStyleSheet;
+
+        /**
+         * @read-only
+         * @default 0
+         */
+        get type(): number;
+
+        /**
+         * Compile-time signal type information.
+         *
+         * This instance property is generated only for TypeScript type checking.
+         * It is not defined at runtime and should not be accessed in JS code.
+         * @internal
+         */
+        $signals: DOMCSSRule.SignalSignatures;
+
+        // Constructors
+        constructor(properties?: Partial<DOMCSSRule.ConstructorProps>, ...args: any[]);
+
+        _init(...args: any[]): void;
+
+        // Signals
+        /** @signal */
+        connect<K extends keyof DOMCSSRule.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, DOMCSSRule.SignalSignatures[K]>): number;
+
+        /** @signal */
+        connect_after<K extends keyof DOMCSSRule.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, DOMCSSRule.SignalSignatures[K]>): number;
+
+        /** @signal */
+        emit<K extends keyof DOMCSSRule.SignalSignatures>(signal: K, ...args: GObject.GjsParameters<DOMCSSRule.SignalSignatures[K]>): void;
+
+        // Methods
+        /**
+         * @returns A `gchar`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_css_text(): string;
+
+        /**
+         * @returns A {@link WebKit2WebExtension.DOMCSSRule}
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_parent_rule(): DOMCSSRule;
+
+        /**
+         * @returns A {@link WebKit2WebExtension.DOMCSSStyleSheet}
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_parent_style_sheet(): DOMCSSStyleSheet;
+
+        /**
+         * @returns A `gushort`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_rule_type(): number;
+
+        /**
+         * @param value A `gchar`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         * @throws GLib.Error
+         */
+        set_css_text(value: string): void;
+    }
+
+
+    namespace DOMCSSRuleList {
+        // Signal signatures
+        interface SignalSignatures extends DOMObject.SignalSignatures {
+            "notify::length": (pspec: GObject.ParamSpec) => void;
+            "notify::core-object": (pspec: GObject.ParamSpec) => void;
+        }
+
+        // Constructor properties interface
+        interface ConstructorProps extends DOMObject.ConstructorProps {
+            length: bigint | number;
+        }
+    }
+
+    /**
+     * @gir-type Class
+     */
+    class DOMCSSRuleList extends DOMObject {
+        static $gtype: GObject.GType<DOMCSSRuleList>;
+
+        // Properties
+        /**
+         * @read-only
+         * @default 0
+         */
+        get length(): number;
+
+        /**
+         * Compile-time signal type information.
+         *
+         * This instance property is generated only for TypeScript type checking.
+         * It is not defined at runtime and should not be accessed in JS code.
+         * @internal
+         */
+        $signals: DOMCSSRuleList.SignalSignatures;
+
+        // Constructors
+        constructor(properties?: Partial<DOMCSSRuleList.ConstructorProps>, ...args: any[]);
+
+        _init(...args: any[]): void;
+
+        // Signals
+        /** @signal */
+        connect<K extends keyof DOMCSSRuleList.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, DOMCSSRuleList.SignalSignatures[K]>): number;
+
+        /** @signal */
+        connect_after<K extends keyof DOMCSSRuleList.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, DOMCSSRuleList.SignalSignatures[K]>): number;
+
+        /** @signal */
+        emit<K extends keyof DOMCSSRuleList.SignalSignatures>(signal: K, ...args: GObject.GjsParameters<DOMCSSRuleList.SignalSignatures[K]>): void;
+
+        // Methods
+        /**
+         * @returns A `gulong`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_length(): number;
+
+        /**
+         * @param index A `gulong`
+         * @returns A {@link WebKit2WebExtension.DOMCSSRule}
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        item(index: bigint | number): DOMCSSRule;
+    }
+
+
+    namespace DOMCSSStyleDeclaration {
+        // Signal signatures
+        interface SignalSignatures extends DOMObject.SignalSignatures {
+            "notify::css-text": (pspec: GObject.ParamSpec) => void;
+            "notify::length": (pspec: GObject.ParamSpec) => void;
+            "notify::parent-rule": (pspec: GObject.ParamSpec) => void;
+            "notify::core-object": (pspec: GObject.ParamSpec) => void;
+        }
+
+        // Constructor properties interface
+        interface ConstructorProps extends DOMObject.ConstructorProps {
+            css_text: string;
+            cssText: string;
+            length: bigint | number;
+            parent_rule: DOMCSSRule;
+            parentRule: DOMCSSRule;
+        }
+    }
+
+    /**
+     * @gir-type Class
+     */
+    class DOMCSSStyleDeclaration extends DOMObject {
+        static $gtype: GObject.GType<DOMCSSStyleDeclaration>;
+
+        // Properties
+        get css_text(): string;
+        set css_text(val: string);
+
+        get cssText(): string;
+        set cssText(val: string);
+
+        /**
+         * @read-only
+         * @default 0
+         */
+        get length(): number;
+
+        /**
+         * @read-only
+         */
+        get parent_rule(): DOMCSSRule;
+
+        /**
+         * @read-only
+         */
+        get parentRule(): DOMCSSRule;
+
+        /**
+         * Compile-time signal type information.
+         *
+         * This instance property is generated only for TypeScript type checking.
+         * It is not defined at runtime and should not be accessed in JS code.
+         * @internal
+         */
+        $signals: DOMCSSStyleDeclaration.SignalSignatures;
+
+        // Constructors
+        constructor(properties?: Partial<DOMCSSStyleDeclaration.ConstructorProps>, ...args: any[]);
+
+        _init(...args: any[]): void;
+
+        // Signals
+        /** @signal */
+        connect<K extends keyof DOMCSSStyleDeclaration.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, DOMCSSStyleDeclaration.SignalSignatures[K]>): number;
+
+        /** @signal */
+        connect_after<K extends keyof DOMCSSStyleDeclaration.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, DOMCSSStyleDeclaration.SignalSignatures[K]>): number;
+
+        /** @signal */
+        emit<K extends keyof DOMCSSStyleDeclaration.SignalSignatures>(signal: K, ...args: GObject.GjsParameters<DOMCSSStyleDeclaration.SignalSignatures[K]>): void;
+
+        // Methods
+        /**
+         * @returns A `gchar`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_css_text(): string;
+
+        /**
+         * @returns A `gulong`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_length(): number;
+
+        /**
+         * @returns A {@link WebKit2WebExtension.DOMCSSRule}
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_parent_rule(): DOMCSSRule;
+
+        /**
+         * @param propertyName A `gchar`
+         * @returns A `gchar`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_property_priority(propertyName: string): string;
+
+        /**
+         * @param propertyName A `gchar`
+         * @returns A `gchar`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_property_shorthand(propertyName: string): string;
+
+        /**
+         * @param propertyName A `gchar`
+         * @returns A `gchar`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_property_value(propertyName: string): string;
+
+        /**
+         * @param propertyName A `gchar`
+         * @returns A `gboolean`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        is_property_implicit(propertyName: string): boolean;
+
+        /**
+         * @param index A `gulong`
+         * @returns A `gchar`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        item(index: bigint | number): string;
+
+        /**
+         * @param propertyName A `gchar`
+         * @returns A `gchar`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         * @throws GLib.Error
+         */
+        remove_property(propertyName: string): string;
+
+        /**
+         * @param value A `gchar`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         * @throws GLib.Error
+         */
+        set_css_text(value: string): void;
+
+        /**
+         * @param propertyName A `gchar`
+         * @param value A `gchar`
+         * @param priority A `gchar`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         * @throws GLib.Error
+         */
+        set_property(propertyName: string, value: string, priority: string): void;
+
+        /**
+         * @param args 
+         */
+    // Conflicted with GObject.Object.set_property
+        set_property(...args: never[]): any;
+    }
+
+
+    namespace DOMCSSStyleSheet {
+        // Signal signatures
+        interface SignalSignatures extends DOMStyleSheet.SignalSignatures {
+            "notify::css-rules": (pspec: GObject.ParamSpec) => void;
+            "notify::owner-rule": (pspec: GObject.ParamSpec) => void;
+            "notify::rules": (pspec: GObject.ParamSpec) => void;
+            "notify::disabled": (pspec: GObject.ParamSpec) => void;
+            "notify::href": (pspec: GObject.ParamSpec) => void;
+            "notify::media": (pspec: GObject.ParamSpec) => void;
+            "notify::owner-node": (pspec: GObject.ParamSpec) => void;
+            "notify::parent-style-sheet": (pspec: GObject.ParamSpec) => void;
+            "notify::title": (pspec: GObject.ParamSpec) => void;
+            "notify::type": (pspec: GObject.ParamSpec) => void;
+            "notify::core-object": (pspec: GObject.ParamSpec) => void;
+        }
+
+        // Constructor properties interface
+        interface ConstructorProps extends DOMStyleSheet.ConstructorProps {
+            css_rules: DOMCSSRuleList;
+            cssRules: DOMCSSRuleList;
+            owner_rule: DOMCSSRule;
+            ownerRule: DOMCSSRule;
+            rules: DOMCSSRuleList;
+        }
+    }
+
+    /**
+     * @gir-type Class
+     */
+    class DOMCSSStyleSheet extends DOMStyleSheet {
+        static $gtype: GObject.GType<DOMCSSStyleSheet>;
+
+        // Properties
+        /**
+         * @read-only
+         */
+        get css_rules(): DOMCSSRuleList;
+
+        /**
+         * @read-only
+         */
+        get cssRules(): DOMCSSRuleList;
+
+        /**
+         * @read-only
+         */
+        get owner_rule(): DOMCSSRule;
+
+        /**
+         * @read-only
+         */
+        get ownerRule(): DOMCSSRule;
+
+        /**
+         * @read-only
+         */
+        get rules(): DOMCSSRuleList;
+
+        /**
+         * Compile-time signal type information.
+         *
+         * This instance property is generated only for TypeScript type checking.
+         * It is not defined at runtime and should not be accessed in JS code.
+         * @internal
+         */
+        $signals: DOMCSSStyleSheet.SignalSignatures;
+
+        // Constructors
+        constructor(properties?: Partial<DOMCSSStyleSheet.ConstructorProps>, ...args: any[]);
+
+        _init(...args: any[]): void;
+
+        // Signals
+        /** @signal */
+        connect<K extends keyof DOMCSSStyleSheet.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, DOMCSSStyleSheet.SignalSignatures[K]>): number;
+
+        /** @signal */
+        connect_after<K extends keyof DOMCSSStyleSheet.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, DOMCSSStyleSheet.SignalSignatures[K]>): number;
+
+        /** @signal */
+        emit<K extends keyof DOMCSSStyleSheet.SignalSignatures>(signal: K, ...args: GObject.GjsParameters<DOMCSSStyleSheet.SignalSignatures[K]>): void;
+
+        // Methods
+        /**
+         * @param selector A `gchar`
+         * @param style A `gchar`
+         * @param index A `gulong`
+         * @returns A `glong`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         * @throws GLib.Error
+         */
+        add_rule(selector: string, style: string, index: bigint | number): number;
+
+        /**
+         * @param index A `gulong`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         * @throws GLib.Error
+         */
+        delete_rule(index: bigint | number): void;
+
+        /**
+         * @returns A {@link WebKit2WebExtension.DOMCSSRuleList}
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_css_rules(): DOMCSSRuleList;
+
+        /**
+         * @returns A {@link WebKit2WebExtension.DOMCSSRule}
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_owner_rule(): DOMCSSRule;
+
+        /**
+         * @returns A {@link WebKit2WebExtension.DOMCSSRuleList}
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_rules(): DOMCSSRuleList;
+
+        /**
+         * @param rule A `gchar`
+         * @param index A `gulong`
+         * @returns A `gulong`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         * @throws GLib.Error
+         */
+        insert_rule(rule: string, index: bigint | number): number;
+
+        /**
+         * @param index A `gulong`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         * @throws GLib.Error
+         */
+        remove_rule(index: bigint | number): void;
+    }
+
+
+    namespace DOMCSSValue {
+        // Signal signatures
+        interface SignalSignatures extends DOMObject.SignalSignatures {
+            "notify::css-text": (pspec: GObject.ParamSpec) => void;
+            "notify::css-value-type": (pspec: GObject.ParamSpec) => void;
+            "notify::core-object": (pspec: GObject.ParamSpec) => void;
+        }
+
+        // Constructor properties interface
+        interface ConstructorProps extends DOMObject.ConstructorProps {
+            css_text: string;
+            cssText: string;
+            css_value_type: number;
+            cssValueType: number;
+        }
+    }
+
+    /**
+     * @gir-type Class
+     */
+    class DOMCSSValue extends DOMObject {
+        static $gtype: GObject.GType<DOMCSSValue>;
+
+        // Properties
+        get css_text(): string;
+        set css_text(val: string);
+
+        get cssText(): string;
+        set cssText(val: string);
+
+        /**
+         * @read-only
+         * @default 0
+         */
+        get css_value_type(): number;
+
+        /**
+         * @read-only
+         * @default 0
+         */
+        get cssValueType(): number;
+
+        /**
+         * Compile-time signal type information.
+         *
+         * This instance property is generated only for TypeScript type checking.
+         * It is not defined at runtime and should not be accessed in JS code.
+         * @internal
+         */
+        $signals: DOMCSSValue.SignalSignatures;
+
+        // Constructors
+        constructor(properties?: Partial<DOMCSSValue.ConstructorProps>, ...args: any[]);
+
+        _init(...args: any[]): void;
+
+        // Signals
+        /** @signal */
+        connect<K extends keyof DOMCSSValue.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, DOMCSSValue.SignalSignatures[K]>): number;
+
+        /** @signal */
+        connect_after<K extends keyof DOMCSSValue.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, DOMCSSValue.SignalSignatures[K]>): number;
+
+        /** @signal */
+        emit<K extends keyof DOMCSSValue.SignalSignatures>(signal: K, ...args: GObject.GjsParameters<DOMCSSValue.SignalSignatures[K]>): void;
+
+        // Methods
+        /**
+         * @returns A `gchar`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_css_text(): string;
+
+        /**
+         * @returns A `gushort`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_css_value_type(): number;
+
+        /**
+         * @param value A `gchar`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         * @throws GLib.Error
+         */
+        set_css_text(value: string): void;
+    }
+
+
+    namespace DOMCharacterData {
+        // Signal signatures
+        interface SignalSignatures extends DOMNode.SignalSignatures {
+            "notify::data": (pspec: GObject.ParamSpec) => void;
+            "notify::length": (pspec: GObject.ParamSpec) => void;
+            "notify::base-uri": (pspec: GObject.ParamSpec) => void;
+            "notify::child-nodes": (pspec: GObject.ParamSpec) => void;
+            "notify::first-child": (pspec: GObject.ParamSpec) => void;
+            "notify::last-child": (pspec: GObject.ParamSpec) => void;
+            "notify::next-sibling": (pspec: GObject.ParamSpec) => void;
+            "notify::node-name": (pspec: GObject.ParamSpec) => void;
+            "notify::node-type": (pspec: GObject.ParamSpec) => void;
+            "notify::node-value": (pspec: GObject.ParamSpec) => void;
+            "notify::owner-document": (pspec: GObject.ParamSpec) => void;
+            "notify::parent-element": (pspec: GObject.ParamSpec) => void;
+            "notify::parent-node": (pspec: GObject.ParamSpec) => void;
+            "notify::previous-sibling": (pspec: GObject.ParamSpec) => void;
+            "notify::text-content": (pspec: GObject.ParamSpec) => void;
+            "notify::core-object": (pspec: GObject.ParamSpec) => void;
+        }
+
+        // Constructor properties interface
+        interface ConstructorProps extends DOMNode.ConstructorProps, DOMEventTarget.ConstructorProps {
+            data: string;
+            length: bigint | number;
+        }
+    }
+
+    /**
+     * @gir-type Class
+     */
+    class DOMCharacterData extends DOMNode implements DOMEventTarget {
+        static $gtype: GObject.GType<DOMCharacterData>;
+
+        // Properties
+        get data(): string;
+        set data(val: string);
+
+        /**
+         * @read-only
+         * @default 0
+         */
+        get length(): number;
+
+        /**
+         * Compile-time signal type information.
+         *
+         * This instance property is generated only for TypeScript type checking.
+         * It is not defined at runtime and should not be accessed in JS code.
+         * @internal
+         */
+        $signals: DOMCharacterData.SignalSignatures;
+
+        // Constructors
+        constructor(properties?: Partial<DOMCharacterData.ConstructorProps>, ...args: any[]);
+
+        _init(...args: any[]): void;
+
+        // Signals
+        /** @signal */
+        connect<K extends keyof DOMCharacterData.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, DOMCharacterData.SignalSignatures[K]>): number;
+
+        /** @signal */
+        connect_after<K extends keyof DOMCharacterData.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, DOMCharacterData.SignalSignatures[K]>): number;
+
+        /** @signal */
+        emit<K extends keyof DOMCharacterData.SignalSignatures>(signal: K, ...args: GObject.GjsParameters<DOMCharacterData.SignalSignatures[K]>): void;
+
+        // Methods
+        /**
+         * @param data A `gchar`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         * @throws GLib.Error
+         */
+        append_data(data: string): void;
+
+        /**
+         * @param offset A `gulong`
+         * @param length A `gulong`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         * @throws GLib.Error
+         */
+        delete_data(offset: bigint | number, length: bigint | number): void;
+
+        /**
+         * @returns A `gchar`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_data(): string;
+
+        /**
+         * @param args 
+         */
+    // Conflicted with GObject.Object.get_data
+        get_data(...args: never[]): any;
+
+        /**
+         * @returns A `gulong`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_length(): number;
+
+        /**
+         * @param offset A `gulong`
+         * @param data A `gchar`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         * @throws GLib.Error
+         */
+        insert_data(offset: bigint | number, data: string): void;
+
+        /**
+         * @param offset A `gulong`
+         * @param length A `gulong`
+         * @param data A `gchar`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         * @throws GLib.Error
+         */
+        replace_data(offset: bigint | number, length: bigint | number, data: string): void;
+
+        /**
+         * @param value A `gchar`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         * @throws GLib.Error
+         */
+        set_data(value: string): void;
+
+        /**
+         * @param offset A `gulong`
+         * @param length A `gulong`
+         * @returns A `gchar`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         * @throws GLib.Error
+         */
+        substring_data(offset: bigint | number, length: bigint | number): string;
+
+        /**
+         * Version of `webkit_dom_event_target_add_event_listener()` using a closure
+         * instead of callbacks for easier binding in other languages.
+         * @param event_name A `gchar`
+         * @param handler A {@link GObject.Closure}
+         * @param use_capture A `gboolean`
+         * @returns a `gboolean`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        add_event_listener(event_name: string, handler: GObject.Closure, use_capture: boolean): boolean;
+
+        /**
+         * @param event A {@link WebKit2WebExtension.DOMEvent}
+         * @returns a `gboolean`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         * @throws GLib.Error
+         */
+        dispatch_event(event: DOMEvent): boolean;
+
+        /**
+         * Version of `webkit_dom_event_target_remove_event_listener()` using a closure
+         * instead of callbacks for easier binding in other languages.
+         * @param event_name A `gchar`
+         * @param handler A {@link GObject.Closure}
+         * @param use_capture A `gboolean`
+         * @returns a `gboolean`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        remove_event_listener(event_name: string, handler: GObject.Closure, use_capture: boolean): boolean;
+
+        /**
+         * @param event_name 
+         * @param handler 
+         * @param use_capture 
+         * @virtual
+         */
+        vfunc_add_event_listener(event_name: string, handler: GObject.Closure, use_capture: boolean): boolean;
+
+        /**
+         * @param event A {@link WebKit2WebExtension.DOMEvent}
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         * @virtual
+         */
+        vfunc_dispatch_event(event: DOMEvent): boolean;
+
+        /**
+         * @param event_name A `gchar`
+         * @param handler A {@link GObject.Callback}
+         * @param use_capture A `gboolean`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         * @virtual
+         */
+        vfunc_remove_event_listener(event_name: string, handler: null, use_capture: boolean): boolean;
+    }
+
+
+    namespace DOMClientRect {
+        // Signal signatures
+        interface SignalSignatures extends DOMObject.SignalSignatures {
+            "notify::bottom": (pspec: GObject.ParamSpec) => void;
+            "notify::height": (pspec: GObject.ParamSpec) => void;
+            "notify::left": (pspec: GObject.ParamSpec) => void;
+            "notify::right": (pspec: GObject.ParamSpec) => void;
+            "notify::top": (pspec: GObject.ParamSpec) => void;
+            "notify::width": (pspec: GObject.ParamSpec) => void;
+            "notify::core-object": (pspec: GObject.ParamSpec) => void;
+        }
+
+        // Constructor properties interface
+        interface ConstructorProps extends DOMObject.ConstructorProps {
+            bottom: number;
+            height: number;
+            left: number;
+            right: number;
+            top: number;
+            width: number;
+        }
+    }
+
+    /**
+     * @gir-type Class
+     */
+    class DOMClientRect extends DOMObject {
+        static $gtype: GObject.GType<DOMClientRect>;
+
+        // Properties
+        /**
+         * @read-only
+         * @default 0
+         */
+        get bottom(): number;
+
+        /**
+         * @read-only
+         * @default 0
+         */
+        get height(): number;
+
+        /**
+         * @read-only
+         * @default 0
+         */
+        get left(): number;
+
+        /**
+         * @read-only
+         * @default 0
+         */
+        get right(): number;
+
+        /**
+         * @read-only
+         * @default 0
+         */
+        get top(): number;
+
+        /**
+         * @read-only
+         * @default 0
+         */
+        get width(): number;
+
+        /**
+         * Compile-time signal type information.
+         *
+         * This instance property is generated only for TypeScript type checking.
+         * It is not defined at runtime and should not be accessed in JS code.
+         * @internal
+         */
+        $signals: DOMClientRect.SignalSignatures;
+
+        // Constructors
+        constructor(properties?: Partial<DOMClientRect.ConstructorProps>, ...args: any[]);
+
+        _init(...args: any[]): void;
+
+        // Signals
+        /** @signal */
+        connect<K extends keyof DOMClientRect.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, DOMClientRect.SignalSignatures[K]>): number;
+
+        /** @signal */
+        connect_after<K extends keyof DOMClientRect.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, DOMClientRect.SignalSignatures[K]>): number;
+
+        /** @signal */
+        emit<K extends keyof DOMClientRect.SignalSignatures>(signal: K, ...args: GObject.GjsParameters<DOMClientRect.SignalSignatures[K]>): void;
+
+        // Methods
+        /**
+         * Returns the bottom coordinate of `self`, relative to the viewport.
+         * @returns A `gfloat`
+         * @since 2.18
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_bottom(): number;
+
+        /**
+         * Returns the height of `self`.
+         * @returns A `gfloat`
+         * @since 2.18
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_height(): number;
+
+        /**
+         * Returns the left coordinate of `self`, relative to the viewport.
+         * @returns A `gfloat`
+         * @since 2.18
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_left(): number;
+
+        /**
+         * Returns the right coordinate of `self`, relative to the viewport.
+         * @returns A `gfloat`
+         * @since 2.18
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_right(): number;
+
+        /**
+         * Returns the top coordinate of `self`, relative to the viewport.
+         * @returns A `gfloat`
+         * @since 2.18
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_top(): number;
+
+        /**
+         * Returns the width of `self`.
+         * @returns A `gfloat`
+         * @since 2.18
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_width(): number;
+    }
+
+
+    namespace DOMClientRectList {
+        // Signal signatures
+        interface SignalSignatures extends DOMObject.SignalSignatures {
+            "notify::length": (pspec: GObject.ParamSpec) => void;
+            "notify::core-object": (pspec: GObject.ParamSpec) => void;
+        }
+
+        // Constructor properties interface
+        interface ConstructorProps extends DOMObject.ConstructorProps {
+            length: bigint | number;
+        }
+    }
+
+    /**
+     * @gir-type Class
+     */
+    class DOMClientRectList extends DOMObject {
+        static $gtype: GObject.GType<DOMClientRectList>;
+
+        // Properties
+        /**
+         * @read-only
+         * @default 0
+         */
+        get length(): number;
+
+        /**
+         * Compile-time signal type information.
+         *
+         * This instance property is generated only for TypeScript type checking.
+         * It is not defined at runtime and should not be accessed in JS code.
+         * @internal
+         */
+        $signals: DOMClientRectList.SignalSignatures;
+
+        // Constructors
+        constructor(properties?: Partial<DOMClientRectList.ConstructorProps>, ...args: any[]);
+
+        _init(...args: any[]): void;
+
+        // Signals
+        /** @signal */
+        connect<K extends keyof DOMClientRectList.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, DOMClientRectList.SignalSignatures[K]>): number;
+
+        /** @signal */
+        connect_after<K extends keyof DOMClientRectList.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, DOMClientRectList.SignalSignatures[K]>): number;
+
+        /** @signal */
+        emit<K extends keyof DOMClientRectList.SignalSignatures>(signal: K, ...args: GObject.GjsParameters<DOMClientRectList.SignalSignatures[K]>): void;
+
+        // Methods
+        /**
+         * Returns the number of {@link WebKit2WebExtension.DOMClientRect} objects that `self` contains.
+         * @returns A `gulong`
+         * @since 2.18
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_length(): number;
+
+        /**
+         * Returns the {@link WebKit2WebExtension.DOMClientRect} object that `self` contains at `index`.
+         * @param index A `gulong`
+         * @returns A {@link WebKit2WebExtension.DOMClientRect}
+         * @since 2.18
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        item(index: bigint | number): DOMClientRect;
+    }
+
+
+    namespace DOMComment {
+        // Signal signatures
+        interface SignalSignatures extends DOMCharacterData.SignalSignatures {
+            "notify::data": (pspec: GObject.ParamSpec) => void;
+            "notify::length": (pspec: GObject.ParamSpec) => void;
+            "notify::base-uri": (pspec: GObject.ParamSpec) => void;
+            "notify::child-nodes": (pspec: GObject.ParamSpec) => void;
+            "notify::first-child": (pspec: GObject.ParamSpec) => void;
+            "notify::last-child": (pspec: GObject.ParamSpec) => void;
+            "notify::next-sibling": (pspec: GObject.ParamSpec) => void;
+            "notify::node-name": (pspec: GObject.ParamSpec) => void;
+            "notify::node-type": (pspec: GObject.ParamSpec) => void;
+            "notify::node-value": (pspec: GObject.ParamSpec) => void;
+            "notify::owner-document": (pspec: GObject.ParamSpec) => void;
+            "notify::parent-element": (pspec: GObject.ParamSpec) => void;
+            "notify::parent-node": (pspec: GObject.ParamSpec) => void;
+            "notify::previous-sibling": (pspec: GObject.ParamSpec) => void;
+            "notify::text-content": (pspec: GObject.ParamSpec) => void;
+            "notify::core-object": (pspec: GObject.ParamSpec) => void;
+        }
+
+        // Constructor properties interface
+        interface ConstructorProps extends DOMCharacterData.ConstructorProps, DOMEventTarget.ConstructorProps {}
+    }
+
+    /**
+     * @gir-type Class
+     */
+    class DOMComment extends DOMCharacterData implements DOMEventTarget {
+        static $gtype: GObject.GType<DOMComment>;
+
+        /**
+         * Compile-time signal type information.
+         *
+         * This instance property is generated only for TypeScript type checking.
+         * It is not defined at runtime and should not be accessed in JS code.
+         * @internal
+         */
+        $signals: DOMComment.SignalSignatures;
+
+        // Constructors
+        constructor(properties?: Partial<DOMComment.ConstructorProps>, ...args: any[]);
+
+        _init(...args: any[]): void;
+
+        // Signals
+        /** @signal */
+        connect<K extends keyof DOMComment.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, DOMComment.SignalSignatures[K]>): number;
+
+        /** @signal */
+        connect_after<K extends keyof DOMComment.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, DOMComment.SignalSignatures[K]>): number;
+
+        /** @signal */
+        emit<K extends keyof DOMComment.SignalSignatures>(signal: K, ...args: GObject.GjsParameters<DOMComment.SignalSignatures[K]>): void;
+
+        /**
+         * Gets a named field from the objects table of associations (see `g_object_set_data()`).
+         * @param key name of the key for that association
+         * @returns the data if found,          or `null` if no such data exists.
+         */
+        get_data(key: string): null;
+
+        /**
+         * @param args 
+         */
+        // Conflicted with WebKit2WebExtension.DOMCharacterData.get_data
+        get_data(...args: never[]): any;
+
+        /**
+         * Each object carries around a table of associations from
+         * strings to pointers.  This function lets you set an association.
+         * 
+         * If the object already had an association with that name,
+         * the old association will be destroyed.
+         * 
+         * Internally, the `key` is converted to a {@link GLib.Quark} using `g_quark_from_string()`.
+         * This means a copy of `key` is kept permanently (even after `object` has been
+         * finalized) — so it is recommended to only use a small, bounded set of values
+         * for `key` in your program, to avoid the {@link GLib.Quark} storage growing unbounded.
+         * @param key name of the key
+         * @param data data to associate with that key
+         */
+        set_data(key: string, data: null): void;
+
+        /**
+         * @param args 
+         */
+        // Conflicted with WebKit2WebExtension.DOMCharacterData.set_data
+        set_data(...args: never[]): any;
+    }
+
+
+    namespace DOMDOMImplementation {
+        // Signal signatures
+        interface SignalSignatures extends DOMObject.SignalSignatures {
+            "notify::core-object": (pspec: GObject.ParamSpec) => void;
+        }
+
+        // Constructor properties interface
+        interface ConstructorProps extends DOMObject.ConstructorProps {}
+    }
+
+    /**
+     * @gir-type Class
+     */
+    class DOMDOMImplementation extends DOMObject {
+        static $gtype: GObject.GType<DOMDOMImplementation>;
+
+        /**
+         * Compile-time signal type information.
+         *
+         * This instance property is generated only for TypeScript type checking.
+         * It is not defined at runtime and should not be accessed in JS code.
+         * @internal
+         */
+        $signals: DOMDOMImplementation.SignalSignatures;
+
+        // Constructors
+        constructor(properties?: Partial<DOMDOMImplementation.ConstructorProps>, ...args: any[]);
+
+        _init(...args: any[]): void;
+
+        // Signals
+        /** @signal */
+        connect<K extends keyof DOMDOMImplementation.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, DOMDOMImplementation.SignalSignatures[K]>): number;
+
+        /** @signal */
+        connect_after<K extends keyof DOMDOMImplementation.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, DOMDOMImplementation.SignalSignatures[K]>): number;
+
+        /** @signal */
+        emit<K extends keyof DOMDOMImplementation.SignalSignatures>(signal: K, ...args: GObject.GjsParameters<DOMDOMImplementation.SignalSignatures[K]>): void;
+
+        // Methods
+        /**
+         * @param title A `gchar`
+         * @param media A `gchar`
+         * @returns A {@link WebKit2WebExtension.DOMCSSStyleSheet}
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         * @throws GLib.Error
+         */
+        create_css_style_sheet(title: string, media: string): DOMCSSStyleSheet;
+
+        /**
+         * @param namespaceURI A `gchar`
+         * @param qualifiedName A `gchar`
+         * @param doctype A {@link WebKit2WebExtension.DOMDocumentType}
+         * @returns A {@link WebKit2WebExtension.DOMDocument}
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         * @throws GLib.Error
+         */
+        create_document(namespaceURI: string | null, qualifiedName: string, doctype: DOMDocumentType | null): DOMDocument;
+
+        /**
+         * @param qualifiedName A `gchar`
+         * @param publicId A `gchar`
+         * @param systemId A `gchar`
+         * @returns A {@link WebKit2WebExtension.DOMDocumentType}
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         * @throws GLib.Error
+         */
+        create_document_type(qualifiedName: string, publicId: string, systemId: string): DOMDocumentType;
+
+        /**
+         * @param title A `gchar`
+         * @returns A {@link WebKit2WebExtension.DOMHTMLDocument}
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        create_html_document(title: string): DOMHTMLDocument;
+
+        /**
+         * @param feature A `gchar`
+         * @param version A `gchar`
+         * @returns A `gboolean`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        has_feature(feature: string, version: string): boolean;
+    }
+
+
+    namespace DOMDOMSelection {
+        // Signal signatures
+        interface SignalSignatures extends DOMObject.SignalSignatures {
+            "notify::anchor-node": (pspec: GObject.ParamSpec) => void;
+            "notify::anchor-offset": (pspec: GObject.ParamSpec) => void;
+            "notify::base-node": (pspec: GObject.ParamSpec) => void;
+            "notify::base-offset": (pspec: GObject.ParamSpec) => void;
+            "notify::extent-node": (pspec: GObject.ParamSpec) => void;
+            "notify::extent-offset": (pspec: GObject.ParamSpec) => void;
+            "notify::focus-node": (pspec: GObject.ParamSpec) => void;
+            "notify::focus-offset": (pspec: GObject.ParamSpec) => void;
+            "notify::is-collapsed": (pspec: GObject.ParamSpec) => void;
+            "notify::range-count": (pspec: GObject.ParamSpec) => void;
+            "notify::type": (pspec: GObject.ParamSpec) => void;
+            "notify::core-object": (pspec: GObject.ParamSpec) => void;
+        }
+
+        // Constructor properties interface
+        interface ConstructorProps extends DOMObject.ConstructorProps {
+            anchor_node: DOMNode;
+            anchorNode: DOMNode;
+            anchor_offset: bigint | number;
+            anchorOffset: bigint | number;
+            base_node: DOMNode;
+            baseNode: DOMNode;
+            base_offset: bigint | number;
+            baseOffset: bigint | number;
+            extent_node: DOMNode;
+            extentNode: DOMNode;
+            extent_offset: bigint | number;
+            extentOffset: bigint | number;
+            focus_node: DOMNode;
+            focusNode: DOMNode;
+            focus_offset: bigint | number;
+            focusOffset: bigint | number;
+            is_collapsed: boolean;
+            isCollapsed: boolean;
+            range_count: bigint | number;
+            rangeCount: bigint | number;
+            type: string;
+        }
+    }
+
+    /**
+     * @gir-type Class
+     */
+    class DOMDOMSelection extends DOMObject {
+        static $gtype: GObject.GType<DOMDOMSelection>;
+
+        // Properties
+        /**
+         * @read-only
+         */
+        get anchor_node(): DOMNode;
+
+        /**
+         * @read-only
+         */
+        get anchorNode(): DOMNode;
+
+        /**
+         * @read-only
+         * @default 0
+         */
+        get anchor_offset(): number;
+
+        /**
+         * @read-only
+         * @default 0
+         */
+        get anchorOffset(): number;
+
+        /**
+         * @read-only
+         */
+        get base_node(): DOMNode;
+
+        /**
+         * @read-only
+         */
+        get baseNode(): DOMNode;
+
+        /**
+         * @read-only
+         * @default 0
+         */
+        get base_offset(): number;
+
+        /**
+         * @read-only
+         * @default 0
+         */
+        get baseOffset(): number;
+
+        /**
+         * @read-only
+         */
+        get extent_node(): DOMNode;
+
+        /**
+         * @read-only
+         */
+        get extentNode(): DOMNode;
+
+        /**
+         * @read-only
+         * @default 0
+         */
+        get extent_offset(): number;
+
+        /**
+         * @read-only
+         * @default 0
+         */
+        get extentOffset(): number;
+
+        /**
+         * @read-only
+         */
+        get focus_node(): DOMNode;
+
+        /**
+         * @read-only
+         */
+        get focusNode(): DOMNode;
+
+        /**
+         * @read-only
+         * @default 0
+         */
+        get focus_offset(): number;
+
+        /**
+         * @read-only
+         * @default 0
+         */
+        get focusOffset(): number;
+
+        /**
+         * @read-only
+         * @default false
+         */
+        get is_collapsed(): boolean;
+
+        /**
+         * @read-only
+         * @default false
+         */
+        get isCollapsed(): boolean;
+
+        /**
+         * @read-only
+         * @default 0
+         */
+        get range_count(): number;
+
+        /**
+         * @read-only
+         * @default 0
+         */
+        get rangeCount(): number;
+
+        /**
+         * @read-only
+         */
+        get type(): string;
+
+        /**
+         * Compile-time signal type information.
+         *
+         * This instance property is generated only for TypeScript type checking.
+         * It is not defined at runtime and should not be accessed in JS code.
+         * @internal
+         */
+        $signals: DOMDOMSelection.SignalSignatures;
+
+        // Constructors
+        constructor(properties?: Partial<DOMDOMSelection.ConstructorProps>, ...args: any[]);
+
+        _init(...args: any[]): void;
+
+        // Signals
+        /** @signal */
+        connect<K extends keyof DOMDOMSelection.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, DOMDOMSelection.SignalSignatures[K]>): number;
+
+        /** @signal */
+        connect_after<K extends keyof DOMDOMSelection.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, DOMDOMSelection.SignalSignatures[K]>): number;
+
+        /** @signal */
+        emit<K extends keyof DOMDOMSelection.SignalSignatures>(signal: K, ...args: GObject.GjsParameters<DOMDOMSelection.SignalSignatures[K]>): void;
+
+        // Methods
+        /**
+         * @param range A {@link WebKit2WebExtension.DOMRange}
+         * @since 2.16
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        add_range(range: DOMRange): void;
+
+        /**
+         * @param node A {@link WebKit2WebExtension.DOMNode}
+         * @param offset A `gulong`
+         * @since 2.16
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        collapse(node: DOMNode, offset: bigint | number): void;
+
+        /**
+         * @since 2.16
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         * @throws GLib.Error
+         */
+        collapse_to_end(): void;
+
+        /**
+         * @since 2.16
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         * @throws GLib.Error
+         */
+        collapse_to_start(): void;
+
+        /**
+         * @param node A {@link WebKit2WebExtension.DOMNode}
+         * @param allowPartial A `gboolean`
+         * @returns A `gboolean`
+         * @since 2.16
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        contains_node(node: DOMNode, allowPartial: boolean): boolean;
+
+        /**
+         * @since 2.16
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        delete_from_document(): void;
+
+        /**
+         * @since 2.16
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        empty(): void;
+
+        /**
+         * @param node A {@link WebKit2WebExtension.DOMNode}
+         * @param offset A `gulong`
+         * @since 2.16
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         * @throws GLib.Error
+         */
+        extend(node: DOMNode, offset: bigint | number): void;
+
+        /**
+         * @returns A {@link WebKit2WebExtension.DOMNode}
+         * @since 2.16
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_anchor_node(): DOMNode;
+
+        /**
+         * @returns A `gulong`
+         * @since 2.16
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_anchor_offset(): number;
+
+        /**
+         * @returns A {@link WebKit2WebExtension.DOMNode}
+         * @since 2.16
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_base_node(): DOMNode;
+
+        /**
+         * @returns A `gulong`
+         * @since 2.16
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_base_offset(): number;
+
+        /**
+         * @returns A {@link WebKit2WebExtension.DOMNode}
+         * @since 2.16
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_extent_node(): DOMNode;
+
+        /**
+         * @returns A `gulong`
+         * @since 2.16
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_extent_offset(): number;
+
+        /**
+         * @returns A {@link WebKit2WebExtension.DOMNode}
+         * @since 2.16
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_focus_node(): DOMNode;
+
+        /**
+         * @returns A `gulong`
+         * @since 2.16
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_focus_offset(): number;
+
+        /**
+         * @returns A `gboolean`
+         * @since 2.16
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_is_collapsed(): boolean;
+
+        /**
+         * @param index A `gulong`
+         * @returns A {@link WebKit2WebExtension.DOMRange}
+         * @since 2.16
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         * @throws GLib.Error
+         */
+        get_range_at(index: bigint | number): DOMRange;
+
+        /**
+         * @returns A `gulong`
+         * @since 2.16
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_range_count(): number;
+
+        /**
+         * @returns A `gchar`
+         * @since 2.16
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_selection_type(): string;
+
+        /**
+         * @param alter A `gchar`
+         * @param direction A `gchar`
+         * @param granularity A `gchar`
+         * @since 2.16
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        modify(alter: string, direction: string, granularity: string): void;
+
+        /**
+         * @since 2.16
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        remove_all_ranges(): void;
+
+        /**
+         * @param node A {@link WebKit2WebExtension.DOMNode}
+         * @since 2.16
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        select_all_children(node: DOMNode): void;
+
+        /**
+         * @param baseNode A {@link WebKit2WebExtension.DOMNode}
+         * @param baseOffset A `gulong`
+         * @param extentNode A {@link WebKit2WebExtension.DOMNode}
+         * @param extentOffset A `gulong`
+         * @since 2.16
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        set_base_and_extent(baseNode: DOMNode, baseOffset: bigint | number, extentNode: DOMNode, extentOffset: bigint | number): void;
+
+        /**
+         * @param node A {@link WebKit2WebExtension.DOMNode}
+         * @param offset A `gulong`
+         * @since 2.16
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        set_position(node: DOMNode, offset: bigint | number): void;
+    }
+
+
+    namespace DOMDOMTokenList {
+        // Signal signatures
+        interface SignalSignatures extends DOMObject.SignalSignatures {
+            "notify::length": (pspec: GObject.ParamSpec) => void;
+            "notify::value": (pspec: GObject.ParamSpec) => void;
+            "notify::core-object": (pspec: GObject.ParamSpec) => void;
+        }
+
+        // Constructor properties interface
+        interface ConstructorProps extends DOMObject.ConstructorProps {
+            length: bigint | number;
+            value: string;
+        }
+    }
+
+    /**
+     * @gir-type Class
+     */
+    class DOMDOMTokenList extends DOMObject {
+        static $gtype: GObject.GType<DOMDOMTokenList>;
+
+        // Properties
+        /**
+         * @read-only
+         * @default 0
+         */
+        get length(): number;
+
+        get value(): string;
+        set value(val: string);
+
+        /**
+         * Compile-time signal type information.
+         *
+         * This instance property is generated only for TypeScript type checking.
+         * It is not defined at runtime and should not be accessed in JS code.
+         * @internal
+         */
+        $signals: DOMDOMTokenList.SignalSignatures;
+
+        // Constructors
+        constructor(properties?: Partial<DOMDOMTokenList.ConstructorProps>, ...args: any[]);
+
+        _init(...args: any[]): void;
+
+        // Signals
+        /** @signal */
+        connect<K extends keyof DOMDOMTokenList.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, DOMDOMTokenList.SignalSignatures[K]>): number;
+
+        /** @signal */
+        connect_after<K extends keyof DOMDOMTokenList.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, DOMDOMTokenList.SignalSignatures[K]>): number;
+
+        /** @signal */
+        emit<K extends keyof DOMDOMTokenList.SignalSignatures>(signal: K, ...args: GObject.GjsParameters<DOMDOMTokenList.SignalSignatures[K]>): void;
+
+        // Methods
+        /**
+         * @param token A `gchar`
+         * @returns A `gboolean`
+         * @since 2.16
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        contains(token: string): boolean;
+
+        /**
+         * @returns A `gulong`
+         * @since 2.16
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_length(): number;
+
+        /**
+         * @returns A `gchar`
+         * @since 2.16
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_value(): string;
+
+        /**
+         * @param index A `gulong`
+         * @returns A `gchar`
+         * @since 2.16
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        item(index: bigint | number): string;
+
+        /**
+         * @param token A `gchar`
+         * @param newToken A `gchar`
+         * @since 2.16
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         * @throws GLib.Error
+         */
+        replace(token: string, newToken: string): void;
+
+        /**
+         * @param value A `gchar`
+         * @since 2.16
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        set_value(value: string): void;
+
+        /**
+         * @param token A `gchar`
+         * @param force A `gboolean`
+         * @returns A `gboolean`
+         * @since 2.16
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         * @throws GLib.Error
+         */
+        toggle(token: string, force: boolean): boolean;
+    }
+
+
+    namespace DOMDOMWindow {
+        // Signal signatures
+        interface SignalSignatures extends DOMObject.SignalSignatures {
+            "notify::closed": (pspec: GObject.ParamSpec) => void;
+            "notify::default-status": (pspec: GObject.ParamSpec) => void;
+            "notify::device-pixel-ratio": (pspec: GObject.ParamSpec) => void;
+            "notify::document": (pspec: GObject.ParamSpec) => void;
+            "notify::frame-element": (pspec: GObject.ParamSpec) => void;
+            "notify::frames": (pspec: GObject.ParamSpec) => void;
+            "notify::inner-height": (pspec: GObject.ParamSpec) => void;
+            "notify::inner-width": (pspec: GObject.ParamSpec) => void;
+            "notify::length": (pspec: GObject.ParamSpec) => void;
+            "notify::name": (pspec: GObject.ParamSpec) => void;
+            "notify::offscreen-buffering": (pspec: GObject.ParamSpec) => void;
+            "notify::opener": (pspec: GObject.ParamSpec) => void;
+            "notify::orientation": (pspec: GObject.ParamSpec) => void;
+            "notify::outer-height": (pspec: GObject.ParamSpec) => void;
+            "notify::outer-width": (pspec: GObject.ParamSpec) => void;
+            "notify::page-x-offset": (pspec: GObject.ParamSpec) => void;
+            "notify::page-xoffset": (pspec: GObject.ParamSpec) => void;
+            "notify::page-y-offset": (pspec: GObject.ParamSpec) => void;
+            "notify::page-yoffset": (pspec: GObject.ParamSpec) => void;
+            "notify::parent": (pspec: GObject.ParamSpec) => void;
+            "notify::screen-left": (pspec: GObject.ParamSpec) => void;
+            "notify::screen-top": (pspec: GObject.ParamSpec) => void;
+            "notify::screen-x": (pspec: GObject.ParamSpec) => void;
+            "notify::screen-y": (pspec: GObject.ParamSpec) => void;
+            "notify::scroll-x": (pspec: GObject.ParamSpec) => void;
+            "notify::scroll-y": (pspec: GObject.ParamSpec) => void;
+            "notify::self": (pspec: GObject.ParamSpec) => void;
+            "notify::status": (pspec: GObject.ParamSpec) => void;
+            "notify::top": (pspec: GObject.ParamSpec) => void;
+            "notify::window": (pspec: GObject.ParamSpec) => void;
+            "notify::core-object": (pspec: GObject.ParamSpec) => void;
+        }
+
+        // Constructor properties interface
+        interface ConstructorProps extends DOMObject.ConstructorProps, DOMEventTarget.ConstructorProps {
+            closed: boolean;
+            default_status: string;
+            defaultStatus: string;
+            device_pixel_ratio: number;
+            devicePixelRatio: number;
+            document: DOMDocument;
+            frame_element: DOMElement;
+            frameElement: DOMElement;
+            frames: DOMDOMWindow;
+            inner_height: bigint | number;
+            innerHeight: bigint | number;
+            inner_width: bigint | number;
+            innerWidth: bigint | number;
+            length: bigint | number;
+            name: string;
+            offscreen_buffering: boolean;
+            offscreenBuffering: boolean;
+            opener: DOMDOMWindow;
+            orientation: bigint | number;
+            outer_height: bigint | number;
+            outerHeight: bigint | number;
+            outer_width: bigint | number;
+            outerWidth: bigint | number;
+            page_x_offset: bigint | number;
+            pageXOffset: bigint | number;
+            page_y_offset: bigint | number;
+            pageYOffset: bigint | number;
+            parent: DOMDOMWindow;
+            screen_left: bigint | number;
+            screenLeft: bigint | number;
+            screen_top: bigint | number;
+            screenTop: bigint | number;
+            screen_x: bigint | number;
+            screenX: bigint | number;
+            screen_y: bigint | number;
+            screenY: bigint | number;
+            scroll_x: bigint | number;
+            scrollX: bigint | number;
+            scroll_y: bigint | number;
+            scrollY: bigint | number;
+            self: DOMDOMWindow;
+            status: string;
+            top: DOMDOMWindow;
+            window: DOMDOMWindow;
+        }
+    }
+
+    /**
+     * @gir-type Class
+     */
+    class DOMDOMWindow extends DOMObject implements DOMEventTarget {
+        static $gtype: GObject.GType<DOMDOMWindow>;
+
+        // Properties
+        /**
+         * @read-only
+         * @default false
+         */
+        get closed(): boolean;
+
+        get default_status(): string;
+        set default_status(val: string);
+
+        get defaultStatus(): string;
+        set defaultStatus(val: string);
+
+        /**
+         * @read-only
+         * @default 0
+         */
+        get device_pixel_ratio(): number;
+
+        /**
+         * @read-only
+         * @default 0
+         */
+        get devicePixelRatio(): number;
+
+        /**
+         * @read-only
+         */
+        get document(): DOMDocument;
+
+        /**
+         * @read-only
+         */
+        get frame_element(): DOMElement;
+
+        /**
+         * @read-only
+         */
+        get frameElement(): DOMElement;
+
+        /**
+         * @read-only
+         */
+        get frames(): DOMDOMWindow;
+
+        /**
+         * @read-only
+         * @default 0
+         */
+        get inner_height(): number;
+
+        /**
+         * @read-only
+         * @default 0
+         */
+        get innerHeight(): number;
+
+        /**
+         * @read-only
+         * @default 0
+         */
+        get inner_width(): number;
+
+        /**
+         * @read-only
+         * @default 0
+         */
+        get innerWidth(): number;
+
+        /**
+         * @read-only
+         * @default 0
+         */
+        get length(): number;
+
+        get name(): string;
+        set name(val: string);
+
+        /**
+         * @read-only
+         * @default false
+         */
+        get offscreen_buffering(): boolean;
+
+        /**
+         * @read-only
+         * @default false
+         */
+        get offscreenBuffering(): boolean;
+
+        /**
+         * @read-only
+         */
+        get opener(): DOMDOMWindow;
+
+        /**
+         * @read-only
+         * @default 0
+         */
+        get orientation(): number;
+
+        /**
+         * @read-only
+         * @default 0
+         */
+        get outer_height(): number;
+
+        /**
+         * @read-only
+         * @default 0
+         */
+        get outerHeight(): number;
+
+        /**
+         * @read-only
+         * @default 0
+         */
+        get outer_width(): number;
+
+        /**
+         * @read-only
+         * @default 0
+         */
+        get outerWidth(): number;
+
+        /**
+         * @read-only
+         * @default 0
+         */
+        get page_x_offset(): number;
+
+        /**
+         * @read-only
+         * @default 0
+         */
+        get pageXOffset(): number;
+
+        /**
+         * @read-only
+         * @default 0
+         */
+        get page_y_offset(): number;
+
+        /**
+         * @read-only
+         * @default 0
+         */
+        get pageYOffset(): number;
+
+        /**
+         * @read-only
+         */
+        get parent(): DOMDOMWindow;
+
+        /**
+         * @read-only
+         * @default 0
+         */
+        get screen_left(): number;
+
+        /**
+         * @read-only
+         * @default 0
+         */
+        get screenLeft(): number;
+
+        /**
+         * @read-only
+         * @default 0
+         */
+        get screen_top(): number;
+
+        /**
+         * @read-only
+         * @default 0
+         */
+        get screenTop(): number;
+
+        /**
+         * @read-only
+         * @default 0
+         */
+        get screen_x(): number;
+
+        /**
+         * @read-only
+         * @default 0
+         */
+        get screenX(): number;
+
+        /**
+         * @read-only
+         * @default 0
+         */
+        get screen_y(): number;
+
+        /**
+         * @read-only
+         * @default 0
+         */
+        get screenY(): number;
+
+        /**
+         * @read-only
+         * @default 0
+         */
+        get scroll_x(): number;
+
+        /**
+         * @read-only
+         * @default 0
+         */
+        get scrollX(): number;
+
+        /**
+         * @read-only
+         * @default 0
+         */
+        get scroll_y(): number;
+
+        /**
+         * @read-only
+         * @default 0
+         */
+        get scrollY(): number;
+
+        /**
+         * @read-only
+         */
+        get self(): DOMDOMWindow;
+
+        get status(): string;
+        set status(val: string);
+
+        /**
+         * @read-only
+         */
+        get top(): DOMDOMWindow;
+
+        /**
+         * @read-only
+         */
+        get window(): DOMDOMWindow;
+
+        /**
+         * Compile-time signal type information.
+         *
+         * This instance property is generated only for TypeScript type checking.
+         * It is not defined at runtime and should not be accessed in JS code.
+         * @internal
+         */
+        $signals: DOMDOMWindow.SignalSignatures;
+
+        // Constructors
+        constructor(properties?: Partial<DOMDOMWindow.ConstructorProps>, ...args: any[]);
+
+        _init(...args: any[]): void;
+
+        // Signals
+        /** @signal */
+        connect<K extends keyof DOMDOMWindow.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, DOMDOMWindow.SignalSignatures[K]>): number;
+
+        /** @signal */
+        connect_after<K extends keyof DOMDOMWindow.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, DOMDOMWindow.SignalSignatures[K]>): number;
+
+        /** @signal */
+        emit<K extends keyof DOMDOMWindow.SignalSignatures>(signal: K, ...args: GObject.GjsParameters<DOMDOMWindow.SignalSignatures[K]>): void;
+
+        // Methods
+        /**
+         * @param message A `gchar`
+         * @since 2.16
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        alert(message: string): void;
+
+        /**
+         * @since 2.16
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        blur(): void;
+
+        /**
+         * @since 2.16
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        capture_events(): void;
+
+        /**
+         * @since 2.16
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        close(): void;
+
+        /**
+         * @param message A `gchar`
+         * @returns A `gboolean`
+         * @since 2.16
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        confirm(message: string): boolean;
+
+        /**
+         * @param string A `gchar`
+         * @param caseSensitive A `gboolean`
+         * @param backwards A `gboolean`
+         * @param wrap A `gboolean`
+         * @param wholeWord A `gboolean`
+         * @param searchInFrames A `gboolean`
+         * @param showDialog A `gboolean`
+         * @returns A `gboolean`
+         * @since 2.16
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        find(string: string, caseSensitive: boolean, backwards: boolean, wrap: boolean, wholeWord: boolean, searchInFrames: boolean, showDialog: boolean): boolean;
+
+        /**
+         * @since 2.16
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        focus(): void;
+
+        /**
+         * @returns A `gboolean`
+         * @since 2.16
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_closed(): boolean;
+
+        /**
+         * @param element A {@link WebKit2WebExtension.DOMElement}
+         * @param pseudoElement A `gchar`
+         * @returns A {@link WebKit2WebExtension.DOMCSSStyleDeclaration}
+         * @since 2.16
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_computed_style(element: DOMElement, pseudoElement: string | null): DOMCSSStyleDeclaration;
+
+        /**
+         * @returns A `gchar`
+         * @since 2.16
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_default_status(): string;
+
+        /**
+         * @returns A `gdouble`
+         * @since 2.16
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_device_pixel_ratio(): number;
+
+        /**
+         * @returns A {@link WebKit2WebExtension.DOMDocument}
+         * @since 2.16
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_document(): DOMDocument;
+
+        /**
+         * @returns A {@link WebKit2WebExtension.DOMElement}
+         * @since 2.16
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_frame_element(): DOMElement;
+
+        /**
+         * @returns A {@link WebKit2WebExtension.DOMDOMWindow}
+         * @since 2.16
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_frames(): DOMDOMWindow;
+
+        /**
+         * @returns A `glong`
+         * @since 2.16
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_inner_height(): number;
+
+        /**
+         * @returns A `glong`
+         * @since 2.16
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_inner_width(): number;
+
+        /**
+         * @returns A `gulong`
+         * @since 2.16
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_length(): number;
+
+        /**
+         * @returns A `gchar`
+         * @since 2.16
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_name(): string;
+
+        /**
+         * @returns A `gboolean`
+         * @since 2.16
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_offscreen_buffering(): boolean;
+
+        /**
+         * @returns A {@link WebKit2WebExtension.DOMDOMWindow}
+         * @since 2.16
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_opener(): DOMDOMWindow;
+
+        /**
+         * @returns A `glong`
+         * @since 2.16
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_orientation(): number;
+
+        /**
+         * @returns A `glong`
+         * @since 2.16
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_outer_height(): number;
+
+        /**
+         * @returns A `glong`
+         * @since 2.16
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_outer_width(): number;
+
+        /**
+         * @returns A `glong`
+         * @since 2.16
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_page_x_offset(): number;
+
+        /**
+         * @returns A `glong`
+         * @since 2.16
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_page_y_offset(): number;
+
+        /**
+         * @returns A {@link WebKit2WebExtension.DOMDOMWindow}
+         * @since 2.16
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_parent(): DOMDOMWindow;
+
+        /**
+         * @returns A `glong`
+         * @since 2.16
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_screen_left(): number;
+
+        /**
+         * @returns A `glong`
+         * @since 2.16
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_screen_top(): number;
+
+        /**
+         * @returns A `glong`
+         * @since 2.16
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_screen_x(): number;
+
+        /**
+         * @returns A `glong`
+         * @since 2.16
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_screen_y(): number;
+
+        /**
+         * @returns A `glong`
+         * @since 2.16
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_scroll_x(): number;
+
+        /**
+         * @returns A `glong`
+         * @since 2.16
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_scroll_y(): number;
+
+        /**
+         * @returns A {@link WebKit2WebExtension.DOMDOMSelection}
+         * @since 2.16
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_selection(): DOMDOMSelection;
+
+        /**
+         * @returns A {@link WebKit2WebExtension.DOMDOMWindow}
+         * @since 2.16
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_self(): DOMDOMWindow;
+
+        /**
+         * @returns A `gchar`
+         * @since 2.16
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_status(): string;
+
+        /**
+         * @returns A {@link WebKit2WebExtension.DOMDOMWindow}
+         * @since 2.16
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_top(): DOMDOMWindow;
+
+        /**
+         * @returns A {@link WebKit2WebExtension.DOMDOMWindow}
+         * @since 2.16
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_window(): DOMDOMWindow;
+
+        /**
+         * @param x A `gfloat`
+         * @param y A `gfloat`
+         * @since 2.16
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        move_by(x: number, y: number): void;
+
+        /**
+         * @param x A `gfloat`
+         * @param y A `gfloat`
+         * @since 2.16
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        move_to(x: number, y: number): void;
+
+        /**
+         * @since 2.16
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        print(): void;
+
+        /**
+         * @param message A `gchar`
+         * @param defaultValue A `gchar`
+         * @returns A `gchar`
+         * @since 2.16
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        prompt(message: string, defaultValue: string): string;
+
+        /**
+         * @since 2.16
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        release_events(): void;
+
+        /**
+         * @param x A `gfloat`
+         * @param y A `gfloat`
+         * @since 2.16
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        resize_by(x: number, y: number): void;
+
+        /**
+         * @param width A `gfloat`
+         * @param height A `gfloat`
+         * @since 2.16
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        resize_to(width: number, height: number): void;
+
+        /**
+         * @param x A `gdouble`
+         * @param y A `gdouble`
+         * @since 2.16
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        scroll_by(x: number, y: number): void;
+
+        /**
+         * @param x A `gdouble`
+         * @param y A `gdouble`
+         * @since 2.16
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        scroll_to(x: number, y: number): void;
+
+        /**
+         * @param value A `gchar`
+         * @since 2.16
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        set_default_status(value: string): void;
+
+        /**
+         * @param value A `gchar`
+         * @since 2.16
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        set_name(value: string): void;
+
+        /**
+         * @param value A `gchar`
+         * @since 2.16
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        set_status(value: string): void;
+
+        /**
+         * @since 2.16
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        stop(): void;
+
+        /**
+         * @param handler Name of the user message handler.
+         * @param message JavaScript value to be sent.
+         * @returns Whether the message was successfully sent.
+         * @since 2.8
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        webkit_message_handlers_post_message(handler: string, message: string): boolean;
+
+        /**
+         * Version of `webkit_dom_event_target_add_event_listener()` using a closure
+         * instead of callbacks for easier binding in other languages.
+         * @param event_name A `gchar`
+         * @param handler A {@link GObject.Closure}
+         * @param use_capture A `gboolean`
+         * @returns a `gboolean`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        add_event_listener(event_name: string, handler: GObject.Closure, use_capture: boolean): boolean;
+
+        /**
+         * @param event A {@link WebKit2WebExtension.DOMEvent}
+         * @returns a `gboolean`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         * @throws GLib.Error
+         */
+        dispatch_event(event: DOMEvent): boolean;
+
+        /**
+         * Version of `webkit_dom_event_target_remove_event_listener()` using a closure
+         * instead of callbacks for easier binding in other languages.
+         * @param event_name A `gchar`
+         * @param handler A {@link GObject.Closure}
+         * @param use_capture A `gboolean`
+         * @returns a `gboolean`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        remove_event_listener(event_name: string, handler: GObject.Closure, use_capture: boolean): boolean;
+
+        /**
+         * @param event_name 
+         * @param handler 
+         * @param use_capture 
+         * @virtual
+         */
+        vfunc_add_event_listener(event_name: string, handler: GObject.Closure, use_capture: boolean): boolean;
+
+        /**
+         * @param event A {@link WebKit2WebExtension.DOMEvent}
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         * @virtual
+         */
+        vfunc_dispatch_event(event: DOMEvent): boolean;
+
+        /**
+         * @param event_name A `gchar`
+         * @param handler A {@link GObject.Callback}
+         * @param use_capture A `gboolean`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         * @virtual
+         */
+        vfunc_remove_event_listener(event_name: string, handler: null, use_capture: boolean): boolean;
+    }
+
+
+    namespace DOMDocument {
+        // Signal signatures
+        interface SignalSignatures extends DOMNode.SignalSignatures {
+            "notify::active-element": (pspec: GObject.ParamSpec) => void;
+            "notify::anchors": (pspec: GObject.ParamSpec) => void;
+            "notify::applets": (pspec: GObject.ParamSpec) => void;
+            "notify::body": (pspec: GObject.ParamSpec) => void;
+            "notify::character-set": (pspec: GObject.ParamSpec) => void;
+            "notify::charset": (pspec: GObject.ParamSpec) => void;
+            "notify::child-element-count": (pspec: GObject.ParamSpec) => void;
+            "notify::children": (pspec: GObject.ParamSpec) => void;
+            "notify::compat-mode": (pspec: GObject.ParamSpec) => void;
+            "notify::content-type": (pspec: GObject.ParamSpec) => void;
+            "notify::cookie": (pspec: GObject.ParamSpec) => void;
+            "notify::current-script": (pspec: GObject.ParamSpec) => void;
+            "notify::default-view": (pspec: GObject.ParamSpec) => void;
+            "notify::design-mode": (pspec: GObject.ParamSpec) => void;
+            "notify::dir": (pspec: GObject.ParamSpec) => void;
+            "notify::doctype": (pspec: GObject.ParamSpec) => void;
+            "notify::document-element": (pspec: GObject.ParamSpec) => void;
+            "notify::document-uri": (pspec: GObject.ParamSpec) => void;
+            "notify::domain": (pspec: GObject.ParamSpec) => void;
+            "notify::embeds": (pspec: GObject.ParamSpec) => void;
+            "notify::first-element-child": (pspec: GObject.ParamSpec) => void;
+            "notify::forms": (pspec: GObject.ParamSpec) => void;
+            "notify::head": (pspec: GObject.ParamSpec) => void;
+            "notify::hidden": (pspec: GObject.ParamSpec) => void;
+            "notify::images": (pspec: GObject.ParamSpec) => void;
+            "notify::implementation": (pspec: GObject.ParamSpec) => void;
+            "notify::input-encoding": (pspec: GObject.ParamSpec) => void;
+            "notify::last-element-child": (pspec: GObject.ParamSpec) => void;
+            "notify::last-modified": (pspec: GObject.ParamSpec) => void;
+            "notify::links": (pspec: GObject.ParamSpec) => void;
+            "notify::origin": (pspec: GObject.ParamSpec) => void;
+            "notify::plugins": (pspec: GObject.ParamSpec) => void;
+            "notify::pointer-lock-element": (pspec: GObject.ParamSpec) => void;
+            "notify::preferred-stylesheet-set": (pspec: GObject.ParamSpec) => void;
+            "notify::ready-state": (pspec: GObject.ParamSpec) => void;
+            "notify::referrer": (pspec: GObject.ParamSpec) => void;
+            "notify::scripts": (pspec: GObject.ParamSpec) => void;
+            "notify::scrolling-element": (pspec: GObject.ParamSpec) => void;
+            "notify::selected-stylesheet-set": (pspec: GObject.ParamSpec) => void;
+            "notify::style-sheets": (pspec: GObject.ParamSpec) => void;
+            "notify::title": (pspec: GObject.ParamSpec) => void;
+            "notify::url": (pspec: GObject.ParamSpec) => void;
+            "notify::visibility-state": (pspec: GObject.ParamSpec) => void;
+            "notify::webkit-current-full-screen-element": (pspec: GObject.ParamSpec) => void;
+            "notify::webkit-full-screen-keyboard-input-allowed": (pspec: GObject.ParamSpec) => void;
+            "notify::webkit-fullscreen-element": (pspec: GObject.ParamSpec) => void;
+            "notify::webkit-fullscreen-enabled": (pspec: GObject.ParamSpec) => void;
+            "notify::webkit-is-full-screen": (pspec: GObject.ParamSpec) => void;
+            "notify::xml-encoding": (pspec: GObject.ParamSpec) => void;
+            "notify::xml-standalone": (pspec: GObject.ParamSpec) => void;
+            "notify::xml-version": (pspec: GObject.ParamSpec) => void;
+            "notify::base-uri": (pspec: GObject.ParamSpec) => void;
+            "notify::child-nodes": (pspec: GObject.ParamSpec) => void;
+            "notify::first-child": (pspec: GObject.ParamSpec) => void;
+            "notify::last-child": (pspec: GObject.ParamSpec) => void;
+            "notify::next-sibling": (pspec: GObject.ParamSpec) => void;
+            "notify::node-name": (pspec: GObject.ParamSpec) => void;
+            "notify::node-type": (pspec: GObject.ParamSpec) => void;
+            "notify::node-value": (pspec: GObject.ParamSpec) => void;
+            "notify::owner-document": (pspec: GObject.ParamSpec) => void;
+            "notify::parent-element": (pspec: GObject.ParamSpec) => void;
+            "notify::parent-node": (pspec: GObject.ParamSpec) => void;
+            "notify::previous-sibling": (pspec: GObject.ParamSpec) => void;
+            "notify::text-content": (pspec: GObject.ParamSpec) => void;
+            "notify::core-object": (pspec: GObject.ParamSpec) => void;
+        }
+
+        // Constructor properties interface
+        interface ConstructorProps extends DOMNode.ConstructorProps, DOMEventTarget.ConstructorProps {
+            active_element: DOMElement;
+            activeElement: DOMElement;
+            anchors: DOMHTMLCollection;
+            applets: DOMHTMLCollection;
+            body: DOMHTMLElement;
+            character_set: string;
+            characterSet: string;
+            charset: string;
+            child_element_count: bigint | number;
+            childElementCount: bigint | number;
+            children: DOMHTMLCollection;
+            compat_mode: string;
+            compatMode: string;
+            content_type: string;
+            contentType: string;
+            cookie: string;
+            current_script: DOMHTMLScriptElement;
+            currentScript: DOMHTMLScriptElement;
+            default_view: DOMDOMWindow;
+            defaultView: DOMDOMWindow;
+            design_mode: string;
+            designMode: string;
+            dir: string;
+            doctype: DOMDocumentType;
+            document_element: DOMElement;
+            documentElement: DOMElement;
+            document_uri: string;
+            documentUri: string;
+            domain: string;
+            embeds: DOMHTMLCollection;
+            first_element_child: DOMElement;
+            firstElementChild: DOMElement;
+            forms: DOMHTMLCollection;
+            head: DOMHTMLHeadElement;
+            hidden: boolean;
+            images: DOMHTMLCollection;
+            implementation: DOMDOMImplementation;
+            input_encoding: string;
+            inputEncoding: string;
+            last_element_child: DOMElement;
+            lastElementChild: DOMElement;
+            last_modified: string;
+            lastModified: string;
+            links: DOMHTMLCollection;
+            origin: string;
+            plugins: DOMHTMLCollection;
+            pointer_lock_element: DOMElement;
+            pointerLockElement: DOMElement;
+            preferred_stylesheet_set: string;
+            preferredStylesheetSet: string;
+            ready_state: string;
+            readyState: string;
+            referrer: string;
+            scripts: DOMHTMLCollection;
+            scrolling_element: DOMElement;
+            scrollingElement: DOMElement;
+            selected_stylesheet_set: string;
+            selectedStylesheetSet: string;
+            style_sheets: DOMStyleSheetList;
+            styleSheets: DOMStyleSheetList;
+            title: string;
+            url: string;
+            visibility_state: string;
+            visibilityState: string;
+            webkit_current_full_screen_element: DOMElement;
+            webkitCurrentFullScreenElement: DOMElement;
+            webkit_full_screen_keyboard_input_allowed: boolean;
+            webkitFullScreenKeyboardInputAllowed: boolean;
+            webkit_fullscreen_element: DOMElement;
+            webkitFullscreenElement: DOMElement;
+            webkit_fullscreen_enabled: boolean;
+            webkitFullscreenEnabled: boolean;
+            webkit_is_full_screen: boolean;
+            webkitIsFullScreen: boolean;
+            xml_encoding: string;
+            xmlEncoding: string;
+            xml_standalone: boolean;
+            xmlStandalone: boolean;
+            xml_version: string;
+            xmlVersion: string;
+        }
+    }
+
+    /**
+     * @gir-type Class
+     */
+    class DOMDocument extends DOMNode implements DOMEventTarget {
+        static $gtype: GObject.GType<DOMDocument>;
+
+        // Properties
+        /**
+         * @read-only
+         */
+        get active_element(): DOMElement;
+
+        /**
+         * @read-only
+         */
+        get activeElement(): DOMElement;
+
+        /**
+         * @read-only
+         */
+        get anchors(): DOMHTMLCollection;
+
+        /**
+         * @read-only
+         */
+        get applets(): DOMHTMLCollection;
+
+        /**
+         * @read-only
+         */
+        get body(): DOMHTMLElement;
+
+        /**
+         * @read-only
+         */
+        get character_set(): string;
+
+        /**
+         * @read-only
+         */
+        get characterSet(): string;
+
+        get charset(): string;
+        set charset(val: string);
+
+        /**
+         * @read-only
+         * @default 0
+         */
+        get child_element_count(): number;
+
+        /**
+         * @read-only
+         * @default 0
+         */
+        get childElementCount(): number;
+
+        /**
+         * @read-only
+         */
+        get children(): DOMHTMLCollection;
+
+        /**
+         * @read-only
+         */
+        get compat_mode(): string;
+
+        /**
+         * @read-only
+         */
+        get compatMode(): string;
+
+        /**
+         * @read-only
+         */
+        get content_type(): string;
+
+        /**
+         * @read-only
+         */
+        get contentType(): string;
+
+        get cookie(): string;
+        set cookie(val: string);
+
+        /**
+         * @read-only
+         */
+        get current_script(): DOMHTMLScriptElement;
+
+        /**
+         * @read-only
+         */
+        get currentScript(): DOMHTMLScriptElement;
+
+        /**
+         * @read-only
+         */
+        get default_view(): DOMDOMWindow;
+
+        /**
+         * @read-only
+         */
+        get defaultView(): DOMDOMWindow;
+
+        get design_mode(): string;
+        set design_mode(val: string);
+
+        get designMode(): string;
+        set designMode(val: string);
+
+        get dir(): string;
+        set dir(val: string);
+
+        /**
+         * @read-only
+         */
+        get doctype(): DOMDocumentType;
+
+        /**
+         * @read-only
+         */
+        get document_element(): DOMElement;
+
+        /**
+         * @read-only
+         */
+        get documentElement(): DOMElement;
+
+        get document_uri(): string;
+        set document_uri(val: string);
+
+        get documentUri(): string;
+        set documentUri(val: string);
+
+        /**
+         * @read-only
+         */
+        get domain(): string;
+
+        /**
+         * @read-only
+         */
+        get embeds(): DOMHTMLCollection;
+
+        /**
+         * @read-only
+         */
+        get first_element_child(): DOMElement;
+
+        /**
+         * @read-only
+         */
+        get firstElementChild(): DOMElement;
+
+        /**
+         * @read-only
+         */
+        get forms(): DOMHTMLCollection;
+
+        /**
+         * @read-only
+         */
+        get head(): DOMHTMLHeadElement;
+
+        /**
+         * @read-only
+         * @default false
+         */
+        get hidden(): boolean;
+
+        /**
+         * @read-only
+         */
+        get images(): DOMHTMLCollection;
+
+        /**
+         * @read-only
+         */
+        get implementation(): DOMDOMImplementation;
+
+        /**
+         * @read-only
+         */
+        get input_encoding(): string;
+
+        /**
+         * @read-only
+         */
+        get inputEncoding(): string;
+
+        /**
+         * @read-only
+         */
+        get last_element_child(): DOMElement;
+
+        /**
+         * @read-only
+         */
+        get lastElementChild(): DOMElement;
+
+        /**
+         * @read-only
+         */
+        get last_modified(): string;
+
+        /**
+         * @read-only
+         */
+        get lastModified(): string;
+
+        /**
+         * @read-only
+         */
+        get links(): DOMHTMLCollection;
+
+        /**
+         * @read-only
+         */
+        get origin(): string;
+
+        /**
+         * @read-only
+         */
+        get plugins(): DOMHTMLCollection;
+
+        /**
+         * @read-only
+         */
+        get pointer_lock_element(): DOMElement;
+
+        /**
+         * @read-only
+         */
+        get pointerLockElement(): DOMElement;
+
+        /**
+         * @read-only
+         */
+        get preferred_stylesheet_set(): string;
+
+        /**
+         * @read-only
+         */
+        get preferredStylesheetSet(): string;
+
+        /**
+         * @read-only
+         */
+        get ready_state(): string;
+
+        /**
+         * @read-only
+         */
+        get readyState(): string;
+
+        /**
+         * @read-only
+         */
+        get referrer(): string;
+
+        /**
+         * @read-only
+         */
+        get scripts(): DOMHTMLCollection;
+
+        /**
+         * @read-only
+         */
+        get scrolling_element(): DOMElement;
+
+        /**
+         * @read-only
+         */
+        get scrollingElement(): DOMElement;
+
+        get selected_stylesheet_set(): string;
+        set selected_stylesheet_set(val: string);
+
+        get selectedStylesheetSet(): string;
+        set selectedStylesheetSet(val: string);
+
+        /**
+         * @read-only
+         */
+        get style_sheets(): DOMStyleSheetList;
+
+        /**
+         * @read-only
+         */
+        get styleSheets(): DOMStyleSheetList;
+
+        get title(): string;
+        set title(val: string);
+
+        /**
+         * @read-only
+         */
+        get url(): string;
+
+        /**
+         * @read-only
+         */
+        get visibility_state(): string;
+
+        /**
+         * @read-only
+         */
+        get visibilityState(): string;
+
+        /**
+         * @read-only
+         */
+        get webkit_current_full_screen_element(): DOMElement;
+
+        /**
+         * @read-only
+         */
+        get webkitCurrentFullScreenElement(): DOMElement;
+
+        /**
+         * @read-only
+         * @default false
+         */
+        get webkit_full_screen_keyboard_input_allowed(): boolean;
+
+        /**
+         * @read-only
+         * @default false
+         */
+        get webkitFullScreenKeyboardInputAllowed(): boolean;
+
+        /**
+         * @read-only
+         */
+        get webkit_fullscreen_element(): DOMElement;
+
+        /**
+         * @read-only
+         */
+        get webkitFullscreenElement(): DOMElement;
+
+        /**
+         * @read-only
+         * @default false
+         */
+        get webkit_fullscreen_enabled(): boolean;
+
+        /**
+         * @read-only
+         * @default false
+         */
+        get webkitFullscreenEnabled(): boolean;
+
+        /**
+         * @read-only
+         * @default false
+         */
+        get webkit_is_full_screen(): boolean;
+
+        /**
+         * @read-only
+         * @default false
+         */
+        get webkitIsFullScreen(): boolean;
+
+        /**
+         * @read-only
+         */
+        get xml_encoding(): string;
+
+        /**
+         * @read-only
+         */
+        get xmlEncoding(): string;
+
+        /**
+         * @default false
+         */
+        get xml_standalone(): boolean;
+        set xml_standalone(val: boolean);
+
+        /**
+         * @default false
+         */
+        get xmlStandalone(): boolean;
+        set xmlStandalone(val: boolean);
+
+        get xml_version(): string;
+        set xml_version(val: string);
+
+        get xmlVersion(): string;
+        set xmlVersion(val: string);
+
+        /**
+         * Compile-time signal type information.
+         *
+         * This instance property is generated only for TypeScript type checking.
+         * It is not defined at runtime and should not be accessed in JS code.
+         * @internal
+         */
+        $signals: DOMDocument.SignalSignatures;
+
+        // Constructors
+        constructor(properties?: Partial<DOMDocument.ConstructorProps>, ...args: any[]);
+
+        _init(...args: any[]): void;
+
+        // Signals
+        /** @signal */
+        connect<K extends keyof DOMDocument.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, DOMDocument.SignalSignatures[K]>): number;
+
+        /** @signal */
+        connect_after<K extends keyof DOMDocument.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, DOMDocument.SignalSignatures[K]>): number;
+
+        /** @signal */
+        emit<K extends keyof DOMDocument.SignalSignatures>(signal: K, ...args: GObject.GjsParameters<DOMDocument.SignalSignatures[K]>): void;
+
+        // Methods
+        /**
+         * @param source A {@link WebKit2WebExtension.DOMNode}
+         * @returns A {@link WebKit2WebExtension.DOMNode}
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         * @throws GLib.Error
+         */
+        adopt_node(source: DOMNode): DOMNode;
+
+        /**
+         * @param x A `glong`
+         * @param y A `glong`
+         * @returns A {@link WebKit2WebExtension.DOMRange}
+         * @since 2.16
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        caret_range_from_point(x: bigint | number, y: bigint | number): DOMRange;
+
+        /**
+         * @param name A `gchar`
+         * @returns A {@link WebKit2WebExtension.DOMAttr}
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         * @throws GLib.Error
+         */
+        create_attribute(name: string): DOMAttr;
+
+        /**
+         * @param namespaceURI A `gchar`
+         * @param qualifiedName A `gchar`
+         * @returns A {@link WebKit2WebExtension.DOMAttr}
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         * @throws GLib.Error
+         */
+        create_attribute_ns(namespaceURI: string | null, qualifiedName: string): DOMAttr;
+
+        /**
+         * @param data A `gchar`
+         * @returns A {@link WebKit2WebExtension.DOMCDATASection}
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         * @throws GLib.Error
+         */
+        create_cdata_section(data: string): DOMCDATASection;
+
+        /**
+         * @param data A `gchar`
+         * @returns A {@link WebKit2WebExtension.DOMComment}
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        create_comment(data: string): DOMComment;
+
+        /**
+         * @returns A {@link WebKit2WebExtension.DOMCSSStyleDeclaration}
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        create_css_style_declaration(): DOMCSSStyleDeclaration;
+
+        /**
+         * @returns A {@link WebKit2WebExtension.DOMDocumentFragment}
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        create_document_fragment(): DOMDocumentFragment;
+
+        /**
+         * @param tagName A `gchar`
+         * @returns A {@link WebKit2WebExtension.DOMElement}
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         * @throws GLib.Error
+         */
+        create_element(tagName: string): DOMElement;
+
+        /**
+         * @param namespaceURI A `gchar`
+         * @param qualifiedName A `gchar`
+         * @returns A {@link WebKit2WebExtension.DOMElement}
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         * @throws GLib.Error
+         */
+        create_element_ns(namespaceURI: string | null, qualifiedName: string): DOMElement;
+
+        /**
+         * This function has been removed from the DOM spec and it just returns `null`.
+         * @param name A `gchar`
+         * @returns A {@link WebKit2WebExtension.DOMEntityReference}
+         * @deprecated since 2.12
+         * @throws GLib.Error
+         */
+        create_entity_reference(name: string | null): DOMEntityReference;
+
+        /**
+         * @param eventType A `gchar`
+         * @returns A {@link WebKit2WebExtension.DOMEvent}
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         * @throws GLib.Error
+         */
+        create_event(eventType: string): DOMEvent;
+
+        /**
+         * @param expression A `gchar`
+         * @param resolver A {@link WebKit2WebExtension.DOMXPathNSResolver}
+         * @returns A {@link WebKit2WebExtension.DOMXPathExpression}
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         * @throws GLib.Error
+         */
+        create_expression(expression: string, resolver: DOMXPathNSResolver): DOMXPathExpression;
+
+        /**
+         * @param root A {@link WebKit2WebExtension.DOMNode}
+         * @param whatToShow A `gulong`
+         * @param filter A {@link WebKit2WebExtension.DOMNodeFilter}
+         * @param expandEntityReferences A `gboolean`
+         * @returns A {@link WebKit2WebExtension.DOMNodeIterator}
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         * @throws GLib.Error
+         */
+        create_node_iterator(root: DOMNode, whatToShow: bigint | number, filter: DOMNodeFilter | null, expandEntityReferences: boolean): DOMNodeIterator;
+
+        /**
+         * @param nodeResolver A {@link WebKit2WebExtension.DOMNode}
+         * @returns A {@link WebKit2WebExtension.DOMXPathNSResolver}
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        create_ns_resolver(nodeResolver: DOMNode): DOMXPathNSResolver;
+
+        /**
+         * @param target A `gchar`
+         * @param data A `gchar`
+         * @returns A {@link WebKit2WebExtension.DOMProcessingInstruction}
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         * @throws GLib.Error
+         */
+        create_processing_instruction(target: string, data: string): DOMProcessingInstruction;
+
+        /**
+         * @returns A {@link WebKit2WebExtension.DOMRange}
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        create_range(): DOMRange;
+
+        /**
+         * @param data A `gchar`
+         * @returns A {@link WebKit2WebExtension.DOMText}
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        create_text_node(data: string): DOMText;
+
+        /**
+         * @param root A {@link WebKit2WebExtension.DOMNode}
+         * @param whatToShow A `gulong`
+         * @param filter A {@link WebKit2WebExtension.DOMNodeFilter}
+         * @param expandEntityReferences A `gboolean`
+         * @returns A {@link WebKit2WebExtension.DOMTreeWalker}
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         * @throws GLib.Error
+         */
+        create_tree_walker(root: DOMNode, whatToShow: bigint | number, filter: DOMNodeFilter | null, expandEntityReferences: boolean): DOMTreeWalker;
+
+        /**
+         * @param x A `glong`
+         * @param y A `glong`
+         * @returns A {@link WebKit2WebExtension.DOMElement}
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        element_from_point(x: bigint | number, y: bigint | number): DOMElement;
+
+        /**
+         * @param expression A `gchar`
+         * @param contextNode A {@link WebKit2WebExtension.DOMNode}
+         * @param resolver A {@link WebKit2WebExtension.DOMXPathNSResolver}
+         * @param type A `gushort`
+         * @param inResult A {@link WebKit2WebExtension.DOMXPathResult}
+         * @returns A {@link WebKit2WebExtension.DOMXPathResult}
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         * @throws GLib.Error
+         */
+        evaluate(expression: string, contextNode: DOMNode, resolver: DOMXPathNSResolver | null, type: number, inResult: DOMXPathResult | null): DOMXPathResult;
+
+        /**
+         * @param command A `gchar`
+         * @param userInterface A `gboolean`
+         * @param value A `gchar`
+         * @returns A `gboolean`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        exec_command(command: string, userInterface: boolean, value: string): boolean;
+
+        /**
+         * @since 2.16
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        exit_pointer_lock(): void;
+
+        /**
+         * @returns A {@link WebKit2WebExtension.DOMElement}
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_active_element(): DOMElement;
+
+        /**
+         * @returns A {@link WebKit2WebExtension.DOMHTMLCollection}
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_anchors(): DOMHTMLCollection;
+
+        /**
+         * @returns A {@link WebKit2WebExtension.DOMHTMLCollection}
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_applets(): DOMHTMLCollection;
+
+        /**
+         * @returns A {@link WebKit2WebExtension.DOMHTMLElement}
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_body(): DOMHTMLElement;
+
+        /**
+         * @returns A `gchar`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_character_set(): string;
+
+        /**
+         * @returns A `gchar`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_charset(): string;
+
+        /**
+         * @returns A `gulong`
+         * @since 2.16
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_child_element_count(): number;
+
+        /**
+         * @returns A {@link WebKit2WebExtension.DOMHTMLCollection}
+         * @since 2.16
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_children(): DOMHTMLCollection;
+
+        /**
+         * @returns A `gchar`
+         * @since 2.14
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_compat_mode(): string;
+
+        /**
+         * @returns A `gchar`
+         * @since 2.16
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_content_type(): string;
+
+        /**
+         * @returns A `gchar`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         * @throws GLib.Error
+         */
+        get_cookie(): string;
+
+        /**
+         * @returns A {@link WebKit2WebExtension.DOMHTMLScriptElement}
+         * @since 2.16
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_current_script(): DOMHTMLScriptElement;
+
+        /**
+         * @returns A `gchar`
+         * @deprecated since 2.14
+         */
+        get_default_charset(): string;
+
+        /**
+         * @returns A {@link WebKit2WebExtension.DOMDOMWindow}
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_default_view(): DOMDOMWindow;
+
+        /**
+         * @returns A `gchar`
+         * @since 2.14
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_design_mode(): string;
+
+        /**
+         * @returns A `gchar`
+         * @since 2.16
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_dir(): string;
+
+        /**
+         * @returns A {@link WebKit2WebExtension.DOMDocumentType}
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_doctype(): DOMDocumentType;
+
+        /**
+         * @returns A {@link WebKit2WebExtension.DOMElement}
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_document_element(): DOMElement;
+
+        /**
+         * @returns A `gchar`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_document_uri(): string;
+
+        /**
+         * @returns A `gchar`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_domain(): string;
+
+        /**
+         * @param elementId A `gchar`
+         * @returns A {@link WebKit2WebExtension.DOMElement}
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_element_by_id(elementId: string): DOMElement;
+
+        /**
+         * @param class_name a `gchar` with the tag name
+         * @returns a {@link WebKit2WebExtension.DOMNodeList}
+         * @deprecated since 2.12: Use `webkit_dom_document_get_elements_by_class_name_as_html_collection()` instead.
+         */
+        get_elements_by_class_name(class_name: string): DOMNodeList;
+
+        /**
+         * @param classNames A `gchar`
+         * @returns A {@link WebKit2WebExtension.DOMHTMLCollection}
+         * @since 2.12
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_elements_by_class_name_as_html_collection(classNames: string): DOMHTMLCollection;
+
+        /**
+         * @param elementName A `gchar`
+         * @returns A {@link WebKit2WebExtension.DOMNodeList}
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_elements_by_name(elementName: string): DOMNodeList;
+
+        /**
+         * @param tag_name a `gchar` with the tag name
+         * @returns a {@link WebKit2WebExtension.DOMNodeList}
+         * @deprecated since 2.12: Use `webkit_dom_document_get_elements_by_tag_name_as_html_collection()` instead.
+         */
+        get_elements_by_tag_name(tag_name: string): DOMNodeList;
+
+        /**
+         * @param tagname A `gchar`
+         * @returns A {@link WebKit2WebExtension.DOMHTMLCollection}
+         * @since 2.12
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_elements_by_tag_name_as_html_collection(tagname: string): DOMHTMLCollection;
+
+        /**
+         * @param namespace_uri a `gchar` with the namespace URI
+         * @param tag_name a `gchar` with the tag name
+         * @returns a {@link WebKit2WebExtension.DOMNodeList}
+         * @deprecated since 2.12: Use `webkit_dom_document_get_elements_by_tag_name_ns_as_html_collection()` instead.
+         */
+        get_elements_by_tag_name_ns(namespace_uri: string, tag_name: string): DOMNodeList;
+
+        /**
+         * @param namespaceURI A `gchar`
+         * @param localName A `gchar`
+         * @returns A {@link WebKit2WebExtension.DOMHTMLCollection}
+         * @since 2.12
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_elements_by_tag_name_ns_as_html_collection(namespaceURI: string, localName: string): DOMHTMLCollection;
+
+        /**
+         * @returns A {@link WebKit2WebExtension.DOMHTMLCollection}
+         * @since 2.14
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_embeds(): DOMHTMLCollection;
+
+        /**
+         * @returns A {@link WebKit2WebExtension.DOMElement}
+         * @since 2.16
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_first_element_child(): DOMElement;
+
+        /**
+         * @returns A {@link WebKit2WebExtension.DOMHTMLCollection}
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_forms(): DOMHTMLCollection;
+
+        /**
+         * @returns A {@link WebKit2WebExtension.DOMHTMLHeadElement}
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_head(): DOMHTMLHeadElement;
+
+        /**
+         * @returns A `gboolean`
+         * @since 2.16
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_hidden(): boolean;
+
+        /**
+         * @returns A {@link WebKit2WebExtension.DOMHTMLCollection}
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_images(): DOMHTMLCollection;
+
+        /**
+         * @returns A {@link WebKit2WebExtension.DOMDOMImplementation}
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_implementation(): DOMDOMImplementation;
+
+        /**
+         * @returns A `gchar`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_input_encoding(): string;
+
+        /**
+         * @returns A {@link WebKit2WebExtension.DOMElement}
+         * @since 2.16
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_last_element_child(): DOMElement;
+
+        /**
+         * @returns A `gchar`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_last_modified(): string;
+
+        /**
+         * @returns A {@link WebKit2WebExtension.DOMHTMLCollection}
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_links(): DOMHTMLCollection;
+
+        /**
+         * @returns A `gchar`
+         * @since 2.16
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_origin(): string;
+
+        /**
+         * @param element A {@link WebKit2WebExtension.DOMElement}
+         * @param pseudoElement A `gchar`
+         * @returns A {@link WebKit2WebExtension.DOMCSSStyleDeclaration}
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_override_style(element: DOMElement, pseudoElement: string | null): DOMCSSStyleDeclaration;
+
+        /**
+         * @returns A {@link WebKit2WebExtension.DOMHTMLCollection}
+         * @since 2.14
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_plugins(): DOMHTMLCollection;
+
+        /**
+         * @returns A {@link WebKit2WebExtension.DOMElement}
+         * @since 2.16
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_pointer_lock_element(): DOMElement;
+
+        /**
+         * This function has been removed and does nothing.
+         * @returns A `gchar`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_preferred_stylesheet_set(): string;
+
+        /**
+         * @returns A `gchar`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_ready_state(): string;
+
+        /**
+         * @returns A `gchar`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_referrer(): string;
+
+        /**
+         * @returns A {@link WebKit2WebExtension.DOMHTMLCollection}
+         * @since 2.14
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_scripts(): DOMHTMLCollection;
+
+        /**
+         * @returns A {@link WebKit2WebExtension.DOMElement}
+         * @since 2.16
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_scrolling_element(): DOMElement;
+
+        /**
+         * This function has been removed and does nothing.
+         * @returns A `gchar`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_selected_stylesheet_set(): string;
+
+        /**
+         * @returns A {@link WebKit2WebExtension.DOMStyleSheetList}
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_style_sheets(): DOMStyleSheetList;
+
+        /**
+         * @returns A `gchar`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_title(): string;
+
+        /**
+         * @returns A `gchar`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_url(): string;
+
+        /**
+         * @returns A `gchar`
+         * @since 2.16
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_visibility_state(): string;
+
+        /**
+         * @returns A {@link WebKit2WebExtension.DOMElement}
+         * @since 2.16
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_webkit_current_fullscreen_element(): DOMElement;
+
+        /**
+         * @returns A {@link WebKit2WebExtension.DOMElement}
+         * @since 2.16
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_webkit_fullscreen_element(): DOMElement;
+
+        /**
+         * @returns A `gboolean`
+         * @since 2.16
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_webkit_fullscreen_enabled(): boolean;
+
+        /**
+         * @returns A `gboolean`
+         * @since 2.16
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_webkit_fullscreen_keyboard_input_allowed(): boolean;
+
+        /**
+         * @returns A `gboolean`
+         * @since 2.16
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_webkit_is_fullscreen(): boolean;
+
+        /**
+         * @returns A `gchar`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_xml_encoding(): string;
+
+        /**
+         * @returns A `gboolean`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_xml_standalone(): boolean;
+
+        /**
+         * @returns A `gchar`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_xml_version(): string;
+
+        /**
+         * @returns A `gboolean`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        has_focus(): boolean;
+
+        /**
+         * @param importedNode A {@link WebKit2WebExtension.DOMNode}
+         * @param deep A `gboolean`
+         * @returns A {@link WebKit2WebExtension.DOMNode}
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         * @throws GLib.Error
+         */
+        import_node(importedNode: DOMNode, deep: boolean): DOMNode;
+
+        /**
+         * @param command A `gchar`
+         * @returns A `gboolean`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        query_command_enabled(command: string): boolean;
+
+        /**
+         * @param command A `gchar`
+         * @returns A `gboolean`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        query_command_indeterm(command: string): boolean;
+
+        /**
+         * @param command A `gchar`
+         * @returns A `gboolean`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        query_command_state(command: string): boolean;
+
+        /**
+         * @param command A `gchar`
+         * @returns A `gboolean`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        query_command_supported(command: string): boolean;
+
+        /**
+         * @param command A `gchar`
+         * @returns A `gchar`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        query_command_value(command: string): string;
+
+        /**
+         * @param selectors A `gchar`
+         * @returns A {@link WebKit2WebExtension.DOMElement}
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         * @throws GLib.Error
+         */
+        query_selector(selectors: string): DOMElement;
+
+        /**
+         * @param selectors A `gchar`
+         * @returns A {@link WebKit2WebExtension.DOMNodeList}
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         * @throws GLib.Error
+         */
+        query_selector_all(selectors: string): DOMNodeList;
+
+        /**
+         * @param value A {@link WebKit2WebExtension.DOMHTMLElement}
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         * @throws GLib.Error
+         */
+        set_body(value: DOMHTMLElement): void;
+
+        /**
+         * @param value A `gchar`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        set_charset(value: string): void;
+
+        /**
+         * @param value A `gchar`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         * @throws GLib.Error
+         */
+        set_cookie(value: string): void;
+
+        /**
+         * @param value A `gchar`
+         * @since 2.14
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        set_design_mode(value: string): void;
+
+        /**
+         * @param value A `gchar`
+         * @since 2.16
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        set_dir(value: string): void;
+
+        /**
+         * @param value A `gchar`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        set_document_uri(value: string): void;
+
+        /**
+         * This function has been removed and does nothing.
+         * @param value A `gchar`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        set_selected_stylesheet_set(value: string): void;
+
+        /**
+         * @param value A `gchar`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        set_title(value: string): void;
+
+        /**
+         * @param value A `gboolean`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         * @throws GLib.Error
+         */
+        set_xml_standalone(value: boolean): void;
+
+        /**
+         * @param value A `gchar`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         * @throws GLib.Error
+         */
+        set_xml_version(value: string): void;
+
+        /**
+         * @since 2.16
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        webkit_cancel_fullscreen(): void;
+
+        /**
+         * @since 2.16
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        webkit_exit_fullscreen(): void;
+
+        /**
+         * Version of `webkit_dom_event_target_add_event_listener()` using a closure
+         * instead of callbacks for easier binding in other languages.
+         * @param event_name A `gchar`
+         * @param handler A {@link GObject.Closure}
+         * @param use_capture A `gboolean`
+         * @returns a `gboolean`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        add_event_listener(event_name: string, handler: GObject.Closure, use_capture: boolean): boolean;
+
+        /**
+         * @param event A {@link WebKit2WebExtension.DOMEvent}
+         * @returns a `gboolean`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         * @throws GLib.Error
+         */
+        dispatch_event(event: DOMEvent): boolean;
+
+        /**
+         * Version of `webkit_dom_event_target_remove_event_listener()` using a closure
+         * instead of callbacks for easier binding in other languages.
+         * @param event_name A `gchar`
+         * @param handler A {@link GObject.Closure}
+         * @param use_capture A `gboolean`
+         * @returns a `gboolean`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        remove_event_listener(event_name: string, handler: GObject.Closure, use_capture: boolean): boolean;
+
+        /**
+         * @param event_name 
+         * @param handler 
+         * @param use_capture 
+         * @virtual
+         */
+        vfunc_add_event_listener(event_name: string, handler: GObject.Closure, use_capture: boolean): boolean;
+
+        /**
+         * @param event A {@link WebKit2WebExtension.DOMEvent}
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         * @virtual
+         */
+        vfunc_dispatch_event(event: DOMEvent): boolean;
+
+        /**
+         * @param event_name A `gchar`
+         * @param handler A {@link GObject.Callback}
+         * @param use_capture A `gboolean`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         * @virtual
+         */
+        vfunc_remove_event_listener(event_name: string, handler: null, use_capture: boolean): boolean;
+    }
+
+
+    namespace DOMDocumentFragment {
+        // Signal signatures
+        interface SignalSignatures extends DOMNode.SignalSignatures {
+            "notify::child-element-count": (pspec: GObject.ParamSpec) => void;
+            "notify::children": (pspec: GObject.ParamSpec) => void;
+            "notify::first-element-child": (pspec: GObject.ParamSpec) => void;
+            "notify::last-element-child": (pspec: GObject.ParamSpec) => void;
+            "notify::base-uri": (pspec: GObject.ParamSpec) => void;
+            "notify::child-nodes": (pspec: GObject.ParamSpec) => void;
+            "notify::first-child": (pspec: GObject.ParamSpec) => void;
+            "notify::last-child": (pspec: GObject.ParamSpec) => void;
+            "notify::next-sibling": (pspec: GObject.ParamSpec) => void;
+            "notify::node-name": (pspec: GObject.ParamSpec) => void;
+            "notify::node-type": (pspec: GObject.ParamSpec) => void;
+            "notify::node-value": (pspec: GObject.ParamSpec) => void;
+            "notify::owner-document": (pspec: GObject.ParamSpec) => void;
+            "notify::parent-element": (pspec: GObject.ParamSpec) => void;
+            "notify::parent-node": (pspec: GObject.ParamSpec) => void;
+            "notify::previous-sibling": (pspec: GObject.ParamSpec) => void;
+            "notify::text-content": (pspec: GObject.ParamSpec) => void;
+            "notify::core-object": (pspec: GObject.ParamSpec) => void;
+        }
+
+        // Constructor properties interface
+        interface ConstructorProps extends DOMNode.ConstructorProps, DOMEventTarget.ConstructorProps {
+            child_element_count: bigint | number;
+            childElementCount: bigint | number;
+            children: DOMHTMLCollection;
+            first_element_child: DOMElement;
+            firstElementChild: DOMElement;
+            last_element_child: DOMElement;
+            lastElementChild: DOMElement;
+        }
+    }
+
+    /**
+     * @gir-type Class
+     */
+    class DOMDocumentFragment extends DOMNode implements DOMEventTarget {
+        static $gtype: GObject.GType<DOMDocumentFragment>;
+
+        // Properties
+        /**
+         * @read-only
+         * @default 0
+         */
+        get child_element_count(): number;
+
+        /**
+         * @read-only
+         * @default 0
+         */
+        get childElementCount(): number;
+
+        /**
+         * @read-only
+         */
+        get children(): DOMHTMLCollection;
+
+        /**
+         * @read-only
+         */
+        get first_element_child(): DOMElement;
+
+        /**
+         * @read-only
+         */
+        get firstElementChild(): DOMElement;
+
+        /**
+         * @read-only
+         */
+        get last_element_child(): DOMElement;
+
+        /**
+         * @read-only
+         */
+        get lastElementChild(): DOMElement;
+
+        /**
+         * Compile-time signal type information.
+         *
+         * This instance property is generated only for TypeScript type checking.
+         * It is not defined at runtime and should not be accessed in JS code.
+         * @internal
+         */
+        $signals: DOMDocumentFragment.SignalSignatures;
+
+        // Constructors
+        constructor(properties?: Partial<DOMDocumentFragment.ConstructorProps>, ...args: any[]);
+
+        _init(...args: any[]): void;
+
+        // Signals
+        /** @signal */
+        connect<K extends keyof DOMDocumentFragment.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, DOMDocumentFragment.SignalSignatures[K]>): number;
+
+        /** @signal */
+        connect_after<K extends keyof DOMDocumentFragment.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, DOMDocumentFragment.SignalSignatures[K]>): number;
+
+        /** @signal */
+        emit<K extends keyof DOMDocumentFragment.SignalSignatures>(signal: K, ...args: GObject.GjsParameters<DOMDocumentFragment.SignalSignatures[K]>): void;
+
+        // Methods
+        /**
+         * @returns A `gulong`
+         * @since 2.16
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_child_element_count(): number;
+
+        /**
+         * @returns A {@link WebKit2WebExtension.DOMHTMLCollection}
+         * @since 2.16
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_children(): DOMHTMLCollection;
+
+        /**
+         * @param elementId A `gchar`
+         * @returns A {@link WebKit2WebExtension.DOMElement}
+         * @since 2.16
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_element_by_id(elementId: string): DOMElement;
+
+        /**
+         * @returns A {@link WebKit2WebExtension.DOMElement}
+         * @since 2.16
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_first_element_child(): DOMElement;
+
+        /**
+         * @returns A {@link WebKit2WebExtension.DOMElement}
+         * @since 2.16
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_last_element_child(): DOMElement;
+
+        /**
+         * @param selectors A `gchar`
+         * @returns A {@link WebKit2WebExtension.DOMElement}
+         * @since 2.16
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         * @throws GLib.Error
+         */
+        query_selector(selectors: string): DOMElement;
+
+        /**
+         * @param selectors A `gchar`
+         * @returns A {@link WebKit2WebExtension.DOMNodeList}
+         * @since 2.16
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         * @throws GLib.Error
+         */
+        query_selector_all(selectors: string): DOMNodeList;
+
+        /**
+         * Version of `webkit_dom_event_target_add_event_listener()` using a closure
+         * instead of callbacks for easier binding in other languages.
+         * @param event_name A `gchar`
+         * @param handler A {@link GObject.Closure}
+         * @param use_capture A `gboolean`
+         * @returns a `gboolean`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        add_event_listener(event_name: string, handler: GObject.Closure, use_capture: boolean): boolean;
+
+        /**
+         * @param event A {@link WebKit2WebExtension.DOMEvent}
+         * @returns a `gboolean`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         * @throws GLib.Error
+         */
+        dispatch_event(event: DOMEvent): boolean;
+
+        /**
+         * Version of `webkit_dom_event_target_remove_event_listener()` using a closure
+         * instead of callbacks for easier binding in other languages.
+         * @param event_name A `gchar`
+         * @param handler A {@link GObject.Closure}
+         * @param use_capture A `gboolean`
+         * @returns a `gboolean`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        remove_event_listener(event_name: string, handler: GObject.Closure, use_capture: boolean): boolean;
+
+        /**
+         * @param event_name 
+         * @param handler 
+         * @param use_capture 
+         * @virtual
+         */
+        vfunc_add_event_listener(event_name: string, handler: GObject.Closure, use_capture: boolean): boolean;
+
+        /**
+         * @param event A {@link WebKit2WebExtension.DOMEvent}
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         * @virtual
+         */
+        vfunc_dispatch_event(event: DOMEvent): boolean;
+
+        /**
+         * @param event_name A `gchar`
+         * @param handler A {@link GObject.Callback}
+         * @param use_capture A `gboolean`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         * @virtual
+         */
+        vfunc_remove_event_listener(event_name: string, handler: null, use_capture: boolean): boolean;
+    }
+
+
+    namespace DOMDocumentType {
+        // Signal signatures
+        interface SignalSignatures extends DOMNode.SignalSignatures {
+            "notify::entities": (pspec: GObject.ParamSpec) => void;
+            "notify::internal-subset": (pspec: GObject.ParamSpec) => void;
+            "notify::name": (pspec: GObject.ParamSpec) => void;
+            "notify::notations": (pspec: GObject.ParamSpec) => void;
+            "notify::public-id": (pspec: GObject.ParamSpec) => void;
+            "notify::system-id": (pspec: GObject.ParamSpec) => void;
+            "notify::base-uri": (pspec: GObject.ParamSpec) => void;
+            "notify::child-nodes": (pspec: GObject.ParamSpec) => void;
+            "notify::first-child": (pspec: GObject.ParamSpec) => void;
+            "notify::last-child": (pspec: GObject.ParamSpec) => void;
+            "notify::next-sibling": (pspec: GObject.ParamSpec) => void;
+            "notify::node-name": (pspec: GObject.ParamSpec) => void;
+            "notify::node-type": (pspec: GObject.ParamSpec) => void;
+            "notify::node-value": (pspec: GObject.ParamSpec) => void;
+            "notify::owner-document": (pspec: GObject.ParamSpec) => void;
+            "notify::parent-element": (pspec: GObject.ParamSpec) => void;
+            "notify::parent-node": (pspec: GObject.ParamSpec) => void;
+            "notify::previous-sibling": (pspec: GObject.ParamSpec) => void;
+            "notify::text-content": (pspec: GObject.ParamSpec) => void;
+            "notify::core-object": (pspec: GObject.ParamSpec) => void;
+        }
+
+        // Constructor properties interface
+        interface ConstructorProps extends DOMNode.ConstructorProps, DOMEventTarget.ConstructorProps {
+            entities: DOMNamedNodeMap;
+            internal_subset: string;
+            internalSubset: string;
+            name: string;
+            notations: DOMNamedNodeMap;
+            public_id: string;
+            publicId: string;
+            system_id: string;
+            systemId: string;
+        }
+    }
+
+    /**
+     * @gir-type Class
+     */
+    class DOMDocumentType extends DOMNode implements DOMEventTarget {
+        static $gtype: GObject.GType<DOMDocumentType>;
+
+        // Properties
+        /**
+         * @read-only
+         */
+        get entities(): DOMNamedNodeMap;
+
+        /**
+         * @read-only
+         */
+        get internal_subset(): string;
+
+        /**
+         * @read-only
+         */
+        get internalSubset(): string;
+
+        /**
+         * @read-only
+         */
+        get name(): string;
+
+        /**
+         * @read-only
+         */
+        get notations(): DOMNamedNodeMap;
+
+        /**
+         * @read-only
+         */
+        get public_id(): string;
+
+        /**
+         * @read-only
+         */
+        get publicId(): string;
+
+        /**
+         * @read-only
+         */
+        get system_id(): string;
+
+        /**
+         * @read-only
+         */
+        get systemId(): string;
+
+        /**
+         * Compile-time signal type information.
+         *
+         * This instance property is generated only for TypeScript type checking.
+         * It is not defined at runtime and should not be accessed in JS code.
+         * @internal
+         */
+        $signals: DOMDocumentType.SignalSignatures;
+
+        // Constructors
+        constructor(properties?: Partial<DOMDocumentType.ConstructorProps>, ...args: any[]);
+
+        _init(...args: any[]): void;
+
+        // Signals
+        /** @signal */
+        connect<K extends keyof DOMDocumentType.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, DOMDocumentType.SignalSignatures[K]>): number;
+
+        /** @signal */
+        connect_after<K extends keyof DOMDocumentType.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, DOMDocumentType.SignalSignatures[K]>): number;
+
+        /** @signal */
+        emit<K extends keyof DOMDocumentType.SignalSignatures>(signal: K, ...args: GObject.GjsParameters<DOMDocumentType.SignalSignatures[K]>): void;
+
+        // Methods
+        /**
+         * @returns A {@link WebKit2WebExtension.DOMNamedNodeMap}
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_entities(): DOMNamedNodeMap;
+
+        /**
+         * @returns A `gchar`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_internal_subset(): string;
+
+        /**
+         * @returns A `gchar`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_name(): string;
+
+        /**
+         * @returns A {@link WebKit2WebExtension.DOMNamedNodeMap}
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_notations(): DOMNamedNodeMap;
+
+        /**
+         * @returns A `gchar`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_public_id(): string;
+
+        /**
+         * @returns A `gchar`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_system_id(): string;
+
+        /**
+         * Version of `webkit_dom_event_target_add_event_listener()` using a closure
+         * instead of callbacks for easier binding in other languages.
+         * @param event_name A `gchar`
+         * @param handler A {@link GObject.Closure}
+         * @param use_capture A `gboolean`
+         * @returns a `gboolean`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        add_event_listener(event_name: string, handler: GObject.Closure, use_capture: boolean): boolean;
+
+        /**
+         * @param event A {@link WebKit2WebExtension.DOMEvent}
+         * @returns a `gboolean`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         * @throws GLib.Error
+         */
+        dispatch_event(event: DOMEvent): boolean;
+
+        /**
+         * Version of `webkit_dom_event_target_remove_event_listener()` using a closure
+         * instead of callbacks for easier binding in other languages.
+         * @param event_name A `gchar`
+         * @param handler A {@link GObject.Closure}
+         * @param use_capture A `gboolean`
+         * @returns a `gboolean`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        remove_event_listener(event_name: string, handler: GObject.Closure, use_capture: boolean): boolean;
+
+        /**
+         * @param event_name 
+         * @param handler 
+         * @param use_capture 
+         * @virtual
+         */
+        vfunc_add_event_listener(event_name: string, handler: GObject.Closure, use_capture: boolean): boolean;
+
+        /**
+         * @param event A {@link WebKit2WebExtension.DOMEvent}
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         * @virtual
+         */
+        vfunc_dispatch_event(event: DOMEvent): boolean;
+
+        /**
+         * @param event_name A `gchar`
+         * @param handler A {@link GObject.Callback}
+         * @param use_capture A `gboolean`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         * @virtual
+         */
+        vfunc_remove_event_listener(event_name: string, handler: null, use_capture: boolean): boolean;
+    }
+
+
+    namespace DOMElement {
+        // Signal signatures
+        interface SignalSignatures extends DOMNode.SignalSignatures {
+            "notify::attributes": (pspec: GObject.ParamSpec) => void;
+            "notify::child-element-count": (pspec: GObject.ParamSpec) => void;
+            "notify::children": (pspec: GObject.ParamSpec) => void;
+            "notify::class-list": (pspec: GObject.ParamSpec) => void;
+            "notify::class-name": (pspec: GObject.ParamSpec) => void;
+            "notify::client-height": (pspec: GObject.ParamSpec) => void;
+            "notify::client-left": (pspec: GObject.ParamSpec) => void;
+            "notify::client-top": (pspec: GObject.ParamSpec) => void;
+            "notify::client-width": (pspec: GObject.ParamSpec) => void;
+            "notify::first-element-child": (pspec: GObject.ParamSpec) => void;
+            "notify::id": (pspec: GObject.ParamSpec) => void;
+            "notify::inner-html": (pspec: GObject.ParamSpec) => void;
+            "notify::last-element-child": (pspec: GObject.ParamSpec) => void;
+            "notify::local-name": (pspec: GObject.ParamSpec) => void;
+            "notify::namespace-uri": (pspec: GObject.ParamSpec) => void;
+            "notify::next-element-sibling": (pspec: GObject.ParamSpec) => void;
+            "notify::offset-height": (pspec: GObject.ParamSpec) => void;
+            "notify::offset-left": (pspec: GObject.ParamSpec) => void;
+            "notify::offset-parent": (pspec: GObject.ParamSpec) => void;
+            "notify::offset-top": (pspec: GObject.ParamSpec) => void;
+            "notify::offset-width": (pspec: GObject.ParamSpec) => void;
+            "notify::outer-html": (pspec: GObject.ParamSpec) => void;
+            "notify::prefix": (pspec: GObject.ParamSpec) => void;
+            "notify::previous-element-sibling": (pspec: GObject.ParamSpec) => void;
+            "notify::scroll-height": (pspec: GObject.ParamSpec) => void;
+            "notify::scroll-left": (pspec: GObject.ParamSpec) => void;
+            "notify::scroll-top": (pspec: GObject.ParamSpec) => void;
+            "notify::scroll-width": (pspec: GObject.ParamSpec) => void;
+            "notify::style": (pspec: GObject.ParamSpec) => void;
+            "notify::tag-name": (pspec: GObject.ParamSpec) => void;
+            "notify::webkit-region-overset": (pspec: GObject.ParamSpec) => void;
+            "notify::base-uri": (pspec: GObject.ParamSpec) => void;
+            "notify::child-nodes": (pspec: GObject.ParamSpec) => void;
+            "notify::first-child": (pspec: GObject.ParamSpec) => void;
+            "notify::last-child": (pspec: GObject.ParamSpec) => void;
+            "notify::next-sibling": (pspec: GObject.ParamSpec) => void;
+            "notify::node-name": (pspec: GObject.ParamSpec) => void;
+            "notify::node-type": (pspec: GObject.ParamSpec) => void;
+            "notify::node-value": (pspec: GObject.ParamSpec) => void;
+            "notify::owner-document": (pspec: GObject.ParamSpec) => void;
+            "notify::parent-element": (pspec: GObject.ParamSpec) => void;
+            "notify::parent-node": (pspec: GObject.ParamSpec) => void;
+            "notify::previous-sibling": (pspec: GObject.ParamSpec) => void;
+            "notify::text-content": (pspec: GObject.ParamSpec) => void;
+            "notify::core-object": (pspec: GObject.ParamSpec) => void;
+        }
+
+        // Constructor properties interface
+        interface ConstructorProps extends DOMNode.ConstructorProps, DOMEventTarget.ConstructorProps {
+            attributes: DOMNamedNodeMap;
+            child_element_count: bigint | number;
+            childElementCount: bigint | number;
+            children: DOMHTMLCollection;
+            class_list: DOMDOMTokenList;
+            classList: DOMDOMTokenList;
+            class_name: string;
+            className: string;
+            client_height: number;
+            clientHeight: number;
+            client_left: number;
+            clientLeft: number;
+            client_top: number;
+            clientTop: number;
+            client_width: number;
+            clientWidth: number;
+            first_element_child: DOMElement;
+            firstElementChild: DOMElement;
+            id: string;
+            inner_html: string;
+            innerHtml: string;
+            last_element_child: DOMElement;
+            lastElementChild: DOMElement;
+            local_name: string;
+            localName: string;
+            namespace_uri: string;
+            namespaceUri: string;
+            next_element_sibling: DOMElement;
+            nextElementSibling: DOMElement;
+            offset_height: number;
+            offsetHeight: number;
+            offset_left: number;
+            offsetLeft: number;
+            offset_parent: DOMElement;
+            offsetParent: DOMElement;
+            offset_top: number;
+            offsetTop: number;
+            offset_width: number;
+            offsetWidth: number;
+            outer_html: string;
+            outerHtml: string;
+            prefix: string;
+            previous_element_sibling: DOMElement;
+            previousElementSibling: DOMElement;
+            scroll_height: bigint | number;
+            scrollHeight: bigint | number;
+            scroll_left: bigint | number;
+            scrollLeft: bigint | number;
+            scroll_top: bigint | number;
+            scrollTop: bigint | number;
+            scroll_width: bigint | number;
+            scrollWidth: bigint | number;
+            style: DOMCSSStyleDeclaration;
+            tag_name: string;
+            tagName: string;
+            webkit_region_overset: string;
+            webkitRegionOverset: string;
+        }
+    }
+
+    /**
+     * @gir-type Class
+     */
+    class DOMElement extends DOMNode implements DOMEventTarget {
+        static $gtype: GObject.GType<DOMElement>;
+
+        // Properties
+        /**
+         * @read-only
+         */
+        get attributes(): DOMNamedNodeMap;
+
+        /**
+         * @read-only
+         * @default 0
+         */
+        get child_element_count(): number;
+
+        /**
+         * @read-only
+         * @default 0
+         */
+        get childElementCount(): number;
+
+        /**
+         * @read-only
+         */
+        get children(): DOMHTMLCollection;
+
+        /**
+         * @read-only
+         */
+        get class_list(): DOMDOMTokenList;
+
+        /**
+         * @read-only
+         */
+        get classList(): DOMDOMTokenList;
+
+        get class_name(): string;
+        set class_name(val: string);
+
+        get className(): string;
+        set className(val: string);
+
+        /**
+         * @read-only
+         * @default 0
+         */
+        get client_height(): number;
+
+        /**
+         * @read-only
+         * @default 0
+         */
+        get clientHeight(): number;
+
+        /**
+         * @read-only
+         * @default 0
+         */
+        get client_left(): number;
+
+        /**
+         * @read-only
+         * @default 0
+         */
+        get clientLeft(): number;
+
+        /**
+         * @read-only
+         * @default 0
+         */
+        get client_top(): number;
+
+        /**
+         * @read-only
+         * @default 0
+         */
+        get clientTop(): number;
+
+        /**
+         * @read-only
+         * @default 0
+         */
+        get client_width(): number;
+
+        /**
+         * @read-only
+         * @default 0
+         */
+        get clientWidth(): number;
+
+        /**
+         * @read-only
+         */
+        get first_element_child(): DOMElement;
+
+        /**
+         * @read-only
+         */
+        get firstElementChild(): DOMElement;
+
+        get id(): string;
+        set id(val: string);
+
+        get inner_html(): string;
+        set inner_html(val: string);
+
+        get innerHtml(): string;
+        set innerHtml(val: string);
+
+        /**
+         * @read-only
+         */
+        get last_element_child(): DOMElement;
+
+        /**
+         * @read-only
+         */
+        get lastElementChild(): DOMElement;
+
+        /**
+         * @read-only
+         */
+        get local_name(): string;
+
+        /**
+         * @read-only
+         */
+        get localName(): string;
+
+        /**
+         * @read-only
+         */
+        get namespace_uri(): string;
+
+        /**
+         * @read-only
+         */
+        get namespaceUri(): string;
+
+        /**
+         * @read-only
+         */
+        get next_element_sibling(): DOMElement;
+
+        /**
+         * @read-only
+         */
+        get nextElementSibling(): DOMElement;
+
+        /**
+         * @read-only
+         * @default 0
+         */
+        get offset_height(): number;
+
+        /**
+         * @read-only
+         * @default 0
+         */
+        get offsetHeight(): number;
+
+        /**
+         * @read-only
+         * @default 0
+         */
+        get offset_left(): number;
+
+        /**
+         * @read-only
+         * @default 0
+         */
+        get offsetLeft(): number;
+
+        /**
+         * @read-only
+         */
+        get offset_parent(): DOMElement;
+
+        /**
+         * @read-only
+         */
+        get offsetParent(): DOMElement;
+
+        /**
+         * @read-only
+         * @default 0
+         */
+        get offset_top(): number;
+
+        /**
+         * @read-only
+         * @default 0
+         */
+        get offsetTop(): number;
+
+        /**
+         * @read-only
+         * @default 0
+         */
+        get offset_width(): number;
+
+        /**
+         * @read-only
+         * @default 0
+         */
+        get offsetWidth(): number;
+
+        get outer_html(): string;
+        set outer_html(val: string);
+
+        get outerHtml(): string;
+        set outerHtml(val: string);
+
+        /**
+         * @read-only
+         */
+        get prefix(): string;
+
+        /**
+         * @read-only
+         */
+        get previous_element_sibling(): DOMElement;
+
+        /**
+         * @read-only
+         */
+        get previousElementSibling(): DOMElement;
+
+        /**
+         * @read-only
+         * @default 0
+         */
+        get scroll_height(): number;
+
+        /**
+         * @read-only
+         * @default 0
+         */
+        get scrollHeight(): number;
+
+        /**
+         * @default 0
+         */
+        get scroll_left(): number;
+        set scroll_left(val: bigint | number);
+
+        /**
+         * @default 0
+         */
+        get scrollLeft(): number;
+        set scrollLeft(val: bigint | number);
+
+        /**
+         * @default 0
+         */
+        get scroll_top(): number;
+        set scroll_top(val: bigint | number);
+
+        /**
+         * @default 0
+         */
+        get scrollTop(): number;
+        set scrollTop(val: bigint | number);
+
+        /**
+         * @read-only
+         * @default 0
+         */
+        get scroll_width(): number;
+
+        /**
+         * @read-only
+         * @default 0
+         */
+        get scrollWidth(): number;
+
+        /**
+         * @read-only
+         */
+        get style(): DOMCSSStyleDeclaration;
+
+        /**
+         * @read-only
+         */
+        get tag_name(): string;
+
+        /**
+         * @read-only
+         */
+        get tagName(): string;
+
+        /**
+         * @read-only
+         */
+        get webkit_region_overset(): string;
+
+        /**
+         * @read-only
+         */
+        get webkitRegionOverset(): string;
+
+        /**
+         * Compile-time signal type information.
+         *
+         * This instance property is generated only for TypeScript type checking.
+         * It is not defined at runtime and should not be accessed in JS code.
+         * @internal
+         */
+        $signals: DOMElement.SignalSignatures;
+
+        // Constructors
+        constructor(properties?: Partial<DOMElement.ConstructorProps>, ...args: any[]);
+
+        _init(...args: any[]): void;
+
+        // Signals
+        /** @signal */
+        connect<K extends keyof DOMElement.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, DOMElement.SignalSignatures[K]>): number;
+
+        /** @signal */
+        connect_after<K extends keyof DOMElement.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, DOMElement.SignalSignatures[K]>): number;
+
+        /** @signal */
+        emit<K extends keyof DOMElement.SignalSignatures>(signal: K, ...args: GObject.GjsParameters<DOMElement.SignalSignatures[K]>): void;
+
+        // Methods
+        /**
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        blur(): void;
+
+        /**
+         * @param selectors A `gchar`
+         * @returns A {@link WebKit2WebExtension.DOMElement}
+         * @since 2.16
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         * @throws GLib.Error
+         */
+        closest(selectors: string): DOMElement;
+
+        /**
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        focus(): void;
+
+        /**
+         * @param name A `gchar`
+         * @returns A `gchar`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_attribute(name: string): string;
+
+        /**
+         * @param name A `gchar`
+         * @returns A {@link WebKit2WebExtension.DOMAttr}
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_attribute_node(name: string): DOMAttr;
+
+        /**
+         * @param namespaceURI A `gchar`
+         * @param localName A `gchar`
+         * @returns A {@link WebKit2WebExtension.DOMAttr}
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_attribute_node_ns(namespaceURI: string, localName: string): DOMAttr;
+
+        /**
+         * @param namespaceURI A `gchar`
+         * @param localName A `gchar`
+         * @returns A `gchar`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_attribute_ns(namespaceURI: string, localName: string): string;
+
+        /**
+         * @returns A {@link WebKit2WebExtension.DOMNamedNodeMap}
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_attributes(): DOMNamedNodeMap;
+
+        /**
+         * Returns a {@link WebKit2WebExtension.DOMClientRect} representing the size and position of `self`
+         * relative to the viewport.
+         * @returns A {@link WebKit2WebExtension.DOMClientRect}
+         * @since 2.18
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_bounding_client_rect(): DOMClientRect;
+
+        /**
+         * @returns A `gulong`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_child_element_count(): number;
+
+        /**
+         * @returns A {@link WebKit2WebExtension.DOMHTMLCollection}
+         * @since 2.10
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_children(): DOMHTMLCollection;
+
+        /**
+         * @returns A {@link WebKit2WebExtension.DOMDOMTokenList}
+         * @since 2.16
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_class_list(): DOMDOMTokenList;
+
+        /**
+         * @returns A `gchar`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_class_name(): string;
+
+        /**
+         * @returns A `gdouble`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_client_height(): number;
+
+        /**
+         * @returns A `gdouble`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_client_left(): number;
+
+        /**
+         * Returns a collection of {@link WebKit2WebExtension.DOMClientRect} objects, each of which describes
+         * the size and position of a CSS border box relative to the viewport.
+         * @returns A {@link WebKit2WebExtension.DOMClientRectList}
+         * @since 2.18
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_client_rects(): DOMClientRectList;
+
+        /**
+         * @returns A `gdouble`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_client_top(): number;
+
+        /**
+         * @returns A `gdouble`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_client_width(): number;
+
+        /**
+         * @param class_name a `gchar` with the tag name
+         * @returns a {@link WebKit2WebExtension.DOMNodeList}
+         * @deprecated since 2.12: Use `webkit_dom_element_get_elements_by_class_name_as_html_collection()` instead.
+         */
+        get_elements_by_class_name(class_name: string): DOMNodeList;
+
+        /**
+         * @param name A `gchar`
+         * @returns A {@link WebKit2WebExtension.DOMHTMLCollection}
+         * @since 2.12
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_elements_by_class_name_as_html_collection(name: string): DOMHTMLCollection;
+
+        /**
+         * @param tag_name a `gchar` with the tag name
+         * @returns a {@link WebKit2WebExtension.DOMNodeList}
+         * @deprecated since 2.12: Use `webkit_dom_element_get_elements_by_tag_name_as_html_collection()` instead.
+         */
+        get_elements_by_tag_name(tag_name: string): DOMNodeList;
+
+        /**
+         * @param name A `gchar`
+         * @returns A {@link WebKit2WebExtension.DOMHTMLCollection}
+         * @since 2.12
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_elements_by_tag_name_as_html_collection(name: string): DOMHTMLCollection;
+
+        /**
+         * @param namespace_uri a `gchar` with the namespace URI
+         * @param tag_name a `gchar` with the tag name
+         * @returns a {@link WebKit2WebExtension.DOMNodeList}
+         * @deprecated since 2.12: Use `webkit_dom_element_get_elements_by_tag_name_ns_as_html_collection()` instead.
+         */
+        get_elements_by_tag_name_ns(namespace_uri: string, tag_name: string): DOMNodeList;
+
+        /**
+         * @param namespaceURI A `gchar`
+         * @param localName A `gchar`
+         * @returns A {@link WebKit2WebExtension.DOMHTMLCollection}
+         * @since 2.12
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_elements_by_tag_name_ns_as_html_collection(namespaceURI: string, localName: string): DOMHTMLCollection;
+
+        /**
+         * @returns A {@link WebKit2WebExtension.DOMElement}
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_first_element_child(): DOMElement;
+
+        /**
+         * @returns A `gchar`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_id(): string;
+
+        /**
+         * @returns A `gchar`
+         * @since 2.8
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_inner_html(): string;
+
+        /**
+         * @returns A {@link WebKit2WebExtension.DOMElement}
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_last_element_child(): DOMElement;
+
+        /**
+         * @returns A `gchar`
+         * @since 2.14
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_local_name(): string;
+
+        /**
+         * @returns A `gchar`
+         * @since 2.14
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_namespace_uri(): string;
+
+        /**
+         * @returns A {@link WebKit2WebExtension.DOMElement}
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_next_element_sibling(): DOMElement;
+
+        /**
+         * @returns A `gdouble`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_offset_height(): number;
+
+        /**
+         * @returns A `gdouble`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_offset_left(): number;
+
+        /**
+         * @returns A {@link WebKit2WebExtension.DOMElement}
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_offset_parent(): DOMElement;
+
+        /**
+         * @returns A `gdouble`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_offset_top(): number;
+
+        /**
+         * @returns A `gdouble`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_offset_width(): number;
+
+        /**
+         * @returns A `gchar`
+         * @since 2.8
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_outer_html(): string;
+
+        /**
+         * @returns A `gchar`
+         * @since 2.14
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_prefix(): string;
+
+        /**
+         * @returns A {@link WebKit2WebExtension.DOMElement}
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_previous_element_sibling(): DOMElement;
+
+        /**
+         * @returns A `glong`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_scroll_height(): number;
+
+        /**
+         * @returns A `glong`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_scroll_left(): number;
+
+        /**
+         * @returns A `glong`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_scroll_top(): number;
+
+        /**
+         * @returns A `glong`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_scroll_width(): number;
+
+        /**
+         * @returns A {@link WebKit2WebExtension.DOMCSSStyleDeclaration}
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_style(): DOMCSSStyleDeclaration;
+
+        /**
+         * @returns A `gchar`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_tag_name(): string;
+
+        /**
+         * CSS Regions support has been removed. This function does nothing.
+         * @returns `null`
+         * @deprecated since 2.20
+         */
+        get_webkit_region_overset(): string;
+
+        /**
+         * @param name A `gchar`
+         * @returns A `gboolean`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        has_attribute(name: string): boolean;
+
+        /**
+         * @param namespaceURI A `gchar`
+         * @param localName A `gchar`
+         * @returns A `gboolean`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        has_attribute_ns(namespaceURI: string, localName: string): boolean;
+
+        /**
+         * @returns A `gboolean`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        has_attributes(): boolean;
+
+        /**
+         * Get whether the element is an HTML input element that has been filled automatically.
+         * @returns whether `element` has been filled automatically.
+         * @since 2.22
+         * @deprecated since 2.40: Use `webkit_web_form_manager_input_element_is_auto_filled()` instead.
+         */
+        html_input_element_get_auto_filled(): boolean;
+
+        /**
+         * Get whether `element` is an HTML text input element that has been edited by a user action.
+         * @returns whether `element` has been edited by a user action.
+         * @since 2.22
+         * @deprecated since 2.40: Use `webkit_web_form_manager_input_element_is_user_edited()` instead.
+         */
+        html_input_element_is_user_edited(): boolean;
+
+        /**
+         * Set whether the element is an HTML input element that has been filled automatically.
+         * If `element` is not an HTML input element this function does nothing.
+         * @param auto_filled value to set
+         * @since 2.22
+         * @deprecated since 2.40: Use `webkit_web_form_manager_input_element_auto_fill()` instead.
+         */
+        html_input_element_set_auto_filled(auto_filled: boolean): void;
+
+        /**
+         * Set the value of an HTML input element as if it had been edited by
+         * the user, triggering a change event. If `element` is not an HTML input
+         * element this function does nothing.
+         * @param value the text to set
+         * @since 2.22
+         * @deprecated since 2.40: Use `webkit_web_form_manager_input_element_auto_fill()` instead.
+         */
+        html_input_element_set_editing_value(value: string): void;
+
+        /**
+         * @param where A `gchar`
+         * @param element A {@link WebKit2WebExtension.DOMElement}
+         * @returns A {@link WebKit2WebExtension.DOMElement}
+         * @since 2.16
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         * @throws GLib.Error
+         */
+        insert_adjacent_element(where: string, element: DOMElement): DOMElement;
+
+        /**
+         * @param where A `gchar`
+         * @param html A `gchar`
+         * @since 2.16
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         * @throws GLib.Error
+         */
+        insert_adjacent_html(where: string, html: string): void;
+
+        /**
+         * @param where A `gchar`
+         * @param text A `gchar`
+         * @since 2.16
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         * @throws GLib.Error
+         */
+        insert_adjacent_text(where: string, text: string): void;
+
+        /**
+         * @param selectors A `gchar`
+         * @returns A `gboolean`
+         * @since 2.16
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         * @throws GLib.Error
+         */
+        matches(selectors: string): boolean;
+
+        /**
+         * @param selectors A `gchar`
+         * @returns A {@link WebKit2WebExtension.DOMElement}
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         * @throws GLib.Error
+         */
+        query_selector(selectors: string): DOMElement;
+
+        /**
+         * @param selectors A `gchar`
+         * @returns A {@link WebKit2WebExtension.DOMNodeList}
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         * @throws GLib.Error
+         */
+        query_selector_all(selectors: string): DOMNodeList;
+
+        /**
+         * @since 2.16
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         * @throws GLib.Error
+         */
+        remove(): void;
+
+        /**
+         * @param name A `gchar`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        remove_attribute(name: string): void;
+
+        /**
+         * @param oldAttr A {@link WebKit2WebExtension.DOMAttr}
+         * @returns A {@link WebKit2WebExtension.DOMAttr}
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         * @throws GLib.Error
+         */
+        remove_attribute_node(oldAttr: DOMAttr): DOMAttr;
+
+        /**
+         * @param namespaceURI A `gchar`
+         * @param localName A `gchar`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        remove_attribute_ns(namespaceURI: string, localName: string): void;
+
+        /**
+         * @since 2.16
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        request_pointer_lock(): void;
+
+        /**
+         * @param lines A `glong`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        scroll_by_lines(lines: bigint | number): void;
+
+        /**
+         * @param pages A `glong`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        scroll_by_pages(pages: bigint | number): void;
+
+        /**
+         * @param alignWithTop A `gboolean`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        scroll_into_view(alignWithTop: boolean): void;
+
+        /**
+         * @param centerIfNeeded A `gboolean`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        scroll_into_view_if_needed(centerIfNeeded: boolean): void;
+
+        /**
+         * @param name A `gchar`
+         * @param value A `gchar`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         * @throws GLib.Error
+         */
+        set_attribute(name: string, value: string): void;
+
+        /**
+         * @param newAttr A {@link WebKit2WebExtension.DOMAttr}
+         * @returns A {@link WebKit2WebExtension.DOMAttr}
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         * @throws GLib.Error
+         */
+        set_attribute_node(newAttr: DOMAttr): DOMAttr;
+
+        /**
+         * @param newAttr A {@link WebKit2WebExtension.DOMAttr}
+         * @returns A {@link WebKit2WebExtension.DOMAttr}
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         * @throws GLib.Error
+         */
+        set_attribute_node_ns(newAttr: DOMAttr): DOMAttr;
+
+        /**
+         * @param namespaceURI A `gchar`
+         * @param qualifiedName A `gchar`
+         * @param value A `gchar`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         * @throws GLib.Error
+         */
+        set_attribute_ns(namespaceURI: string | null, qualifiedName: string, value: string): void;
+
+        /**
+         * @param value A `gchar`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        set_class_name(value: string): void;
+
+        /**
+         * @param value A `gchar`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        set_id(value: string): void;
+
+        /**
+         * @param value A `gchar`
+         * @since 2.8
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         * @throws GLib.Error
+         */
+        set_inner_html(value: string): void;
+
+        /**
+         * @param value A `gchar`
+         * @since 2.8
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         * @throws GLib.Error
+         */
+        set_outer_html(value: string): void;
+
+        /**
+         * @param value A `glong`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        set_scroll_left(value: bigint | number): void;
+
+        /**
+         * @param value A `glong`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        set_scroll_top(value: bigint | number): void;
+
+        /**
+         * @param selectors A `gchar`
+         * @returns A `gboolean`
+         * @since 2.16
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         * @throws GLib.Error
+         */
+        webkit_matches_selector(selectors: string): boolean;
+
+        /**
+         * @since 2.16
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        webkit_request_fullscreen(): void;
+
+        /**
+         * Version of `webkit_dom_event_target_add_event_listener()` using a closure
+         * instead of callbacks for easier binding in other languages.
+         * @param event_name A `gchar`
+         * @param handler A {@link GObject.Closure}
+         * @param use_capture A `gboolean`
+         * @returns a `gboolean`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        add_event_listener(event_name: string, handler: GObject.Closure, use_capture: boolean): boolean;
+
+        /**
+         * @param event A {@link WebKit2WebExtension.DOMEvent}
+         * @returns a `gboolean`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         * @throws GLib.Error
+         */
+        dispatch_event(event: DOMEvent): boolean;
+
+        /**
+         * Version of `webkit_dom_event_target_remove_event_listener()` using a closure
+         * instead of callbacks for easier binding in other languages.
+         * @param event_name A `gchar`
+         * @param handler A {@link GObject.Closure}
+         * @param use_capture A `gboolean`
+         * @returns a `gboolean`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        remove_event_listener(event_name: string, handler: GObject.Closure, use_capture: boolean): boolean;
+
+        /**
+         * @param event_name 
+         * @param handler 
+         * @param use_capture 
+         * @virtual
+         */
+        vfunc_add_event_listener(event_name: string, handler: GObject.Closure, use_capture: boolean): boolean;
+
+        /**
+         * @param event A {@link WebKit2WebExtension.DOMEvent}
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         * @virtual
+         */
+        vfunc_dispatch_event(event: DOMEvent): boolean;
+
+        /**
+         * @param event_name A `gchar`
+         * @param handler A {@link GObject.Callback}
+         * @param use_capture A `gboolean`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         * @virtual
+         */
+        vfunc_remove_event_listener(event_name: string, handler: null, use_capture: boolean): boolean;
+    }
+
+
+    namespace DOMEntityReference {
+        // Signal signatures
+        interface SignalSignatures extends DOMNode.SignalSignatures {
+            "notify::base-uri": (pspec: GObject.ParamSpec) => void;
+            "notify::child-nodes": (pspec: GObject.ParamSpec) => void;
+            "notify::first-child": (pspec: GObject.ParamSpec) => void;
+            "notify::last-child": (pspec: GObject.ParamSpec) => void;
+            "notify::next-sibling": (pspec: GObject.ParamSpec) => void;
+            "notify::node-name": (pspec: GObject.ParamSpec) => void;
+            "notify::node-type": (pspec: GObject.ParamSpec) => void;
+            "notify::node-value": (pspec: GObject.ParamSpec) => void;
+            "notify::owner-document": (pspec: GObject.ParamSpec) => void;
+            "notify::parent-element": (pspec: GObject.ParamSpec) => void;
+            "notify::parent-node": (pspec: GObject.ParamSpec) => void;
+            "notify::previous-sibling": (pspec: GObject.ParamSpec) => void;
+            "notify::text-content": (pspec: GObject.ParamSpec) => void;
+            "notify::core-object": (pspec: GObject.ParamSpec) => void;
+        }
+
+        // Constructor properties interface
+        interface ConstructorProps extends DOMNode.ConstructorProps, DOMEventTarget.ConstructorProps {}
+    }
+
+    /**
+     * @gir-type Class
+     */
+    class DOMEntityReference extends DOMNode implements DOMEventTarget {
+        static $gtype: GObject.GType<DOMEntityReference>;
+
+        /**
+         * Compile-time signal type information.
+         *
+         * This instance property is generated only for TypeScript type checking.
+         * It is not defined at runtime and should not be accessed in JS code.
+         * @internal
+         */
+        $signals: DOMEntityReference.SignalSignatures;
+
+        // Constructors
+        constructor(properties?: Partial<DOMEntityReference.ConstructorProps>, ...args: any[]);
+
+        _init(...args: any[]): void;
+
+        // Signals
+        /** @signal */
+        connect<K extends keyof DOMEntityReference.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, DOMEntityReference.SignalSignatures[K]>): number;
+
+        /** @signal */
+        connect_after<K extends keyof DOMEntityReference.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, DOMEntityReference.SignalSignatures[K]>): number;
+
+        /** @signal */
+        emit<K extends keyof DOMEntityReference.SignalSignatures>(signal: K, ...args: GObject.GjsParameters<DOMEntityReference.SignalSignatures[K]>): void;
+
+        /**
+         * Version of `webkit_dom_event_target_add_event_listener()` using a closure
+         * instead of callbacks for easier binding in other languages.
+         * @param event_name A `gchar`
+         * @param handler A {@link GObject.Closure}
+         * @param use_capture A `gboolean`
+         * @returns a `gboolean`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        add_event_listener(event_name: string, handler: GObject.Closure, use_capture: boolean): boolean;
+
+        /**
+         * @param event A {@link WebKit2WebExtension.DOMEvent}
+         * @returns a `gboolean`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         * @throws GLib.Error
+         */
+        dispatch_event(event: DOMEvent): boolean;
+
+        /**
+         * Version of `webkit_dom_event_target_remove_event_listener()` using a closure
+         * instead of callbacks for easier binding in other languages.
+         * @param event_name A `gchar`
+         * @param handler A {@link GObject.Closure}
+         * @param use_capture A `gboolean`
+         * @returns a `gboolean`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        remove_event_listener(event_name: string, handler: GObject.Closure, use_capture: boolean): boolean;
+
+        /**
+         * @param event_name 
+         * @param handler 
+         * @param use_capture 
+         * @virtual
+         */
+        vfunc_add_event_listener(event_name: string, handler: GObject.Closure, use_capture: boolean): boolean;
+
+        /**
+         * @param event A {@link WebKit2WebExtension.DOMEvent}
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         * @virtual
+         */
+        vfunc_dispatch_event(event: DOMEvent): boolean;
+
+        /**
+         * @param event_name A `gchar`
+         * @param handler A {@link GObject.Callback}
+         * @param use_capture A `gboolean`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         * @virtual
+         */
+        vfunc_remove_event_listener(event_name: string, handler: null, use_capture: boolean): boolean;
+    }
+
+
+    namespace DOMEvent {
+        // Signal signatures
+        interface SignalSignatures extends DOMObject.SignalSignatures {
+            "notify::bubbles": (pspec: GObject.ParamSpec) => void;
+            "notify::cancel-bubble": (pspec: GObject.ParamSpec) => void;
+            "notify::cancelable": (pspec: GObject.ParamSpec) => void;
+            "notify::current-target": (pspec: GObject.ParamSpec) => void;
+            "notify::event-phase": (pspec: GObject.ParamSpec) => void;
+            "notify::return-value": (pspec: GObject.ParamSpec) => void;
+            "notify::src-element": (pspec: GObject.ParamSpec) => void;
+            "notify::target": (pspec: GObject.ParamSpec) => void;
+            "notify::time-stamp": (pspec: GObject.ParamSpec) => void;
+            "notify::type": (pspec: GObject.ParamSpec) => void;
+            "notify::core-object": (pspec: GObject.ParamSpec) => void;
+        }
+
+        // Constructor properties interface
+        interface ConstructorProps extends DOMObject.ConstructorProps {
+            bubbles: boolean;
+            cancel_bubble: boolean;
+            cancelBubble: boolean;
+            cancelable: boolean;
+            current_target: DOMEventTarget;
+            currentTarget: DOMEventTarget;
+            event_phase: number;
+            eventPhase: number;
+            return_value: boolean;
+            returnValue: boolean;
+            src_element: DOMEventTarget;
+            srcElement: DOMEventTarget;
+            target: DOMEventTarget;
+            time_stamp: number;
+            timeStamp: number;
+            type: string;
+        }
+    }
+
+    /**
+     * @gir-type Class
+     */
+    class DOMEvent extends DOMObject {
+        static $gtype: GObject.GType<DOMEvent>;
+
+        // Properties
+        /**
+         * @read-only
+         * @default false
+         */
+        get bubbles(): boolean;
+
+        /**
+         * @default false
+         */
+        get cancel_bubble(): boolean;
+        set cancel_bubble(val: boolean);
+
+        /**
+         * @default false
+         */
+        get cancelBubble(): boolean;
+        set cancelBubble(val: boolean);
+
+        /**
+         * @read-only
+         * @default false
+         */
+        get cancelable(): boolean;
+
+        /**
+         * @read-only
+         */
+        get current_target(): DOMEventTarget;
+
+        /**
+         * @read-only
+         */
+        get currentTarget(): DOMEventTarget;
+
+        /**
+         * @read-only
+         * @default 0
+         */
+        get event_phase(): number;
+
+        /**
+         * @read-only
+         * @default 0
+         */
+        get eventPhase(): number;
+
+        /**
+         * @default false
+         */
+        get return_value(): boolean;
+        set return_value(val: boolean);
+
+        /**
+         * @default false
+         */
+        get returnValue(): boolean;
+        set returnValue(val: boolean);
+
+        /**
+         * @read-only
+         */
+        get src_element(): DOMEventTarget;
+
+        /**
+         * @read-only
+         */
+        get srcElement(): DOMEventTarget;
+
+        /**
+         * @read-only
+         */
+        get target(): DOMEventTarget;
+
+        /**
+         * @read-only
+         * @default 0
+         */
+        get time_stamp(): number;
+
+        /**
+         * @read-only
+         * @default 0
+         */
+        get timeStamp(): number;
+
+        /**
+         * @read-only
+         */
+        get type(): string;
+
+        /**
+         * Compile-time signal type information.
+         *
+         * This instance property is generated only for TypeScript type checking.
+         * It is not defined at runtime and should not be accessed in JS code.
+         * @internal
+         */
+        $signals: DOMEvent.SignalSignatures;
+
+        // Constructors
+        constructor(properties?: Partial<DOMEvent.ConstructorProps>, ...args: any[]);
+
+        _init(...args: any[]): void;
+
+        // Signals
+        /** @signal */
+        connect<K extends keyof DOMEvent.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, DOMEvent.SignalSignatures[K]>): number;
+
+        /** @signal */
+        connect_after<K extends keyof DOMEvent.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, DOMEvent.SignalSignatures[K]>): number;
+
+        /** @signal */
+        emit<K extends keyof DOMEvent.SignalSignatures>(signal: K, ...args: GObject.GjsParameters<DOMEvent.SignalSignatures[K]>): void;
+
+        // Methods
+        /**
+         * @returns A `gboolean`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_bubbles(): boolean;
+
+        /**
+         * @returns A `gboolean`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_cancel_bubble(): boolean;
+
+        /**
+         * @returns A `gboolean`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_cancelable(): boolean;
+
+        /**
+         * @returns A {@link WebKit2WebExtension.DOMEventTarget}
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_current_target(): DOMEventTarget;
+
+        /**
+         * @returns A `gushort`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_event_phase(): number;
+
+        /**
+         * @returns A `gchar`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_event_type(): string;
+
+        /**
+         * @returns A `gboolean`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_return_value(): boolean;
+
+        /**
+         * @returns A {@link WebKit2WebExtension.DOMEventTarget}
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_src_element(): DOMEventTarget;
+
+        /**
+         * @returns A {@link WebKit2WebExtension.DOMEventTarget}
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_target(): DOMEventTarget;
+
+        /**
+         * @returns A `guint32`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_time_stamp(): number;
+
+        /**
+         * @param eventTypeArg A `gchar`
+         * @param canBubbleArg A `gboolean`
+         * @param cancelableArg A `gboolean`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        init_event(eventTypeArg: string, canBubbleArg: boolean, cancelableArg: boolean): void;
+
+        /**
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        prevent_default(): void;
+
+        /**
+         * @param value A `gboolean`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        set_cancel_bubble(value: boolean): void;
+
+        /**
+         * @param value A `gboolean`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        set_return_value(value: boolean): void;
+
+        /**
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        stop_propagation(): void;
+    }
+
+
+    namespace DOMFile {
+        // Signal signatures
+        interface SignalSignatures extends DOMBlob.SignalSignatures {
+            "notify::name": (pspec: GObject.ParamSpec) => void;
+            "notify::size": (pspec: GObject.ParamSpec) => void;
+            "notify::core-object": (pspec: GObject.ParamSpec) => void;
+        }
+
+        // Constructor properties interface
+        interface ConstructorProps extends DOMBlob.ConstructorProps {
+            name: string;
+        }
+    }
+
+    /**
+     * @gir-type Class
+     */
+    class DOMFile extends DOMBlob {
+        static $gtype: GObject.GType<DOMFile>;
+
+        // Properties
+        /**
+         * @read-only
+         */
+        get name(): string;
+
+        /**
+         * Compile-time signal type information.
+         *
+         * This instance property is generated only for TypeScript type checking.
+         * It is not defined at runtime and should not be accessed in JS code.
+         * @internal
+         */
+        $signals: DOMFile.SignalSignatures;
+
+        // Constructors
+        constructor(properties?: Partial<DOMFile.ConstructorProps>, ...args: any[]);
+
+        _init(...args: any[]): void;
+
+        // Signals
+        /** @signal */
+        connect<K extends keyof DOMFile.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, DOMFile.SignalSignatures[K]>): number;
+
+        /** @signal */
+        connect_after<K extends keyof DOMFile.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, DOMFile.SignalSignatures[K]>): number;
+
+        /** @signal */
+        emit<K extends keyof DOMFile.SignalSignatures>(signal: K, ...args: GObject.GjsParameters<DOMFile.SignalSignatures[K]>): void;
+
+        // Methods
+        /**
+         * @returns A `gchar`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_name(): string;
+    }
+
+
+    namespace DOMFileList {
+        // Signal signatures
+        interface SignalSignatures extends DOMObject.SignalSignatures {
+            "notify::length": (pspec: GObject.ParamSpec) => void;
+            "notify::core-object": (pspec: GObject.ParamSpec) => void;
+        }
+
+        // Constructor properties interface
+        interface ConstructorProps extends DOMObject.ConstructorProps {
+            length: bigint | number;
+        }
+    }
+
+    /**
+     * @gir-type Class
+     */
+    class DOMFileList extends DOMObject {
+        static $gtype: GObject.GType<DOMFileList>;
+
+        // Properties
+        /**
+         * @read-only
+         * @default 0
+         */
+        get length(): number;
+
+        /**
+         * Compile-time signal type information.
+         *
+         * This instance property is generated only for TypeScript type checking.
+         * It is not defined at runtime and should not be accessed in JS code.
+         * @internal
+         */
+        $signals: DOMFileList.SignalSignatures;
+
+        // Constructors
+        constructor(properties?: Partial<DOMFileList.ConstructorProps>, ...args: any[]);
+
+        _init(...args: any[]): void;
+
+        // Signals
+        /** @signal */
+        connect<K extends keyof DOMFileList.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, DOMFileList.SignalSignatures[K]>): number;
+
+        /** @signal */
+        connect_after<K extends keyof DOMFileList.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, DOMFileList.SignalSignatures[K]>): number;
+
+        /** @signal */
+        emit<K extends keyof DOMFileList.SignalSignatures>(signal: K, ...args: GObject.GjsParameters<DOMFileList.SignalSignatures[K]>): void;
+
+        // Methods
+        /**
+         * @returns A `gulong`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_length(): number;
+
+        /**
+         * @param index A `gulong`
+         * @returns A {@link WebKit2WebExtension.DOMFile}
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        item(index: bigint | number): DOMFile;
+    }
+
+
+    namespace DOMHTMLAnchorElement {
+        // Signal signatures
+        interface SignalSignatures extends DOMHTMLElement.SignalSignatures {
+            "notify::charset": (pspec: GObject.ParamSpec) => void;
+            "notify::coords": (pspec: GObject.ParamSpec) => void;
+            "notify::hash": (pspec: GObject.ParamSpec) => void;
+            "notify::host": (pspec: GObject.ParamSpec) => void;
+            "notify::hostname": (pspec: GObject.ParamSpec) => void;
+            "notify::href": (pspec: GObject.ParamSpec) => void;
+            "notify::hreflang": (pspec: GObject.ParamSpec) => void;
+            "notify::name": (pspec: GObject.ParamSpec) => void;
+            "notify::pathname": (pspec: GObject.ParamSpec) => void;
+            "notify::port": (pspec: GObject.ParamSpec) => void;
+            "notify::protocol": (pspec: GObject.ParamSpec) => void;
+            "notify::rel": (pspec: GObject.ParamSpec) => void;
+            "notify::rev": (pspec: GObject.ParamSpec) => void;
+            "notify::search": (pspec: GObject.ParamSpec) => void;
+            "notify::shape": (pspec: GObject.ParamSpec) => void;
+            "notify::target": (pspec: GObject.ParamSpec) => void;
+            "notify::text": (pspec: GObject.ParamSpec) => void;
+            "notify::type": (pspec: GObject.ParamSpec) => void;
+            "notify::access-key": (pspec: GObject.ParamSpec) => void;
+            "notify::content-editable": (pspec: GObject.ParamSpec) => void;
+            "notify::dir": (pspec: GObject.ParamSpec) => void;
+            "notify::draggable": (pspec: GObject.ParamSpec) => void;
+            "notify::hidden": (pspec: GObject.ParamSpec) => void;
+            "notify::inner-text": (pspec: GObject.ParamSpec) => void;
+            "notify::is-content-editable": (pspec: GObject.ParamSpec) => void;
+            "notify::lang": (pspec: GObject.ParamSpec) => void;
+            "notify::outer-text": (pspec: GObject.ParamSpec) => void;
+            "notify::spellcheck": (pspec: GObject.ParamSpec) => void;
+            "notify::tab-index": (pspec: GObject.ParamSpec) => void;
+            "notify::title": (pspec: GObject.ParamSpec) => void;
+            "notify::translate": (pspec: GObject.ParamSpec) => void;
+            "notify::webkitdropzone": (pspec: GObject.ParamSpec) => void;
+            "notify::attributes": (pspec: GObject.ParamSpec) => void;
+            "notify::child-element-count": (pspec: GObject.ParamSpec) => void;
+            "notify::children": (pspec: GObject.ParamSpec) => void;
+            "notify::class-list": (pspec: GObject.ParamSpec) => void;
+            "notify::class-name": (pspec: GObject.ParamSpec) => void;
+            "notify::client-height": (pspec: GObject.ParamSpec) => void;
+            "notify::client-left": (pspec: GObject.ParamSpec) => void;
+            "notify::client-top": (pspec: GObject.ParamSpec) => void;
+            "notify::client-width": (pspec: GObject.ParamSpec) => void;
+            "notify::first-element-child": (pspec: GObject.ParamSpec) => void;
+            "notify::id": (pspec: GObject.ParamSpec) => void;
+            "notify::inner-html": (pspec: GObject.ParamSpec) => void;
+            "notify::last-element-child": (pspec: GObject.ParamSpec) => void;
+            "notify::local-name": (pspec: GObject.ParamSpec) => void;
+            "notify::namespace-uri": (pspec: GObject.ParamSpec) => void;
+            "notify::next-element-sibling": (pspec: GObject.ParamSpec) => void;
+            "notify::offset-height": (pspec: GObject.ParamSpec) => void;
+            "notify::offset-left": (pspec: GObject.ParamSpec) => void;
+            "notify::offset-parent": (pspec: GObject.ParamSpec) => void;
+            "notify::offset-top": (pspec: GObject.ParamSpec) => void;
+            "notify::offset-width": (pspec: GObject.ParamSpec) => void;
+            "notify::outer-html": (pspec: GObject.ParamSpec) => void;
+            "notify::prefix": (pspec: GObject.ParamSpec) => void;
+            "notify::previous-element-sibling": (pspec: GObject.ParamSpec) => void;
+            "notify::scroll-height": (pspec: GObject.ParamSpec) => void;
+            "notify::scroll-left": (pspec: GObject.ParamSpec) => void;
+            "notify::scroll-top": (pspec: GObject.ParamSpec) => void;
+            "notify::scroll-width": (pspec: GObject.ParamSpec) => void;
+            "notify::style": (pspec: GObject.ParamSpec) => void;
+            "notify::tag-name": (pspec: GObject.ParamSpec) => void;
+            "notify::webkit-region-overset": (pspec: GObject.ParamSpec) => void;
+            "notify::base-uri": (pspec: GObject.ParamSpec) => void;
+            "notify::child-nodes": (pspec: GObject.ParamSpec) => void;
+            "notify::first-child": (pspec: GObject.ParamSpec) => void;
+            "notify::last-child": (pspec: GObject.ParamSpec) => void;
+            "notify::next-sibling": (pspec: GObject.ParamSpec) => void;
+            "notify::node-name": (pspec: GObject.ParamSpec) => void;
+            "notify::node-type": (pspec: GObject.ParamSpec) => void;
+            "notify::node-value": (pspec: GObject.ParamSpec) => void;
+            "notify::owner-document": (pspec: GObject.ParamSpec) => void;
+            "notify::parent-element": (pspec: GObject.ParamSpec) => void;
+            "notify::parent-node": (pspec: GObject.ParamSpec) => void;
+            "notify::previous-sibling": (pspec: GObject.ParamSpec) => void;
+            "notify::text-content": (pspec: GObject.ParamSpec) => void;
+            "notify::core-object": (pspec: GObject.ParamSpec) => void;
+        }
+
+        // Constructor properties interface
+        interface ConstructorProps extends DOMHTMLElement.ConstructorProps, DOMEventTarget.ConstructorProps {
+            charset: string;
+            coords: string;
+            hash: string;
+            host: string;
+            hostname: string;
+            href: string;
+            hreflang: string;
+            name: string;
+            pathname: string;
+            port: string;
+            protocol: string;
+            rel: string;
+            rev: string;
+            search: string;
+            shape: string;
+            target: string;
+            text: string;
+            type: string;
+        }
+    }
+
+    /**
+     * @gir-type Class
+     */
+    class DOMHTMLAnchorElement extends DOMHTMLElement implements DOMEventTarget {
+        static $gtype: GObject.GType<DOMHTMLAnchorElement>;
+
+        // Properties
+        get charset(): string;
+        set charset(val: string);
+
+        get coords(): string;
+        set coords(val: string);
+
+        get hash(): string;
+        set hash(val: string);
+
+        get host(): string;
+        set host(val: string);
+
+        get hostname(): string;
+        set hostname(val: string);
+
+        get href(): string;
+        set href(val: string);
+
+        get hreflang(): string;
+        set hreflang(val: string);
+
+        get name(): string;
+        set name(val: string);
+
+        get pathname(): string;
+        set pathname(val: string);
+
+        get port(): string;
+        set port(val: string);
+
+        get protocol(): string;
+        set protocol(val: string);
+
+        get rel(): string;
+        set rel(val: string);
+
+        get rev(): string;
+        set rev(val: string);
+
+        get search(): string;
+        set search(val: string);
+
+        get shape(): string;
+        set shape(val: string);
+
+        get target(): string;
+        set target(val: string);
+
+        get text(): string;
+        set text(val: string);
+
+        get type(): string;
+        set type(val: string);
+
+        /**
+         * Compile-time signal type information.
+         *
+         * This instance property is generated only for TypeScript type checking.
+         * It is not defined at runtime and should not be accessed in JS code.
+         * @internal
+         */
+        $signals: DOMHTMLAnchorElement.SignalSignatures;
+
+        // Constructors
+        constructor(properties?: Partial<DOMHTMLAnchorElement.ConstructorProps>, ...args: any[]);
+
+        _init(...args: any[]): void;
+
+        // Signals
+        /** @signal */
+        connect<K extends keyof DOMHTMLAnchorElement.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, DOMHTMLAnchorElement.SignalSignatures[K]>): number;
+
+        /** @signal */
+        connect_after<K extends keyof DOMHTMLAnchorElement.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, DOMHTMLAnchorElement.SignalSignatures[K]>): number;
+
+        /** @signal */
+        emit<K extends keyof DOMHTMLAnchorElement.SignalSignatures>(signal: K, ...args: GObject.GjsParameters<DOMHTMLAnchorElement.SignalSignatures[K]>): void;
+
+        // Methods
+        /**
+         * @returns A `gchar`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_charset(): string;
+
+        /**
+         * @returns A `gchar`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_coords(): string;
+
+        /**
+         * @returns A `gchar`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_hash(): string;
+
+        /**
+         * @returns A `gchar`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_host(): string;
+
+        /**
+         * @returns A `gchar`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_hostname(): string;
+
+        /**
+         * @returns A `gchar`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_href(): string;
+
+        /**
+         * @returns A `gchar`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_hreflang(): string;
+
+        /**
+         * @returns A `gchar`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_name(): string;
+
+        /**
+         * @returns A `gchar`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_pathname(): string;
+
+        /**
+         * @returns A `gchar`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_port(): string;
+
+        /**
+         * @returns A `gchar`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_protocol(): string;
+
+        /**
+         * @returns A `gchar`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_rel(): string;
+
+        /**
+         * @returns A `gchar`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_rev(): string;
+
+        /**
+         * @returns A `gchar`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_search(): string;
+
+        /**
+         * @returns A `gchar`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_shape(): string;
+
+        /**
+         * @returns A `gchar`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_target(): string;
+
+        /**
+         * @returns A `gchar`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_text(): string;
+
+        /**
+         * @returns A `gchar`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_type_attr(): string;
+
+        /**
+         * @param value A `gchar`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        set_charset(value: string): void;
+
+        /**
+         * @param value A `gchar`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        set_coords(value: string): void;
+
+        /**
+         * @param value A `gchar`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        set_hash(value: string): void;
+
+        /**
+         * @param value A `gchar`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        set_host(value: string): void;
+
+        /**
+         * @param value A `gchar`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        set_hostname(value: string): void;
+
+        /**
+         * @param value A `gchar`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        set_href(value: string): void;
+
+        /**
+         * @param value A `gchar`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        set_hreflang(value: string): void;
+
+        /**
+         * @param value A `gchar`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        set_name(value: string): void;
+
+        /**
+         * @param value A `gchar`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        set_pathname(value: string): void;
+
+        /**
+         * @param value A `gchar`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        set_port(value: string): void;
+
+        /**
+         * @param value A `gchar`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        set_protocol(value: string): void;
+
+        /**
+         * @param value A `gchar`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        set_rel(value: string): void;
+
+        /**
+         * @param value A `gchar`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        set_rev(value: string): void;
+
+        /**
+         * @param value A `gchar`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        set_search(value: string): void;
+
+        /**
+         * @param value A `gchar`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        set_shape(value: string): void;
+
+        /**
+         * @param value A `gchar`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        set_target(value: string): void;
+
+        /**
+         * @param value A `gchar`
+         * @since 2.16
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        set_text(value: string): void;
+
+        /**
+         * @param value A `gchar`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        set_type_attr(value: string): void;
+    }
+
+
+    namespace DOMHTMLAppletElement {
+        // Signal signatures
+        interface SignalSignatures extends DOMHTMLElement.SignalSignatures {
+            "notify::align": (pspec: GObject.ParamSpec) => void;
+            "notify::alt": (pspec: GObject.ParamSpec) => void;
+            "notify::archive": (pspec: GObject.ParamSpec) => void;
+            "notify::code": (pspec: GObject.ParamSpec) => void;
+            "notify::code-base": (pspec: GObject.ParamSpec) => void;
+            "notify::height": (pspec: GObject.ParamSpec) => void;
+            "notify::hspace": (pspec: GObject.ParamSpec) => void;
+            "notify::name": (pspec: GObject.ParamSpec) => void;
+            "notify::object": (pspec: GObject.ParamSpec) => void;
+            "notify::vspace": (pspec: GObject.ParamSpec) => void;
+            "notify::width": (pspec: GObject.ParamSpec) => void;
+            "notify::access-key": (pspec: GObject.ParamSpec) => void;
+            "notify::content-editable": (pspec: GObject.ParamSpec) => void;
+            "notify::dir": (pspec: GObject.ParamSpec) => void;
+            "notify::draggable": (pspec: GObject.ParamSpec) => void;
+            "notify::hidden": (pspec: GObject.ParamSpec) => void;
+            "notify::inner-text": (pspec: GObject.ParamSpec) => void;
+            "notify::is-content-editable": (pspec: GObject.ParamSpec) => void;
+            "notify::lang": (pspec: GObject.ParamSpec) => void;
+            "notify::outer-text": (pspec: GObject.ParamSpec) => void;
+            "notify::spellcheck": (pspec: GObject.ParamSpec) => void;
+            "notify::tab-index": (pspec: GObject.ParamSpec) => void;
+            "notify::title": (pspec: GObject.ParamSpec) => void;
+            "notify::translate": (pspec: GObject.ParamSpec) => void;
+            "notify::webkitdropzone": (pspec: GObject.ParamSpec) => void;
+            "notify::attributes": (pspec: GObject.ParamSpec) => void;
+            "notify::child-element-count": (pspec: GObject.ParamSpec) => void;
+            "notify::children": (pspec: GObject.ParamSpec) => void;
+            "notify::class-list": (pspec: GObject.ParamSpec) => void;
+            "notify::class-name": (pspec: GObject.ParamSpec) => void;
+            "notify::client-height": (pspec: GObject.ParamSpec) => void;
+            "notify::client-left": (pspec: GObject.ParamSpec) => void;
+            "notify::client-top": (pspec: GObject.ParamSpec) => void;
+            "notify::client-width": (pspec: GObject.ParamSpec) => void;
+            "notify::first-element-child": (pspec: GObject.ParamSpec) => void;
+            "notify::id": (pspec: GObject.ParamSpec) => void;
+            "notify::inner-html": (pspec: GObject.ParamSpec) => void;
+            "notify::last-element-child": (pspec: GObject.ParamSpec) => void;
+            "notify::local-name": (pspec: GObject.ParamSpec) => void;
+            "notify::namespace-uri": (pspec: GObject.ParamSpec) => void;
+            "notify::next-element-sibling": (pspec: GObject.ParamSpec) => void;
+            "notify::offset-height": (pspec: GObject.ParamSpec) => void;
+            "notify::offset-left": (pspec: GObject.ParamSpec) => void;
+            "notify::offset-parent": (pspec: GObject.ParamSpec) => void;
+            "notify::offset-top": (pspec: GObject.ParamSpec) => void;
+            "notify::offset-width": (pspec: GObject.ParamSpec) => void;
+            "notify::outer-html": (pspec: GObject.ParamSpec) => void;
+            "notify::prefix": (pspec: GObject.ParamSpec) => void;
+            "notify::previous-element-sibling": (pspec: GObject.ParamSpec) => void;
+            "notify::scroll-height": (pspec: GObject.ParamSpec) => void;
+            "notify::scroll-left": (pspec: GObject.ParamSpec) => void;
+            "notify::scroll-top": (pspec: GObject.ParamSpec) => void;
+            "notify::scroll-width": (pspec: GObject.ParamSpec) => void;
+            "notify::style": (pspec: GObject.ParamSpec) => void;
+            "notify::tag-name": (pspec: GObject.ParamSpec) => void;
+            "notify::webkit-region-overset": (pspec: GObject.ParamSpec) => void;
+            "notify::base-uri": (pspec: GObject.ParamSpec) => void;
+            "notify::child-nodes": (pspec: GObject.ParamSpec) => void;
+            "notify::first-child": (pspec: GObject.ParamSpec) => void;
+            "notify::last-child": (pspec: GObject.ParamSpec) => void;
+            "notify::next-sibling": (pspec: GObject.ParamSpec) => void;
+            "notify::node-name": (pspec: GObject.ParamSpec) => void;
+            "notify::node-type": (pspec: GObject.ParamSpec) => void;
+            "notify::node-value": (pspec: GObject.ParamSpec) => void;
+            "notify::owner-document": (pspec: GObject.ParamSpec) => void;
+            "notify::parent-element": (pspec: GObject.ParamSpec) => void;
+            "notify::parent-node": (pspec: GObject.ParamSpec) => void;
+            "notify::previous-sibling": (pspec: GObject.ParamSpec) => void;
+            "notify::text-content": (pspec: GObject.ParamSpec) => void;
+            "notify::core-object": (pspec: GObject.ParamSpec) => void;
+        }
+
+        // Constructor properties interface
+        interface ConstructorProps extends DOMHTMLElement.ConstructorProps, DOMEventTarget.ConstructorProps {
+            align: string;
+            alt: string;
+            archive: string;
+            code: string;
+            code_base: string;
+            codeBase: string;
+            height: string;
+            hspace: bigint | number;
+            name: string;
+            object: string;
+            vspace: bigint | number;
+            width: string;
+        }
+    }
+
+    /**
+     * @gir-type Class
+     */
+    class DOMHTMLAppletElement extends DOMHTMLElement implements DOMEventTarget {
+        static $gtype: GObject.GType<DOMHTMLAppletElement>;
+
+        // Properties
+        get align(): string;
+        set align(val: string);
+
+        get alt(): string;
+        set alt(val: string);
+
+        get archive(): string;
+        set archive(val: string);
+
+        get code(): string;
+        set code(val: string);
+
+        get code_base(): string;
+        set code_base(val: string);
+
+        get codeBase(): string;
+        set codeBase(val: string);
+
+        get height(): string;
+        set height(val: string);
+
+        /**
+         * @default 0
+         */
+        get hspace(): number;
+        set hspace(val: bigint | number);
+
+        get name(): string;
+        set name(val: string);
+
+        get object(): string;
+        set object(val: string);
+
+        /**
+         * @default 0
+         */
+        get vspace(): number;
+        set vspace(val: bigint | number);
+
+        get width(): string;
+        set width(val: string);
+
+        /**
+         * Compile-time signal type information.
+         *
+         * This instance property is generated only for TypeScript type checking.
+         * It is not defined at runtime and should not be accessed in JS code.
+         * @internal
+         */
+        $signals: DOMHTMLAppletElement.SignalSignatures;
+
+        // Constructors
+        constructor(properties?: Partial<DOMHTMLAppletElement.ConstructorProps>, ...args: any[]);
+
+        _init(...args: any[]): void;
+
+        // Signals
+        /** @signal */
+        connect<K extends keyof DOMHTMLAppletElement.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, DOMHTMLAppletElement.SignalSignatures[K]>): number;
+
+        /** @signal */
+        connect_after<K extends keyof DOMHTMLAppletElement.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, DOMHTMLAppletElement.SignalSignatures[K]>): number;
+
+        /** @signal */
+        emit<K extends keyof DOMHTMLAppletElement.SignalSignatures>(signal: K, ...args: GObject.GjsParameters<DOMHTMLAppletElement.SignalSignatures[K]>): void;
+
+        // Methods
+        /**
+         * @returns A `gchar`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_align(): string;
+
+        /**
+         * @returns A `gchar`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_alt(): string;
+
+        /**
+         * @returns A `gchar`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_archive(): string;
+
+        /**
+         * @returns A `gchar`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_code(): string;
+
+        /**
+         * @returns A `gchar`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_code_base(): string;
+
+        /**
+         * @returns A `gchar`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_height(): string;
+
+        /**
+         * @returns A `glong`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_hspace(): number;
+
+        /**
+         * @returns A `gchar`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_name(): string;
+
+        /**
+         * @returns A `gchar`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_object(): string;
+
+        /**
+         * @returns A `glong`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_vspace(): number;
+
+        /**
+         * @returns A `gchar`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_width(): string;
+
+        /**
+         * @param value A `gchar`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        set_align(value: string): void;
+
+        /**
+         * @param value A `gchar`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        set_alt(value: string): void;
+
+        /**
+         * @param value A `gchar`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        set_archive(value: string): void;
+
+        /**
+         * @param value A `gchar`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        set_code(value: string): void;
+
+        /**
+         * @param value A `gchar`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        set_code_base(value: string): void;
+
+        /**
+         * @param value A `gchar`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        set_height(value: string): void;
+
+        /**
+         * @param value A `glong`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        set_hspace(value: bigint | number): void;
+
+        /**
+         * @param value A `gchar`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        set_name(value: string): void;
+
+        /**
+         * @param value A `gchar`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        set_object(value: string): void;
+
+        /**
+         * @param value A `glong`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        set_vspace(value: bigint | number): void;
+
+        /**
+         * @param value A `gchar`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        set_width(value: string): void;
+    }
+
+
+    namespace DOMHTMLAreaElement {
+        // Signal signatures
+        interface SignalSignatures extends DOMHTMLElement.SignalSignatures {
+            "notify::alt": (pspec: GObject.ParamSpec) => void;
+            "notify::coords": (pspec: GObject.ParamSpec) => void;
+            "notify::hash": (pspec: GObject.ParamSpec) => void;
+            "notify::host": (pspec: GObject.ParamSpec) => void;
+            "notify::hostname": (pspec: GObject.ParamSpec) => void;
+            "notify::href": (pspec: GObject.ParamSpec) => void;
+            "notify::no-href": (pspec: GObject.ParamSpec) => void;
+            "notify::pathname": (pspec: GObject.ParamSpec) => void;
+            "notify::port": (pspec: GObject.ParamSpec) => void;
+            "notify::protocol": (pspec: GObject.ParamSpec) => void;
+            "notify::search": (pspec: GObject.ParamSpec) => void;
+            "notify::shape": (pspec: GObject.ParamSpec) => void;
+            "notify::target": (pspec: GObject.ParamSpec) => void;
+            "notify::access-key": (pspec: GObject.ParamSpec) => void;
+            "notify::content-editable": (pspec: GObject.ParamSpec) => void;
+            "notify::dir": (pspec: GObject.ParamSpec) => void;
+            "notify::draggable": (pspec: GObject.ParamSpec) => void;
+            "notify::hidden": (pspec: GObject.ParamSpec) => void;
+            "notify::inner-text": (pspec: GObject.ParamSpec) => void;
+            "notify::is-content-editable": (pspec: GObject.ParamSpec) => void;
+            "notify::lang": (pspec: GObject.ParamSpec) => void;
+            "notify::outer-text": (pspec: GObject.ParamSpec) => void;
+            "notify::spellcheck": (pspec: GObject.ParamSpec) => void;
+            "notify::tab-index": (pspec: GObject.ParamSpec) => void;
+            "notify::title": (pspec: GObject.ParamSpec) => void;
+            "notify::translate": (pspec: GObject.ParamSpec) => void;
+            "notify::webkitdropzone": (pspec: GObject.ParamSpec) => void;
+            "notify::attributes": (pspec: GObject.ParamSpec) => void;
+            "notify::child-element-count": (pspec: GObject.ParamSpec) => void;
+            "notify::children": (pspec: GObject.ParamSpec) => void;
+            "notify::class-list": (pspec: GObject.ParamSpec) => void;
+            "notify::class-name": (pspec: GObject.ParamSpec) => void;
+            "notify::client-height": (pspec: GObject.ParamSpec) => void;
+            "notify::client-left": (pspec: GObject.ParamSpec) => void;
+            "notify::client-top": (pspec: GObject.ParamSpec) => void;
+            "notify::client-width": (pspec: GObject.ParamSpec) => void;
+            "notify::first-element-child": (pspec: GObject.ParamSpec) => void;
+            "notify::id": (pspec: GObject.ParamSpec) => void;
+            "notify::inner-html": (pspec: GObject.ParamSpec) => void;
+            "notify::last-element-child": (pspec: GObject.ParamSpec) => void;
+            "notify::local-name": (pspec: GObject.ParamSpec) => void;
+            "notify::namespace-uri": (pspec: GObject.ParamSpec) => void;
+            "notify::next-element-sibling": (pspec: GObject.ParamSpec) => void;
+            "notify::offset-height": (pspec: GObject.ParamSpec) => void;
+            "notify::offset-left": (pspec: GObject.ParamSpec) => void;
+            "notify::offset-parent": (pspec: GObject.ParamSpec) => void;
+            "notify::offset-top": (pspec: GObject.ParamSpec) => void;
+            "notify::offset-width": (pspec: GObject.ParamSpec) => void;
+            "notify::outer-html": (pspec: GObject.ParamSpec) => void;
+            "notify::prefix": (pspec: GObject.ParamSpec) => void;
+            "notify::previous-element-sibling": (pspec: GObject.ParamSpec) => void;
+            "notify::scroll-height": (pspec: GObject.ParamSpec) => void;
+            "notify::scroll-left": (pspec: GObject.ParamSpec) => void;
+            "notify::scroll-top": (pspec: GObject.ParamSpec) => void;
+            "notify::scroll-width": (pspec: GObject.ParamSpec) => void;
+            "notify::style": (pspec: GObject.ParamSpec) => void;
+            "notify::tag-name": (pspec: GObject.ParamSpec) => void;
+            "notify::webkit-region-overset": (pspec: GObject.ParamSpec) => void;
+            "notify::base-uri": (pspec: GObject.ParamSpec) => void;
+            "notify::child-nodes": (pspec: GObject.ParamSpec) => void;
+            "notify::first-child": (pspec: GObject.ParamSpec) => void;
+            "notify::last-child": (pspec: GObject.ParamSpec) => void;
+            "notify::next-sibling": (pspec: GObject.ParamSpec) => void;
+            "notify::node-name": (pspec: GObject.ParamSpec) => void;
+            "notify::node-type": (pspec: GObject.ParamSpec) => void;
+            "notify::node-value": (pspec: GObject.ParamSpec) => void;
+            "notify::owner-document": (pspec: GObject.ParamSpec) => void;
+            "notify::parent-element": (pspec: GObject.ParamSpec) => void;
+            "notify::parent-node": (pspec: GObject.ParamSpec) => void;
+            "notify::previous-sibling": (pspec: GObject.ParamSpec) => void;
+            "notify::text-content": (pspec: GObject.ParamSpec) => void;
+            "notify::core-object": (pspec: GObject.ParamSpec) => void;
+        }
+
+        // Constructor properties interface
+        interface ConstructorProps extends DOMHTMLElement.ConstructorProps, DOMEventTarget.ConstructorProps {
+            alt: string;
+            coords: string;
+            hash: string;
+            host: string;
+            hostname: string;
+            href: string;
+            no_href: boolean;
+            noHref: boolean;
+            pathname: string;
+            port: string;
+            protocol: string;
+            search: string;
+            shape: string;
+            target: string;
+        }
+    }
+
+    /**
+     * @gir-type Class
+     */
+    class DOMHTMLAreaElement extends DOMHTMLElement implements DOMEventTarget {
+        static $gtype: GObject.GType<DOMHTMLAreaElement>;
+
+        // Properties
+        get alt(): string;
+        set alt(val: string);
+
+        get coords(): string;
+        set coords(val: string);
+
+        get hash(): string;
+        set hash(val: string);
+
+        get host(): string;
+        set host(val: string);
+
+        get hostname(): string;
+        set hostname(val: string);
+
+        get href(): string;
+        set href(val: string);
+
+        /**
+         * @default false
+         */
+        get no_href(): boolean;
+        set no_href(val: boolean);
+
+        /**
+         * @default false
+         */
+        get noHref(): boolean;
+        set noHref(val: boolean);
+
+        get pathname(): string;
+        set pathname(val: string);
+
+        get port(): string;
+        set port(val: string);
+
+        get protocol(): string;
+        set protocol(val: string);
+
+        get search(): string;
+        set search(val: string);
+
+        get shape(): string;
+        set shape(val: string);
+
+        get target(): string;
+        set target(val: string);
+
+        /**
+         * Compile-time signal type information.
+         *
+         * This instance property is generated only for TypeScript type checking.
+         * It is not defined at runtime and should not be accessed in JS code.
+         * @internal
+         */
+        $signals: DOMHTMLAreaElement.SignalSignatures;
+
+        // Constructors
+        constructor(properties?: Partial<DOMHTMLAreaElement.ConstructorProps>, ...args: any[]);
+
+        _init(...args: any[]): void;
+
+        // Signals
+        /** @signal */
+        connect<K extends keyof DOMHTMLAreaElement.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, DOMHTMLAreaElement.SignalSignatures[K]>): number;
+
+        /** @signal */
+        connect_after<K extends keyof DOMHTMLAreaElement.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, DOMHTMLAreaElement.SignalSignatures[K]>): number;
+
+        /** @signal */
+        emit<K extends keyof DOMHTMLAreaElement.SignalSignatures>(signal: K, ...args: GObject.GjsParameters<DOMHTMLAreaElement.SignalSignatures[K]>): void;
+
+        // Methods
+        /**
+         * @returns A `gchar`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_alt(): string;
+
+        /**
+         * @returns A `gchar`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_coords(): string;
+
+        /**
+         * @returns A `gchar`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_hash(): string;
+
+        /**
+         * @returns A `gchar`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_host(): string;
+
+        /**
+         * @returns A `gchar`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_hostname(): string;
+
+        /**
+         * @returns A `gchar`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_href(): string;
+
+        /**
+         * @returns A `gboolean`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_no_href(): boolean;
+
+        /**
+         * @returns A `gchar`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_pathname(): string;
+
+        /**
+         * @returns A `gchar`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_port(): string;
+
+        /**
+         * @returns A `gchar`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_protocol(): string;
+
+        /**
+         * @returns A `gchar`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_search(): string;
+
+        /**
+         * @returns A `gchar`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_shape(): string;
+
+        /**
+         * @returns A `gchar`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_target(): string;
+
+        /**
+         * @param value A `gchar`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        set_alt(value: string): void;
+
+        /**
+         * @param value A `gchar`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        set_coords(value: string): void;
+
+        /**
+         * @param value A `gchar`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        set_hash(value: string): void;
+
+        /**
+         * @param value A `gchar`
+         * @since 2.16
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        set_host(value: string): void;
+
+        /**
+         * @param value A `gchar`
+         * @since 2.16
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        set_hostname(value: string): void;
+
+        /**
+         * @param value A `gchar`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        set_href(value: string): void;
+
+        /**
+         * @param value A `gboolean`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        set_no_href(value: boolean): void;
+
+        /**
+         * @param value A `gchar`
+         * @since 2.16
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        set_pathname(value: string): void;
+
+        /**
+         * @param value A `gchar`
+         * @since 2.16
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        set_port(value: string): void;
+
+        /**
+         * @param value A `gchar`
+         * @since 2.16
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        set_protocol(value: string): void;
+
+        /**
+         * @param value A `gchar`
+         * @since 2.16
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        set_search(value: string): void;
+
+        /**
+         * @param value A `gchar`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        set_shape(value: string): void;
+
+        /**
+         * @param value A `gchar`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        set_target(value: string): void;
+    }
+
+
+    namespace DOMHTMLBRElement {
+        // Signal signatures
+        interface SignalSignatures extends DOMHTMLElement.SignalSignatures {
+            "notify::clear": (pspec: GObject.ParamSpec) => void;
+            "notify::access-key": (pspec: GObject.ParamSpec) => void;
+            "notify::content-editable": (pspec: GObject.ParamSpec) => void;
+            "notify::dir": (pspec: GObject.ParamSpec) => void;
+            "notify::draggable": (pspec: GObject.ParamSpec) => void;
+            "notify::hidden": (pspec: GObject.ParamSpec) => void;
+            "notify::inner-text": (pspec: GObject.ParamSpec) => void;
+            "notify::is-content-editable": (pspec: GObject.ParamSpec) => void;
+            "notify::lang": (pspec: GObject.ParamSpec) => void;
+            "notify::outer-text": (pspec: GObject.ParamSpec) => void;
+            "notify::spellcheck": (pspec: GObject.ParamSpec) => void;
+            "notify::tab-index": (pspec: GObject.ParamSpec) => void;
+            "notify::title": (pspec: GObject.ParamSpec) => void;
+            "notify::translate": (pspec: GObject.ParamSpec) => void;
+            "notify::webkitdropzone": (pspec: GObject.ParamSpec) => void;
+            "notify::attributes": (pspec: GObject.ParamSpec) => void;
+            "notify::child-element-count": (pspec: GObject.ParamSpec) => void;
+            "notify::children": (pspec: GObject.ParamSpec) => void;
+            "notify::class-list": (pspec: GObject.ParamSpec) => void;
+            "notify::class-name": (pspec: GObject.ParamSpec) => void;
+            "notify::client-height": (pspec: GObject.ParamSpec) => void;
+            "notify::client-left": (pspec: GObject.ParamSpec) => void;
+            "notify::client-top": (pspec: GObject.ParamSpec) => void;
+            "notify::client-width": (pspec: GObject.ParamSpec) => void;
+            "notify::first-element-child": (pspec: GObject.ParamSpec) => void;
+            "notify::id": (pspec: GObject.ParamSpec) => void;
+            "notify::inner-html": (pspec: GObject.ParamSpec) => void;
+            "notify::last-element-child": (pspec: GObject.ParamSpec) => void;
+            "notify::local-name": (pspec: GObject.ParamSpec) => void;
+            "notify::namespace-uri": (pspec: GObject.ParamSpec) => void;
+            "notify::next-element-sibling": (pspec: GObject.ParamSpec) => void;
+            "notify::offset-height": (pspec: GObject.ParamSpec) => void;
+            "notify::offset-left": (pspec: GObject.ParamSpec) => void;
+            "notify::offset-parent": (pspec: GObject.ParamSpec) => void;
+            "notify::offset-top": (pspec: GObject.ParamSpec) => void;
+            "notify::offset-width": (pspec: GObject.ParamSpec) => void;
+            "notify::outer-html": (pspec: GObject.ParamSpec) => void;
+            "notify::prefix": (pspec: GObject.ParamSpec) => void;
+            "notify::previous-element-sibling": (pspec: GObject.ParamSpec) => void;
+            "notify::scroll-height": (pspec: GObject.ParamSpec) => void;
+            "notify::scroll-left": (pspec: GObject.ParamSpec) => void;
+            "notify::scroll-top": (pspec: GObject.ParamSpec) => void;
+            "notify::scroll-width": (pspec: GObject.ParamSpec) => void;
+            "notify::style": (pspec: GObject.ParamSpec) => void;
+            "notify::tag-name": (pspec: GObject.ParamSpec) => void;
+            "notify::webkit-region-overset": (pspec: GObject.ParamSpec) => void;
+            "notify::base-uri": (pspec: GObject.ParamSpec) => void;
+            "notify::child-nodes": (pspec: GObject.ParamSpec) => void;
+            "notify::first-child": (pspec: GObject.ParamSpec) => void;
+            "notify::last-child": (pspec: GObject.ParamSpec) => void;
+            "notify::next-sibling": (pspec: GObject.ParamSpec) => void;
+            "notify::node-name": (pspec: GObject.ParamSpec) => void;
+            "notify::node-type": (pspec: GObject.ParamSpec) => void;
+            "notify::node-value": (pspec: GObject.ParamSpec) => void;
+            "notify::owner-document": (pspec: GObject.ParamSpec) => void;
+            "notify::parent-element": (pspec: GObject.ParamSpec) => void;
+            "notify::parent-node": (pspec: GObject.ParamSpec) => void;
+            "notify::previous-sibling": (pspec: GObject.ParamSpec) => void;
+            "notify::text-content": (pspec: GObject.ParamSpec) => void;
+            "notify::core-object": (pspec: GObject.ParamSpec) => void;
+        }
+
+        // Constructor properties interface
+        interface ConstructorProps extends DOMHTMLElement.ConstructorProps, DOMEventTarget.ConstructorProps {
+            clear: string;
+        }
+    }
+
+    /**
+     * @gir-type Class
+     */
+    class DOMHTMLBRElement extends DOMHTMLElement implements DOMEventTarget {
+        static $gtype: GObject.GType<DOMHTMLBRElement>;
+
+        // Properties
+        get clear(): string;
+        set clear(val: string);
+
+        /**
+         * Compile-time signal type information.
+         *
+         * This instance property is generated only for TypeScript type checking.
+         * It is not defined at runtime and should not be accessed in JS code.
+         * @internal
+         */
+        $signals: DOMHTMLBRElement.SignalSignatures;
+
+        // Constructors
+        constructor(properties?: Partial<DOMHTMLBRElement.ConstructorProps>, ...args: any[]);
+
+        _init(...args: any[]): void;
+
+        // Signals
+        /** @signal */
+        connect<K extends keyof DOMHTMLBRElement.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, DOMHTMLBRElement.SignalSignatures[K]>): number;
+
+        /** @signal */
+        connect_after<K extends keyof DOMHTMLBRElement.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, DOMHTMLBRElement.SignalSignatures[K]>): number;
+
+        /** @signal */
+        emit<K extends keyof DOMHTMLBRElement.SignalSignatures>(signal: K, ...args: GObject.GjsParameters<DOMHTMLBRElement.SignalSignatures[K]>): void;
+
+        // Methods
+        /**
+         * @returns A `gchar`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_clear(): string;
+
+        /**
+         * @param value A `gchar`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        set_clear(value: string): void;
+    }
+
+
+    namespace DOMHTMLBaseElement {
+        // Signal signatures
+        interface SignalSignatures extends DOMHTMLElement.SignalSignatures {
+            "notify::href": (pspec: GObject.ParamSpec) => void;
+            "notify::target": (pspec: GObject.ParamSpec) => void;
+            "notify::access-key": (pspec: GObject.ParamSpec) => void;
+            "notify::content-editable": (pspec: GObject.ParamSpec) => void;
+            "notify::dir": (pspec: GObject.ParamSpec) => void;
+            "notify::draggable": (pspec: GObject.ParamSpec) => void;
+            "notify::hidden": (pspec: GObject.ParamSpec) => void;
+            "notify::inner-text": (pspec: GObject.ParamSpec) => void;
+            "notify::is-content-editable": (pspec: GObject.ParamSpec) => void;
+            "notify::lang": (pspec: GObject.ParamSpec) => void;
+            "notify::outer-text": (pspec: GObject.ParamSpec) => void;
+            "notify::spellcheck": (pspec: GObject.ParamSpec) => void;
+            "notify::tab-index": (pspec: GObject.ParamSpec) => void;
+            "notify::title": (pspec: GObject.ParamSpec) => void;
+            "notify::translate": (pspec: GObject.ParamSpec) => void;
+            "notify::webkitdropzone": (pspec: GObject.ParamSpec) => void;
+            "notify::attributes": (pspec: GObject.ParamSpec) => void;
+            "notify::child-element-count": (pspec: GObject.ParamSpec) => void;
+            "notify::children": (pspec: GObject.ParamSpec) => void;
+            "notify::class-list": (pspec: GObject.ParamSpec) => void;
+            "notify::class-name": (pspec: GObject.ParamSpec) => void;
+            "notify::client-height": (pspec: GObject.ParamSpec) => void;
+            "notify::client-left": (pspec: GObject.ParamSpec) => void;
+            "notify::client-top": (pspec: GObject.ParamSpec) => void;
+            "notify::client-width": (pspec: GObject.ParamSpec) => void;
+            "notify::first-element-child": (pspec: GObject.ParamSpec) => void;
+            "notify::id": (pspec: GObject.ParamSpec) => void;
+            "notify::inner-html": (pspec: GObject.ParamSpec) => void;
+            "notify::last-element-child": (pspec: GObject.ParamSpec) => void;
+            "notify::local-name": (pspec: GObject.ParamSpec) => void;
+            "notify::namespace-uri": (pspec: GObject.ParamSpec) => void;
+            "notify::next-element-sibling": (pspec: GObject.ParamSpec) => void;
+            "notify::offset-height": (pspec: GObject.ParamSpec) => void;
+            "notify::offset-left": (pspec: GObject.ParamSpec) => void;
+            "notify::offset-parent": (pspec: GObject.ParamSpec) => void;
+            "notify::offset-top": (pspec: GObject.ParamSpec) => void;
+            "notify::offset-width": (pspec: GObject.ParamSpec) => void;
+            "notify::outer-html": (pspec: GObject.ParamSpec) => void;
+            "notify::prefix": (pspec: GObject.ParamSpec) => void;
+            "notify::previous-element-sibling": (pspec: GObject.ParamSpec) => void;
+            "notify::scroll-height": (pspec: GObject.ParamSpec) => void;
+            "notify::scroll-left": (pspec: GObject.ParamSpec) => void;
+            "notify::scroll-top": (pspec: GObject.ParamSpec) => void;
+            "notify::scroll-width": (pspec: GObject.ParamSpec) => void;
+            "notify::style": (pspec: GObject.ParamSpec) => void;
+            "notify::tag-name": (pspec: GObject.ParamSpec) => void;
+            "notify::webkit-region-overset": (pspec: GObject.ParamSpec) => void;
+            "notify::base-uri": (pspec: GObject.ParamSpec) => void;
+            "notify::child-nodes": (pspec: GObject.ParamSpec) => void;
+            "notify::first-child": (pspec: GObject.ParamSpec) => void;
+            "notify::last-child": (pspec: GObject.ParamSpec) => void;
+            "notify::next-sibling": (pspec: GObject.ParamSpec) => void;
+            "notify::node-name": (pspec: GObject.ParamSpec) => void;
+            "notify::node-type": (pspec: GObject.ParamSpec) => void;
+            "notify::node-value": (pspec: GObject.ParamSpec) => void;
+            "notify::owner-document": (pspec: GObject.ParamSpec) => void;
+            "notify::parent-element": (pspec: GObject.ParamSpec) => void;
+            "notify::parent-node": (pspec: GObject.ParamSpec) => void;
+            "notify::previous-sibling": (pspec: GObject.ParamSpec) => void;
+            "notify::text-content": (pspec: GObject.ParamSpec) => void;
+            "notify::core-object": (pspec: GObject.ParamSpec) => void;
+        }
+
+        // Constructor properties interface
+        interface ConstructorProps extends DOMHTMLElement.ConstructorProps, DOMEventTarget.ConstructorProps {
+            href: string;
+            target: string;
+        }
+    }
+
+    /**
+     * @gir-type Class
+     */
+    class DOMHTMLBaseElement extends DOMHTMLElement implements DOMEventTarget {
+        static $gtype: GObject.GType<DOMHTMLBaseElement>;
+
+        // Properties
+        get href(): string;
+        set href(val: string);
+
+        get target(): string;
+        set target(val: string);
+
+        /**
+         * Compile-time signal type information.
+         *
+         * This instance property is generated only for TypeScript type checking.
+         * It is not defined at runtime and should not be accessed in JS code.
+         * @internal
+         */
+        $signals: DOMHTMLBaseElement.SignalSignatures;
+
+        // Constructors
+        constructor(properties?: Partial<DOMHTMLBaseElement.ConstructorProps>, ...args: any[]);
+
+        _init(...args: any[]): void;
+
+        // Signals
+        /** @signal */
+        connect<K extends keyof DOMHTMLBaseElement.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, DOMHTMLBaseElement.SignalSignatures[K]>): number;
+
+        /** @signal */
+        connect_after<K extends keyof DOMHTMLBaseElement.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, DOMHTMLBaseElement.SignalSignatures[K]>): number;
+
+        /** @signal */
+        emit<K extends keyof DOMHTMLBaseElement.SignalSignatures>(signal: K, ...args: GObject.GjsParameters<DOMHTMLBaseElement.SignalSignatures[K]>): void;
+
+        // Methods
+        /**
+         * @returns A `gchar`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_href(): string;
+
+        /**
+         * @returns A `gchar`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_target(): string;
+
+        /**
+         * @param value A `gchar`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        set_href(value: string): void;
+
+        /**
+         * @param value A `gchar`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        set_target(value: string): void;
+    }
+
+
+    namespace DOMHTMLBaseFontElement {
+        // Signal signatures
+        interface SignalSignatures extends DOMHTMLElement.SignalSignatures {
+            "notify::access-key": (pspec: GObject.ParamSpec) => void;
+            "notify::content-editable": (pspec: GObject.ParamSpec) => void;
+            "notify::dir": (pspec: GObject.ParamSpec) => void;
+            "notify::draggable": (pspec: GObject.ParamSpec) => void;
+            "notify::hidden": (pspec: GObject.ParamSpec) => void;
+            "notify::inner-text": (pspec: GObject.ParamSpec) => void;
+            "notify::is-content-editable": (pspec: GObject.ParamSpec) => void;
+            "notify::lang": (pspec: GObject.ParamSpec) => void;
+            "notify::outer-text": (pspec: GObject.ParamSpec) => void;
+            "notify::spellcheck": (pspec: GObject.ParamSpec) => void;
+            "notify::tab-index": (pspec: GObject.ParamSpec) => void;
+            "notify::title": (pspec: GObject.ParamSpec) => void;
+            "notify::translate": (pspec: GObject.ParamSpec) => void;
+            "notify::webkitdropzone": (pspec: GObject.ParamSpec) => void;
+            "notify::attributes": (pspec: GObject.ParamSpec) => void;
+            "notify::child-element-count": (pspec: GObject.ParamSpec) => void;
+            "notify::children": (pspec: GObject.ParamSpec) => void;
+            "notify::class-list": (pspec: GObject.ParamSpec) => void;
+            "notify::class-name": (pspec: GObject.ParamSpec) => void;
+            "notify::client-height": (pspec: GObject.ParamSpec) => void;
+            "notify::client-left": (pspec: GObject.ParamSpec) => void;
+            "notify::client-top": (pspec: GObject.ParamSpec) => void;
+            "notify::client-width": (pspec: GObject.ParamSpec) => void;
+            "notify::first-element-child": (pspec: GObject.ParamSpec) => void;
+            "notify::id": (pspec: GObject.ParamSpec) => void;
+            "notify::inner-html": (pspec: GObject.ParamSpec) => void;
+            "notify::last-element-child": (pspec: GObject.ParamSpec) => void;
+            "notify::local-name": (pspec: GObject.ParamSpec) => void;
+            "notify::namespace-uri": (pspec: GObject.ParamSpec) => void;
+            "notify::next-element-sibling": (pspec: GObject.ParamSpec) => void;
+            "notify::offset-height": (pspec: GObject.ParamSpec) => void;
+            "notify::offset-left": (pspec: GObject.ParamSpec) => void;
+            "notify::offset-parent": (pspec: GObject.ParamSpec) => void;
+            "notify::offset-top": (pspec: GObject.ParamSpec) => void;
+            "notify::offset-width": (pspec: GObject.ParamSpec) => void;
+            "notify::outer-html": (pspec: GObject.ParamSpec) => void;
+            "notify::prefix": (pspec: GObject.ParamSpec) => void;
+            "notify::previous-element-sibling": (pspec: GObject.ParamSpec) => void;
+            "notify::scroll-height": (pspec: GObject.ParamSpec) => void;
+            "notify::scroll-left": (pspec: GObject.ParamSpec) => void;
+            "notify::scroll-top": (pspec: GObject.ParamSpec) => void;
+            "notify::scroll-width": (pspec: GObject.ParamSpec) => void;
+            "notify::style": (pspec: GObject.ParamSpec) => void;
+            "notify::tag-name": (pspec: GObject.ParamSpec) => void;
+            "notify::webkit-region-overset": (pspec: GObject.ParamSpec) => void;
+            "notify::base-uri": (pspec: GObject.ParamSpec) => void;
+            "notify::child-nodes": (pspec: GObject.ParamSpec) => void;
+            "notify::first-child": (pspec: GObject.ParamSpec) => void;
+            "notify::last-child": (pspec: GObject.ParamSpec) => void;
+            "notify::next-sibling": (pspec: GObject.ParamSpec) => void;
+            "notify::node-name": (pspec: GObject.ParamSpec) => void;
+            "notify::node-type": (pspec: GObject.ParamSpec) => void;
+            "notify::node-value": (pspec: GObject.ParamSpec) => void;
+            "notify::owner-document": (pspec: GObject.ParamSpec) => void;
+            "notify::parent-element": (pspec: GObject.ParamSpec) => void;
+            "notify::parent-node": (pspec: GObject.ParamSpec) => void;
+            "notify::previous-sibling": (pspec: GObject.ParamSpec) => void;
+            "notify::text-content": (pspec: GObject.ParamSpec) => void;
+            "notify::core-object": (pspec: GObject.ParamSpec) => void;
+        }
+
+        // Constructor properties interface
+        interface ConstructorProps extends DOMHTMLElement.ConstructorProps, DOMEventTarget.ConstructorProps {}
+    }
+
+    /**
+     * @gir-type Class
+     */
+    class DOMHTMLBaseFontElement extends DOMHTMLElement implements DOMEventTarget {
+        static $gtype: GObject.GType<DOMHTMLBaseFontElement>;
+
+        /**
+         * Compile-time signal type information.
+         *
+         * This instance property is generated only for TypeScript type checking.
+         * It is not defined at runtime and should not be accessed in JS code.
+         * @internal
+         */
+        $signals: DOMHTMLBaseFontElement.SignalSignatures;
+
+        // Constructors
+        constructor(properties?: Partial<DOMHTMLBaseFontElement.ConstructorProps>, ...args: any[]);
+
+        _init(...args: any[]): void;
+
+        // Signals
+        /** @signal */
+        connect<K extends keyof DOMHTMLBaseFontElement.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, DOMHTMLBaseFontElement.SignalSignatures[K]>): number;
+
+        /** @signal */
+        connect_after<K extends keyof DOMHTMLBaseFontElement.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, DOMHTMLBaseFontElement.SignalSignatures[K]>): number;
+
+        /** @signal */
+        emit<K extends keyof DOMHTMLBaseFontElement.SignalSignatures>(signal: K, ...args: GObject.GjsParameters<DOMHTMLBaseFontElement.SignalSignatures[K]>): void;
+
+        // Methods
+        /**
+         * This function has been removed from the DOM spec and it just returns `null`.
+         * @returns A `gchar`
+         * @deprecated since 2.12
+         */
+        get_color(): string;
+
+        /**
+         * This function has been removed from the DOM spec and it just returns `null`.
+         * @returns A `gchar`
+         * @deprecated since 2.12
+         */
+        get_face(): string;
+
+        /**
+         * This function has been removed from the DOM spec and it just returns 0.
+         * @returns A `glong`
+         * @deprecated since 2.12
+         */
+        get_size(): number;
+
+        /**
+         * This function has been removed from the DOM spec and it does nothing.
+         * @param value A `gchar`
+         * @deprecated since 2.12
+         */
+        set_color(value: string): void;
+
+        /**
+         * This function has been removed from the DOM spec and it does nothing.
+         * @param value A `gchar`
+         * @deprecated since 2.12
+         */
+        set_face(value: string): void;
+
+        /**
+         * This function has been removed from the DOM spec and it does nothing.
+         * @param value A `glong`
+         * @deprecated since 2.12
+         */
+        set_size(value: bigint | number): void;
+    }
+
+
+    namespace DOMHTMLBodyElement {
+        // Signal signatures
+        interface SignalSignatures extends DOMHTMLElement.SignalSignatures {
+            "notify::a-link": (pspec: GObject.ParamSpec) => void;
+            "notify::background": (pspec: GObject.ParamSpec) => void;
+            "notify::bg-color": (pspec: GObject.ParamSpec) => void;
+            "notify::link": (pspec: GObject.ParamSpec) => void;
+            "notify::text": (pspec: GObject.ParamSpec) => void;
+            "notify::v-link": (pspec: GObject.ParamSpec) => void;
+            "notify::access-key": (pspec: GObject.ParamSpec) => void;
+            "notify::content-editable": (pspec: GObject.ParamSpec) => void;
+            "notify::dir": (pspec: GObject.ParamSpec) => void;
+            "notify::draggable": (pspec: GObject.ParamSpec) => void;
+            "notify::hidden": (pspec: GObject.ParamSpec) => void;
+            "notify::inner-text": (pspec: GObject.ParamSpec) => void;
+            "notify::is-content-editable": (pspec: GObject.ParamSpec) => void;
+            "notify::lang": (pspec: GObject.ParamSpec) => void;
+            "notify::outer-text": (pspec: GObject.ParamSpec) => void;
+            "notify::spellcheck": (pspec: GObject.ParamSpec) => void;
+            "notify::tab-index": (pspec: GObject.ParamSpec) => void;
+            "notify::title": (pspec: GObject.ParamSpec) => void;
+            "notify::translate": (pspec: GObject.ParamSpec) => void;
+            "notify::webkitdropzone": (pspec: GObject.ParamSpec) => void;
+            "notify::attributes": (pspec: GObject.ParamSpec) => void;
+            "notify::child-element-count": (pspec: GObject.ParamSpec) => void;
+            "notify::children": (pspec: GObject.ParamSpec) => void;
+            "notify::class-list": (pspec: GObject.ParamSpec) => void;
+            "notify::class-name": (pspec: GObject.ParamSpec) => void;
+            "notify::client-height": (pspec: GObject.ParamSpec) => void;
+            "notify::client-left": (pspec: GObject.ParamSpec) => void;
+            "notify::client-top": (pspec: GObject.ParamSpec) => void;
+            "notify::client-width": (pspec: GObject.ParamSpec) => void;
+            "notify::first-element-child": (pspec: GObject.ParamSpec) => void;
+            "notify::id": (pspec: GObject.ParamSpec) => void;
+            "notify::inner-html": (pspec: GObject.ParamSpec) => void;
+            "notify::last-element-child": (pspec: GObject.ParamSpec) => void;
+            "notify::local-name": (pspec: GObject.ParamSpec) => void;
+            "notify::namespace-uri": (pspec: GObject.ParamSpec) => void;
+            "notify::next-element-sibling": (pspec: GObject.ParamSpec) => void;
+            "notify::offset-height": (pspec: GObject.ParamSpec) => void;
+            "notify::offset-left": (pspec: GObject.ParamSpec) => void;
+            "notify::offset-parent": (pspec: GObject.ParamSpec) => void;
+            "notify::offset-top": (pspec: GObject.ParamSpec) => void;
+            "notify::offset-width": (pspec: GObject.ParamSpec) => void;
+            "notify::outer-html": (pspec: GObject.ParamSpec) => void;
+            "notify::prefix": (pspec: GObject.ParamSpec) => void;
+            "notify::previous-element-sibling": (pspec: GObject.ParamSpec) => void;
+            "notify::scroll-height": (pspec: GObject.ParamSpec) => void;
+            "notify::scroll-left": (pspec: GObject.ParamSpec) => void;
+            "notify::scroll-top": (pspec: GObject.ParamSpec) => void;
+            "notify::scroll-width": (pspec: GObject.ParamSpec) => void;
+            "notify::style": (pspec: GObject.ParamSpec) => void;
+            "notify::tag-name": (pspec: GObject.ParamSpec) => void;
+            "notify::webkit-region-overset": (pspec: GObject.ParamSpec) => void;
+            "notify::base-uri": (pspec: GObject.ParamSpec) => void;
+            "notify::child-nodes": (pspec: GObject.ParamSpec) => void;
+            "notify::first-child": (pspec: GObject.ParamSpec) => void;
+            "notify::last-child": (pspec: GObject.ParamSpec) => void;
+            "notify::next-sibling": (pspec: GObject.ParamSpec) => void;
+            "notify::node-name": (pspec: GObject.ParamSpec) => void;
+            "notify::node-type": (pspec: GObject.ParamSpec) => void;
+            "notify::node-value": (pspec: GObject.ParamSpec) => void;
+            "notify::owner-document": (pspec: GObject.ParamSpec) => void;
+            "notify::parent-element": (pspec: GObject.ParamSpec) => void;
+            "notify::parent-node": (pspec: GObject.ParamSpec) => void;
+            "notify::previous-sibling": (pspec: GObject.ParamSpec) => void;
+            "notify::text-content": (pspec: GObject.ParamSpec) => void;
+            "notify::core-object": (pspec: GObject.ParamSpec) => void;
+        }
+
+        // Constructor properties interface
+        interface ConstructorProps extends DOMHTMLElement.ConstructorProps, DOMEventTarget.ConstructorProps {
+            a_link: string;
+            aLink: string;
+            background: string;
+            bg_color: string;
+            bgColor: string;
+            link: string;
+            text: string;
+            v_link: string;
+            vLink: string;
+        }
+    }
+
+    /**
+     * @gir-type Class
+     */
+    class DOMHTMLBodyElement extends DOMHTMLElement implements DOMEventTarget {
+        static $gtype: GObject.GType<DOMHTMLBodyElement>;
+
+        // Properties
+        get a_link(): string;
+        set a_link(val: string);
+
+        get aLink(): string;
+        set aLink(val: string);
+
+        get background(): string;
+        set background(val: string);
+
+        get bg_color(): string;
+        set bg_color(val: string);
+
+        get bgColor(): string;
+        set bgColor(val: string);
+
+        get link(): string;
+        set link(val: string);
+
+        get text(): string;
+        set text(val: string);
+
+        get v_link(): string;
+        set v_link(val: string);
+
+        get vLink(): string;
+        set vLink(val: string);
+
+        /**
+         * Compile-time signal type information.
+         *
+         * This instance property is generated only for TypeScript type checking.
+         * It is not defined at runtime and should not be accessed in JS code.
+         * @internal
+         */
+        $signals: DOMHTMLBodyElement.SignalSignatures;
+
+        // Constructors
+        constructor(properties?: Partial<DOMHTMLBodyElement.ConstructorProps>, ...args: any[]);
+
+        _init(...args: any[]): void;
+
+        // Signals
+        /** @signal */
+        connect<K extends keyof DOMHTMLBodyElement.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, DOMHTMLBodyElement.SignalSignatures[K]>): number;
+
+        /** @signal */
+        connect_after<K extends keyof DOMHTMLBodyElement.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, DOMHTMLBodyElement.SignalSignatures[K]>): number;
+
+        /** @signal */
+        emit<K extends keyof DOMHTMLBodyElement.SignalSignatures>(signal: K, ...args: GObject.GjsParameters<DOMHTMLBodyElement.SignalSignatures[K]>): void;
+
+        // Methods
+        /**
+         * @returns A `gchar`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_a_link(): string;
+
+        /**
+         * @returns A `gchar`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_background(): string;
+
+        /**
+         * @returns A `gchar`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_bg_color(): string;
+
+        /**
+         * @returns A `gchar`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_link(): string;
+
+        /**
+         * @returns A `gchar`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_text(): string;
+
+        /**
+         * @returns A `gchar`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_v_link(): string;
+
+        /**
+         * @param value A `gchar`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        set_a_link(value: string): void;
+
+        /**
+         * @param value A `gchar`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        set_background(value: string): void;
+
+        /**
+         * @param value A `gchar`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        set_bg_color(value: string): void;
+
+        /**
+         * @param value A `gchar`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        set_link(value: string): void;
+
+        /**
+         * @param value A `gchar`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        set_text(value: string): void;
+
+        /**
+         * @param value A `gchar`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        set_v_link(value: string): void;
+    }
+
+
+    namespace DOMHTMLButtonElement {
+        // Signal signatures
+        interface SignalSignatures extends DOMHTMLElement.SignalSignatures {
+            "notify::autofocus": (pspec: GObject.ParamSpec) => void;
+            "notify::disabled": (pspec: GObject.ParamSpec) => void;
+            "notify::form": (pspec: GObject.ParamSpec) => void;
+            "notify::name": (pspec: GObject.ParamSpec) => void;
+            "notify::type": (pspec: GObject.ParamSpec) => void;
+            "notify::value": (pspec: GObject.ParamSpec) => void;
+            "notify::will-validate": (pspec: GObject.ParamSpec) => void;
+            "notify::access-key": (pspec: GObject.ParamSpec) => void;
+            "notify::content-editable": (pspec: GObject.ParamSpec) => void;
+            "notify::dir": (pspec: GObject.ParamSpec) => void;
+            "notify::draggable": (pspec: GObject.ParamSpec) => void;
+            "notify::hidden": (pspec: GObject.ParamSpec) => void;
+            "notify::inner-text": (pspec: GObject.ParamSpec) => void;
+            "notify::is-content-editable": (pspec: GObject.ParamSpec) => void;
+            "notify::lang": (pspec: GObject.ParamSpec) => void;
+            "notify::outer-text": (pspec: GObject.ParamSpec) => void;
+            "notify::spellcheck": (pspec: GObject.ParamSpec) => void;
+            "notify::tab-index": (pspec: GObject.ParamSpec) => void;
+            "notify::title": (pspec: GObject.ParamSpec) => void;
+            "notify::translate": (pspec: GObject.ParamSpec) => void;
+            "notify::webkitdropzone": (pspec: GObject.ParamSpec) => void;
+            "notify::attributes": (pspec: GObject.ParamSpec) => void;
+            "notify::child-element-count": (pspec: GObject.ParamSpec) => void;
+            "notify::children": (pspec: GObject.ParamSpec) => void;
+            "notify::class-list": (pspec: GObject.ParamSpec) => void;
+            "notify::class-name": (pspec: GObject.ParamSpec) => void;
+            "notify::client-height": (pspec: GObject.ParamSpec) => void;
+            "notify::client-left": (pspec: GObject.ParamSpec) => void;
+            "notify::client-top": (pspec: GObject.ParamSpec) => void;
+            "notify::client-width": (pspec: GObject.ParamSpec) => void;
+            "notify::first-element-child": (pspec: GObject.ParamSpec) => void;
+            "notify::id": (pspec: GObject.ParamSpec) => void;
+            "notify::inner-html": (pspec: GObject.ParamSpec) => void;
+            "notify::last-element-child": (pspec: GObject.ParamSpec) => void;
+            "notify::local-name": (pspec: GObject.ParamSpec) => void;
+            "notify::namespace-uri": (pspec: GObject.ParamSpec) => void;
+            "notify::next-element-sibling": (pspec: GObject.ParamSpec) => void;
+            "notify::offset-height": (pspec: GObject.ParamSpec) => void;
+            "notify::offset-left": (pspec: GObject.ParamSpec) => void;
+            "notify::offset-parent": (pspec: GObject.ParamSpec) => void;
+            "notify::offset-top": (pspec: GObject.ParamSpec) => void;
+            "notify::offset-width": (pspec: GObject.ParamSpec) => void;
+            "notify::outer-html": (pspec: GObject.ParamSpec) => void;
+            "notify::prefix": (pspec: GObject.ParamSpec) => void;
+            "notify::previous-element-sibling": (pspec: GObject.ParamSpec) => void;
+            "notify::scroll-height": (pspec: GObject.ParamSpec) => void;
+            "notify::scroll-left": (pspec: GObject.ParamSpec) => void;
+            "notify::scroll-top": (pspec: GObject.ParamSpec) => void;
+            "notify::scroll-width": (pspec: GObject.ParamSpec) => void;
+            "notify::style": (pspec: GObject.ParamSpec) => void;
+            "notify::tag-name": (pspec: GObject.ParamSpec) => void;
+            "notify::webkit-region-overset": (pspec: GObject.ParamSpec) => void;
+            "notify::base-uri": (pspec: GObject.ParamSpec) => void;
+            "notify::child-nodes": (pspec: GObject.ParamSpec) => void;
+            "notify::first-child": (pspec: GObject.ParamSpec) => void;
+            "notify::last-child": (pspec: GObject.ParamSpec) => void;
+            "notify::next-sibling": (pspec: GObject.ParamSpec) => void;
+            "notify::node-name": (pspec: GObject.ParamSpec) => void;
+            "notify::node-type": (pspec: GObject.ParamSpec) => void;
+            "notify::node-value": (pspec: GObject.ParamSpec) => void;
+            "notify::owner-document": (pspec: GObject.ParamSpec) => void;
+            "notify::parent-element": (pspec: GObject.ParamSpec) => void;
+            "notify::parent-node": (pspec: GObject.ParamSpec) => void;
+            "notify::previous-sibling": (pspec: GObject.ParamSpec) => void;
+            "notify::text-content": (pspec: GObject.ParamSpec) => void;
+            "notify::core-object": (pspec: GObject.ParamSpec) => void;
+        }
+
+        // Constructor properties interface
+        interface ConstructorProps extends DOMHTMLElement.ConstructorProps, DOMEventTarget.ConstructorProps {
+            autofocus: boolean;
+            disabled: boolean;
+            form: DOMHTMLFormElement;
+            name: string;
+            type: string;
+            value: string;
+            will_validate: boolean;
+            willValidate: boolean;
+        }
+    }
+
+    /**
+     * @gir-type Class
+     */
+    class DOMHTMLButtonElement extends DOMHTMLElement implements DOMEventTarget {
+        static $gtype: GObject.GType<DOMHTMLButtonElement>;
+
+        // Properties
+        /**
+         * @default false
+         */
+        get autofocus(): boolean;
+        set autofocus(val: boolean);
+
+        /**
+         * @default false
+         */
+        get disabled(): boolean;
+        set disabled(val: boolean);
+
+        /**
+         * @read-only
+         */
+        get form(): DOMHTMLFormElement;
+
+        get name(): string;
+        set name(val: string);
+
+        get type(): string;
+        set type(val: string);
+
+        get value(): string;
+        set value(val: string);
+
+        /**
+         * @read-only
+         * @default false
+         */
+        get will_validate(): boolean;
+
+        /**
+         * @read-only
+         * @default false
+         */
+        get willValidate(): boolean;
+
+        /**
+         * Compile-time signal type information.
+         *
+         * This instance property is generated only for TypeScript type checking.
+         * It is not defined at runtime and should not be accessed in JS code.
+         * @internal
+         */
+        $signals: DOMHTMLButtonElement.SignalSignatures;
+
+        // Constructors
+        constructor(properties?: Partial<DOMHTMLButtonElement.ConstructorProps>, ...args: any[]);
+
+        _init(...args: any[]): void;
+
+        // Signals
+        /** @signal */
+        connect<K extends keyof DOMHTMLButtonElement.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, DOMHTMLButtonElement.SignalSignatures[K]>): number;
+
+        /** @signal */
+        connect_after<K extends keyof DOMHTMLButtonElement.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, DOMHTMLButtonElement.SignalSignatures[K]>): number;
+
+        /** @signal */
+        emit<K extends keyof DOMHTMLButtonElement.SignalSignatures>(signal: K, ...args: GObject.GjsParameters<DOMHTMLButtonElement.SignalSignatures[K]>): void;
+
+        // Methods
+        /**
+         * @returns A `gboolean`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_autofocus(): boolean;
+
+        /**
+         * @returns A `gchar`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_button_type(): string;
+
+        /**
+         * @returns A `gboolean`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_disabled(): boolean;
+
+        /**
+         * @returns A {@link WebKit2WebExtension.DOMHTMLFormElement}
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_form(): DOMHTMLFormElement;
+
+        /**
+         * @returns A `gchar`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_name(): string;
+
+        /**
+         * @returns A `gchar`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_value(): string;
+
+        /**
+         * @returns A `gboolean`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_will_validate(): boolean;
+
+        /**
+         * @param value A `gboolean`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        set_autofocus(value: boolean): void;
+
+        /**
+         * @param value A `gchar`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        set_button_type(value: string): void;
+
+        /**
+         * @param value A `gboolean`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        set_disabled(value: boolean): void;
+
+        /**
+         * @param value A `gchar`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        set_name(value: string): void;
+
+        /**
+         * @param value A `gchar`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        set_value(value: string): void;
+    }
+
+
+    namespace DOMHTMLCanvasElement {
+        // Signal signatures
+        interface SignalSignatures extends DOMHTMLElement.SignalSignatures {
+            "notify::height": (pspec: GObject.ParamSpec) => void;
+            "notify::width": (pspec: GObject.ParamSpec) => void;
+            "notify::access-key": (pspec: GObject.ParamSpec) => void;
+            "notify::content-editable": (pspec: GObject.ParamSpec) => void;
+            "notify::dir": (pspec: GObject.ParamSpec) => void;
+            "notify::draggable": (pspec: GObject.ParamSpec) => void;
+            "notify::hidden": (pspec: GObject.ParamSpec) => void;
+            "notify::inner-text": (pspec: GObject.ParamSpec) => void;
+            "notify::is-content-editable": (pspec: GObject.ParamSpec) => void;
+            "notify::lang": (pspec: GObject.ParamSpec) => void;
+            "notify::outer-text": (pspec: GObject.ParamSpec) => void;
+            "notify::spellcheck": (pspec: GObject.ParamSpec) => void;
+            "notify::tab-index": (pspec: GObject.ParamSpec) => void;
+            "notify::title": (pspec: GObject.ParamSpec) => void;
+            "notify::translate": (pspec: GObject.ParamSpec) => void;
+            "notify::webkitdropzone": (pspec: GObject.ParamSpec) => void;
+            "notify::attributes": (pspec: GObject.ParamSpec) => void;
+            "notify::child-element-count": (pspec: GObject.ParamSpec) => void;
+            "notify::children": (pspec: GObject.ParamSpec) => void;
+            "notify::class-list": (pspec: GObject.ParamSpec) => void;
+            "notify::class-name": (pspec: GObject.ParamSpec) => void;
+            "notify::client-height": (pspec: GObject.ParamSpec) => void;
+            "notify::client-left": (pspec: GObject.ParamSpec) => void;
+            "notify::client-top": (pspec: GObject.ParamSpec) => void;
+            "notify::client-width": (pspec: GObject.ParamSpec) => void;
+            "notify::first-element-child": (pspec: GObject.ParamSpec) => void;
+            "notify::id": (pspec: GObject.ParamSpec) => void;
+            "notify::inner-html": (pspec: GObject.ParamSpec) => void;
+            "notify::last-element-child": (pspec: GObject.ParamSpec) => void;
+            "notify::local-name": (pspec: GObject.ParamSpec) => void;
+            "notify::namespace-uri": (pspec: GObject.ParamSpec) => void;
+            "notify::next-element-sibling": (pspec: GObject.ParamSpec) => void;
+            "notify::offset-height": (pspec: GObject.ParamSpec) => void;
+            "notify::offset-left": (pspec: GObject.ParamSpec) => void;
+            "notify::offset-parent": (pspec: GObject.ParamSpec) => void;
+            "notify::offset-top": (pspec: GObject.ParamSpec) => void;
+            "notify::offset-width": (pspec: GObject.ParamSpec) => void;
+            "notify::outer-html": (pspec: GObject.ParamSpec) => void;
+            "notify::prefix": (pspec: GObject.ParamSpec) => void;
+            "notify::previous-element-sibling": (pspec: GObject.ParamSpec) => void;
+            "notify::scroll-height": (pspec: GObject.ParamSpec) => void;
+            "notify::scroll-left": (pspec: GObject.ParamSpec) => void;
+            "notify::scroll-top": (pspec: GObject.ParamSpec) => void;
+            "notify::scroll-width": (pspec: GObject.ParamSpec) => void;
+            "notify::style": (pspec: GObject.ParamSpec) => void;
+            "notify::tag-name": (pspec: GObject.ParamSpec) => void;
+            "notify::webkit-region-overset": (pspec: GObject.ParamSpec) => void;
+            "notify::base-uri": (pspec: GObject.ParamSpec) => void;
+            "notify::child-nodes": (pspec: GObject.ParamSpec) => void;
+            "notify::first-child": (pspec: GObject.ParamSpec) => void;
+            "notify::last-child": (pspec: GObject.ParamSpec) => void;
+            "notify::next-sibling": (pspec: GObject.ParamSpec) => void;
+            "notify::node-name": (pspec: GObject.ParamSpec) => void;
+            "notify::node-type": (pspec: GObject.ParamSpec) => void;
+            "notify::node-value": (pspec: GObject.ParamSpec) => void;
+            "notify::owner-document": (pspec: GObject.ParamSpec) => void;
+            "notify::parent-element": (pspec: GObject.ParamSpec) => void;
+            "notify::parent-node": (pspec: GObject.ParamSpec) => void;
+            "notify::previous-sibling": (pspec: GObject.ParamSpec) => void;
+            "notify::text-content": (pspec: GObject.ParamSpec) => void;
+            "notify::core-object": (pspec: GObject.ParamSpec) => void;
+        }
+
+        // Constructor properties interface
+        interface ConstructorProps extends DOMHTMLElement.ConstructorProps, DOMEventTarget.ConstructorProps {
+            height: bigint | number;
+            width: bigint | number;
+        }
+    }
+
+    /**
+     * @gir-type Class
+     */
+    class DOMHTMLCanvasElement extends DOMHTMLElement implements DOMEventTarget {
+        static $gtype: GObject.GType<DOMHTMLCanvasElement>;
+
+        // Properties
+        /**
+         * @default 0
+         */
+        get height(): number;
+        set height(val: bigint | number);
+
+        /**
+         * @default 0
+         */
+        get width(): number;
+        set width(val: bigint | number);
+
+        /**
+         * Compile-time signal type information.
+         *
+         * This instance property is generated only for TypeScript type checking.
+         * It is not defined at runtime and should not be accessed in JS code.
+         * @internal
+         */
+        $signals: DOMHTMLCanvasElement.SignalSignatures;
+
+        // Constructors
+        constructor(properties?: Partial<DOMHTMLCanvasElement.ConstructorProps>, ...args: any[]);
+
+        _init(...args: any[]): void;
+
+        // Signals
+        /** @signal */
+        connect<K extends keyof DOMHTMLCanvasElement.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, DOMHTMLCanvasElement.SignalSignatures[K]>): number;
+
+        /** @signal */
+        connect_after<K extends keyof DOMHTMLCanvasElement.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, DOMHTMLCanvasElement.SignalSignatures[K]>): number;
+
+        /** @signal */
+        emit<K extends keyof DOMHTMLCanvasElement.SignalSignatures>(signal: K, ...args: GObject.GjsParameters<DOMHTMLCanvasElement.SignalSignatures[K]>): void;
+
+        // Methods
+        /**
+         * @returns A `glong`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_height(): number;
+
+        /**
+         * @returns A `glong`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_width(): number;
+
+        /**
+         * @param value A `glong`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        set_height(value: bigint | number): void;
+
+        /**
+         * @param value A `glong`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        set_width(value: bigint | number): void;
+    }
+
+
+    namespace DOMHTMLCollection {
+        // Signal signatures
+        interface SignalSignatures extends DOMObject.SignalSignatures {
+            "notify::length": (pspec: GObject.ParamSpec) => void;
+            "notify::core-object": (pspec: GObject.ParamSpec) => void;
+        }
+
+        // Constructor properties interface
+        interface ConstructorProps extends DOMObject.ConstructorProps {
+            length: bigint | number;
+        }
+    }
+
+    /**
+     * @gir-type Class
+     */
+    class DOMHTMLCollection extends DOMObject {
+        static $gtype: GObject.GType<DOMHTMLCollection>;
+
+        // Properties
+        /**
+         * @read-only
+         * @default 0
+         */
+        get length(): number;
+
+        /**
+         * Compile-time signal type information.
+         *
+         * This instance property is generated only for TypeScript type checking.
+         * It is not defined at runtime and should not be accessed in JS code.
+         * @internal
+         */
+        $signals: DOMHTMLCollection.SignalSignatures;
+
+        // Constructors
+        constructor(properties?: Partial<DOMHTMLCollection.ConstructorProps>, ...args: any[]);
+
+        _init(...args: any[]): void;
+
+        // Signals
+        /** @signal */
+        connect<K extends keyof DOMHTMLCollection.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, DOMHTMLCollection.SignalSignatures[K]>): number;
+
+        /** @signal */
+        connect_after<K extends keyof DOMHTMLCollection.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, DOMHTMLCollection.SignalSignatures[K]>): number;
+
+        /** @signal */
+        emit<K extends keyof DOMHTMLCollection.SignalSignatures>(signal: K, ...args: GObject.GjsParameters<DOMHTMLCollection.SignalSignatures[K]>): void;
+
+        // Methods
+        /**
+         * @returns A `gulong`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_length(): number;
+
+        /**
+         * @param index A `gulong`
+         * @returns A {@link WebKit2WebExtension.DOMNode}
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        item(index: bigint | number): DOMNode;
+
+        /**
+         * @param name A `gchar`
+         * @returns A {@link WebKit2WebExtension.DOMNode}
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        named_item(name: string): DOMNode;
+    }
+
+
+    namespace DOMHTMLDListElement {
+        // Signal signatures
+        interface SignalSignatures extends DOMHTMLElement.SignalSignatures {
+            "notify::compact": (pspec: GObject.ParamSpec) => void;
+            "notify::access-key": (pspec: GObject.ParamSpec) => void;
+            "notify::content-editable": (pspec: GObject.ParamSpec) => void;
+            "notify::dir": (pspec: GObject.ParamSpec) => void;
+            "notify::draggable": (pspec: GObject.ParamSpec) => void;
+            "notify::hidden": (pspec: GObject.ParamSpec) => void;
+            "notify::inner-text": (pspec: GObject.ParamSpec) => void;
+            "notify::is-content-editable": (pspec: GObject.ParamSpec) => void;
+            "notify::lang": (pspec: GObject.ParamSpec) => void;
+            "notify::outer-text": (pspec: GObject.ParamSpec) => void;
+            "notify::spellcheck": (pspec: GObject.ParamSpec) => void;
+            "notify::tab-index": (pspec: GObject.ParamSpec) => void;
+            "notify::title": (pspec: GObject.ParamSpec) => void;
+            "notify::translate": (pspec: GObject.ParamSpec) => void;
+            "notify::webkitdropzone": (pspec: GObject.ParamSpec) => void;
+            "notify::attributes": (pspec: GObject.ParamSpec) => void;
+            "notify::child-element-count": (pspec: GObject.ParamSpec) => void;
+            "notify::children": (pspec: GObject.ParamSpec) => void;
+            "notify::class-list": (pspec: GObject.ParamSpec) => void;
+            "notify::class-name": (pspec: GObject.ParamSpec) => void;
+            "notify::client-height": (pspec: GObject.ParamSpec) => void;
+            "notify::client-left": (pspec: GObject.ParamSpec) => void;
+            "notify::client-top": (pspec: GObject.ParamSpec) => void;
+            "notify::client-width": (pspec: GObject.ParamSpec) => void;
+            "notify::first-element-child": (pspec: GObject.ParamSpec) => void;
+            "notify::id": (pspec: GObject.ParamSpec) => void;
+            "notify::inner-html": (pspec: GObject.ParamSpec) => void;
+            "notify::last-element-child": (pspec: GObject.ParamSpec) => void;
+            "notify::local-name": (pspec: GObject.ParamSpec) => void;
+            "notify::namespace-uri": (pspec: GObject.ParamSpec) => void;
+            "notify::next-element-sibling": (pspec: GObject.ParamSpec) => void;
+            "notify::offset-height": (pspec: GObject.ParamSpec) => void;
+            "notify::offset-left": (pspec: GObject.ParamSpec) => void;
+            "notify::offset-parent": (pspec: GObject.ParamSpec) => void;
+            "notify::offset-top": (pspec: GObject.ParamSpec) => void;
+            "notify::offset-width": (pspec: GObject.ParamSpec) => void;
+            "notify::outer-html": (pspec: GObject.ParamSpec) => void;
+            "notify::prefix": (pspec: GObject.ParamSpec) => void;
+            "notify::previous-element-sibling": (pspec: GObject.ParamSpec) => void;
+            "notify::scroll-height": (pspec: GObject.ParamSpec) => void;
+            "notify::scroll-left": (pspec: GObject.ParamSpec) => void;
+            "notify::scroll-top": (pspec: GObject.ParamSpec) => void;
+            "notify::scroll-width": (pspec: GObject.ParamSpec) => void;
+            "notify::style": (pspec: GObject.ParamSpec) => void;
+            "notify::tag-name": (pspec: GObject.ParamSpec) => void;
+            "notify::webkit-region-overset": (pspec: GObject.ParamSpec) => void;
+            "notify::base-uri": (pspec: GObject.ParamSpec) => void;
+            "notify::child-nodes": (pspec: GObject.ParamSpec) => void;
+            "notify::first-child": (pspec: GObject.ParamSpec) => void;
+            "notify::last-child": (pspec: GObject.ParamSpec) => void;
+            "notify::next-sibling": (pspec: GObject.ParamSpec) => void;
+            "notify::node-name": (pspec: GObject.ParamSpec) => void;
+            "notify::node-type": (pspec: GObject.ParamSpec) => void;
+            "notify::node-value": (pspec: GObject.ParamSpec) => void;
+            "notify::owner-document": (pspec: GObject.ParamSpec) => void;
+            "notify::parent-element": (pspec: GObject.ParamSpec) => void;
+            "notify::parent-node": (pspec: GObject.ParamSpec) => void;
+            "notify::previous-sibling": (pspec: GObject.ParamSpec) => void;
+            "notify::text-content": (pspec: GObject.ParamSpec) => void;
+            "notify::core-object": (pspec: GObject.ParamSpec) => void;
+        }
+
+        // Constructor properties interface
+        interface ConstructorProps extends DOMHTMLElement.ConstructorProps, DOMEventTarget.ConstructorProps {
+            compact: boolean;
+        }
+    }
+
+    /**
+     * @gir-type Class
+     */
+    class DOMHTMLDListElement extends DOMHTMLElement implements DOMEventTarget {
+        static $gtype: GObject.GType<DOMHTMLDListElement>;
+
+        // Properties
+        /**
+         * @default false
+         */
+        get compact(): boolean;
+        set compact(val: boolean);
+
+        /**
+         * Compile-time signal type information.
+         *
+         * This instance property is generated only for TypeScript type checking.
+         * It is not defined at runtime and should not be accessed in JS code.
+         * @internal
+         */
+        $signals: DOMHTMLDListElement.SignalSignatures;
+
+        // Constructors
+        constructor(properties?: Partial<DOMHTMLDListElement.ConstructorProps>, ...args: any[]);
+
+        _init(...args: any[]): void;
+
+        // Signals
+        /** @signal */
+        connect<K extends keyof DOMHTMLDListElement.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, DOMHTMLDListElement.SignalSignatures[K]>): number;
+
+        /** @signal */
+        connect_after<K extends keyof DOMHTMLDListElement.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, DOMHTMLDListElement.SignalSignatures[K]>): number;
+
+        /** @signal */
+        emit<K extends keyof DOMHTMLDListElement.SignalSignatures>(signal: K, ...args: GObject.GjsParameters<DOMHTMLDListElement.SignalSignatures[K]>): void;
+
+        // Methods
+        /**
+         * @returns A `gboolean`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_compact(): boolean;
+
+        /**
+         * @param value A `gboolean`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        set_compact(value: boolean): void;
+    }
+
+
+    namespace DOMHTMLDirectoryElement {
+        // Signal signatures
+        interface SignalSignatures extends DOMHTMLElement.SignalSignatures {
+            "notify::compact": (pspec: GObject.ParamSpec) => void;
+            "notify::access-key": (pspec: GObject.ParamSpec) => void;
+            "notify::content-editable": (pspec: GObject.ParamSpec) => void;
+            "notify::dir": (pspec: GObject.ParamSpec) => void;
+            "notify::draggable": (pspec: GObject.ParamSpec) => void;
+            "notify::hidden": (pspec: GObject.ParamSpec) => void;
+            "notify::inner-text": (pspec: GObject.ParamSpec) => void;
+            "notify::is-content-editable": (pspec: GObject.ParamSpec) => void;
+            "notify::lang": (pspec: GObject.ParamSpec) => void;
+            "notify::outer-text": (pspec: GObject.ParamSpec) => void;
+            "notify::spellcheck": (pspec: GObject.ParamSpec) => void;
+            "notify::tab-index": (pspec: GObject.ParamSpec) => void;
+            "notify::title": (pspec: GObject.ParamSpec) => void;
+            "notify::translate": (pspec: GObject.ParamSpec) => void;
+            "notify::webkitdropzone": (pspec: GObject.ParamSpec) => void;
+            "notify::attributes": (pspec: GObject.ParamSpec) => void;
+            "notify::child-element-count": (pspec: GObject.ParamSpec) => void;
+            "notify::children": (pspec: GObject.ParamSpec) => void;
+            "notify::class-list": (pspec: GObject.ParamSpec) => void;
+            "notify::class-name": (pspec: GObject.ParamSpec) => void;
+            "notify::client-height": (pspec: GObject.ParamSpec) => void;
+            "notify::client-left": (pspec: GObject.ParamSpec) => void;
+            "notify::client-top": (pspec: GObject.ParamSpec) => void;
+            "notify::client-width": (pspec: GObject.ParamSpec) => void;
+            "notify::first-element-child": (pspec: GObject.ParamSpec) => void;
+            "notify::id": (pspec: GObject.ParamSpec) => void;
+            "notify::inner-html": (pspec: GObject.ParamSpec) => void;
+            "notify::last-element-child": (pspec: GObject.ParamSpec) => void;
+            "notify::local-name": (pspec: GObject.ParamSpec) => void;
+            "notify::namespace-uri": (pspec: GObject.ParamSpec) => void;
+            "notify::next-element-sibling": (pspec: GObject.ParamSpec) => void;
+            "notify::offset-height": (pspec: GObject.ParamSpec) => void;
+            "notify::offset-left": (pspec: GObject.ParamSpec) => void;
+            "notify::offset-parent": (pspec: GObject.ParamSpec) => void;
+            "notify::offset-top": (pspec: GObject.ParamSpec) => void;
+            "notify::offset-width": (pspec: GObject.ParamSpec) => void;
+            "notify::outer-html": (pspec: GObject.ParamSpec) => void;
+            "notify::prefix": (pspec: GObject.ParamSpec) => void;
+            "notify::previous-element-sibling": (pspec: GObject.ParamSpec) => void;
+            "notify::scroll-height": (pspec: GObject.ParamSpec) => void;
+            "notify::scroll-left": (pspec: GObject.ParamSpec) => void;
+            "notify::scroll-top": (pspec: GObject.ParamSpec) => void;
+            "notify::scroll-width": (pspec: GObject.ParamSpec) => void;
+            "notify::style": (pspec: GObject.ParamSpec) => void;
+            "notify::tag-name": (pspec: GObject.ParamSpec) => void;
+            "notify::webkit-region-overset": (pspec: GObject.ParamSpec) => void;
+            "notify::base-uri": (pspec: GObject.ParamSpec) => void;
+            "notify::child-nodes": (pspec: GObject.ParamSpec) => void;
+            "notify::first-child": (pspec: GObject.ParamSpec) => void;
+            "notify::last-child": (pspec: GObject.ParamSpec) => void;
+            "notify::next-sibling": (pspec: GObject.ParamSpec) => void;
+            "notify::node-name": (pspec: GObject.ParamSpec) => void;
+            "notify::node-type": (pspec: GObject.ParamSpec) => void;
+            "notify::node-value": (pspec: GObject.ParamSpec) => void;
+            "notify::owner-document": (pspec: GObject.ParamSpec) => void;
+            "notify::parent-element": (pspec: GObject.ParamSpec) => void;
+            "notify::parent-node": (pspec: GObject.ParamSpec) => void;
+            "notify::previous-sibling": (pspec: GObject.ParamSpec) => void;
+            "notify::text-content": (pspec: GObject.ParamSpec) => void;
+            "notify::core-object": (pspec: GObject.ParamSpec) => void;
+        }
+
+        // Constructor properties interface
+        interface ConstructorProps extends DOMHTMLElement.ConstructorProps, DOMEventTarget.ConstructorProps {
+            compact: boolean;
+        }
+    }
+
+    /**
+     * @gir-type Class
+     */
+    class DOMHTMLDirectoryElement extends DOMHTMLElement implements DOMEventTarget {
+        static $gtype: GObject.GType<DOMHTMLDirectoryElement>;
+
+        // Properties
+        /**
+         * @default false
+         */
+        get compact(): boolean;
+        set compact(val: boolean);
+
+        /**
+         * Compile-time signal type information.
+         *
+         * This instance property is generated only for TypeScript type checking.
+         * It is not defined at runtime and should not be accessed in JS code.
+         * @internal
+         */
+        $signals: DOMHTMLDirectoryElement.SignalSignatures;
+
+        // Constructors
+        constructor(properties?: Partial<DOMHTMLDirectoryElement.ConstructorProps>, ...args: any[]);
+
+        _init(...args: any[]): void;
+
+        // Signals
+        /** @signal */
+        connect<K extends keyof DOMHTMLDirectoryElement.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, DOMHTMLDirectoryElement.SignalSignatures[K]>): number;
+
+        /** @signal */
+        connect_after<K extends keyof DOMHTMLDirectoryElement.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, DOMHTMLDirectoryElement.SignalSignatures[K]>): number;
+
+        /** @signal */
+        emit<K extends keyof DOMHTMLDirectoryElement.SignalSignatures>(signal: K, ...args: GObject.GjsParameters<DOMHTMLDirectoryElement.SignalSignatures[K]>): void;
+
+        // Methods
+        /**
+         * @returns A `gboolean`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_compact(): boolean;
+
+        /**
+         * @param value A `gboolean`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        set_compact(value: boolean): void;
+    }
+
+
+    namespace DOMHTMLDivElement {
+        // Signal signatures
+        interface SignalSignatures extends DOMHTMLElement.SignalSignatures {
+            "notify::align": (pspec: GObject.ParamSpec) => void;
+            "notify::access-key": (pspec: GObject.ParamSpec) => void;
+            "notify::content-editable": (pspec: GObject.ParamSpec) => void;
+            "notify::dir": (pspec: GObject.ParamSpec) => void;
+            "notify::draggable": (pspec: GObject.ParamSpec) => void;
+            "notify::hidden": (pspec: GObject.ParamSpec) => void;
+            "notify::inner-text": (pspec: GObject.ParamSpec) => void;
+            "notify::is-content-editable": (pspec: GObject.ParamSpec) => void;
+            "notify::lang": (pspec: GObject.ParamSpec) => void;
+            "notify::outer-text": (pspec: GObject.ParamSpec) => void;
+            "notify::spellcheck": (pspec: GObject.ParamSpec) => void;
+            "notify::tab-index": (pspec: GObject.ParamSpec) => void;
+            "notify::title": (pspec: GObject.ParamSpec) => void;
+            "notify::translate": (pspec: GObject.ParamSpec) => void;
+            "notify::webkitdropzone": (pspec: GObject.ParamSpec) => void;
+            "notify::attributes": (pspec: GObject.ParamSpec) => void;
+            "notify::child-element-count": (pspec: GObject.ParamSpec) => void;
+            "notify::children": (pspec: GObject.ParamSpec) => void;
+            "notify::class-list": (pspec: GObject.ParamSpec) => void;
+            "notify::class-name": (pspec: GObject.ParamSpec) => void;
+            "notify::client-height": (pspec: GObject.ParamSpec) => void;
+            "notify::client-left": (pspec: GObject.ParamSpec) => void;
+            "notify::client-top": (pspec: GObject.ParamSpec) => void;
+            "notify::client-width": (pspec: GObject.ParamSpec) => void;
+            "notify::first-element-child": (pspec: GObject.ParamSpec) => void;
+            "notify::id": (pspec: GObject.ParamSpec) => void;
+            "notify::inner-html": (pspec: GObject.ParamSpec) => void;
+            "notify::last-element-child": (pspec: GObject.ParamSpec) => void;
+            "notify::local-name": (pspec: GObject.ParamSpec) => void;
+            "notify::namespace-uri": (pspec: GObject.ParamSpec) => void;
+            "notify::next-element-sibling": (pspec: GObject.ParamSpec) => void;
+            "notify::offset-height": (pspec: GObject.ParamSpec) => void;
+            "notify::offset-left": (pspec: GObject.ParamSpec) => void;
+            "notify::offset-parent": (pspec: GObject.ParamSpec) => void;
+            "notify::offset-top": (pspec: GObject.ParamSpec) => void;
+            "notify::offset-width": (pspec: GObject.ParamSpec) => void;
+            "notify::outer-html": (pspec: GObject.ParamSpec) => void;
+            "notify::prefix": (pspec: GObject.ParamSpec) => void;
+            "notify::previous-element-sibling": (pspec: GObject.ParamSpec) => void;
+            "notify::scroll-height": (pspec: GObject.ParamSpec) => void;
+            "notify::scroll-left": (pspec: GObject.ParamSpec) => void;
+            "notify::scroll-top": (pspec: GObject.ParamSpec) => void;
+            "notify::scroll-width": (pspec: GObject.ParamSpec) => void;
+            "notify::style": (pspec: GObject.ParamSpec) => void;
+            "notify::tag-name": (pspec: GObject.ParamSpec) => void;
+            "notify::webkit-region-overset": (pspec: GObject.ParamSpec) => void;
+            "notify::base-uri": (pspec: GObject.ParamSpec) => void;
+            "notify::child-nodes": (pspec: GObject.ParamSpec) => void;
+            "notify::first-child": (pspec: GObject.ParamSpec) => void;
+            "notify::last-child": (pspec: GObject.ParamSpec) => void;
+            "notify::next-sibling": (pspec: GObject.ParamSpec) => void;
+            "notify::node-name": (pspec: GObject.ParamSpec) => void;
+            "notify::node-type": (pspec: GObject.ParamSpec) => void;
+            "notify::node-value": (pspec: GObject.ParamSpec) => void;
+            "notify::owner-document": (pspec: GObject.ParamSpec) => void;
+            "notify::parent-element": (pspec: GObject.ParamSpec) => void;
+            "notify::parent-node": (pspec: GObject.ParamSpec) => void;
+            "notify::previous-sibling": (pspec: GObject.ParamSpec) => void;
+            "notify::text-content": (pspec: GObject.ParamSpec) => void;
+            "notify::core-object": (pspec: GObject.ParamSpec) => void;
+        }
+
+        // Constructor properties interface
+        interface ConstructorProps extends DOMHTMLElement.ConstructorProps, DOMEventTarget.ConstructorProps {
+            align: string;
+        }
+    }
+
+    /**
+     * @gir-type Class
+     */
+    class DOMHTMLDivElement extends DOMHTMLElement implements DOMEventTarget {
+        static $gtype: GObject.GType<DOMHTMLDivElement>;
+
+        // Properties
+        get align(): string;
+        set align(val: string);
+
+        /**
+         * Compile-time signal type information.
+         *
+         * This instance property is generated only for TypeScript type checking.
+         * It is not defined at runtime and should not be accessed in JS code.
+         * @internal
+         */
+        $signals: DOMHTMLDivElement.SignalSignatures;
+
+        // Constructors
+        constructor(properties?: Partial<DOMHTMLDivElement.ConstructorProps>, ...args: any[]);
+
+        _init(...args: any[]): void;
+
+        // Signals
+        /** @signal */
+        connect<K extends keyof DOMHTMLDivElement.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, DOMHTMLDivElement.SignalSignatures[K]>): number;
+
+        /** @signal */
+        connect_after<K extends keyof DOMHTMLDivElement.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, DOMHTMLDivElement.SignalSignatures[K]>): number;
+
+        /** @signal */
+        emit<K extends keyof DOMHTMLDivElement.SignalSignatures>(signal: K, ...args: GObject.GjsParameters<DOMHTMLDivElement.SignalSignatures[K]>): void;
+
+        // Methods
+        /**
+         * @returns A `gchar`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_align(): string;
+
+        /**
+         * @param value A `gchar`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        set_align(value: string): void;
+    }
+
+
+    namespace DOMHTMLDocument {
+        // Signal signatures
+        interface SignalSignatures extends DOMDocument.SignalSignatures {
+            "notify::alink-color": (pspec: GObject.ParamSpec) => void;
+            "notify::bg-color": (pspec: GObject.ParamSpec) => void;
+            "notify::dir": (pspec: GObject.ParamSpec) => void;
+            "notify::fg-color": (pspec: GObject.ParamSpec) => void;
+            "notify::height": (pspec: GObject.ParamSpec) => void;
+            "notify::link-color": (pspec: GObject.ParamSpec) => void;
+            "notify::vlink-color": (pspec: GObject.ParamSpec) => void;
+            "notify::width": (pspec: GObject.ParamSpec) => void;
+            "notify::active-element": (pspec: GObject.ParamSpec) => void;
+            "notify::anchors": (pspec: GObject.ParamSpec) => void;
+            "notify::applets": (pspec: GObject.ParamSpec) => void;
+            "notify::body": (pspec: GObject.ParamSpec) => void;
+            "notify::character-set": (pspec: GObject.ParamSpec) => void;
+            "notify::charset": (pspec: GObject.ParamSpec) => void;
+            "notify::child-element-count": (pspec: GObject.ParamSpec) => void;
+            "notify::children": (pspec: GObject.ParamSpec) => void;
+            "notify::compat-mode": (pspec: GObject.ParamSpec) => void;
+            "notify::content-type": (pspec: GObject.ParamSpec) => void;
+            "notify::cookie": (pspec: GObject.ParamSpec) => void;
+            "notify::current-script": (pspec: GObject.ParamSpec) => void;
+            "notify::default-view": (pspec: GObject.ParamSpec) => void;
+            "notify::design-mode": (pspec: GObject.ParamSpec) => void;
+            "notify::doctype": (pspec: GObject.ParamSpec) => void;
+            "notify::document-element": (pspec: GObject.ParamSpec) => void;
+            "notify::document-uri": (pspec: GObject.ParamSpec) => void;
+            "notify::domain": (pspec: GObject.ParamSpec) => void;
+            "notify::embeds": (pspec: GObject.ParamSpec) => void;
+            "notify::first-element-child": (pspec: GObject.ParamSpec) => void;
+            "notify::forms": (pspec: GObject.ParamSpec) => void;
+            "notify::head": (pspec: GObject.ParamSpec) => void;
+            "notify::hidden": (pspec: GObject.ParamSpec) => void;
+            "notify::images": (pspec: GObject.ParamSpec) => void;
+            "notify::implementation": (pspec: GObject.ParamSpec) => void;
+            "notify::input-encoding": (pspec: GObject.ParamSpec) => void;
+            "notify::last-element-child": (pspec: GObject.ParamSpec) => void;
+            "notify::last-modified": (pspec: GObject.ParamSpec) => void;
+            "notify::links": (pspec: GObject.ParamSpec) => void;
+            "notify::origin": (pspec: GObject.ParamSpec) => void;
+            "notify::plugins": (pspec: GObject.ParamSpec) => void;
+            "notify::pointer-lock-element": (pspec: GObject.ParamSpec) => void;
+            "notify::preferred-stylesheet-set": (pspec: GObject.ParamSpec) => void;
+            "notify::ready-state": (pspec: GObject.ParamSpec) => void;
+            "notify::referrer": (pspec: GObject.ParamSpec) => void;
+            "notify::scripts": (pspec: GObject.ParamSpec) => void;
+            "notify::scrolling-element": (pspec: GObject.ParamSpec) => void;
+            "notify::selected-stylesheet-set": (pspec: GObject.ParamSpec) => void;
+            "notify::style-sheets": (pspec: GObject.ParamSpec) => void;
+            "notify::title": (pspec: GObject.ParamSpec) => void;
+            "notify::url": (pspec: GObject.ParamSpec) => void;
+            "notify::visibility-state": (pspec: GObject.ParamSpec) => void;
+            "notify::webkit-current-full-screen-element": (pspec: GObject.ParamSpec) => void;
+            "notify::webkit-full-screen-keyboard-input-allowed": (pspec: GObject.ParamSpec) => void;
+            "notify::webkit-fullscreen-element": (pspec: GObject.ParamSpec) => void;
+            "notify::webkit-fullscreen-enabled": (pspec: GObject.ParamSpec) => void;
+            "notify::webkit-is-full-screen": (pspec: GObject.ParamSpec) => void;
+            "notify::xml-encoding": (pspec: GObject.ParamSpec) => void;
+            "notify::xml-standalone": (pspec: GObject.ParamSpec) => void;
+            "notify::xml-version": (pspec: GObject.ParamSpec) => void;
+            "notify::base-uri": (pspec: GObject.ParamSpec) => void;
+            "notify::child-nodes": (pspec: GObject.ParamSpec) => void;
+            "notify::first-child": (pspec: GObject.ParamSpec) => void;
+            "notify::last-child": (pspec: GObject.ParamSpec) => void;
+            "notify::next-sibling": (pspec: GObject.ParamSpec) => void;
+            "notify::node-name": (pspec: GObject.ParamSpec) => void;
+            "notify::node-type": (pspec: GObject.ParamSpec) => void;
+            "notify::node-value": (pspec: GObject.ParamSpec) => void;
+            "notify::owner-document": (pspec: GObject.ParamSpec) => void;
+            "notify::parent-element": (pspec: GObject.ParamSpec) => void;
+            "notify::parent-node": (pspec: GObject.ParamSpec) => void;
+            "notify::previous-sibling": (pspec: GObject.ParamSpec) => void;
+            "notify::text-content": (pspec: GObject.ParamSpec) => void;
+            "notify::core-object": (pspec: GObject.ParamSpec) => void;
+        }
+
+        // Constructor properties interface
+        interface ConstructorProps extends DOMDocument.ConstructorProps, DOMEventTarget.ConstructorProps {
+            alink_color: string;
+            alinkColor: string;
+            bg_color: string;
+            bgColor: string;
+            dir: string;
+            fg_color: string;
+            fgColor: string;
+            height: bigint | number;
+            link_color: string;
+            linkColor: string;
+            vlink_color: string;
+            vlinkColor: string;
+            width: bigint | number;
+        }
+    }
+
+    /**
+     * @gir-type Class
+     */
+    class DOMHTMLDocument extends DOMDocument implements DOMEventTarget {
+        static $gtype: GObject.GType<DOMHTMLDocument>;
+
+        // Properties
+        get alink_color(): string;
+        set alink_color(val: string);
+
+        get alinkColor(): string;
+        set alinkColor(val: string);
+
+        get bg_color(): string;
+        set bg_color(val: string);
+
+        get bgColor(): string;
+        set bgColor(val: string);
+
+        get dir(): string;
+        set dir(val: string);
+
+        get fg_color(): string;
+        set fg_color(val: string);
+
+        get fgColor(): string;
+        set fgColor(val: string);
+
+        /**
+         * @read-only
+         * @default 0
+         */
+        get height(): number;
+
+        get link_color(): string;
+        set link_color(val: string);
+
+        get linkColor(): string;
+        set linkColor(val: string);
+
+        get vlink_color(): string;
+        set vlink_color(val: string);
+
+        get vlinkColor(): string;
+        set vlinkColor(val: string);
+
+        /**
+         * @read-only
+         * @default 0
+         */
+        get width(): number;
+
+        /**
+         * Compile-time signal type information.
+         *
+         * This instance property is generated only for TypeScript type checking.
+         * It is not defined at runtime and should not be accessed in JS code.
+         * @internal
+         */
+        $signals: DOMHTMLDocument.SignalSignatures;
+
+        // Constructors
+        constructor(properties?: Partial<DOMHTMLDocument.ConstructorProps>, ...args: any[]);
+
+        _init(...args: any[]): void;
+
+        // Signals
+        /** @signal */
+        connect<K extends keyof DOMHTMLDocument.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, DOMHTMLDocument.SignalSignatures[K]>): number;
+
+        /** @signal */
+        connect_after<K extends keyof DOMHTMLDocument.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, DOMHTMLDocument.SignalSignatures[K]>): number;
+
+        /** @signal */
+        emit<K extends keyof DOMHTMLDocument.SignalSignatures>(signal: K, ...args: GObject.GjsParameters<DOMHTMLDocument.SignalSignatures[K]>): void;
+
+        // Methods
+        /**
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        capture_events(): void;
+
+        /**
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        clear(): void;
+
+        /**
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        close(): void;
+
+        /**
+         * @returns A `gchar`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_alink_color(): string;
+
+        /**
+         * @returns A `gchar`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_bg_color(): string;
+
+        /**
+         * @returns A `gchar`
+         * @deprecated since 2.14: Use `webkit_dom_document_get_compat_mode()` instead.
+         */
+        get_compat_mode(): string;
+
+        /**
+         * @returns A `gchar`
+         * @deprecated since 2.14: Use `webkit_dom_document_get_design_mode()` instead.
+         */
+        get_design_mode(): string;
+
+        /**
+         * @returns A `gchar`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_dir(): string;
+
+        /**
+         * @returns A {@link WebKit2WebExtension.DOMHTMLCollection}
+         * @deprecated since 2.14: Use `webkit_dom_document_get_embeds()` instead.
+         */
+        get_embeds(): DOMHTMLCollection;
+
+        /**
+         * @returns A `gchar`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_fg_color(): string;
+
+        /**
+         * @returns A `glong`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_height(): number;
+
+        /**
+         * @returns A `gchar`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_link_color(): string;
+
+        /**
+         * @returns A {@link WebKit2WebExtension.DOMHTMLCollection}
+         * @deprecated since 2.14: Use `webkit_dom_document_get_plugins()` instead.
+         */
+        get_plugins(): DOMHTMLCollection;
+
+        /**
+         * @returns A {@link WebKit2WebExtension.DOMHTMLCollection}
+         * @deprecated since 2.14: Use `webkit_dom_document_get_scripts()` instead.
+         */
+        get_scripts(): DOMHTMLCollection;
+
+        /**
+         * @returns A `gchar`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_vlink_color(): string;
+
+        /**
+         * @returns A `glong`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_width(): number;
+
+        /**
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        release_events(): void;
+
+        /**
+         * @param value A `gchar`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        set_alink_color(value: string): void;
+
+        /**
+         * @param value A `gchar`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        set_bg_color(value: string): void;
+
+        /**
+         * @param value A `gchar`
+         * @deprecated since 2.14: Use `webkit_dom_document_set_design_mode()` instead.
+         */
+        set_design_mode(value: string): void;
+
+        /**
+         * @param value A `gchar`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        set_dir(value: string): void;
+
+        /**
+         * @param value A `gchar`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        set_fg_color(value: string): void;
+
+        /**
+         * @param value A `gchar`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        set_link_color(value: string): void;
+
+        /**
+         * @param value A `gchar`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        set_vlink_color(value: string): void;
+    }
+
+
+    namespace DOMHTMLElement {
+        // Signal signatures
+        interface SignalSignatures extends DOMElement.SignalSignatures {
+            "notify::access-key": (pspec: GObject.ParamSpec) => void;
+            "notify::content-editable": (pspec: GObject.ParamSpec) => void;
+            "notify::dir": (pspec: GObject.ParamSpec) => void;
+            "notify::draggable": (pspec: GObject.ParamSpec) => void;
+            "notify::hidden": (pspec: GObject.ParamSpec) => void;
+            "notify::inner-text": (pspec: GObject.ParamSpec) => void;
+            "notify::is-content-editable": (pspec: GObject.ParamSpec) => void;
+            "notify::lang": (pspec: GObject.ParamSpec) => void;
+            "notify::outer-text": (pspec: GObject.ParamSpec) => void;
+            "notify::spellcheck": (pspec: GObject.ParamSpec) => void;
+            "notify::tab-index": (pspec: GObject.ParamSpec) => void;
+            "notify::title": (pspec: GObject.ParamSpec) => void;
+            "notify::translate": (pspec: GObject.ParamSpec) => void;
+            "notify::webkitdropzone": (pspec: GObject.ParamSpec) => void;
+            "notify::attributes": (pspec: GObject.ParamSpec) => void;
+            "notify::child-element-count": (pspec: GObject.ParamSpec) => void;
+            "notify::children": (pspec: GObject.ParamSpec) => void;
+            "notify::class-list": (pspec: GObject.ParamSpec) => void;
+            "notify::class-name": (pspec: GObject.ParamSpec) => void;
+            "notify::client-height": (pspec: GObject.ParamSpec) => void;
+            "notify::client-left": (pspec: GObject.ParamSpec) => void;
+            "notify::client-top": (pspec: GObject.ParamSpec) => void;
+            "notify::client-width": (pspec: GObject.ParamSpec) => void;
+            "notify::first-element-child": (pspec: GObject.ParamSpec) => void;
+            "notify::id": (pspec: GObject.ParamSpec) => void;
+            "notify::inner-html": (pspec: GObject.ParamSpec) => void;
+            "notify::last-element-child": (pspec: GObject.ParamSpec) => void;
+            "notify::local-name": (pspec: GObject.ParamSpec) => void;
+            "notify::namespace-uri": (pspec: GObject.ParamSpec) => void;
+            "notify::next-element-sibling": (pspec: GObject.ParamSpec) => void;
+            "notify::offset-height": (pspec: GObject.ParamSpec) => void;
+            "notify::offset-left": (pspec: GObject.ParamSpec) => void;
+            "notify::offset-parent": (pspec: GObject.ParamSpec) => void;
+            "notify::offset-top": (pspec: GObject.ParamSpec) => void;
+            "notify::offset-width": (pspec: GObject.ParamSpec) => void;
+            "notify::outer-html": (pspec: GObject.ParamSpec) => void;
+            "notify::prefix": (pspec: GObject.ParamSpec) => void;
+            "notify::previous-element-sibling": (pspec: GObject.ParamSpec) => void;
+            "notify::scroll-height": (pspec: GObject.ParamSpec) => void;
+            "notify::scroll-left": (pspec: GObject.ParamSpec) => void;
+            "notify::scroll-top": (pspec: GObject.ParamSpec) => void;
+            "notify::scroll-width": (pspec: GObject.ParamSpec) => void;
+            "notify::style": (pspec: GObject.ParamSpec) => void;
+            "notify::tag-name": (pspec: GObject.ParamSpec) => void;
+            "notify::webkit-region-overset": (pspec: GObject.ParamSpec) => void;
+            "notify::base-uri": (pspec: GObject.ParamSpec) => void;
+            "notify::child-nodes": (pspec: GObject.ParamSpec) => void;
+            "notify::first-child": (pspec: GObject.ParamSpec) => void;
+            "notify::last-child": (pspec: GObject.ParamSpec) => void;
+            "notify::next-sibling": (pspec: GObject.ParamSpec) => void;
+            "notify::node-name": (pspec: GObject.ParamSpec) => void;
+            "notify::node-type": (pspec: GObject.ParamSpec) => void;
+            "notify::node-value": (pspec: GObject.ParamSpec) => void;
+            "notify::owner-document": (pspec: GObject.ParamSpec) => void;
+            "notify::parent-element": (pspec: GObject.ParamSpec) => void;
+            "notify::parent-node": (pspec: GObject.ParamSpec) => void;
+            "notify::previous-sibling": (pspec: GObject.ParamSpec) => void;
+            "notify::text-content": (pspec: GObject.ParamSpec) => void;
+            "notify::core-object": (pspec: GObject.ParamSpec) => void;
+        }
+
+        // Constructor properties interface
+        interface ConstructorProps extends DOMElement.ConstructorProps, DOMEventTarget.ConstructorProps {
+            access_key: string;
+            accessKey: string;
+            content_editable: string;
+            contentEditable: string;
+            dir: string;
+            draggable: boolean;
+            hidden: boolean;
+            inner_text: string;
+            innerText: string;
+            is_content_editable: boolean;
+            isContentEditable: boolean;
+            lang: string;
+            outer_text: string;
+            outerText: string;
+            spellcheck: boolean;
+            tab_index: bigint | number;
+            tabIndex: bigint | number;
+            title: string;
+            translate: boolean;
+            webkitdropzone: string;
+        }
+    }
+
+    /**
+     * @gir-type Class
+     */
+    class DOMHTMLElement extends DOMElement implements DOMEventTarget {
+        static $gtype: GObject.GType<DOMHTMLElement>;
+
+        // Properties
+        get access_key(): string;
+        set access_key(val: string);
+
+        get accessKey(): string;
+        set accessKey(val: string);
+
+        get content_editable(): string;
+        set content_editable(val: string);
+
+        get contentEditable(): string;
+        set contentEditable(val: string);
+
+        get dir(): string;
+        set dir(val: string);
+
+        /**
+         * @default false
+         */
+        get draggable(): boolean;
+        set draggable(val: boolean);
+
+        /**
+         * @default false
+         */
+        get hidden(): boolean;
+        set hidden(val: boolean);
+
+        get inner_text(): string;
+        set inner_text(val: string);
+
+        get innerText(): string;
+        set innerText(val: string);
+
+        /**
+         * @read-only
+         * @default false
+         */
+        get is_content_editable(): boolean;
+
+        /**
+         * @read-only
+         * @default false
+         */
+        get isContentEditable(): boolean;
+
+        get lang(): string;
+        set lang(val: string);
+
+        get outer_text(): string;
+        set outer_text(val: string);
+
+        get outerText(): string;
+        set outerText(val: string);
+
+        /**
+         * @default false
+         */
+        get spellcheck(): boolean;
+        set spellcheck(val: boolean);
+
+        /**
+         * @default 0
+         */
+        get tab_index(): number;
+        set tab_index(val: bigint | number);
+
+        /**
+         * @default 0
+         */
+        get tabIndex(): number;
+        set tabIndex(val: bigint | number);
+
+        get title(): string;
+        set title(val: string);
+
+        /**
+         * @default false
+         */
+        get translate(): boolean;
+        set translate(val: boolean);
+
+        get webkitdropzone(): string;
+        set webkitdropzone(val: string);
+
+        /**
+         * Compile-time signal type information.
+         *
+         * This instance property is generated only for TypeScript type checking.
+         * It is not defined at runtime and should not be accessed in JS code.
+         * @internal
+         */
+        $signals: DOMHTMLElement.SignalSignatures;
+
+        // Constructors
+        constructor(properties?: Partial<DOMHTMLElement.ConstructorProps>, ...args: any[]);
+
+        _init(...args: any[]): void;
+
+        // Signals
+        /** @signal */
+        connect<K extends keyof DOMHTMLElement.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, DOMHTMLElement.SignalSignatures[K]>): number;
+
+        /** @signal */
+        connect_after<K extends keyof DOMHTMLElement.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, DOMHTMLElement.SignalSignatures[K]>): number;
+
+        /** @signal */
+        emit<K extends keyof DOMHTMLElement.SignalSignatures>(signal: K, ...args: GObject.GjsParameters<DOMHTMLElement.SignalSignatures[K]>): void;
+
+        // Methods
+        /**
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        click(): void;
+
+        /**
+         * @returns A `gchar`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_access_key(): string;
+
+        /**
+         * @returns A {@link WebKit2WebExtension.DOMHTMLCollection}
+         * @deprecated since 2.10: Use `webkit_dom_element_get_children()` instead.
+         */
+        get_children(): DOMHTMLCollection;
+
+        /**
+         * @returns A `gchar`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_content_editable(): string;
+
+        /**
+         * @returns A `gchar`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_dir(): string;
+
+        /**
+         * @returns A `gboolean`
+         * @since 2.16
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_draggable(): boolean;
+
+        /**
+         * @returns A `gboolean`
+         * @since 2.16
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_hidden(): boolean;
+
+        /**
+         * @returns a `gchar`
+         * @deprecated since 2.8: Use `webkit_dom_element_get_inner_html()` instead.
+         */
+        get_inner_html(): string;
+
+        /**
+         * @returns A `gchar`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_inner_text(): string;
+
+        /**
+         * @returns A `gboolean`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_is_content_editable(): boolean;
+
+        /**
+         * @returns A `gchar`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_lang(): string;
+
+        /**
+         * @returns a `gchar`
+         * @deprecated since 2.8: Use `webkit_dom_element_get_outer_html()` instead.
+         */
+        get_outer_html(): string;
+
+        /**
+         * @returns A `gchar`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_outer_text(): string;
+
+        /**
+         * @returns A `gboolean`
+         * @since 2.16
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_spellcheck(): boolean;
+
+        /**
+         * @returns A `glong`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_tab_index(): number;
+
+        /**
+         * @returns A `gchar`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_title(): string;
+
+        /**
+         * @returns A `gboolean`
+         * @since 2.16
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_translate(): boolean;
+
+        /**
+         * @returns A `gchar`
+         * @since 2.16
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_webkitdropzone(): string;
+
+        /**
+         * @param value A `gchar`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        set_access_key(value: string): void;
+
+        /**
+         * @param value A `gchar`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         * @throws GLib.Error
+         */
+        set_content_editable(value: string): void;
+
+        /**
+         * @param value A `gchar`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        set_dir(value: string): void;
+
+        /**
+         * @param value A `gboolean`
+         * @since 2.16
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        set_draggable(value: boolean): void;
+
+        /**
+         * @param value A `gboolean`
+         * @since 2.16
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        set_hidden(value: boolean): void;
+
+        /**
+         * @param contents a `gchar` with contents to set
+         * @deprecated since 2.8: Use `webkit_dom_element_set_inner_html()` instead.
+         * @throws GLib.Error
+         */
+        set_inner_html(contents: string): void;
+
+        /**
+         * @param value A `gchar`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         * @throws GLib.Error
+         */
+        set_inner_text(value: string): void;
+
+        /**
+         * @param value A `gchar`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        set_lang(value: string): void;
+
+        /**
+         * @param contents a `gchar` with contents to set
+         * @deprecated since 2.8: Use `webkit_dom_element_set_outer_html()` instead.
+         * @throws GLib.Error
+         */
+        set_outer_html(contents: string): void;
+
+        /**
+         * @param value A `gchar`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         * @throws GLib.Error
+         */
+        set_outer_text(value: string): void;
+
+        /**
+         * @param value A `gboolean`
+         * @since 2.16
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        set_spellcheck(value: boolean): void;
+
+        /**
+         * @param value A `glong`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        set_tab_index(value: bigint | number): void;
+
+        /**
+         * @param value A `gchar`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        set_title(value: string): void;
+
+        /**
+         * @param value A `gboolean`
+         * @since 2.16
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        set_translate(value: boolean): void;
+
+        /**
+         * @param value A `gchar`
+         * @since 2.16
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        set_webkitdropzone(value: string): void;
+    }
+
+
+    namespace DOMHTMLEmbedElement {
+        // Signal signatures
+        interface SignalSignatures extends DOMHTMLElement.SignalSignatures {
+            "notify::align": (pspec: GObject.ParamSpec) => void;
+            "notify::height": (pspec: GObject.ParamSpec) => void;
+            "notify::name": (pspec: GObject.ParamSpec) => void;
+            "notify::src": (pspec: GObject.ParamSpec) => void;
+            "notify::type": (pspec: GObject.ParamSpec) => void;
+            "notify::width": (pspec: GObject.ParamSpec) => void;
+            "notify::access-key": (pspec: GObject.ParamSpec) => void;
+            "notify::content-editable": (pspec: GObject.ParamSpec) => void;
+            "notify::dir": (pspec: GObject.ParamSpec) => void;
+            "notify::draggable": (pspec: GObject.ParamSpec) => void;
+            "notify::hidden": (pspec: GObject.ParamSpec) => void;
+            "notify::inner-text": (pspec: GObject.ParamSpec) => void;
+            "notify::is-content-editable": (pspec: GObject.ParamSpec) => void;
+            "notify::lang": (pspec: GObject.ParamSpec) => void;
+            "notify::outer-text": (pspec: GObject.ParamSpec) => void;
+            "notify::spellcheck": (pspec: GObject.ParamSpec) => void;
+            "notify::tab-index": (pspec: GObject.ParamSpec) => void;
+            "notify::title": (pspec: GObject.ParamSpec) => void;
+            "notify::translate": (pspec: GObject.ParamSpec) => void;
+            "notify::webkitdropzone": (pspec: GObject.ParamSpec) => void;
+            "notify::attributes": (pspec: GObject.ParamSpec) => void;
+            "notify::child-element-count": (pspec: GObject.ParamSpec) => void;
+            "notify::children": (pspec: GObject.ParamSpec) => void;
+            "notify::class-list": (pspec: GObject.ParamSpec) => void;
+            "notify::class-name": (pspec: GObject.ParamSpec) => void;
+            "notify::client-height": (pspec: GObject.ParamSpec) => void;
+            "notify::client-left": (pspec: GObject.ParamSpec) => void;
+            "notify::client-top": (pspec: GObject.ParamSpec) => void;
+            "notify::client-width": (pspec: GObject.ParamSpec) => void;
+            "notify::first-element-child": (pspec: GObject.ParamSpec) => void;
+            "notify::id": (pspec: GObject.ParamSpec) => void;
+            "notify::inner-html": (pspec: GObject.ParamSpec) => void;
+            "notify::last-element-child": (pspec: GObject.ParamSpec) => void;
+            "notify::local-name": (pspec: GObject.ParamSpec) => void;
+            "notify::namespace-uri": (pspec: GObject.ParamSpec) => void;
+            "notify::next-element-sibling": (pspec: GObject.ParamSpec) => void;
+            "notify::offset-height": (pspec: GObject.ParamSpec) => void;
+            "notify::offset-left": (pspec: GObject.ParamSpec) => void;
+            "notify::offset-parent": (pspec: GObject.ParamSpec) => void;
+            "notify::offset-top": (pspec: GObject.ParamSpec) => void;
+            "notify::offset-width": (pspec: GObject.ParamSpec) => void;
+            "notify::outer-html": (pspec: GObject.ParamSpec) => void;
+            "notify::prefix": (pspec: GObject.ParamSpec) => void;
+            "notify::previous-element-sibling": (pspec: GObject.ParamSpec) => void;
+            "notify::scroll-height": (pspec: GObject.ParamSpec) => void;
+            "notify::scroll-left": (pspec: GObject.ParamSpec) => void;
+            "notify::scroll-top": (pspec: GObject.ParamSpec) => void;
+            "notify::scroll-width": (pspec: GObject.ParamSpec) => void;
+            "notify::style": (pspec: GObject.ParamSpec) => void;
+            "notify::tag-name": (pspec: GObject.ParamSpec) => void;
+            "notify::webkit-region-overset": (pspec: GObject.ParamSpec) => void;
+            "notify::base-uri": (pspec: GObject.ParamSpec) => void;
+            "notify::child-nodes": (pspec: GObject.ParamSpec) => void;
+            "notify::first-child": (pspec: GObject.ParamSpec) => void;
+            "notify::last-child": (pspec: GObject.ParamSpec) => void;
+            "notify::next-sibling": (pspec: GObject.ParamSpec) => void;
+            "notify::node-name": (pspec: GObject.ParamSpec) => void;
+            "notify::node-type": (pspec: GObject.ParamSpec) => void;
+            "notify::node-value": (pspec: GObject.ParamSpec) => void;
+            "notify::owner-document": (pspec: GObject.ParamSpec) => void;
+            "notify::parent-element": (pspec: GObject.ParamSpec) => void;
+            "notify::parent-node": (pspec: GObject.ParamSpec) => void;
+            "notify::previous-sibling": (pspec: GObject.ParamSpec) => void;
+            "notify::text-content": (pspec: GObject.ParamSpec) => void;
+            "notify::core-object": (pspec: GObject.ParamSpec) => void;
+        }
+
+        // Constructor properties interface
+        interface ConstructorProps extends DOMHTMLElement.ConstructorProps, DOMEventTarget.ConstructorProps {
+            align: string;
+            height: bigint | number;
+            name: string;
+            src: string;
+            type: string;
+            width: bigint | number;
+        }
+    }
+
+    /**
+     * @gir-type Class
+     */
+    class DOMHTMLEmbedElement extends DOMHTMLElement implements DOMEventTarget {
+        static $gtype: GObject.GType<DOMHTMLEmbedElement>;
+
+        // Properties
+        get align(): string;
+        set align(val: string);
+
+        /**
+         * @default 0
+         */
+        get height(): number;
+        set height(val: bigint | number);
+
+        get name(): string;
+        set name(val: string);
+
+        get src(): string;
+        set src(val: string);
+
+        get type(): string;
+        set type(val: string);
+
+        /**
+         * @default 0
+         */
+        get width(): number;
+        set width(val: bigint | number);
+
+        /**
+         * Compile-time signal type information.
+         *
+         * This instance property is generated only for TypeScript type checking.
+         * It is not defined at runtime and should not be accessed in JS code.
+         * @internal
+         */
+        $signals: DOMHTMLEmbedElement.SignalSignatures;
+
+        // Constructors
+        constructor(properties?: Partial<DOMHTMLEmbedElement.ConstructorProps>, ...args: any[]);
+
+        _init(...args: any[]): void;
+
+        // Signals
+        /** @signal */
+        connect<K extends keyof DOMHTMLEmbedElement.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, DOMHTMLEmbedElement.SignalSignatures[K]>): number;
+
+        /** @signal */
+        connect_after<K extends keyof DOMHTMLEmbedElement.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, DOMHTMLEmbedElement.SignalSignatures[K]>): number;
+
+        /** @signal */
+        emit<K extends keyof DOMHTMLEmbedElement.SignalSignatures>(signal: K, ...args: GObject.GjsParameters<DOMHTMLEmbedElement.SignalSignatures[K]>): void;
+
+        // Methods
+        /**
+         * @returns A `gchar`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_align(): string;
+
+        /**
+         * @returns A `glong`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_height(): number;
+
+        /**
+         * @returns A `gchar`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_name(): string;
+
+        /**
+         * @returns A `gchar`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_src(): string;
+
+        /**
+         * @returns A `gchar`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_type_attr(): string;
+
+        /**
+         * @returns A `glong`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_width(): number;
+
+        /**
+         * @param value A `gchar`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        set_align(value: string): void;
+
+        /**
+         * @param value A `glong`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        set_height(value: bigint | number): void;
+
+        /**
+         * @param value A `gchar`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        set_name(value: string): void;
+
+        /**
+         * @param value A `gchar`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        set_src(value: string): void;
+
+        /**
+         * @param value A `gchar`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        set_type_attr(value: string): void;
+
+        /**
+         * @param value A `glong`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        set_width(value: bigint | number): void;
+    }
+
+
+    namespace DOMHTMLFieldSetElement {
+        // Signal signatures
+        interface SignalSignatures extends DOMHTMLElement.SignalSignatures {
+            "notify::form": (pspec: GObject.ParamSpec) => void;
+            "notify::access-key": (pspec: GObject.ParamSpec) => void;
+            "notify::content-editable": (pspec: GObject.ParamSpec) => void;
+            "notify::dir": (pspec: GObject.ParamSpec) => void;
+            "notify::draggable": (pspec: GObject.ParamSpec) => void;
+            "notify::hidden": (pspec: GObject.ParamSpec) => void;
+            "notify::inner-text": (pspec: GObject.ParamSpec) => void;
+            "notify::is-content-editable": (pspec: GObject.ParamSpec) => void;
+            "notify::lang": (pspec: GObject.ParamSpec) => void;
+            "notify::outer-text": (pspec: GObject.ParamSpec) => void;
+            "notify::spellcheck": (pspec: GObject.ParamSpec) => void;
+            "notify::tab-index": (pspec: GObject.ParamSpec) => void;
+            "notify::title": (pspec: GObject.ParamSpec) => void;
+            "notify::translate": (pspec: GObject.ParamSpec) => void;
+            "notify::webkitdropzone": (pspec: GObject.ParamSpec) => void;
+            "notify::attributes": (pspec: GObject.ParamSpec) => void;
+            "notify::child-element-count": (pspec: GObject.ParamSpec) => void;
+            "notify::children": (pspec: GObject.ParamSpec) => void;
+            "notify::class-list": (pspec: GObject.ParamSpec) => void;
+            "notify::class-name": (pspec: GObject.ParamSpec) => void;
+            "notify::client-height": (pspec: GObject.ParamSpec) => void;
+            "notify::client-left": (pspec: GObject.ParamSpec) => void;
+            "notify::client-top": (pspec: GObject.ParamSpec) => void;
+            "notify::client-width": (pspec: GObject.ParamSpec) => void;
+            "notify::first-element-child": (pspec: GObject.ParamSpec) => void;
+            "notify::id": (pspec: GObject.ParamSpec) => void;
+            "notify::inner-html": (pspec: GObject.ParamSpec) => void;
+            "notify::last-element-child": (pspec: GObject.ParamSpec) => void;
+            "notify::local-name": (pspec: GObject.ParamSpec) => void;
+            "notify::namespace-uri": (pspec: GObject.ParamSpec) => void;
+            "notify::next-element-sibling": (pspec: GObject.ParamSpec) => void;
+            "notify::offset-height": (pspec: GObject.ParamSpec) => void;
+            "notify::offset-left": (pspec: GObject.ParamSpec) => void;
+            "notify::offset-parent": (pspec: GObject.ParamSpec) => void;
+            "notify::offset-top": (pspec: GObject.ParamSpec) => void;
+            "notify::offset-width": (pspec: GObject.ParamSpec) => void;
+            "notify::outer-html": (pspec: GObject.ParamSpec) => void;
+            "notify::prefix": (pspec: GObject.ParamSpec) => void;
+            "notify::previous-element-sibling": (pspec: GObject.ParamSpec) => void;
+            "notify::scroll-height": (pspec: GObject.ParamSpec) => void;
+            "notify::scroll-left": (pspec: GObject.ParamSpec) => void;
+            "notify::scroll-top": (pspec: GObject.ParamSpec) => void;
+            "notify::scroll-width": (pspec: GObject.ParamSpec) => void;
+            "notify::style": (pspec: GObject.ParamSpec) => void;
+            "notify::tag-name": (pspec: GObject.ParamSpec) => void;
+            "notify::webkit-region-overset": (pspec: GObject.ParamSpec) => void;
+            "notify::base-uri": (pspec: GObject.ParamSpec) => void;
+            "notify::child-nodes": (pspec: GObject.ParamSpec) => void;
+            "notify::first-child": (pspec: GObject.ParamSpec) => void;
+            "notify::last-child": (pspec: GObject.ParamSpec) => void;
+            "notify::next-sibling": (pspec: GObject.ParamSpec) => void;
+            "notify::node-name": (pspec: GObject.ParamSpec) => void;
+            "notify::node-type": (pspec: GObject.ParamSpec) => void;
+            "notify::node-value": (pspec: GObject.ParamSpec) => void;
+            "notify::owner-document": (pspec: GObject.ParamSpec) => void;
+            "notify::parent-element": (pspec: GObject.ParamSpec) => void;
+            "notify::parent-node": (pspec: GObject.ParamSpec) => void;
+            "notify::previous-sibling": (pspec: GObject.ParamSpec) => void;
+            "notify::text-content": (pspec: GObject.ParamSpec) => void;
+            "notify::core-object": (pspec: GObject.ParamSpec) => void;
+        }
+
+        // Constructor properties interface
+        interface ConstructorProps extends DOMHTMLElement.ConstructorProps, DOMEventTarget.ConstructorProps {
+            form: DOMHTMLFormElement;
+        }
+    }
+
+    /**
+     * @gir-type Class
+     */
+    class DOMHTMLFieldSetElement extends DOMHTMLElement implements DOMEventTarget {
+        static $gtype: GObject.GType<DOMHTMLFieldSetElement>;
+
+        // Properties
+        /**
+         * @read-only
+         */
+        get form(): DOMHTMLFormElement;
+
+        /**
+         * Compile-time signal type information.
+         *
+         * This instance property is generated only for TypeScript type checking.
+         * It is not defined at runtime and should not be accessed in JS code.
+         * @internal
+         */
+        $signals: DOMHTMLFieldSetElement.SignalSignatures;
+
+        // Constructors
+        constructor(properties?: Partial<DOMHTMLFieldSetElement.ConstructorProps>, ...args: any[]);
+
+        _init(...args: any[]): void;
+
+        // Signals
+        /** @signal */
+        connect<K extends keyof DOMHTMLFieldSetElement.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, DOMHTMLFieldSetElement.SignalSignatures[K]>): number;
+
+        /** @signal */
+        connect_after<K extends keyof DOMHTMLFieldSetElement.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, DOMHTMLFieldSetElement.SignalSignatures[K]>): number;
+
+        /** @signal */
+        emit<K extends keyof DOMHTMLFieldSetElement.SignalSignatures>(signal: K, ...args: GObject.GjsParameters<DOMHTMLFieldSetElement.SignalSignatures[K]>): void;
+
+        // Methods
+        /**
+         * @returns A {@link WebKit2WebExtension.DOMHTMLFormElement}
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_form(): DOMHTMLFormElement;
+    }
+
+
+    namespace DOMHTMLFontElement {
+        // Signal signatures
+        interface SignalSignatures extends DOMHTMLElement.SignalSignatures {
+            "notify::color": (pspec: GObject.ParamSpec) => void;
+            "notify::face": (pspec: GObject.ParamSpec) => void;
+            "notify::size": (pspec: GObject.ParamSpec) => void;
+            "notify::access-key": (pspec: GObject.ParamSpec) => void;
+            "notify::content-editable": (pspec: GObject.ParamSpec) => void;
+            "notify::dir": (pspec: GObject.ParamSpec) => void;
+            "notify::draggable": (pspec: GObject.ParamSpec) => void;
+            "notify::hidden": (pspec: GObject.ParamSpec) => void;
+            "notify::inner-text": (pspec: GObject.ParamSpec) => void;
+            "notify::is-content-editable": (pspec: GObject.ParamSpec) => void;
+            "notify::lang": (pspec: GObject.ParamSpec) => void;
+            "notify::outer-text": (pspec: GObject.ParamSpec) => void;
+            "notify::spellcheck": (pspec: GObject.ParamSpec) => void;
+            "notify::tab-index": (pspec: GObject.ParamSpec) => void;
+            "notify::title": (pspec: GObject.ParamSpec) => void;
+            "notify::translate": (pspec: GObject.ParamSpec) => void;
+            "notify::webkitdropzone": (pspec: GObject.ParamSpec) => void;
+            "notify::attributes": (pspec: GObject.ParamSpec) => void;
+            "notify::child-element-count": (pspec: GObject.ParamSpec) => void;
+            "notify::children": (pspec: GObject.ParamSpec) => void;
+            "notify::class-list": (pspec: GObject.ParamSpec) => void;
+            "notify::class-name": (pspec: GObject.ParamSpec) => void;
+            "notify::client-height": (pspec: GObject.ParamSpec) => void;
+            "notify::client-left": (pspec: GObject.ParamSpec) => void;
+            "notify::client-top": (pspec: GObject.ParamSpec) => void;
+            "notify::client-width": (pspec: GObject.ParamSpec) => void;
+            "notify::first-element-child": (pspec: GObject.ParamSpec) => void;
+            "notify::id": (pspec: GObject.ParamSpec) => void;
+            "notify::inner-html": (pspec: GObject.ParamSpec) => void;
+            "notify::last-element-child": (pspec: GObject.ParamSpec) => void;
+            "notify::local-name": (pspec: GObject.ParamSpec) => void;
+            "notify::namespace-uri": (pspec: GObject.ParamSpec) => void;
+            "notify::next-element-sibling": (pspec: GObject.ParamSpec) => void;
+            "notify::offset-height": (pspec: GObject.ParamSpec) => void;
+            "notify::offset-left": (pspec: GObject.ParamSpec) => void;
+            "notify::offset-parent": (pspec: GObject.ParamSpec) => void;
+            "notify::offset-top": (pspec: GObject.ParamSpec) => void;
+            "notify::offset-width": (pspec: GObject.ParamSpec) => void;
+            "notify::outer-html": (pspec: GObject.ParamSpec) => void;
+            "notify::prefix": (pspec: GObject.ParamSpec) => void;
+            "notify::previous-element-sibling": (pspec: GObject.ParamSpec) => void;
+            "notify::scroll-height": (pspec: GObject.ParamSpec) => void;
+            "notify::scroll-left": (pspec: GObject.ParamSpec) => void;
+            "notify::scroll-top": (pspec: GObject.ParamSpec) => void;
+            "notify::scroll-width": (pspec: GObject.ParamSpec) => void;
+            "notify::style": (pspec: GObject.ParamSpec) => void;
+            "notify::tag-name": (pspec: GObject.ParamSpec) => void;
+            "notify::webkit-region-overset": (pspec: GObject.ParamSpec) => void;
+            "notify::base-uri": (pspec: GObject.ParamSpec) => void;
+            "notify::child-nodes": (pspec: GObject.ParamSpec) => void;
+            "notify::first-child": (pspec: GObject.ParamSpec) => void;
+            "notify::last-child": (pspec: GObject.ParamSpec) => void;
+            "notify::next-sibling": (pspec: GObject.ParamSpec) => void;
+            "notify::node-name": (pspec: GObject.ParamSpec) => void;
+            "notify::node-type": (pspec: GObject.ParamSpec) => void;
+            "notify::node-value": (pspec: GObject.ParamSpec) => void;
+            "notify::owner-document": (pspec: GObject.ParamSpec) => void;
+            "notify::parent-element": (pspec: GObject.ParamSpec) => void;
+            "notify::parent-node": (pspec: GObject.ParamSpec) => void;
+            "notify::previous-sibling": (pspec: GObject.ParamSpec) => void;
+            "notify::text-content": (pspec: GObject.ParamSpec) => void;
+            "notify::core-object": (pspec: GObject.ParamSpec) => void;
+        }
+
+        // Constructor properties interface
+        interface ConstructorProps extends DOMHTMLElement.ConstructorProps, DOMEventTarget.ConstructorProps {
+            color: string;
+            face: string;
+            size: string;
+        }
+    }
+
+    /**
+     * @gir-type Class
+     */
+    class DOMHTMLFontElement extends DOMHTMLElement implements DOMEventTarget {
+        static $gtype: GObject.GType<DOMHTMLFontElement>;
+
+        // Properties
+        get color(): string;
+        set color(val: string);
+
+        get face(): string;
+        set face(val: string);
+
+        get size(): string;
+        set size(val: string);
+
+        /**
+         * Compile-time signal type information.
+         *
+         * This instance property is generated only for TypeScript type checking.
+         * It is not defined at runtime and should not be accessed in JS code.
+         * @internal
+         */
+        $signals: DOMHTMLFontElement.SignalSignatures;
+
+        // Constructors
+        constructor(properties?: Partial<DOMHTMLFontElement.ConstructorProps>, ...args: any[]);
+
+        _init(...args: any[]): void;
+
+        // Signals
+        /** @signal */
+        connect<K extends keyof DOMHTMLFontElement.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, DOMHTMLFontElement.SignalSignatures[K]>): number;
+
+        /** @signal */
+        connect_after<K extends keyof DOMHTMLFontElement.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, DOMHTMLFontElement.SignalSignatures[K]>): number;
+
+        /** @signal */
+        emit<K extends keyof DOMHTMLFontElement.SignalSignatures>(signal: K, ...args: GObject.GjsParameters<DOMHTMLFontElement.SignalSignatures[K]>): void;
+
+        // Methods
+        /**
+         * @returns A `gchar`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_color(): string;
+
+        /**
+         * @returns A `gchar`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_face(): string;
+
+        /**
+         * @returns A `gchar`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_size(): string;
+
+        /**
+         * @param value A `gchar`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        set_color(value: string): void;
+
+        /**
+         * @param value A `gchar`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        set_face(value: string): void;
+
+        /**
+         * @param value A `gchar`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        set_size(value: string): void;
+    }
+
+
+    namespace DOMHTMLFormElement {
+        // Signal signatures
+        interface SignalSignatures extends DOMHTMLElement.SignalSignatures {
+            "notify::accept-charset": (pspec: GObject.ParamSpec) => void;
+            "notify::action": (pspec: GObject.ParamSpec) => void;
+            "notify::elements": (pspec: GObject.ParamSpec) => void;
+            "notify::encoding": (pspec: GObject.ParamSpec) => void;
+            "notify::enctype": (pspec: GObject.ParamSpec) => void;
+            "notify::length": (pspec: GObject.ParamSpec) => void;
+            "notify::method": (pspec: GObject.ParamSpec) => void;
+            "notify::name": (pspec: GObject.ParamSpec) => void;
+            "notify::target": (pspec: GObject.ParamSpec) => void;
+            "notify::access-key": (pspec: GObject.ParamSpec) => void;
+            "notify::content-editable": (pspec: GObject.ParamSpec) => void;
+            "notify::dir": (pspec: GObject.ParamSpec) => void;
+            "notify::draggable": (pspec: GObject.ParamSpec) => void;
+            "notify::hidden": (pspec: GObject.ParamSpec) => void;
+            "notify::inner-text": (pspec: GObject.ParamSpec) => void;
+            "notify::is-content-editable": (pspec: GObject.ParamSpec) => void;
+            "notify::lang": (pspec: GObject.ParamSpec) => void;
+            "notify::outer-text": (pspec: GObject.ParamSpec) => void;
+            "notify::spellcheck": (pspec: GObject.ParamSpec) => void;
+            "notify::tab-index": (pspec: GObject.ParamSpec) => void;
+            "notify::title": (pspec: GObject.ParamSpec) => void;
+            "notify::translate": (pspec: GObject.ParamSpec) => void;
+            "notify::webkitdropzone": (pspec: GObject.ParamSpec) => void;
+            "notify::attributes": (pspec: GObject.ParamSpec) => void;
+            "notify::child-element-count": (pspec: GObject.ParamSpec) => void;
+            "notify::children": (pspec: GObject.ParamSpec) => void;
+            "notify::class-list": (pspec: GObject.ParamSpec) => void;
+            "notify::class-name": (pspec: GObject.ParamSpec) => void;
+            "notify::client-height": (pspec: GObject.ParamSpec) => void;
+            "notify::client-left": (pspec: GObject.ParamSpec) => void;
+            "notify::client-top": (pspec: GObject.ParamSpec) => void;
+            "notify::client-width": (pspec: GObject.ParamSpec) => void;
+            "notify::first-element-child": (pspec: GObject.ParamSpec) => void;
+            "notify::id": (pspec: GObject.ParamSpec) => void;
+            "notify::inner-html": (pspec: GObject.ParamSpec) => void;
+            "notify::last-element-child": (pspec: GObject.ParamSpec) => void;
+            "notify::local-name": (pspec: GObject.ParamSpec) => void;
+            "notify::namespace-uri": (pspec: GObject.ParamSpec) => void;
+            "notify::next-element-sibling": (pspec: GObject.ParamSpec) => void;
+            "notify::offset-height": (pspec: GObject.ParamSpec) => void;
+            "notify::offset-left": (pspec: GObject.ParamSpec) => void;
+            "notify::offset-parent": (pspec: GObject.ParamSpec) => void;
+            "notify::offset-top": (pspec: GObject.ParamSpec) => void;
+            "notify::offset-width": (pspec: GObject.ParamSpec) => void;
+            "notify::outer-html": (pspec: GObject.ParamSpec) => void;
+            "notify::prefix": (pspec: GObject.ParamSpec) => void;
+            "notify::previous-element-sibling": (pspec: GObject.ParamSpec) => void;
+            "notify::scroll-height": (pspec: GObject.ParamSpec) => void;
+            "notify::scroll-left": (pspec: GObject.ParamSpec) => void;
+            "notify::scroll-top": (pspec: GObject.ParamSpec) => void;
+            "notify::scroll-width": (pspec: GObject.ParamSpec) => void;
+            "notify::style": (pspec: GObject.ParamSpec) => void;
+            "notify::tag-name": (pspec: GObject.ParamSpec) => void;
+            "notify::webkit-region-overset": (pspec: GObject.ParamSpec) => void;
+            "notify::base-uri": (pspec: GObject.ParamSpec) => void;
+            "notify::child-nodes": (pspec: GObject.ParamSpec) => void;
+            "notify::first-child": (pspec: GObject.ParamSpec) => void;
+            "notify::last-child": (pspec: GObject.ParamSpec) => void;
+            "notify::next-sibling": (pspec: GObject.ParamSpec) => void;
+            "notify::node-name": (pspec: GObject.ParamSpec) => void;
+            "notify::node-type": (pspec: GObject.ParamSpec) => void;
+            "notify::node-value": (pspec: GObject.ParamSpec) => void;
+            "notify::owner-document": (pspec: GObject.ParamSpec) => void;
+            "notify::parent-element": (pspec: GObject.ParamSpec) => void;
+            "notify::parent-node": (pspec: GObject.ParamSpec) => void;
+            "notify::previous-sibling": (pspec: GObject.ParamSpec) => void;
+            "notify::text-content": (pspec: GObject.ParamSpec) => void;
+            "notify::core-object": (pspec: GObject.ParamSpec) => void;
+        }
+
+        // Constructor properties interface
+        interface ConstructorProps extends DOMHTMLElement.ConstructorProps, DOMEventTarget.ConstructorProps {
+            accept_charset: string;
+            acceptCharset: string;
+            action: string;
+            elements: DOMHTMLCollection;
+            encoding: string;
+            enctype: string;
+            length: bigint | number;
+            method: string;
+            name: string;
+            target: string;
+        }
+    }
+
+    /**
+     * @gir-type Class
+     */
+    class DOMHTMLFormElement extends DOMHTMLElement implements DOMEventTarget {
+        static $gtype: GObject.GType<DOMHTMLFormElement>;
+
+        // Properties
+        get accept_charset(): string;
+        set accept_charset(val: string);
+
+        get acceptCharset(): string;
+        set acceptCharset(val: string);
+
+        get action(): string;
+        set action(val: string);
+
+        /**
+         * @read-only
+         */
+        get elements(): DOMHTMLCollection;
+
+        get encoding(): string;
+        set encoding(val: string);
+
+        get enctype(): string;
+        set enctype(val: string);
+
+        /**
+         * @read-only
+         * @default 0
+         */
+        get length(): number;
+
+        get method(): string;
+        set method(val: string);
+
+        get name(): string;
+        set name(val: string);
+
+        get target(): string;
+        set target(val: string);
+
+        /**
+         * Compile-time signal type information.
+         *
+         * This instance property is generated only for TypeScript type checking.
+         * It is not defined at runtime and should not be accessed in JS code.
+         * @internal
+         */
+        $signals: DOMHTMLFormElement.SignalSignatures;
+
+        // Constructors
+        constructor(properties?: Partial<DOMHTMLFormElement.ConstructorProps>, ...args: any[]);
+
+        _init(...args: any[]): void;
+
+        // Signals
+        /** @signal */
+        connect<K extends keyof DOMHTMLFormElement.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, DOMHTMLFormElement.SignalSignatures[K]>): number;
+
+        /** @signal */
+        connect_after<K extends keyof DOMHTMLFormElement.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, DOMHTMLFormElement.SignalSignatures[K]>): number;
+
+        /** @signal */
+        emit<K extends keyof DOMHTMLFormElement.SignalSignatures>(signal: K, ...args: GObject.GjsParameters<DOMHTMLFormElement.SignalSignatures[K]>): void;
+
+        // Methods
+        /**
+         * @returns A `gchar`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_accept_charset(): string;
+
+        /**
+         * @returns A `gchar`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_action(): string;
+
+        /**
+         * @returns A {@link WebKit2WebExtension.DOMHTMLCollection}
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_elements(): DOMHTMLCollection;
+
+        /**
+         * @returns A `gchar`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_encoding(): string;
+
+        /**
+         * @returns A `gchar`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_enctype(): string;
+
+        /**
+         * @returns A `glong`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_length(): number;
+
+        /**
+         * @returns A `gchar`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_method(): string;
+
+        /**
+         * @returns A `gchar`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_name(): string;
+
+        /**
+         * @returns A `gchar`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_target(): string;
+
+        /**
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        reset(): void;
+
+        /**
+         * @param value A `gchar`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        set_accept_charset(value: string): void;
+
+        /**
+         * @param value A `gchar`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        set_action(value: string): void;
+
+        /**
+         * @param value A `gchar`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        set_encoding(value: string): void;
+
+        /**
+         * @param value A `gchar`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        set_enctype(value: string): void;
+
+        /**
+         * @param value A `gchar`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        set_method(value: string): void;
+
+        /**
+         * @param value A `gchar`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        set_name(value: string): void;
+
+        /**
+         * @param value A `gchar`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        set_target(value: string): void;
+
+        /**
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        submit(): void;
+    }
+
+
+    namespace DOMHTMLFrameElement {
+        // Signal signatures
+        interface SignalSignatures extends DOMHTMLElement.SignalSignatures {
+            "notify::content-document": (pspec: GObject.ParamSpec) => void;
+            "notify::content-window": (pspec: GObject.ParamSpec) => void;
+            "notify::frame-border": (pspec: GObject.ParamSpec) => void;
+            "notify::height": (pspec: GObject.ParamSpec) => void;
+            "notify::long-desc": (pspec: GObject.ParamSpec) => void;
+            "notify::margin-height": (pspec: GObject.ParamSpec) => void;
+            "notify::margin-width": (pspec: GObject.ParamSpec) => void;
+            "notify::name": (pspec: GObject.ParamSpec) => void;
+            "notify::no-resize": (pspec: GObject.ParamSpec) => void;
+            "notify::scrolling": (pspec: GObject.ParamSpec) => void;
+            "notify::src": (pspec: GObject.ParamSpec) => void;
+            "notify::width": (pspec: GObject.ParamSpec) => void;
+            "notify::access-key": (pspec: GObject.ParamSpec) => void;
+            "notify::content-editable": (pspec: GObject.ParamSpec) => void;
+            "notify::dir": (pspec: GObject.ParamSpec) => void;
+            "notify::draggable": (pspec: GObject.ParamSpec) => void;
+            "notify::hidden": (pspec: GObject.ParamSpec) => void;
+            "notify::inner-text": (pspec: GObject.ParamSpec) => void;
+            "notify::is-content-editable": (pspec: GObject.ParamSpec) => void;
+            "notify::lang": (pspec: GObject.ParamSpec) => void;
+            "notify::outer-text": (pspec: GObject.ParamSpec) => void;
+            "notify::spellcheck": (pspec: GObject.ParamSpec) => void;
+            "notify::tab-index": (pspec: GObject.ParamSpec) => void;
+            "notify::title": (pspec: GObject.ParamSpec) => void;
+            "notify::translate": (pspec: GObject.ParamSpec) => void;
+            "notify::webkitdropzone": (pspec: GObject.ParamSpec) => void;
+            "notify::attributes": (pspec: GObject.ParamSpec) => void;
+            "notify::child-element-count": (pspec: GObject.ParamSpec) => void;
+            "notify::children": (pspec: GObject.ParamSpec) => void;
+            "notify::class-list": (pspec: GObject.ParamSpec) => void;
+            "notify::class-name": (pspec: GObject.ParamSpec) => void;
+            "notify::client-height": (pspec: GObject.ParamSpec) => void;
+            "notify::client-left": (pspec: GObject.ParamSpec) => void;
+            "notify::client-top": (pspec: GObject.ParamSpec) => void;
+            "notify::client-width": (pspec: GObject.ParamSpec) => void;
+            "notify::first-element-child": (pspec: GObject.ParamSpec) => void;
+            "notify::id": (pspec: GObject.ParamSpec) => void;
+            "notify::inner-html": (pspec: GObject.ParamSpec) => void;
+            "notify::last-element-child": (pspec: GObject.ParamSpec) => void;
+            "notify::local-name": (pspec: GObject.ParamSpec) => void;
+            "notify::namespace-uri": (pspec: GObject.ParamSpec) => void;
+            "notify::next-element-sibling": (pspec: GObject.ParamSpec) => void;
+            "notify::offset-height": (pspec: GObject.ParamSpec) => void;
+            "notify::offset-left": (pspec: GObject.ParamSpec) => void;
+            "notify::offset-parent": (pspec: GObject.ParamSpec) => void;
+            "notify::offset-top": (pspec: GObject.ParamSpec) => void;
+            "notify::offset-width": (pspec: GObject.ParamSpec) => void;
+            "notify::outer-html": (pspec: GObject.ParamSpec) => void;
+            "notify::prefix": (pspec: GObject.ParamSpec) => void;
+            "notify::previous-element-sibling": (pspec: GObject.ParamSpec) => void;
+            "notify::scroll-height": (pspec: GObject.ParamSpec) => void;
+            "notify::scroll-left": (pspec: GObject.ParamSpec) => void;
+            "notify::scroll-top": (pspec: GObject.ParamSpec) => void;
+            "notify::scroll-width": (pspec: GObject.ParamSpec) => void;
+            "notify::style": (pspec: GObject.ParamSpec) => void;
+            "notify::tag-name": (pspec: GObject.ParamSpec) => void;
+            "notify::webkit-region-overset": (pspec: GObject.ParamSpec) => void;
+            "notify::base-uri": (pspec: GObject.ParamSpec) => void;
+            "notify::child-nodes": (pspec: GObject.ParamSpec) => void;
+            "notify::first-child": (pspec: GObject.ParamSpec) => void;
+            "notify::last-child": (pspec: GObject.ParamSpec) => void;
+            "notify::next-sibling": (pspec: GObject.ParamSpec) => void;
+            "notify::node-name": (pspec: GObject.ParamSpec) => void;
+            "notify::node-type": (pspec: GObject.ParamSpec) => void;
+            "notify::node-value": (pspec: GObject.ParamSpec) => void;
+            "notify::owner-document": (pspec: GObject.ParamSpec) => void;
+            "notify::parent-element": (pspec: GObject.ParamSpec) => void;
+            "notify::parent-node": (pspec: GObject.ParamSpec) => void;
+            "notify::previous-sibling": (pspec: GObject.ParamSpec) => void;
+            "notify::text-content": (pspec: GObject.ParamSpec) => void;
+            "notify::core-object": (pspec: GObject.ParamSpec) => void;
+        }
+
+        // Constructor properties interface
+        interface ConstructorProps extends DOMHTMLElement.ConstructorProps, DOMEventTarget.ConstructorProps {
+            content_document: DOMDocument;
+            contentDocument: DOMDocument;
+            content_window: DOMDOMWindow;
+            contentWindow: DOMDOMWindow;
+            frame_border: string;
+            frameBorder: string;
+            height: bigint | number;
+            long_desc: string;
+            longDesc: string;
+            margin_height: string;
+            marginHeight: string;
+            margin_width: string;
+            marginWidth: string;
+            name: string;
+            no_resize: boolean;
+            noResize: boolean;
+            scrolling: string;
+            src: string;
+            width: bigint | number;
+        }
+    }
+
+    /**
+     * @gir-type Class
+     */
+    class DOMHTMLFrameElement extends DOMHTMLElement implements DOMEventTarget {
+        static $gtype: GObject.GType<DOMHTMLFrameElement>;
+
+        // Properties
+        /**
+         * @read-only
+         */
+        get content_document(): DOMDocument;
+
+        /**
+         * @read-only
+         */
+        get contentDocument(): DOMDocument;
+
+        /**
+         * @read-only
+         */
+        get content_window(): DOMDOMWindow;
+
+        /**
+         * @read-only
+         */
+        get contentWindow(): DOMDOMWindow;
+
+        get frame_border(): string;
+        set frame_border(val: string);
+
+        get frameBorder(): string;
+        set frameBorder(val: string);
+
+        /**
+         * @read-only
+         * @default 0
+         */
+        get height(): number;
+
+        get long_desc(): string;
+        set long_desc(val: string);
+
+        get longDesc(): string;
+        set longDesc(val: string);
+
+        get margin_height(): string;
+        set margin_height(val: string);
+
+        get marginHeight(): string;
+        set marginHeight(val: string);
+
+        get margin_width(): string;
+        set margin_width(val: string);
+
+        get marginWidth(): string;
+        set marginWidth(val: string);
+
+        get name(): string;
+        set name(val: string);
+
+        /**
+         * @default false
+         */
+        get no_resize(): boolean;
+        set no_resize(val: boolean);
+
+        /**
+         * @default false
+         */
+        get noResize(): boolean;
+        set noResize(val: boolean);
+
+        get scrolling(): string;
+        set scrolling(val: string);
+
+        get src(): string;
+        set src(val: string);
+
+        /**
+         * @read-only
+         * @default 0
+         */
+        get width(): number;
+
+        /**
+         * Compile-time signal type information.
+         *
+         * This instance property is generated only for TypeScript type checking.
+         * It is not defined at runtime and should not be accessed in JS code.
+         * @internal
+         */
+        $signals: DOMHTMLFrameElement.SignalSignatures;
+
+        // Constructors
+        constructor(properties?: Partial<DOMHTMLFrameElement.ConstructorProps>, ...args: any[]);
+
+        _init(...args: any[]): void;
+
+        // Signals
+        /** @signal */
+        connect<K extends keyof DOMHTMLFrameElement.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, DOMHTMLFrameElement.SignalSignatures[K]>): number;
+
+        /** @signal */
+        connect_after<K extends keyof DOMHTMLFrameElement.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, DOMHTMLFrameElement.SignalSignatures[K]>): number;
+
+        /** @signal */
+        emit<K extends keyof DOMHTMLFrameElement.SignalSignatures>(signal: K, ...args: GObject.GjsParameters<DOMHTMLFrameElement.SignalSignatures[K]>): void;
+
+        // Methods
+        /**
+         * @returns A {@link WebKit2WebExtension.DOMDocument}
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_content_document(): DOMDocument;
+
+        /**
+         * @returns A {@link WebKit2WebExtension.DOMDOMWindow}
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_content_window(): DOMDOMWindow;
+
+        /**
+         * @returns A `gchar`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_frame_border(): string;
+
+        /**
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_height(): number;
+
+        /**
+         * @returns A `gchar`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_long_desc(): string;
+
+        /**
+         * @returns A `gchar`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_margin_height(): string;
+
+        /**
+         * @returns A `gchar`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_margin_width(): string;
+
+        /**
+         * @returns A `gchar`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_name(): string;
+
+        /**
+         * @returns A `gboolean`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_no_resize(): boolean;
+
+        /**
+         * @returns A `gchar`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_scrolling(): string;
+
+        /**
+         * @returns A `gchar`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_src(): string;
+
+        /**
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_width(): number;
+
+        /**
+         * @param value A `gchar`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        set_frame_border(value: string): void;
+
+        /**
+         * @param value A `gchar`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        set_long_desc(value: string): void;
+
+        /**
+         * @param value A `gchar`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        set_margin_height(value: string): void;
+
+        /**
+         * @param value A `gchar`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        set_margin_width(value: string): void;
+
+        /**
+         * @param value A `gchar`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        set_name(value: string): void;
+
+        /**
+         * @param value A `gboolean`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        set_no_resize(value: boolean): void;
+
+        /**
+         * @param value A `gchar`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        set_scrolling(value: string): void;
+
+        /**
+         * @param value A `gchar`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        set_src(value: string): void;
+    }
+
+
+    namespace DOMHTMLFrameSetElement {
+        // Signal signatures
+        interface SignalSignatures extends DOMHTMLElement.SignalSignatures {
+            "notify::cols": (pspec: GObject.ParamSpec) => void;
+            "notify::rows": (pspec: GObject.ParamSpec) => void;
+            "notify::access-key": (pspec: GObject.ParamSpec) => void;
+            "notify::content-editable": (pspec: GObject.ParamSpec) => void;
+            "notify::dir": (pspec: GObject.ParamSpec) => void;
+            "notify::draggable": (pspec: GObject.ParamSpec) => void;
+            "notify::hidden": (pspec: GObject.ParamSpec) => void;
+            "notify::inner-text": (pspec: GObject.ParamSpec) => void;
+            "notify::is-content-editable": (pspec: GObject.ParamSpec) => void;
+            "notify::lang": (pspec: GObject.ParamSpec) => void;
+            "notify::outer-text": (pspec: GObject.ParamSpec) => void;
+            "notify::spellcheck": (pspec: GObject.ParamSpec) => void;
+            "notify::tab-index": (pspec: GObject.ParamSpec) => void;
+            "notify::title": (pspec: GObject.ParamSpec) => void;
+            "notify::translate": (pspec: GObject.ParamSpec) => void;
+            "notify::webkitdropzone": (pspec: GObject.ParamSpec) => void;
+            "notify::attributes": (pspec: GObject.ParamSpec) => void;
+            "notify::child-element-count": (pspec: GObject.ParamSpec) => void;
+            "notify::children": (pspec: GObject.ParamSpec) => void;
+            "notify::class-list": (pspec: GObject.ParamSpec) => void;
+            "notify::class-name": (pspec: GObject.ParamSpec) => void;
+            "notify::client-height": (pspec: GObject.ParamSpec) => void;
+            "notify::client-left": (pspec: GObject.ParamSpec) => void;
+            "notify::client-top": (pspec: GObject.ParamSpec) => void;
+            "notify::client-width": (pspec: GObject.ParamSpec) => void;
+            "notify::first-element-child": (pspec: GObject.ParamSpec) => void;
+            "notify::id": (pspec: GObject.ParamSpec) => void;
+            "notify::inner-html": (pspec: GObject.ParamSpec) => void;
+            "notify::last-element-child": (pspec: GObject.ParamSpec) => void;
+            "notify::local-name": (pspec: GObject.ParamSpec) => void;
+            "notify::namespace-uri": (pspec: GObject.ParamSpec) => void;
+            "notify::next-element-sibling": (pspec: GObject.ParamSpec) => void;
+            "notify::offset-height": (pspec: GObject.ParamSpec) => void;
+            "notify::offset-left": (pspec: GObject.ParamSpec) => void;
+            "notify::offset-parent": (pspec: GObject.ParamSpec) => void;
+            "notify::offset-top": (pspec: GObject.ParamSpec) => void;
+            "notify::offset-width": (pspec: GObject.ParamSpec) => void;
+            "notify::outer-html": (pspec: GObject.ParamSpec) => void;
+            "notify::prefix": (pspec: GObject.ParamSpec) => void;
+            "notify::previous-element-sibling": (pspec: GObject.ParamSpec) => void;
+            "notify::scroll-height": (pspec: GObject.ParamSpec) => void;
+            "notify::scroll-left": (pspec: GObject.ParamSpec) => void;
+            "notify::scroll-top": (pspec: GObject.ParamSpec) => void;
+            "notify::scroll-width": (pspec: GObject.ParamSpec) => void;
+            "notify::style": (pspec: GObject.ParamSpec) => void;
+            "notify::tag-name": (pspec: GObject.ParamSpec) => void;
+            "notify::webkit-region-overset": (pspec: GObject.ParamSpec) => void;
+            "notify::base-uri": (pspec: GObject.ParamSpec) => void;
+            "notify::child-nodes": (pspec: GObject.ParamSpec) => void;
+            "notify::first-child": (pspec: GObject.ParamSpec) => void;
+            "notify::last-child": (pspec: GObject.ParamSpec) => void;
+            "notify::next-sibling": (pspec: GObject.ParamSpec) => void;
+            "notify::node-name": (pspec: GObject.ParamSpec) => void;
+            "notify::node-type": (pspec: GObject.ParamSpec) => void;
+            "notify::node-value": (pspec: GObject.ParamSpec) => void;
+            "notify::owner-document": (pspec: GObject.ParamSpec) => void;
+            "notify::parent-element": (pspec: GObject.ParamSpec) => void;
+            "notify::parent-node": (pspec: GObject.ParamSpec) => void;
+            "notify::previous-sibling": (pspec: GObject.ParamSpec) => void;
+            "notify::text-content": (pspec: GObject.ParamSpec) => void;
+            "notify::core-object": (pspec: GObject.ParamSpec) => void;
+        }
+
+        // Constructor properties interface
+        interface ConstructorProps extends DOMHTMLElement.ConstructorProps, DOMEventTarget.ConstructorProps {
+            cols: string;
+            rows: string;
+        }
+    }
+
+    /**
+     * @gir-type Class
+     */
+    class DOMHTMLFrameSetElement extends DOMHTMLElement implements DOMEventTarget {
+        static $gtype: GObject.GType<DOMHTMLFrameSetElement>;
+
+        // Properties
+        get cols(): string;
+        set cols(val: string);
+
+        get rows(): string;
+        set rows(val: string);
+
+        /**
+         * Compile-time signal type information.
+         *
+         * This instance property is generated only for TypeScript type checking.
+         * It is not defined at runtime and should not be accessed in JS code.
+         * @internal
+         */
+        $signals: DOMHTMLFrameSetElement.SignalSignatures;
+
+        // Constructors
+        constructor(properties?: Partial<DOMHTMLFrameSetElement.ConstructorProps>, ...args: any[]);
+
+        _init(...args: any[]): void;
+
+        // Signals
+        /** @signal */
+        connect<K extends keyof DOMHTMLFrameSetElement.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, DOMHTMLFrameSetElement.SignalSignatures[K]>): number;
+
+        /** @signal */
+        connect_after<K extends keyof DOMHTMLFrameSetElement.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, DOMHTMLFrameSetElement.SignalSignatures[K]>): number;
+
+        /** @signal */
+        emit<K extends keyof DOMHTMLFrameSetElement.SignalSignatures>(signal: K, ...args: GObject.GjsParameters<DOMHTMLFrameSetElement.SignalSignatures[K]>): void;
+
+        // Methods
+        /**
+         * @returns A `gchar`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_cols(): string;
+
+        /**
+         * @returns A `gchar`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_rows(): string;
+
+        /**
+         * @param value A `gchar`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        set_cols(value: string): void;
+
+        /**
+         * @param value A `gchar`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        set_rows(value: string): void;
+    }
+
+
+    namespace DOMHTMLHRElement {
+        // Signal signatures
+        interface SignalSignatures extends DOMHTMLElement.SignalSignatures {
+            "notify::align": (pspec: GObject.ParamSpec) => void;
+            "notify::no-shade": (pspec: GObject.ParamSpec) => void;
+            "notify::size": (pspec: GObject.ParamSpec) => void;
+            "notify::width": (pspec: GObject.ParamSpec) => void;
+            "notify::access-key": (pspec: GObject.ParamSpec) => void;
+            "notify::content-editable": (pspec: GObject.ParamSpec) => void;
+            "notify::dir": (pspec: GObject.ParamSpec) => void;
+            "notify::draggable": (pspec: GObject.ParamSpec) => void;
+            "notify::hidden": (pspec: GObject.ParamSpec) => void;
+            "notify::inner-text": (pspec: GObject.ParamSpec) => void;
+            "notify::is-content-editable": (pspec: GObject.ParamSpec) => void;
+            "notify::lang": (pspec: GObject.ParamSpec) => void;
+            "notify::outer-text": (pspec: GObject.ParamSpec) => void;
+            "notify::spellcheck": (pspec: GObject.ParamSpec) => void;
+            "notify::tab-index": (pspec: GObject.ParamSpec) => void;
+            "notify::title": (pspec: GObject.ParamSpec) => void;
+            "notify::translate": (pspec: GObject.ParamSpec) => void;
+            "notify::webkitdropzone": (pspec: GObject.ParamSpec) => void;
+            "notify::attributes": (pspec: GObject.ParamSpec) => void;
+            "notify::child-element-count": (pspec: GObject.ParamSpec) => void;
+            "notify::children": (pspec: GObject.ParamSpec) => void;
+            "notify::class-list": (pspec: GObject.ParamSpec) => void;
+            "notify::class-name": (pspec: GObject.ParamSpec) => void;
+            "notify::client-height": (pspec: GObject.ParamSpec) => void;
+            "notify::client-left": (pspec: GObject.ParamSpec) => void;
+            "notify::client-top": (pspec: GObject.ParamSpec) => void;
+            "notify::client-width": (pspec: GObject.ParamSpec) => void;
+            "notify::first-element-child": (pspec: GObject.ParamSpec) => void;
+            "notify::id": (pspec: GObject.ParamSpec) => void;
+            "notify::inner-html": (pspec: GObject.ParamSpec) => void;
+            "notify::last-element-child": (pspec: GObject.ParamSpec) => void;
+            "notify::local-name": (pspec: GObject.ParamSpec) => void;
+            "notify::namespace-uri": (pspec: GObject.ParamSpec) => void;
+            "notify::next-element-sibling": (pspec: GObject.ParamSpec) => void;
+            "notify::offset-height": (pspec: GObject.ParamSpec) => void;
+            "notify::offset-left": (pspec: GObject.ParamSpec) => void;
+            "notify::offset-parent": (pspec: GObject.ParamSpec) => void;
+            "notify::offset-top": (pspec: GObject.ParamSpec) => void;
+            "notify::offset-width": (pspec: GObject.ParamSpec) => void;
+            "notify::outer-html": (pspec: GObject.ParamSpec) => void;
+            "notify::prefix": (pspec: GObject.ParamSpec) => void;
+            "notify::previous-element-sibling": (pspec: GObject.ParamSpec) => void;
+            "notify::scroll-height": (pspec: GObject.ParamSpec) => void;
+            "notify::scroll-left": (pspec: GObject.ParamSpec) => void;
+            "notify::scroll-top": (pspec: GObject.ParamSpec) => void;
+            "notify::scroll-width": (pspec: GObject.ParamSpec) => void;
+            "notify::style": (pspec: GObject.ParamSpec) => void;
+            "notify::tag-name": (pspec: GObject.ParamSpec) => void;
+            "notify::webkit-region-overset": (pspec: GObject.ParamSpec) => void;
+            "notify::base-uri": (pspec: GObject.ParamSpec) => void;
+            "notify::child-nodes": (pspec: GObject.ParamSpec) => void;
+            "notify::first-child": (pspec: GObject.ParamSpec) => void;
+            "notify::last-child": (pspec: GObject.ParamSpec) => void;
+            "notify::next-sibling": (pspec: GObject.ParamSpec) => void;
+            "notify::node-name": (pspec: GObject.ParamSpec) => void;
+            "notify::node-type": (pspec: GObject.ParamSpec) => void;
+            "notify::node-value": (pspec: GObject.ParamSpec) => void;
+            "notify::owner-document": (pspec: GObject.ParamSpec) => void;
+            "notify::parent-element": (pspec: GObject.ParamSpec) => void;
+            "notify::parent-node": (pspec: GObject.ParamSpec) => void;
+            "notify::previous-sibling": (pspec: GObject.ParamSpec) => void;
+            "notify::text-content": (pspec: GObject.ParamSpec) => void;
+            "notify::core-object": (pspec: GObject.ParamSpec) => void;
+        }
+
+        // Constructor properties interface
+        interface ConstructorProps extends DOMHTMLElement.ConstructorProps, DOMEventTarget.ConstructorProps {
+            align: string;
+            no_shade: boolean;
+            noShade: boolean;
+            size: string;
+            width: string;
+        }
+    }
+
+    /**
+     * @gir-type Class
+     */
+    class DOMHTMLHRElement extends DOMHTMLElement implements DOMEventTarget {
+        static $gtype: GObject.GType<DOMHTMLHRElement>;
+
+        // Properties
+        get align(): string;
+        set align(val: string);
+
+        /**
+         * @default false
+         */
+        get no_shade(): boolean;
+        set no_shade(val: boolean);
+
+        /**
+         * @default false
+         */
+        get noShade(): boolean;
+        set noShade(val: boolean);
+
+        get size(): string;
+        set size(val: string);
+
+        get width(): string;
+        set width(val: string);
+
+        /**
+         * Compile-time signal type information.
+         *
+         * This instance property is generated only for TypeScript type checking.
+         * It is not defined at runtime and should not be accessed in JS code.
+         * @internal
+         */
+        $signals: DOMHTMLHRElement.SignalSignatures;
+
+        // Constructors
+        constructor(properties?: Partial<DOMHTMLHRElement.ConstructorProps>, ...args: any[]);
+
+        _init(...args: any[]): void;
+
+        // Signals
+        /** @signal */
+        connect<K extends keyof DOMHTMLHRElement.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, DOMHTMLHRElement.SignalSignatures[K]>): number;
+
+        /** @signal */
+        connect_after<K extends keyof DOMHTMLHRElement.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, DOMHTMLHRElement.SignalSignatures[K]>): number;
+
+        /** @signal */
+        emit<K extends keyof DOMHTMLHRElement.SignalSignatures>(signal: K, ...args: GObject.GjsParameters<DOMHTMLHRElement.SignalSignatures[K]>): void;
+
+        // Methods
+        /**
+         * @returns A `gchar`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_align(): string;
+
+        /**
+         * @returns A `gboolean`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_no_shade(): boolean;
+
+        /**
+         * @returns A `gchar`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_size(): string;
+
+        /**
+         * @returns A `gchar`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_width(): string;
+
+        /**
+         * @param value A `gchar`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        set_align(value: string): void;
+
+        /**
+         * @param value A `gboolean`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        set_no_shade(value: boolean): void;
+
+        /**
+         * @param value A `gchar`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        set_size(value: string): void;
+
+        /**
+         * @param value A `gchar`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        set_width(value: string): void;
+    }
+
+
+    namespace DOMHTMLHeadElement {
+        // Signal signatures
+        interface SignalSignatures extends DOMHTMLElement.SignalSignatures {
+            "notify::profile": (pspec: GObject.ParamSpec) => void;
+            "notify::access-key": (pspec: GObject.ParamSpec) => void;
+            "notify::content-editable": (pspec: GObject.ParamSpec) => void;
+            "notify::dir": (pspec: GObject.ParamSpec) => void;
+            "notify::draggable": (pspec: GObject.ParamSpec) => void;
+            "notify::hidden": (pspec: GObject.ParamSpec) => void;
+            "notify::inner-text": (pspec: GObject.ParamSpec) => void;
+            "notify::is-content-editable": (pspec: GObject.ParamSpec) => void;
+            "notify::lang": (pspec: GObject.ParamSpec) => void;
+            "notify::outer-text": (pspec: GObject.ParamSpec) => void;
+            "notify::spellcheck": (pspec: GObject.ParamSpec) => void;
+            "notify::tab-index": (pspec: GObject.ParamSpec) => void;
+            "notify::title": (pspec: GObject.ParamSpec) => void;
+            "notify::translate": (pspec: GObject.ParamSpec) => void;
+            "notify::webkitdropzone": (pspec: GObject.ParamSpec) => void;
+            "notify::attributes": (pspec: GObject.ParamSpec) => void;
+            "notify::child-element-count": (pspec: GObject.ParamSpec) => void;
+            "notify::children": (pspec: GObject.ParamSpec) => void;
+            "notify::class-list": (pspec: GObject.ParamSpec) => void;
+            "notify::class-name": (pspec: GObject.ParamSpec) => void;
+            "notify::client-height": (pspec: GObject.ParamSpec) => void;
+            "notify::client-left": (pspec: GObject.ParamSpec) => void;
+            "notify::client-top": (pspec: GObject.ParamSpec) => void;
+            "notify::client-width": (pspec: GObject.ParamSpec) => void;
+            "notify::first-element-child": (pspec: GObject.ParamSpec) => void;
+            "notify::id": (pspec: GObject.ParamSpec) => void;
+            "notify::inner-html": (pspec: GObject.ParamSpec) => void;
+            "notify::last-element-child": (pspec: GObject.ParamSpec) => void;
+            "notify::local-name": (pspec: GObject.ParamSpec) => void;
+            "notify::namespace-uri": (pspec: GObject.ParamSpec) => void;
+            "notify::next-element-sibling": (pspec: GObject.ParamSpec) => void;
+            "notify::offset-height": (pspec: GObject.ParamSpec) => void;
+            "notify::offset-left": (pspec: GObject.ParamSpec) => void;
+            "notify::offset-parent": (pspec: GObject.ParamSpec) => void;
+            "notify::offset-top": (pspec: GObject.ParamSpec) => void;
+            "notify::offset-width": (pspec: GObject.ParamSpec) => void;
+            "notify::outer-html": (pspec: GObject.ParamSpec) => void;
+            "notify::prefix": (pspec: GObject.ParamSpec) => void;
+            "notify::previous-element-sibling": (pspec: GObject.ParamSpec) => void;
+            "notify::scroll-height": (pspec: GObject.ParamSpec) => void;
+            "notify::scroll-left": (pspec: GObject.ParamSpec) => void;
+            "notify::scroll-top": (pspec: GObject.ParamSpec) => void;
+            "notify::scroll-width": (pspec: GObject.ParamSpec) => void;
+            "notify::style": (pspec: GObject.ParamSpec) => void;
+            "notify::tag-name": (pspec: GObject.ParamSpec) => void;
+            "notify::webkit-region-overset": (pspec: GObject.ParamSpec) => void;
+            "notify::base-uri": (pspec: GObject.ParamSpec) => void;
+            "notify::child-nodes": (pspec: GObject.ParamSpec) => void;
+            "notify::first-child": (pspec: GObject.ParamSpec) => void;
+            "notify::last-child": (pspec: GObject.ParamSpec) => void;
+            "notify::next-sibling": (pspec: GObject.ParamSpec) => void;
+            "notify::node-name": (pspec: GObject.ParamSpec) => void;
+            "notify::node-type": (pspec: GObject.ParamSpec) => void;
+            "notify::node-value": (pspec: GObject.ParamSpec) => void;
+            "notify::owner-document": (pspec: GObject.ParamSpec) => void;
+            "notify::parent-element": (pspec: GObject.ParamSpec) => void;
+            "notify::parent-node": (pspec: GObject.ParamSpec) => void;
+            "notify::previous-sibling": (pspec: GObject.ParamSpec) => void;
+            "notify::text-content": (pspec: GObject.ParamSpec) => void;
+            "notify::core-object": (pspec: GObject.ParamSpec) => void;
+        }
+
+        // Constructor properties interface
+        interface ConstructorProps extends DOMHTMLElement.ConstructorProps, DOMEventTarget.ConstructorProps {
+            profile: string;
+        }
+    }
+
+    /**
+     * @gir-type Class
+     */
+    class DOMHTMLHeadElement extends DOMHTMLElement implements DOMEventTarget {
+        static $gtype: GObject.GType<DOMHTMLHeadElement>;
+
+        // Properties
+        get profile(): string;
+        set profile(val: string);
+
+        /**
+         * Compile-time signal type information.
+         *
+         * This instance property is generated only for TypeScript type checking.
+         * It is not defined at runtime and should not be accessed in JS code.
+         * @internal
+         */
+        $signals: DOMHTMLHeadElement.SignalSignatures;
+
+        // Constructors
+        constructor(properties?: Partial<DOMHTMLHeadElement.ConstructorProps>, ...args: any[]);
+
+        _init(...args: any[]): void;
+
+        // Signals
+        /** @signal */
+        connect<K extends keyof DOMHTMLHeadElement.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, DOMHTMLHeadElement.SignalSignatures[K]>): number;
+
+        /** @signal */
+        connect_after<K extends keyof DOMHTMLHeadElement.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, DOMHTMLHeadElement.SignalSignatures[K]>): number;
+
+        /** @signal */
+        emit<K extends keyof DOMHTMLHeadElement.SignalSignatures>(signal: K, ...args: GObject.GjsParameters<DOMHTMLHeadElement.SignalSignatures[K]>): void;
+
+        // Methods
+        /**
+         * @returns A `gchar`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_profile(): string;
+
+        /**
+         * @param value A `gchar`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        set_profile(value: string): void;
+    }
+
+
+    namespace DOMHTMLHeadingElement {
+        // Signal signatures
+        interface SignalSignatures extends DOMHTMLElement.SignalSignatures {
+            "notify::align": (pspec: GObject.ParamSpec) => void;
+            "notify::access-key": (pspec: GObject.ParamSpec) => void;
+            "notify::content-editable": (pspec: GObject.ParamSpec) => void;
+            "notify::dir": (pspec: GObject.ParamSpec) => void;
+            "notify::draggable": (pspec: GObject.ParamSpec) => void;
+            "notify::hidden": (pspec: GObject.ParamSpec) => void;
+            "notify::inner-text": (pspec: GObject.ParamSpec) => void;
+            "notify::is-content-editable": (pspec: GObject.ParamSpec) => void;
+            "notify::lang": (pspec: GObject.ParamSpec) => void;
+            "notify::outer-text": (pspec: GObject.ParamSpec) => void;
+            "notify::spellcheck": (pspec: GObject.ParamSpec) => void;
+            "notify::tab-index": (pspec: GObject.ParamSpec) => void;
+            "notify::title": (pspec: GObject.ParamSpec) => void;
+            "notify::translate": (pspec: GObject.ParamSpec) => void;
+            "notify::webkitdropzone": (pspec: GObject.ParamSpec) => void;
+            "notify::attributes": (pspec: GObject.ParamSpec) => void;
+            "notify::child-element-count": (pspec: GObject.ParamSpec) => void;
+            "notify::children": (pspec: GObject.ParamSpec) => void;
+            "notify::class-list": (pspec: GObject.ParamSpec) => void;
+            "notify::class-name": (pspec: GObject.ParamSpec) => void;
+            "notify::client-height": (pspec: GObject.ParamSpec) => void;
+            "notify::client-left": (pspec: GObject.ParamSpec) => void;
+            "notify::client-top": (pspec: GObject.ParamSpec) => void;
+            "notify::client-width": (pspec: GObject.ParamSpec) => void;
+            "notify::first-element-child": (pspec: GObject.ParamSpec) => void;
+            "notify::id": (pspec: GObject.ParamSpec) => void;
+            "notify::inner-html": (pspec: GObject.ParamSpec) => void;
+            "notify::last-element-child": (pspec: GObject.ParamSpec) => void;
+            "notify::local-name": (pspec: GObject.ParamSpec) => void;
+            "notify::namespace-uri": (pspec: GObject.ParamSpec) => void;
+            "notify::next-element-sibling": (pspec: GObject.ParamSpec) => void;
+            "notify::offset-height": (pspec: GObject.ParamSpec) => void;
+            "notify::offset-left": (pspec: GObject.ParamSpec) => void;
+            "notify::offset-parent": (pspec: GObject.ParamSpec) => void;
+            "notify::offset-top": (pspec: GObject.ParamSpec) => void;
+            "notify::offset-width": (pspec: GObject.ParamSpec) => void;
+            "notify::outer-html": (pspec: GObject.ParamSpec) => void;
+            "notify::prefix": (pspec: GObject.ParamSpec) => void;
+            "notify::previous-element-sibling": (pspec: GObject.ParamSpec) => void;
+            "notify::scroll-height": (pspec: GObject.ParamSpec) => void;
+            "notify::scroll-left": (pspec: GObject.ParamSpec) => void;
+            "notify::scroll-top": (pspec: GObject.ParamSpec) => void;
+            "notify::scroll-width": (pspec: GObject.ParamSpec) => void;
+            "notify::style": (pspec: GObject.ParamSpec) => void;
+            "notify::tag-name": (pspec: GObject.ParamSpec) => void;
+            "notify::webkit-region-overset": (pspec: GObject.ParamSpec) => void;
+            "notify::base-uri": (pspec: GObject.ParamSpec) => void;
+            "notify::child-nodes": (pspec: GObject.ParamSpec) => void;
+            "notify::first-child": (pspec: GObject.ParamSpec) => void;
+            "notify::last-child": (pspec: GObject.ParamSpec) => void;
+            "notify::next-sibling": (pspec: GObject.ParamSpec) => void;
+            "notify::node-name": (pspec: GObject.ParamSpec) => void;
+            "notify::node-type": (pspec: GObject.ParamSpec) => void;
+            "notify::node-value": (pspec: GObject.ParamSpec) => void;
+            "notify::owner-document": (pspec: GObject.ParamSpec) => void;
+            "notify::parent-element": (pspec: GObject.ParamSpec) => void;
+            "notify::parent-node": (pspec: GObject.ParamSpec) => void;
+            "notify::previous-sibling": (pspec: GObject.ParamSpec) => void;
+            "notify::text-content": (pspec: GObject.ParamSpec) => void;
+            "notify::core-object": (pspec: GObject.ParamSpec) => void;
+        }
+
+        // Constructor properties interface
+        interface ConstructorProps extends DOMHTMLElement.ConstructorProps, DOMEventTarget.ConstructorProps {
+            align: string;
+        }
+    }
+
+    /**
+     * @gir-type Class
+     */
+    class DOMHTMLHeadingElement extends DOMHTMLElement implements DOMEventTarget {
+        static $gtype: GObject.GType<DOMHTMLHeadingElement>;
+
+        // Properties
+        get align(): string;
+        set align(val: string);
+
+        /**
+         * Compile-time signal type information.
+         *
+         * This instance property is generated only for TypeScript type checking.
+         * It is not defined at runtime and should not be accessed in JS code.
+         * @internal
+         */
+        $signals: DOMHTMLHeadingElement.SignalSignatures;
+
+        // Constructors
+        constructor(properties?: Partial<DOMHTMLHeadingElement.ConstructorProps>, ...args: any[]);
+
+        _init(...args: any[]): void;
+
+        // Signals
+        /** @signal */
+        connect<K extends keyof DOMHTMLHeadingElement.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, DOMHTMLHeadingElement.SignalSignatures[K]>): number;
+
+        /** @signal */
+        connect_after<K extends keyof DOMHTMLHeadingElement.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, DOMHTMLHeadingElement.SignalSignatures[K]>): number;
+
+        /** @signal */
+        emit<K extends keyof DOMHTMLHeadingElement.SignalSignatures>(signal: K, ...args: GObject.GjsParameters<DOMHTMLHeadingElement.SignalSignatures[K]>): void;
+
+        // Methods
+        /**
+         * @returns A `gchar`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_align(): string;
+
+        /**
+         * @param value A `gchar`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        set_align(value: string): void;
+    }
+
+
+    namespace DOMHTMLHtmlElement {
+        // Signal signatures
+        interface SignalSignatures extends DOMHTMLElement.SignalSignatures {
+            "notify::version": (pspec: GObject.ParamSpec) => void;
+            "notify::access-key": (pspec: GObject.ParamSpec) => void;
+            "notify::content-editable": (pspec: GObject.ParamSpec) => void;
+            "notify::dir": (pspec: GObject.ParamSpec) => void;
+            "notify::draggable": (pspec: GObject.ParamSpec) => void;
+            "notify::hidden": (pspec: GObject.ParamSpec) => void;
+            "notify::inner-text": (pspec: GObject.ParamSpec) => void;
+            "notify::is-content-editable": (pspec: GObject.ParamSpec) => void;
+            "notify::lang": (pspec: GObject.ParamSpec) => void;
+            "notify::outer-text": (pspec: GObject.ParamSpec) => void;
+            "notify::spellcheck": (pspec: GObject.ParamSpec) => void;
+            "notify::tab-index": (pspec: GObject.ParamSpec) => void;
+            "notify::title": (pspec: GObject.ParamSpec) => void;
+            "notify::translate": (pspec: GObject.ParamSpec) => void;
+            "notify::webkitdropzone": (pspec: GObject.ParamSpec) => void;
+            "notify::attributes": (pspec: GObject.ParamSpec) => void;
+            "notify::child-element-count": (pspec: GObject.ParamSpec) => void;
+            "notify::children": (pspec: GObject.ParamSpec) => void;
+            "notify::class-list": (pspec: GObject.ParamSpec) => void;
+            "notify::class-name": (pspec: GObject.ParamSpec) => void;
+            "notify::client-height": (pspec: GObject.ParamSpec) => void;
+            "notify::client-left": (pspec: GObject.ParamSpec) => void;
+            "notify::client-top": (pspec: GObject.ParamSpec) => void;
+            "notify::client-width": (pspec: GObject.ParamSpec) => void;
+            "notify::first-element-child": (pspec: GObject.ParamSpec) => void;
+            "notify::id": (pspec: GObject.ParamSpec) => void;
+            "notify::inner-html": (pspec: GObject.ParamSpec) => void;
+            "notify::last-element-child": (pspec: GObject.ParamSpec) => void;
+            "notify::local-name": (pspec: GObject.ParamSpec) => void;
+            "notify::namespace-uri": (pspec: GObject.ParamSpec) => void;
+            "notify::next-element-sibling": (pspec: GObject.ParamSpec) => void;
+            "notify::offset-height": (pspec: GObject.ParamSpec) => void;
+            "notify::offset-left": (pspec: GObject.ParamSpec) => void;
+            "notify::offset-parent": (pspec: GObject.ParamSpec) => void;
+            "notify::offset-top": (pspec: GObject.ParamSpec) => void;
+            "notify::offset-width": (pspec: GObject.ParamSpec) => void;
+            "notify::outer-html": (pspec: GObject.ParamSpec) => void;
+            "notify::prefix": (pspec: GObject.ParamSpec) => void;
+            "notify::previous-element-sibling": (pspec: GObject.ParamSpec) => void;
+            "notify::scroll-height": (pspec: GObject.ParamSpec) => void;
+            "notify::scroll-left": (pspec: GObject.ParamSpec) => void;
+            "notify::scroll-top": (pspec: GObject.ParamSpec) => void;
+            "notify::scroll-width": (pspec: GObject.ParamSpec) => void;
+            "notify::style": (pspec: GObject.ParamSpec) => void;
+            "notify::tag-name": (pspec: GObject.ParamSpec) => void;
+            "notify::webkit-region-overset": (pspec: GObject.ParamSpec) => void;
+            "notify::base-uri": (pspec: GObject.ParamSpec) => void;
+            "notify::child-nodes": (pspec: GObject.ParamSpec) => void;
+            "notify::first-child": (pspec: GObject.ParamSpec) => void;
+            "notify::last-child": (pspec: GObject.ParamSpec) => void;
+            "notify::next-sibling": (pspec: GObject.ParamSpec) => void;
+            "notify::node-name": (pspec: GObject.ParamSpec) => void;
+            "notify::node-type": (pspec: GObject.ParamSpec) => void;
+            "notify::node-value": (pspec: GObject.ParamSpec) => void;
+            "notify::owner-document": (pspec: GObject.ParamSpec) => void;
+            "notify::parent-element": (pspec: GObject.ParamSpec) => void;
+            "notify::parent-node": (pspec: GObject.ParamSpec) => void;
+            "notify::previous-sibling": (pspec: GObject.ParamSpec) => void;
+            "notify::text-content": (pspec: GObject.ParamSpec) => void;
+            "notify::core-object": (pspec: GObject.ParamSpec) => void;
+        }
+
+        // Constructor properties interface
+        interface ConstructorProps extends DOMHTMLElement.ConstructorProps, DOMEventTarget.ConstructorProps {
+            version: string;
+        }
+    }
+
+    /**
+     * @gir-type Class
+     */
+    class DOMHTMLHtmlElement extends DOMHTMLElement implements DOMEventTarget {
+        static $gtype: GObject.GType<DOMHTMLHtmlElement>;
+
+        // Properties
+        get version(): string;
+        set version(val: string);
+
+        /**
+         * Compile-time signal type information.
+         *
+         * This instance property is generated only for TypeScript type checking.
+         * It is not defined at runtime and should not be accessed in JS code.
+         * @internal
+         */
+        $signals: DOMHTMLHtmlElement.SignalSignatures;
+
+        // Constructors
+        constructor(properties?: Partial<DOMHTMLHtmlElement.ConstructorProps>, ...args: any[]);
+
+        _init(...args: any[]): void;
+
+        // Signals
+        /** @signal */
+        connect<K extends keyof DOMHTMLHtmlElement.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, DOMHTMLHtmlElement.SignalSignatures[K]>): number;
+
+        /** @signal */
+        connect_after<K extends keyof DOMHTMLHtmlElement.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, DOMHTMLHtmlElement.SignalSignatures[K]>): number;
+
+        /** @signal */
+        emit<K extends keyof DOMHTMLHtmlElement.SignalSignatures>(signal: K, ...args: GObject.GjsParameters<DOMHTMLHtmlElement.SignalSignatures[K]>): void;
+
+        // Methods
+        /**
+         * @returns A `gchar`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_version(): string;
+
+        /**
+         * @param value A `gchar`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        set_version(value: string): void;
+    }
+
+
+    namespace DOMHTMLIFrameElement {
+        // Signal signatures
+        interface SignalSignatures extends DOMHTMLElement.SignalSignatures {
+            "notify::align": (pspec: GObject.ParamSpec) => void;
+            "notify::content-document": (pspec: GObject.ParamSpec) => void;
+            "notify::content-window": (pspec: GObject.ParamSpec) => void;
+            "notify::frame-border": (pspec: GObject.ParamSpec) => void;
+            "notify::height": (pspec: GObject.ParamSpec) => void;
+            "notify::long-desc": (pspec: GObject.ParamSpec) => void;
+            "notify::margin-height": (pspec: GObject.ParamSpec) => void;
+            "notify::margin-width": (pspec: GObject.ParamSpec) => void;
+            "notify::name": (pspec: GObject.ParamSpec) => void;
+            "notify::scrolling": (pspec: GObject.ParamSpec) => void;
+            "notify::src": (pspec: GObject.ParamSpec) => void;
+            "notify::width": (pspec: GObject.ParamSpec) => void;
+            "notify::access-key": (pspec: GObject.ParamSpec) => void;
+            "notify::content-editable": (pspec: GObject.ParamSpec) => void;
+            "notify::dir": (pspec: GObject.ParamSpec) => void;
+            "notify::draggable": (pspec: GObject.ParamSpec) => void;
+            "notify::hidden": (pspec: GObject.ParamSpec) => void;
+            "notify::inner-text": (pspec: GObject.ParamSpec) => void;
+            "notify::is-content-editable": (pspec: GObject.ParamSpec) => void;
+            "notify::lang": (pspec: GObject.ParamSpec) => void;
+            "notify::outer-text": (pspec: GObject.ParamSpec) => void;
+            "notify::spellcheck": (pspec: GObject.ParamSpec) => void;
+            "notify::tab-index": (pspec: GObject.ParamSpec) => void;
+            "notify::title": (pspec: GObject.ParamSpec) => void;
+            "notify::translate": (pspec: GObject.ParamSpec) => void;
+            "notify::webkitdropzone": (pspec: GObject.ParamSpec) => void;
+            "notify::attributes": (pspec: GObject.ParamSpec) => void;
+            "notify::child-element-count": (pspec: GObject.ParamSpec) => void;
+            "notify::children": (pspec: GObject.ParamSpec) => void;
+            "notify::class-list": (pspec: GObject.ParamSpec) => void;
+            "notify::class-name": (pspec: GObject.ParamSpec) => void;
+            "notify::client-height": (pspec: GObject.ParamSpec) => void;
+            "notify::client-left": (pspec: GObject.ParamSpec) => void;
+            "notify::client-top": (pspec: GObject.ParamSpec) => void;
+            "notify::client-width": (pspec: GObject.ParamSpec) => void;
+            "notify::first-element-child": (pspec: GObject.ParamSpec) => void;
+            "notify::id": (pspec: GObject.ParamSpec) => void;
+            "notify::inner-html": (pspec: GObject.ParamSpec) => void;
+            "notify::last-element-child": (pspec: GObject.ParamSpec) => void;
+            "notify::local-name": (pspec: GObject.ParamSpec) => void;
+            "notify::namespace-uri": (pspec: GObject.ParamSpec) => void;
+            "notify::next-element-sibling": (pspec: GObject.ParamSpec) => void;
+            "notify::offset-height": (pspec: GObject.ParamSpec) => void;
+            "notify::offset-left": (pspec: GObject.ParamSpec) => void;
+            "notify::offset-parent": (pspec: GObject.ParamSpec) => void;
+            "notify::offset-top": (pspec: GObject.ParamSpec) => void;
+            "notify::offset-width": (pspec: GObject.ParamSpec) => void;
+            "notify::outer-html": (pspec: GObject.ParamSpec) => void;
+            "notify::prefix": (pspec: GObject.ParamSpec) => void;
+            "notify::previous-element-sibling": (pspec: GObject.ParamSpec) => void;
+            "notify::scroll-height": (pspec: GObject.ParamSpec) => void;
+            "notify::scroll-left": (pspec: GObject.ParamSpec) => void;
+            "notify::scroll-top": (pspec: GObject.ParamSpec) => void;
+            "notify::scroll-width": (pspec: GObject.ParamSpec) => void;
+            "notify::style": (pspec: GObject.ParamSpec) => void;
+            "notify::tag-name": (pspec: GObject.ParamSpec) => void;
+            "notify::webkit-region-overset": (pspec: GObject.ParamSpec) => void;
+            "notify::base-uri": (pspec: GObject.ParamSpec) => void;
+            "notify::child-nodes": (pspec: GObject.ParamSpec) => void;
+            "notify::first-child": (pspec: GObject.ParamSpec) => void;
+            "notify::last-child": (pspec: GObject.ParamSpec) => void;
+            "notify::next-sibling": (pspec: GObject.ParamSpec) => void;
+            "notify::node-name": (pspec: GObject.ParamSpec) => void;
+            "notify::node-type": (pspec: GObject.ParamSpec) => void;
+            "notify::node-value": (pspec: GObject.ParamSpec) => void;
+            "notify::owner-document": (pspec: GObject.ParamSpec) => void;
+            "notify::parent-element": (pspec: GObject.ParamSpec) => void;
+            "notify::parent-node": (pspec: GObject.ParamSpec) => void;
+            "notify::previous-sibling": (pspec: GObject.ParamSpec) => void;
+            "notify::text-content": (pspec: GObject.ParamSpec) => void;
+            "notify::core-object": (pspec: GObject.ParamSpec) => void;
+        }
+
+        // Constructor properties interface
+        interface ConstructorProps extends DOMHTMLElement.ConstructorProps, DOMEventTarget.ConstructorProps {
+            align: string;
+            content_document: DOMDocument;
+            contentDocument: DOMDocument;
+            content_window: DOMDOMWindow;
+            contentWindow: DOMDOMWindow;
+            frame_border: string;
+            frameBorder: string;
+            height: string;
+            long_desc: string;
+            longDesc: string;
+            margin_height: string;
+            marginHeight: string;
+            margin_width: string;
+            marginWidth: string;
+            name: string;
+            scrolling: string;
+            src: string;
+            width: string;
+        }
+    }
+
+    /**
+     * @gir-type Class
+     */
+    class DOMHTMLIFrameElement extends DOMHTMLElement implements DOMEventTarget {
+        static $gtype: GObject.GType<DOMHTMLIFrameElement>;
+
+        // Properties
+        get align(): string;
+        set align(val: string);
+
+        /**
+         * @read-only
+         */
+        get content_document(): DOMDocument;
+
+        /**
+         * @read-only
+         */
+        get contentDocument(): DOMDocument;
+
+        /**
+         * @read-only
+         */
+        get content_window(): DOMDOMWindow;
+
+        /**
+         * @read-only
+         */
+        get contentWindow(): DOMDOMWindow;
+
+        get frame_border(): string;
+        set frame_border(val: string);
+
+        get frameBorder(): string;
+        set frameBorder(val: string);
+
+        get height(): string;
+        set height(val: string);
+
+        get long_desc(): string;
+        set long_desc(val: string);
+
+        get longDesc(): string;
+        set longDesc(val: string);
+
+        get margin_height(): string;
+        set margin_height(val: string);
+
+        get marginHeight(): string;
+        set marginHeight(val: string);
+
+        get margin_width(): string;
+        set margin_width(val: string);
+
+        get marginWidth(): string;
+        set marginWidth(val: string);
+
+        get name(): string;
+        set name(val: string);
+
+        get scrolling(): string;
+        set scrolling(val: string);
+
+        get src(): string;
+        set src(val: string);
+
+        get width(): string;
+        set width(val: string);
+
+        /**
+         * Compile-time signal type information.
+         *
+         * This instance property is generated only for TypeScript type checking.
+         * It is not defined at runtime and should not be accessed in JS code.
+         * @internal
+         */
+        $signals: DOMHTMLIFrameElement.SignalSignatures;
+
+        // Constructors
+        constructor(properties?: Partial<DOMHTMLIFrameElement.ConstructorProps>, ...args: any[]);
+
+        _init(...args: any[]): void;
+
+        // Signals
+        /** @signal */
+        connect<K extends keyof DOMHTMLIFrameElement.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, DOMHTMLIFrameElement.SignalSignatures[K]>): number;
+
+        /** @signal */
+        connect_after<K extends keyof DOMHTMLIFrameElement.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, DOMHTMLIFrameElement.SignalSignatures[K]>): number;
+
+        /** @signal */
+        emit<K extends keyof DOMHTMLIFrameElement.SignalSignatures>(signal: K, ...args: GObject.GjsParameters<DOMHTMLIFrameElement.SignalSignatures[K]>): void;
+
+        // Methods
+        /**
+         * @returns A `gchar`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_align(): string;
+
+        /**
+         * @returns A {@link WebKit2WebExtension.DOMDocument}
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_content_document(): DOMDocument;
+
+        /**
+         * @returns A {@link WebKit2WebExtension.DOMDOMWindow}
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_content_window(): DOMDOMWindow;
+
+        /**
+         * @returns A `gchar`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_frame_border(): string;
+
+        /**
+         * @returns A `gchar`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_height(): string;
+
+        /**
+         * @returns A `gchar`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_long_desc(): string;
+
+        /**
+         * @returns A `gchar`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_margin_height(): string;
+
+        /**
+         * @returns A `gchar`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_margin_width(): string;
+
+        /**
+         * @returns A `gchar`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_name(): string;
+
+        /**
+         * @returns A `gchar`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_scrolling(): string;
+
+        /**
+         * @returns A `gchar`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_src(): string;
+
+        /**
+         * @returns A `gchar`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_width(): string;
+
+        /**
+         * @param value A `gchar`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        set_align(value: string): void;
+
+        /**
+         * @param value A `gchar`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        set_frame_border(value: string): void;
+
+        /**
+         * @param value A `gchar`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        set_height(value: string): void;
+
+        /**
+         * @param value A `gchar`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        set_long_desc(value: string): void;
+
+        /**
+         * @param value A `gchar`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        set_margin_height(value: string): void;
+
+        /**
+         * @param value A `gchar`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        set_margin_width(value: string): void;
+
+        /**
+         * @param value A `gchar`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        set_name(value: string): void;
+
+        /**
+         * @param value A `gchar`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        set_scrolling(value: string): void;
+
+        /**
+         * @param value A `gchar`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        set_src(value: string): void;
+
+        /**
+         * @param value A `gchar`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        set_width(value: string): void;
+    }
+
+
+    namespace DOMHTMLImageElement {
+        // Signal signatures
+        interface SignalSignatures extends DOMHTMLElement.SignalSignatures {
+            "notify::align": (pspec: GObject.ParamSpec) => void;
+            "notify::alt": (pspec: GObject.ParamSpec) => void;
+            "notify::border": (pspec: GObject.ParamSpec) => void;
+            "notify::complete": (pspec: GObject.ParamSpec) => void;
+            "notify::height": (pspec: GObject.ParamSpec) => void;
+            "notify::hspace": (pspec: GObject.ParamSpec) => void;
+            "notify::is-map": (pspec: GObject.ParamSpec) => void;
+            "notify::long-desc": (pspec: GObject.ParamSpec) => void;
+            "notify::lowsrc": (pspec: GObject.ParamSpec) => void;
+            "notify::name": (pspec: GObject.ParamSpec) => void;
+            "notify::natural-height": (pspec: GObject.ParamSpec) => void;
+            "notify::natural-width": (pspec: GObject.ParamSpec) => void;
+            "notify::src": (pspec: GObject.ParamSpec) => void;
+            "notify::use-map": (pspec: GObject.ParamSpec) => void;
+            "notify::vspace": (pspec: GObject.ParamSpec) => void;
+            "notify::width": (pspec: GObject.ParamSpec) => void;
+            "notify::x": (pspec: GObject.ParamSpec) => void;
+            "notify::y": (pspec: GObject.ParamSpec) => void;
+            "notify::access-key": (pspec: GObject.ParamSpec) => void;
+            "notify::content-editable": (pspec: GObject.ParamSpec) => void;
+            "notify::dir": (pspec: GObject.ParamSpec) => void;
+            "notify::draggable": (pspec: GObject.ParamSpec) => void;
+            "notify::hidden": (pspec: GObject.ParamSpec) => void;
+            "notify::inner-text": (pspec: GObject.ParamSpec) => void;
+            "notify::is-content-editable": (pspec: GObject.ParamSpec) => void;
+            "notify::lang": (pspec: GObject.ParamSpec) => void;
+            "notify::outer-text": (pspec: GObject.ParamSpec) => void;
+            "notify::spellcheck": (pspec: GObject.ParamSpec) => void;
+            "notify::tab-index": (pspec: GObject.ParamSpec) => void;
+            "notify::title": (pspec: GObject.ParamSpec) => void;
+            "notify::translate": (pspec: GObject.ParamSpec) => void;
+            "notify::webkitdropzone": (pspec: GObject.ParamSpec) => void;
+            "notify::attributes": (pspec: GObject.ParamSpec) => void;
+            "notify::child-element-count": (pspec: GObject.ParamSpec) => void;
+            "notify::children": (pspec: GObject.ParamSpec) => void;
+            "notify::class-list": (pspec: GObject.ParamSpec) => void;
+            "notify::class-name": (pspec: GObject.ParamSpec) => void;
+            "notify::client-height": (pspec: GObject.ParamSpec) => void;
+            "notify::client-left": (pspec: GObject.ParamSpec) => void;
+            "notify::client-top": (pspec: GObject.ParamSpec) => void;
+            "notify::client-width": (pspec: GObject.ParamSpec) => void;
+            "notify::first-element-child": (pspec: GObject.ParamSpec) => void;
+            "notify::id": (pspec: GObject.ParamSpec) => void;
+            "notify::inner-html": (pspec: GObject.ParamSpec) => void;
+            "notify::last-element-child": (pspec: GObject.ParamSpec) => void;
+            "notify::local-name": (pspec: GObject.ParamSpec) => void;
+            "notify::namespace-uri": (pspec: GObject.ParamSpec) => void;
+            "notify::next-element-sibling": (pspec: GObject.ParamSpec) => void;
+            "notify::offset-height": (pspec: GObject.ParamSpec) => void;
+            "notify::offset-left": (pspec: GObject.ParamSpec) => void;
+            "notify::offset-parent": (pspec: GObject.ParamSpec) => void;
+            "notify::offset-top": (pspec: GObject.ParamSpec) => void;
+            "notify::offset-width": (pspec: GObject.ParamSpec) => void;
+            "notify::outer-html": (pspec: GObject.ParamSpec) => void;
+            "notify::prefix": (pspec: GObject.ParamSpec) => void;
+            "notify::previous-element-sibling": (pspec: GObject.ParamSpec) => void;
+            "notify::scroll-height": (pspec: GObject.ParamSpec) => void;
+            "notify::scroll-left": (pspec: GObject.ParamSpec) => void;
+            "notify::scroll-top": (pspec: GObject.ParamSpec) => void;
+            "notify::scroll-width": (pspec: GObject.ParamSpec) => void;
+            "notify::style": (pspec: GObject.ParamSpec) => void;
+            "notify::tag-name": (pspec: GObject.ParamSpec) => void;
+            "notify::webkit-region-overset": (pspec: GObject.ParamSpec) => void;
+            "notify::base-uri": (pspec: GObject.ParamSpec) => void;
+            "notify::child-nodes": (pspec: GObject.ParamSpec) => void;
+            "notify::first-child": (pspec: GObject.ParamSpec) => void;
+            "notify::last-child": (pspec: GObject.ParamSpec) => void;
+            "notify::next-sibling": (pspec: GObject.ParamSpec) => void;
+            "notify::node-name": (pspec: GObject.ParamSpec) => void;
+            "notify::node-type": (pspec: GObject.ParamSpec) => void;
+            "notify::node-value": (pspec: GObject.ParamSpec) => void;
+            "notify::owner-document": (pspec: GObject.ParamSpec) => void;
+            "notify::parent-element": (pspec: GObject.ParamSpec) => void;
+            "notify::parent-node": (pspec: GObject.ParamSpec) => void;
+            "notify::previous-sibling": (pspec: GObject.ParamSpec) => void;
+            "notify::text-content": (pspec: GObject.ParamSpec) => void;
+            "notify::core-object": (pspec: GObject.ParamSpec) => void;
+        }
+
+        // Constructor properties interface
+        interface ConstructorProps extends DOMHTMLElement.ConstructorProps, DOMEventTarget.ConstructorProps {
+            align: string;
+            alt: string;
+            border: string;
+            complete: boolean;
+            height: bigint | number;
+            hspace: bigint | number;
+            is_map: boolean;
+            isMap: boolean;
+            long_desc: string;
+            longDesc: string;
+            lowsrc: string;
+            name: string;
+            natural_height: bigint | number;
+            naturalHeight: bigint | number;
+            natural_width: bigint | number;
+            naturalWidth: bigint | number;
+            src: string;
+            use_map: string;
+            useMap: string;
+            vspace: bigint | number;
+            width: bigint | number;
+            x: bigint | number;
+            y: bigint | number;
+        }
+    }
+
+    /**
+     * @gir-type Class
+     */
+    class DOMHTMLImageElement extends DOMHTMLElement implements DOMEventTarget {
+        static $gtype: GObject.GType<DOMHTMLImageElement>;
+
+        // Properties
+        get align(): string;
+        set align(val: string);
+
+        get alt(): string;
+        set alt(val: string);
+
+        get border(): string;
+        set border(val: string);
+
+        /**
+         * @read-only
+         * @default false
+         */
+        get complete(): boolean;
+
+        /**
+         * @default 0
+         */
+        get height(): number;
+        set height(val: bigint | number);
+
+        /**
+         * @default 0
+         */
+        get hspace(): number;
+        set hspace(val: bigint | number);
+
+        /**
+         * @default false
+         */
+        get is_map(): boolean;
+        set is_map(val: boolean);
+
+        /**
+         * @default false
+         */
+        get isMap(): boolean;
+        set isMap(val: boolean);
+
+        get long_desc(): string;
+        set long_desc(val: string);
+
+        get longDesc(): string;
+        set longDesc(val: string);
+
+        get lowsrc(): string;
+        set lowsrc(val: string);
+
+        get name(): string;
+        set name(val: string);
+
+        /**
+         * @read-only
+         * @default 0
+         */
+        get natural_height(): number;
+
+        /**
+         * @read-only
+         * @default 0
+         */
+        get naturalHeight(): number;
+
+        /**
+         * @read-only
+         * @default 0
+         */
+        get natural_width(): number;
+
+        /**
+         * @read-only
+         * @default 0
+         */
+        get naturalWidth(): number;
+
+        get src(): string;
+        set src(val: string);
+
+        get use_map(): string;
+        set use_map(val: string);
+
+        get useMap(): string;
+        set useMap(val: string);
+
+        /**
+         * @default 0
+         */
+        get vspace(): number;
+        set vspace(val: bigint | number);
+
+        /**
+         * @default 0
+         */
+        get width(): number;
+        set width(val: bigint | number);
+
+        /**
+         * @read-only
+         * @default 0
+         */
+        get x(): number;
+
+        /**
+         * @read-only
+         * @default 0
+         */
+        get y(): number;
+
+        /**
+         * Compile-time signal type information.
+         *
+         * This instance property is generated only for TypeScript type checking.
+         * It is not defined at runtime and should not be accessed in JS code.
+         * @internal
+         */
+        $signals: DOMHTMLImageElement.SignalSignatures;
+
+        // Constructors
+        constructor(properties?: Partial<DOMHTMLImageElement.ConstructorProps>, ...args: any[]);
+
+        _init(...args: any[]): void;
+
+        // Signals
+        /** @signal */
+        connect<K extends keyof DOMHTMLImageElement.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, DOMHTMLImageElement.SignalSignatures[K]>): number;
+
+        /** @signal */
+        connect_after<K extends keyof DOMHTMLImageElement.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, DOMHTMLImageElement.SignalSignatures[K]>): number;
+
+        /** @signal */
+        emit<K extends keyof DOMHTMLImageElement.SignalSignatures>(signal: K, ...args: GObject.GjsParameters<DOMHTMLImageElement.SignalSignatures[K]>): void;
+
+        // Methods
+        /**
+         * @returns A `gchar`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_align(): string;
+
+        /**
+         * @returns A `gchar`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_alt(): string;
+
+        /**
+         * @returns A `gchar`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_border(): string;
+
+        /**
+         * @returns A `gboolean`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_complete(): boolean;
+
+        /**
+         * @returns A `glong`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_height(): number;
+
+        /**
+         * @returns A `glong`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_hspace(): number;
+
+        /**
+         * @returns A `gboolean`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_is_map(): boolean;
+
+        /**
+         * @returns A `gchar`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_long_desc(): string;
+
+        /**
+         * @returns A `gchar`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_lowsrc(): string;
+
+        /**
+         * @returns A `gchar`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_name(): string;
+
+        /**
+         * @returns A `glong`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_natural_height(): number;
+
+        /**
+         * @returns A `glong`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_natural_width(): number;
+
+        /**
+         * @returns A `gchar`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_src(): string;
+
+        /**
+         * @returns A `gchar`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_use_map(): string;
+
+        /**
+         * @returns A `glong`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_vspace(): number;
+
+        /**
+         * @returns A `glong`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_width(): number;
+
+        /**
+         * @returns A `glong`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_x(): number;
+
+        /**
+         * @returns A `glong`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_y(): number;
+
+        /**
+         * @param value A `gchar`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        set_align(value: string): void;
+
+        /**
+         * @param value A `gchar`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        set_alt(value: string): void;
+
+        /**
+         * @param value A `gchar`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        set_border(value: string): void;
+
+        /**
+         * @param value A `glong`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        set_height(value: bigint | number): void;
+
+        /**
+         * @param value A `glong`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        set_hspace(value: bigint | number): void;
+
+        /**
+         * @param value A `gboolean`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        set_is_map(value: boolean): void;
+
+        /**
+         * @param value A `gchar`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        set_long_desc(value: string): void;
+
+        /**
+         * @param value A `gchar`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        set_lowsrc(value: string): void;
+
+        /**
+         * @param value A `gchar`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        set_name(value: string): void;
+
+        /**
+         * @param value A `gchar`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        set_src(value: string): void;
+
+        /**
+         * @param value A `gchar`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        set_use_map(value: string): void;
+
+        /**
+         * @param value A `glong`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        set_vspace(value: bigint | number): void;
+
+        /**
+         * @param value A `glong`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        set_width(value: bigint | number): void;
+    }
+
+
+    namespace DOMHTMLInputElement {
+        // Signal signatures
+        interface SignalSignatures extends DOMHTMLElement.SignalSignatures {
+            "notify::accept": (pspec: GObject.ParamSpec) => void;
+            "notify::align": (pspec: GObject.ParamSpec) => void;
+            "notify::alt": (pspec: GObject.ParamSpec) => void;
+            "notify::autofocus": (pspec: GObject.ParamSpec) => void;
+            "notify::capture": (pspec: GObject.ParamSpec) => void;
+            "notify::checked": (pspec: GObject.ParamSpec) => void;
+            "notify::default-checked": (pspec: GObject.ParamSpec) => void;
+            "notify::default-value": (pspec: GObject.ParamSpec) => void;
+            "notify::disabled": (pspec: GObject.ParamSpec) => void;
+            "notify::files": (pspec: GObject.ParamSpec) => void;
+            "notify::form": (pspec: GObject.ParamSpec) => void;
+            "notify::height": (pspec: GObject.ParamSpec) => void;
+            "notify::indeterminate": (pspec: GObject.ParamSpec) => void;
+            "notify::max-length": (pspec: GObject.ParamSpec) => void;
+            "notify::multiple": (pspec: GObject.ParamSpec) => void;
+            "notify::name": (pspec: GObject.ParamSpec) => void;
+            "notify::read-only": (pspec: GObject.ParamSpec) => void;
+            "notify::size": (pspec: GObject.ParamSpec) => void;
+            "notify::src": (pspec: GObject.ParamSpec) => void;
+            "notify::type": (pspec: GObject.ParamSpec) => void;
+            "notify::use-map": (pspec: GObject.ParamSpec) => void;
+            "notify::value": (pspec: GObject.ParamSpec) => void;
+            "notify::width": (pspec: GObject.ParamSpec) => void;
+            "notify::will-validate": (pspec: GObject.ParamSpec) => void;
+            "notify::access-key": (pspec: GObject.ParamSpec) => void;
+            "notify::content-editable": (pspec: GObject.ParamSpec) => void;
+            "notify::dir": (pspec: GObject.ParamSpec) => void;
+            "notify::draggable": (pspec: GObject.ParamSpec) => void;
+            "notify::hidden": (pspec: GObject.ParamSpec) => void;
+            "notify::inner-text": (pspec: GObject.ParamSpec) => void;
+            "notify::is-content-editable": (pspec: GObject.ParamSpec) => void;
+            "notify::lang": (pspec: GObject.ParamSpec) => void;
+            "notify::outer-text": (pspec: GObject.ParamSpec) => void;
+            "notify::spellcheck": (pspec: GObject.ParamSpec) => void;
+            "notify::tab-index": (pspec: GObject.ParamSpec) => void;
+            "notify::title": (pspec: GObject.ParamSpec) => void;
+            "notify::translate": (pspec: GObject.ParamSpec) => void;
+            "notify::webkitdropzone": (pspec: GObject.ParamSpec) => void;
+            "notify::attributes": (pspec: GObject.ParamSpec) => void;
+            "notify::child-element-count": (pspec: GObject.ParamSpec) => void;
+            "notify::children": (pspec: GObject.ParamSpec) => void;
+            "notify::class-list": (pspec: GObject.ParamSpec) => void;
+            "notify::class-name": (pspec: GObject.ParamSpec) => void;
+            "notify::client-height": (pspec: GObject.ParamSpec) => void;
+            "notify::client-left": (pspec: GObject.ParamSpec) => void;
+            "notify::client-top": (pspec: GObject.ParamSpec) => void;
+            "notify::client-width": (pspec: GObject.ParamSpec) => void;
+            "notify::first-element-child": (pspec: GObject.ParamSpec) => void;
+            "notify::id": (pspec: GObject.ParamSpec) => void;
+            "notify::inner-html": (pspec: GObject.ParamSpec) => void;
+            "notify::last-element-child": (pspec: GObject.ParamSpec) => void;
+            "notify::local-name": (pspec: GObject.ParamSpec) => void;
+            "notify::namespace-uri": (pspec: GObject.ParamSpec) => void;
+            "notify::next-element-sibling": (pspec: GObject.ParamSpec) => void;
+            "notify::offset-height": (pspec: GObject.ParamSpec) => void;
+            "notify::offset-left": (pspec: GObject.ParamSpec) => void;
+            "notify::offset-parent": (pspec: GObject.ParamSpec) => void;
+            "notify::offset-top": (pspec: GObject.ParamSpec) => void;
+            "notify::offset-width": (pspec: GObject.ParamSpec) => void;
+            "notify::outer-html": (pspec: GObject.ParamSpec) => void;
+            "notify::prefix": (pspec: GObject.ParamSpec) => void;
+            "notify::previous-element-sibling": (pspec: GObject.ParamSpec) => void;
+            "notify::scroll-height": (pspec: GObject.ParamSpec) => void;
+            "notify::scroll-left": (pspec: GObject.ParamSpec) => void;
+            "notify::scroll-top": (pspec: GObject.ParamSpec) => void;
+            "notify::scroll-width": (pspec: GObject.ParamSpec) => void;
+            "notify::style": (pspec: GObject.ParamSpec) => void;
+            "notify::tag-name": (pspec: GObject.ParamSpec) => void;
+            "notify::webkit-region-overset": (pspec: GObject.ParamSpec) => void;
+            "notify::base-uri": (pspec: GObject.ParamSpec) => void;
+            "notify::child-nodes": (pspec: GObject.ParamSpec) => void;
+            "notify::first-child": (pspec: GObject.ParamSpec) => void;
+            "notify::last-child": (pspec: GObject.ParamSpec) => void;
+            "notify::next-sibling": (pspec: GObject.ParamSpec) => void;
+            "notify::node-name": (pspec: GObject.ParamSpec) => void;
+            "notify::node-type": (pspec: GObject.ParamSpec) => void;
+            "notify::node-value": (pspec: GObject.ParamSpec) => void;
+            "notify::owner-document": (pspec: GObject.ParamSpec) => void;
+            "notify::parent-element": (pspec: GObject.ParamSpec) => void;
+            "notify::parent-node": (pspec: GObject.ParamSpec) => void;
+            "notify::previous-sibling": (pspec: GObject.ParamSpec) => void;
+            "notify::text-content": (pspec: GObject.ParamSpec) => void;
+            "notify::core-object": (pspec: GObject.ParamSpec) => void;
+        }
+
+        // Constructor properties interface
+        interface ConstructorProps extends DOMHTMLElement.ConstructorProps, DOMEventTarget.ConstructorProps {
+            accept: string;
+            align: string;
+            alt: string;
+            autofocus: boolean;
+            capture: string;
+            checked: boolean;
+            default_checked: boolean;
+            defaultChecked: boolean;
+            default_value: string;
+            defaultValue: string;
+            disabled: boolean;
+            files: DOMFileList;
+            form: DOMHTMLFormElement;
+            height: bigint | number;
+            indeterminate: boolean;
+            max_length: bigint | number;
+            maxLength: bigint | number;
+            multiple: boolean;
+            name: string;
+            read_only: boolean;
+            readOnly: boolean;
+            size: bigint | number;
+            src: string;
+            type: string;
+            use_map: string;
+            useMap: string;
+            value: string;
+            width: bigint | number;
+            will_validate: boolean;
+            willValidate: boolean;
+        }
+    }
+
+    /**
+     * @gir-type Class
+     */
+    class DOMHTMLInputElement extends DOMHTMLElement implements DOMEventTarget {
+        static $gtype: GObject.GType<DOMHTMLInputElement>;
+
+        // Properties
+        get accept(): string;
+        set accept(val: string);
+
+        get align(): string;
+        set align(val: string);
+
+        get alt(): string;
+        set alt(val: string);
+
+        /**
+         * @default false
+         */
+        get autofocus(): boolean;
+        set autofocus(val: boolean);
+
+        get capture(): string;
+        set capture(val: string);
+
+        /**
+         * @default false
+         */
+        get checked(): boolean;
+        set checked(val: boolean);
+
+        /**
+         * @default false
+         */
+        get default_checked(): boolean;
+        set default_checked(val: boolean);
+
+        /**
+         * @default false
+         */
+        get defaultChecked(): boolean;
+        set defaultChecked(val: boolean);
+
+        get default_value(): string;
+        set default_value(val: string);
+
+        get defaultValue(): string;
+        set defaultValue(val: string);
+
+        /**
+         * @default false
+         */
+        get disabled(): boolean;
+        set disabled(val: boolean);
+
+        /**
+         * @read-only
+         */
+        get files(): DOMFileList;
+
+        /**
+         * @read-only
+         */
+        get form(): DOMHTMLFormElement;
+
+        /**
+         * @default 0
+         */
+        get height(): number;
+        set height(val: bigint | number);
+
+        /**
+         * @default false
+         */
+        get indeterminate(): boolean;
+        set indeterminate(val: boolean);
+
+        /**
+         * @default 0
+         */
+        get max_length(): number;
+        set max_length(val: bigint | number);
+
+        /**
+         * @default 0
+         */
+        get maxLength(): number;
+        set maxLength(val: bigint | number);
+
+        /**
+         * @default false
+         */
+        get multiple(): boolean;
+        set multiple(val: boolean);
+
+        get name(): string;
+        set name(val: string);
+
+        /**
+         * @default false
+         */
+        get read_only(): boolean;
+        set read_only(val: boolean);
+
+        /**
+         * @default false
+         */
+        get readOnly(): boolean;
+        set readOnly(val: boolean);
+
+        /**
+         * @default 0
+         */
+        get size(): number;
+        set size(val: bigint | number);
+
+        get src(): string;
+        set src(val: string);
+
+        get type(): string;
+        set type(val: string);
+
+        get use_map(): string;
+        set use_map(val: string);
+
+        get useMap(): string;
+        set useMap(val: string);
+
+        get value(): string;
+        set value(val: string);
+
+        /**
+         * @default 0
+         */
+        get width(): number;
+        set width(val: bigint | number);
+
+        /**
+         * @read-only
+         * @default false
+         */
+        get will_validate(): boolean;
+
+        /**
+         * @read-only
+         * @default false
+         */
+        get willValidate(): boolean;
+
+        /**
+         * Compile-time signal type information.
+         *
+         * This instance property is generated only for TypeScript type checking.
+         * It is not defined at runtime and should not be accessed in JS code.
+         * @internal
+         */
+        $signals: DOMHTMLInputElement.SignalSignatures;
+
+        // Constructors
+        constructor(properties?: Partial<DOMHTMLInputElement.ConstructorProps>, ...args: any[]);
+
+        _init(...args: any[]): void;
+
+        // Signals
+        /** @signal */
+        connect<K extends keyof DOMHTMLInputElement.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, DOMHTMLInputElement.SignalSignatures[K]>): number;
+
+        /** @signal */
+        connect_after<K extends keyof DOMHTMLInputElement.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, DOMHTMLInputElement.SignalSignatures[K]>): number;
+
+        /** @signal */
+        emit<K extends keyof DOMHTMLInputElement.SignalSignatures>(signal: K, ...args: GObject.GjsParameters<DOMHTMLInputElement.SignalSignatures[K]>): void;
+
+        // Methods
+        /**
+         * @returns A `gchar`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_accept(): string;
+
+        /**
+         * @returns A `gchar`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_align(): string;
+
+        /**
+         * @returns A `gchar`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_alt(): string;
+
+        /**
+         * @returns A `gboolean`
+         * @since 2.16
+         * @deprecated since 2.22: Use `webkit_dom_element_html_input_element_get_auto_filled()` instead.
+         */
+        get_auto_filled(): boolean;
+
+        /**
+         * @returns A `gboolean`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_autofocus(): boolean;
+
+        /**
+         * @returns A `gboolean`
+         * @deprecated since 2.14: Use `webkit_dom_html_input_element_get_capture_type()` instead.
+         */
+        get_capture(): boolean;
+
+        /**
+         * @returns A `gchar`
+         * @since 2.14
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_capture_type(): string;
+
+        /**
+         * @returns A `gboolean`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_checked(): boolean;
+
+        /**
+         * @returns A `gboolean`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_default_checked(): boolean;
+
+        /**
+         * @returns A `gchar`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_default_value(): string;
+
+        /**
+         * @returns A `gboolean`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_disabled(): boolean;
+
+        /**
+         * @returns A {@link WebKit2WebExtension.DOMFileList}
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_files(): DOMFileList;
+
+        /**
+         * @returns A {@link WebKit2WebExtension.DOMHTMLFormElement}
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_form(): DOMHTMLFormElement;
+
+        /**
+         * @returns A `gulong`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_height(): number;
+
+        /**
+         * @returns A `gboolean`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_indeterminate(): boolean;
+
+        /**
+         * @returns A `gchar`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_input_type(): string;
+
+        /**
+         * @returns A `glong`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_max_length(): number;
+
+        /**
+         * @returns A `gboolean`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_multiple(): boolean;
+
+        /**
+         * @returns A `gchar`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_name(): string;
+
+        /**
+         * @returns A `gboolean`
+         * @since 2.16
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_read_only(): boolean;
+
+        /**
+         * @returns A `gulong`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_size(): number;
+
+        /**
+         * @returns A `gchar`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_src(): string;
+
+        /**
+         * @returns A `gchar`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_use_map(): string;
+
+        /**
+         * @returns A `gchar`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_value(): string;
+
+        /**
+         * @returns A `gulong`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_width(): number;
+
+        /**
+         * @returns A `gboolean`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_will_validate(): boolean;
+
+        /**
+         * @returns A `gboolean`
+         * @deprecated since 2.22: Use `webkit_dom_element_html_input_element_is_user_edited()` instead.
+         */
+        is_edited(): boolean;
+
+        /**
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        select(): void;
+
+        /**
+         * @param value A `gchar`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        set_accept(value: string): void;
+
+        /**
+         * @param value A `gchar`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        set_align(value: string): void;
+
+        /**
+         * @param value A `gchar`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        set_alt(value: string): void;
+
+        /**
+         * @param value A `gboolean`
+         * @since 2.16
+         * @deprecated since 2.22: Use `webkit_dom_element_html_input_element_set_auto_filled()` instead.
+         */
+        set_auto_filled(value: boolean): void;
+
+        /**
+         * @param value A `gboolean`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        set_autofocus(value: boolean): void;
+
+        /**
+         * @param value A `gchar`
+         * @since 2.16
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        set_capture_type(value: string): void;
+
+        /**
+         * @param value A `gboolean`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        set_checked(value: boolean): void;
+
+        /**
+         * @param value A `gboolean`
+         * @since 2.16
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        set_default_checked(value: boolean): void;
+
+        /**
+         * @param value A `gchar`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        set_default_value(value: string): void;
+
+        /**
+         * @param value A `gboolean`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        set_disabled(value: boolean): void;
+
+        /**
+         * @param value A `gchar`
+         * @since 2.16
+         * @deprecated since 2.22: Use `webkit_dom_element_html_input_element_set_editing_value()` instead.
+         */
+        set_editing_value(value: string): void;
+
+        /**
+         * @param value A {@link WebKit2WebExtension.DOMFileList}
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        set_files(value: DOMFileList): void;
+
+        /**
+         * @param value A `gulong`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        set_height(value: bigint | number): void;
+
+        /**
+         * @param value A `gboolean`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        set_indeterminate(value: boolean): void;
+
+        /**
+         * @param value A `gchar`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        set_input_type(value: string): void;
+
+        /**
+         * @param value A `glong`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         * @throws GLib.Error
+         */
+        set_max_length(value: bigint | number): void;
+
+        /**
+         * @param value A `gboolean`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        set_multiple(value: boolean): void;
+
+        /**
+         * @param value A `gchar`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        set_name(value: string): void;
+
+        /**
+         * @param value A `gboolean`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        set_read_only(value: boolean): void;
+
+        /**
+         * @param value A `gulong`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         * @throws GLib.Error
+         */
+        set_size(value: bigint | number): void;
+
+        /**
+         * @param value A `gchar`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        set_src(value: string): void;
+
+        /**
+         * @param value A `gchar`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        set_use_map(value: string): void;
+
+        /**
+         * @param value A `gchar`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        set_value(value: string): void;
+
+        /**
+         * @param value A `gulong`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        set_width(value: bigint | number): void;
+    }
+
+
+    namespace DOMHTMLLIElement {
+        // Signal signatures
+        interface SignalSignatures extends DOMHTMLElement.SignalSignatures {
+            "notify::type": (pspec: GObject.ParamSpec) => void;
+            "notify::value": (pspec: GObject.ParamSpec) => void;
+            "notify::access-key": (pspec: GObject.ParamSpec) => void;
+            "notify::content-editable": (pspec: GObject.ParamSpec) => void;
+            "notify::dir": (pspec: GObject.ParamSpec) => void;
+            "notify::draggable": (pspec: GObject.ParamSpec) => void;
+            "notify::hidden": (pspec: GObject.ParamSpec) => void;
+            "notify::inner-text": (pspec: GObject.ParamSpec) => void;
+            "notify::is-content-editable": (pspec: GObject.ParamSpec) => void;
+            "notify::lang": (pspec: GObject.ParamSpec) => void;
+            "notify::outer-text": (pspec: GObject.ParamSpec) => void;
+            "notify::spellcheck": (pspec: GObject.ParamSpec) => void;
+            "notify::tab-index": (pspec: GObject.ParamSpec) => void;
+            "notify::title": (pspec: GObject.ParamSpec) => void;
+            "notify::translate": (pspec: GObject.ParamSpec) => void;
+            "notify::webkitdropzone": (pspec: GObject.ParamSpec) => void;
+            "notify::attributes": (pspec: GObject.ParamSpec) => void;
+            "notify::child-element-count": (pspec: GObject.ParamSpec) => void;
+            "notify::children": (pspec: GObject.ParamSpec) => void;
+            "notify::class-list": (pspec: GObject.ParamSpec) => void;
+            "notify::class-name": (pspec: GObject.ParamSpec) => void;
+            "notify::client-height": (pspec: GObject.ParamSpec) => void;
+            "notify::client-left": (pspec: GObject.ParamSpec) => void;
+            "notify::client-top": (pspec: GObject.ParamSpec) => void;
+            "notify::client-width": (pspec: GObject.ParamSpec) => void;
+            "notify::first-element-child": (pspec: GObject.ParamSpec) => void;
+            "notify::id": (pspec: GObject.ParamSpec) => void;
+            "notify::inner-html": (pspec: GObject.ParamSpec) => void;
+            "notify::last-element-child": (pspec: GObject.ParamSpec) => void;
+            "notify::local-name": (pspec: GObject.ParamSpec) => void;
+            "notify::namespace-uri": (pspec: GObject.ParamSpec) => void;
+            "notify::next-element-sibling": (pspec: GObject.ParamSpec) => void;
+            "notify::offset-height": (pspec: GObject.ParamSpec) => void;
+            "notify::offset-left": (pspec: GObject.ParamSpec) => void;
+            "notify::offset-parent": (pspec: GObject.ParamSpec) => void;
+            "notify::offset-top": (pspec: GObject.ParamSpec) => void;
+            "notify::offset-width": (pspec: GObject.ParamSpec) => void;
+            "notify::outer-html": (pspec: GObject.ParamSpec) => void;
+            "notify::prefix": (pspec: GObject.ParamSpec) => void;
+            "notify::previous-element-sibling": (pspec: GObject.ParamSpec) => void;
+            "notify::scroll-height": (pspec: GObject.ParamSpec) => void;
+            "notify::scroll-left": (pspec: GObject.ParamSpec) => void;
+            "notify::scroll-top": (pspec: GObject.ParamSpec) => void;
+            "notify::scroll-width": (pspec: GObject.ParamSpec) => void;
+            "notify::style": (pspec: GObject.ParamSpec) => void;
+            "notify::tag-name": (pspec: GObject.ParamSpec) => void;
+            "notify::webkit-region-overset": (pspec: GObject.ParamSpec) => void;
+            "notify::base-uri": (pspec: GObject.ParamSpec) => void;
+            "notify::child-nodes": (pspec: GObject.ParamSpec) => void;
+            "notify::first-child": (pspec: GObject.ParamSpec) => void;
+            "notify::last-child": (pspec: GObject.ParamSpec) => void;
+            "notify::next-sibling": (pspec: GObject.ParamSpec) => void;
+            "notify::node-name": (pspec: GObject.ParamSpec) => void;
+            "notify::node-type": (pspec: GObject.ParamSpec) => void;
+            "notify::node-value": (pspec: GObject.ParamSpec) => void;
+            "notify::owner-document": (pspec: GObject.ParamSpec) => void;
+            "notify::parent-element": (pspec: GObject.ParamSpec) => void;
+            "notify::parent-node": (pspec: GObject.ParamSpec) => void;
+            "notify::previous-sibling": (pspec: GObject.ParamSpec) => void;
+            "notify::text-content": (pspec: GObject.ParamSpec) => void;
+            "notify::core-object": (pspec: GObject.ParamSpec) => void;
+        }
+
+        // Constructor properties interface
+        interface ConstructorProps extends DOMHTMLElement.ConstructorProps, DOMEventTarget.ConstructorProps {
+            type: string;
+            value: bigint | number;
+        }
+    }
+
+    /**
+     * @gir-type Class
+     */
+    class DOMHTMLLIElement extends DOMHTMLElement implements DOMEventTarget {
+        static $gtype: GObject.GType<DOMHTMLLIElement>;
+
+        // Properties
+        get type(): string;
+        set type(val: string);
+
+        /**
+         * @default 0
+         */
+        get value(): number;
+        set value(val: bigint | number);
+
+        /**
+         * Compile-time signal type information.
+         *
+         * This instance property is generated only for TypeScript type checking.
+         * It is not defined at runtime and should not be accessed in JS code.
+         * @internal
+         */
+        $signals: DOMHTMLLIElement.SignalSignatures;
+
+        // Constructors
+        constructor(properties?: Partial<DOMHTMLLIElement.ConstructorProps>, ...args: any[]);
+
+        _init(...args: any[]): void;
+
+        // Signals
+        /** @signal */
+        connect<K extends keyof DOMHTMLLIElement.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, DOMHTMLLIElement.SignalSignatures[K]>): number;
+
+        /** @signal */
+        connect_after<K extends keyof DOMHTMLLIElement.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, DOMHTMLLIElement.SignalSignatures[K]>): number;
+
+        /** @signal */
+        emit<K extends keyof DOMHTMLLIElement.SignalSignatures>(signal: K, ...args: GObject.GjsParameters<DOMHTMLLIElement.SignalSignatures[K]>): void;
+
+        // Methods
+        /**
+         * @returns A `gchar`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_type_attr(): string;
+
+        /**
+         * @returns A `glong`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_value(): number;
+
+        /**
+         * @param value A `gchar`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        set_type_attr(value: string): void;
+
+        /**
+         * @param value A `glong`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        set_value(value: bigint | number): void;
+    }
+
+
+    namespace DOMHTMLLabelElement {
+        // Signal signatures
+        interface SignalSignatures extends DOMHTMLElement.SignalSignatures {
+            "notify::form": (pspec: GObject.ParamSpec) => void;
+            "notify::html-for": (pspec: GObject.ParamSpec) => void;
+            "notify::access-key": (pspec: GObject.ParamSpec) => void;
+            "notify::content-editable": (pspec: GObject.ParamSpec) => void;
+            "notify::dir": (pspec: GObject.ParamSpec) => void;
+            "notify::draggable": (pspec: GObject.ParamSpec) => void;
+            "notify::hidden": (pspec: GObject.ParamSpec) => void;
+            "notify::inner-text": (pspec: GObject.ParamSpec) => void;
+            "notify::is-content-editable": (pspec: GObject.ParamSpec) => void;
+            "notify::lang": (pspec: GObject.ParamSpec) => void;
+            "notify::outer-text": (pspec: GObject.ParamSpec) => void;
+            "notify::spellcheck": (pspec: GObject.ParamSpec) => void;
+            "notify::tab-index": (pspec: GObject.ParamSpec) => void;
+            "notify::title": (pspec: GObject.ParamSpec) => void;
+            "notify::translate": (pspec: GObject.ParamSpec) => void;
+            "notify::webkitdropzone": (pspec: GObject.ParamSpec) => void;
+            "notify::attributes": (pspec: GObject.ParamSpec) => void;
+            "notify::child-element-count": (pspec: GObject.ParamSpec) => void;
+            "notify::children": (pspec: GObject.ParamSpec) => void;
+            "notify::class-list": (pspec: GObject.ParamSpec) => void;
+            "notify::class-name": (pspec: GObject.ParamSpec) => void;
+            "notify::client-height": (pspec: GObject.ParamSpec) => void;
+            "notify::client-left": (pspec: GObject.ParamSpec) => void;
+            "notify::client-top": (pspec: GObject.ParamSpec) => void;
+            "notify::client-width": (pspec: GObject.ParamSpec) => void;
+            "notify::first-element-child": (pspec: GObject.ParamSpec) => void;
+            "notify::id": (pspec: GObject.ParamSpec) => void;
+            "notify::inner-html": (pspec: GObject.ParamSpec) => void;
+            "notify::last-element-child": (pspec: GObject.ParamSpec) => void;
+            "notify::local-name": (pspec: GObject.ParamSpec) => void;
+            "notify::namespace-uri": (pspec: GObject.ParamSpec) => void;
+            "notify::next-element-sibling": (pspec: GObject.ParamSpec) => void;
+            "notify::offset-height": (pspec: GObject.ParamSpec) => void;
+            "notify::offset-left": (pspec: GObject.ParamSpec) => void;
+            "notify::offset-parent": (pspec: GObject.ParamSpec) => void;
+            "notify::offset-top": (pspec: GObject.ParamSpec) => void;
+            "notify::offset-width": (pspec: GObject.ParamSpec) => void;
+            "notify::outer-html": (pspec: GObject.ParamSpec) => void;
+            "notify::prefix": (pspec: GObject.ParamSpec) => void;
+            "notify::previous-element-sibling": (pspec: GObject.ParamSpec) => void;
+            "notify::scroll-height": (pspec: GObject.ParamSpec) => void;
+            "notify::scroll-left": (pspec: GObject.ParamSpec) => void;
+            "notify::scroll-top": (pspec: GObject.ParamSpec) => void;
+            "notify::scroll-width": (pspec: GObject.ParamSpec) => void;
+            "notify::style": (pspec: GObject.ParamSpec) => void;
+            "notify::tag-name": (pspec: GObject.ParamSpec) => void;
+            "notify::webkit-region-overset": (pspec: GObject.ParamSpec) => void;
+            "notify::base-uri": (pspec: GObject.ParamSpec) => void;
+            "notify::child-nodes": (pspec: GObject.ParamSpec) => void;
+            "notify::first-child": (pspec: GObject.ParamSpec) => void;
+            "notify::last-child": (pspec: GObject.ParamSpec) => void;
+            "notify::next-sibling": (pspec: GObject.ParamSpec) => void;
+            "notify::node-name": (pspec: GObject.ParamSpec) => void;
+            "notify::node-type": (pspec: GObject.ParamSpec) => void;
+            "notify::node-value": (pspec: GObject.ParamSpec) => void;
+            "notify::owner-document": (pspec: GObject.ParamSpec) => void;
+            "notify::parent-element": (pspec: GObject.ParamSpec) => void;
+            "notify::parent-node": (pspec: GObject.ParamSpec) => void;
+            "notify::previous-sibling": (pspec: GObject.ParamSpec) => void;
+            "notify::text-content": (pspec: GObject.ParamSpec) => void;
+            "notify::core-object": (pspec: GObject.ParamSpec) => void;
+        }
+
+        // Constructor properties interface
+        interface ConstructorProps extends DOMHTMLElement.ConstructorProps, DOMEventTarget.ConstructorProps {
+            form: DOMHTMLFormElement;
+            html_for: string;
+            htmlFor: string;
+        }
+    }
+
+    /**
+     * @gir-type Class
+     */
+    class DOMHTMLLabelElement extends DOMHTMLElement implements DOMEventTarget {
+        static $gtype: GObject.GType<DOMHTMLLabelElement>;
+
+        // Properties
+        /**
+         * @read-only
+         */
+        get form(): DOMHTMLFormElement;
+
+        get html_for(): string;
+        set html_for(val: string);
+
+        get htmlFor(): string;
+        set htmlFor(val: string);
+
+        /**
+         * Compile-time signal type information.
+         *
+         * This instance property is generated only for TypeScript type checking.
+         * It is not defined at runtime and should not be accessed in JS code.
+         * @internal
+         */
+        $signals: DOMHTMLLabelElement.SignalSignatures;
+
+        // Constructors
+        constructor(properties?: Partial<DOMHTMLLabelElement.ConstructorProps>, ...args: any[]);
+
+        _init(...args: any[]): void;
+
+        // Signals
+        /** @signal */
+        connect<K extends keyof DOMHTMLLabelElement.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, DOMHTMLLabelElement.SignalSignatures[K]>): number;
+
+        /** @signal */
+        connect_after<K extends keyof DOMHTMLLabelElement.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, DOMHTMLLabelElement.SignalSignatures[K]>): number;
+
+        /** @signal */
+        emit<K extends keyof DOMHTMLLabelElement.SignalSignatures>(signal: K, ...args: GObject.GjsParameters<DOMHTMLLabelElement.SignalSignatures[K]>): void;
+
+        // Methods
+        /**
+         * @returns A {@link WebKit2WebExtension.DOMHTMLFormElement}
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_form(): DOMHTMLFormElement;
+
+        /**
+         * @returns A `gchar`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_html_for(): string;
+
+        /**
+         * @param value A `gchar`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        set_html_for(value: string): void;
+    }
+
+
+    namespace DOMHTMLLegendElement {
+        // Signal signatures
+        interface SignalSignatures extends DOMHTMLElement.SignalSignatures {
+            "notify::align": (pspec: GObject.ParamSpec) => void;
+            "notify::form": (pspec: GObject.ParamSpec) => void;
+            "notify::access-key": (pspec: GObject.ParamSpec) => void;
+            "notify::content-editable": (pspec: GObject.ParamSpec) => void;
+            "notify::dir": (pspec: GObject.ParamSpec) => void;
+            "notify::draggable": (pspec: GObject.ParamSpec) => void;
+            "notify::hidden": (pspec: GObject.ParamSpec) => void;
+            "notify::inner-text": (pspec: GObject.ParamSpec) => void;
+            "notify::is-content-editable": (pspec: GObject.ParamSpec) => void;
+            "notify::lang": (pspec: GObject.ParamSpec) => void;
+            "notify::outer-text": (pspec: GObject.ParamSpec) => void;
+            "notify::spellcheck": (pspec: GObject.ParamSpec) => void;
+            "notify::tab-index": (pspec: GObject.ParamSpec) => void;
+            "notify::title": (pspec: GObject.ParamSpec) => void;
+            "notify::translate": (pspec: GObject.ParamSpec) => void;
+            "notify::webkitdropzone": (pspec: GObject.ParamSpec) => void;
+            "notify::attributes": (pspec: GObject.ParamSpec) => void;
+            "notify::child-element-count": (pspec: GObject.ParamSpec) => void;
+            "notify::children": (pspec: GObject.ParamSpec) => void;
+            "notify::class-list": (pspec: GObject.ParamSpec) => void;
+            "notify::class-name": (pspec: GObject.ParamSpec) => void;
+            "notify::client-height": (pspec: GObject.ParamSpec) => void;
+            "notify::client-left": (pspec: GObject.ParamSpec) => void;
+            "notify::client-top": (pspec: GObject.ParamSpec) => void;
+            "notify::client-width": (pspec: GObject.ParamSpec) => void;
+            "notify::first-element-child": (pspec: GObject.ParamSpec) => void;
+            "notify::id": (pspec: GObject.ParamSpec) => void;
+            "notify::inner-html": (pspec: GObject.ParamSpec) => void;
+            "notify::last-element-child": (pspec: GObject.ParamSpec) => void;
+            "notify::local-name": (pspec: GObject.ParamSpec) => void;
+            "notify::namespace-uri": (pspec: GObject.ParamSpec) => void;
+            "notify::next-element-sibling": (pspec: GObject.ParamSpec) => void;
+            "notify::offset-height": (pspec: GObject.ParamSpec) => void;
+            "notify::offset-left": (pspec: GObject.ParamSpec) => void;
+            "notify::offset-parent": (pspec: GObject.ParamSpec) => void;
+            "notify::offset-top": (pspec: GObject.ParamSpec) => void;
+            "notify::offset-width": (pspec: GObject.ParamSpec) => void;
+            "notify::outer-html": (pspec: GObject.ParamSpec) => void;
+            "notify::prefix": (pspec: GObject.ParamSpec) => void;
+            "notify::previous-element-sibling": (pspec: GObject.ParamSpec) => void;
+            "notify::scroll-height": (pspec: GObject.ParamSpec) => void;
+            "notify::scroll-left": (pspec: GObject.ParamSpec) => void;
+            "notify::scroll-top": (pspec: GObject.ParamSpec) => void;
+            "notify::scroll-width": (pspec: GObject.ParamSpec) => void;
+            "notify::style": (pspec: GObject.ParamSpec) => void;
+            "notify::tag-name": (pspec: GObject.ParamSpec) => void;
+            "notify::webkit-region-overset": (pspec: GObject.ParamSpec) => void;
+            "notify::base-uri": (pspec: GObject.ParamSpec) => void;
+            "notify::child-nodes": (pspec: GObject.ParamSpec) => void;
+            "notify::first-child": (pspec: GObject.ParamSpec) => void;
+            "notify::last-child": (pspec: GObject.ParamSpec) => void;
+            "notify::next-sibling": (pspec: GObject.ParamSpec) => void;
+            "notify::node-name": (pspec: GObject.ParamSpec) => void;
+            "notify::node-type": (pspec: GObject.ParamSpec) => void;
+            "notify::node-value": (pspec: GObject.ParamSpec) => void;
+            "notify::owner-document": (pspec: GObject.ParamSpec) => void;
+            "notify::parent-element": (pspec: GObject.ParamSpec) => void;
+            "notify::parent-node": (pspec: GObject.ParamSpec) => void;
+            "notify::previous-sibling": (pspec: GObject.ParamSpec) => void;
+            "notify::text-content": (pspec: GObject.ParamSpec) => void;
+            "notify::core-object": (pspec: GObject.ParamSpec) => void;
+        }
+
+        // Constructor properties interface
+        interface ConstructorProps extends DOMHTMLElement.ConstructorProps, DOMEventTarget.ConstructorProps {
+            align: string;
+            form: DOMHTMLFormElement;
+        }
+    }
+
+    /**
+     * @gir-type Class
+     */
+    class DOMHTMLLegendElement extends DOMHTMLElement implements DOMEventTarget {
+        static $gtype: GObject.GType<DOMHTMLLegendElement>;
+
+        // Properties
+        get align(): string;
+        set align(val: string);
+
+        /**
+         * @read-only
+         */
+        get form(): DOMHTMLFormElement;
+
+        /**
+         * Compile-time signal type information.
+         *
+         * This instance property is generated only for TypeScript type checking.
+         * It is not defined at runtime and should not be accessed in JS code.
+         * @internal
+         */
+        $signals: DOMHTMLLegendElement.SignalSignatures;
+
+        // Constructors
+        constructor(properties?: Partial<DOMHTMLLegendElement.ConstructorProps>, ...args: any[]);
+
+        _init(...args: any[]): void;
+
+        // Signals
+        /** @signal */
+        connect<K extends keyof DOMHTMLLegendElement.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, DOMHTMLLegendElement.SignalSignatures[K]>): number;
+
+        /** @signal */
+        connect_after<K extends keyof DOMHTMLLegendElement.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, DOMHTMLLegendElement.SignalSignatures[K]>): number;
+
+        /** @signal */
+        emit<K extends keyof DOMHTMLLegendElement.SignalSignatures>(signal: K, ...args: GObject.GjsParameters<DOMHTMLLegendElement.SignalSignatures[K]>): void;
+
+        // Methods
+        /**
+         * @returns A `gchar`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_align(): string;
+
+        /**
+         * @returns A {@link WebKit2WebExtension.DOMHTMLFormElement}
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_form(): DOMHTMLFormElement;
+
+        /**
+         * @param value A `gchar`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        set_align(value: string): void;
+    }
+
+
+    namespace DOMHTMLLinkElement {
+        // Signal signatures
+        interface SignalSignatures extends DOMHTMLElement.SignalSignatures {
+            "notify::charset": (pspec: GObject.ParamSpec) => void;
+            "notify::disabled": (pspec: GObject.ParamSpec) => void;
+            "notify::href": (pspec: GObject.ParamSpec) => void;
+            "notify::hreflang": (pspec: GObject.ParamSpec) => void;
+            "notify::media": (pspec: GObject.ParamSpec) => void;
+            "notify::rel": (pspec: GObject.ParamSpec) => void;
+            "notify::rev": (pspec: GObject.ParamSpec) => void;
+            "notify::sheet": (pspec: GObject.ParamSpec) => void;
+            "notify::sizes": (pspec: GObject.ParamSpec) => void;
+            "notify::target": (pspec: GObject.ParamSpec) => void;
+            "notify::type": (pspec: GObject.ParamSpec) => void;
+            "notify::access-key": (pspec: GObject.ParamSpec) => void;
+            "notify::content-editable": (pspec: GObject.ParamSpec) => void;
+            "notify::dir": (pspec: GObject.ParamSpec) => void;
+            "notify::draggable": (pspec: GObject.ParamSpec) => void;
+            "notify::hidden": (pspec: GObject.ParamSpec) => void;
+            "notify::inner-text": (pspec: GObject.ParamSpec) => void;
+            "notify::is-content-editable": (pspec: GObject.ParamSpec) => void;
+            "notify::lang": (pspec: GObject.ParamSpec) => void;
+            "notify::outer-text": (pspec: GObject.ParamSpec) => void;
+            "notify::spellcheck": (pspec: GObject.ParamSpec) => void;
+            "notify::tab-index": (pspec: GObject.ParamSpec) => void;
+            "notify::title": (pspec: GObject.ParamSpec) => void;
+            "notify::translate": (pspec: GObject.ParamSpec) => void;
+            "notify::webkitdropzone": (pspec: GObject.ParamSpec) => void;
+            "notify::attributes": (pspec: GObject.ParamSpec) => void;
+            "notify::child-element-count": (pspec: GObject.ParamSpec) => void;
+            "notify::children": (pspec: GObject.ParamSpec) => void;
+            "notify::class-list": (pspec: GObject.ParamSpec) => void;
+            "notify::class-name": (pspec: GObject.ParamSpec) => void;
+            "notify::client-height": (pspec: GObject.ParamSpec) => void;
+            "notify::client-left": (pspec: GObject.ParamSpec) => void;
+            "notify::client-top": (pspec: GObject.ParamSpec) => void;
+            "notify::client-width": (pspec: GObject.ParamSpec) => void;
+            "notify::first-element-child": (pspec: GObject.ParamSpec) => void;
+            "notify::id": (pspec: GObject.ParamSpec) => void;
+            "notify::inner-html": (pspec: GObject.ParamSpec) => void;
+            "notify::last-element-child": (pspec: GObject.ParamSpec) => void;
+            "notify::local-name": (pspec: GObject.ParamSpec) => void;
+            "notify::namespace-uri": (pspec: GObject.ParamSpec) => void;
+            "notify::next-element-sibling": (pspec: GObject.ParamSpec) => void;
+            "notify::offset-height": (pspec: GObject.ParamSpec) => void;
+            "notify::offset-left": (pspec: GObject.ParamSpec) => void;
+            "notify::offset-parent": (pspec: GObject.ParamSpec) => void;
+            "notify::offset-top": (pspec: GObject.ParamSpec) => void;
+            "notify::offset-width": (pspec: GObject.ParamSpec) => void;
+            "notify::outer-html": (pspec: GObject.ParamSpec) => void;
+            "notify::prefix": (pspec: GObject.ParamSpec) => void;
+            "notify::previous-element-sibling": (pspec: GObject.ParamSpec) => void;
+            "notify::scroll-height": (pspec: GObject.ParamSpec) => void;
+            "notify::scroll-left": (pspec: GObject.ParamSpec) => void;
+            "notify::scroll-top": (pspec: GObject.ParamSpec) => void;
+            "notify::scroll-width": (pspec: GObject.ParamSpec) => void;
+            "notify::style": (pspec: GObject.ParamSpec) => void;
+            "notify::tag-name": (pspec: GObject.ParamSpec) => void;
+            "notify::webkit-region-overset": (pspec: GObject.ParamSpec) => void;
+            "notify::base-uri": (pspec: GObject.ParamSpec) => void;
+            "notify::child-nodes": (pspec: GObject.ParamSpec) => void;
+            "notify::first-child": (pspec: GObject.ParamSpec) => void;
+            "notify::last-child": (pspec: GObject.ParamSpec) => void;
+            "notify::next-sibling": (pspec: GObject.ParamSpec) => void;
+            "notify::node-name": (pspec: GObject.ParamSpec) => void;
+            "notify::node-type": (pspec: GObject.ParamSpec) => void;
+            "notify::node-value": (pspec: GObject.ParamSpec) => void;
+            "notify::owner-document": (pspec: GObject.ParamSpec) => void;
+            "notify::parent-element": (pspec: GObject.ParamSpec) => void;
+            "notify::parent-node": (pspec: GObject.ParamSpec) => void;
+            "notify::previous-sibling": (pspec: GObject.ParamSpec) => void;
+            "notify::text-content": (pspec: GObject.ParamSpec) => void;
+            "notify::core-object": (pspec: GObject.ParamSpec) => void;
+        }
+
+        // Constructor properties interface
+        interface ConstructorProps extends DOMHTMLElement.ConstructorProps, DOMEventTarget.ConstructorProps {
+            charset: string;
+            disabled: boolean;
+            href: string;
+            hreflang: string;
+            media: string;
+            rel: string;
+            rev: string;
+            sheet: DOMStyleSheet;
+            sizes: DOMDOMTokenList;
+            target: string;
+            type: string;
+        }
+    }
+
+    /**
+     * @gir-type Class
+     */
+    class DOMHTMLLinkElement extends DOMHTMLElement implements DOMEventTarget {
+        static $gtype: GObject.GType<DOMHTMLLinkElement>;
+
+        // Properties
+        get charset(): string;
+        set charset(val: string);
+
+        /**
+         * @default false
+         */
+        get disabled(): boolean;
+        set disabled(val: boolean);
+
+        get href(): string;
+        set href(val: string);
+
+        get hreflang(): string;
+        set hreflang(val: string);
+
+        get media(): string;
+        set media(val: string);
+
+        get rel(): string;
+        set rel(val: string);
+
+        get rev(): string;
+        set rev(val: string);
+
+        /**
+         * @read-only
+         */
+        get sheet(): DOMStyleSheet;
+
+        /**
+         * @read-only
+         */
+        get sizes(): DOMDOMTokenList;
+
+        get target(): string;
+        set target(val: string);
+
+        get type(): string;
+        set type(val: string);
+
+        /**
+         * Compile-time signal type information.
+         *
+         * This instance property is generated only for TypeScript type checking.
+         * It is not defined at runtime and should not be accessed in JS code.
+         * @internal
+         */
+        $signals: DOMHTMLLinkElement.SignalSignatures;
+
+        // Constructors
+        constructor(properties?: Partial<DOMHTMLLinkElement.ConstructorProps>, ...args: any[]);
+
+        _init(...args: any[]): void;
+
+        // Signals
+        /** @signal */
+        connect<K extends keyof DOMHTMLLinkElement.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, DOMHTMLLinkElement.SignalSignatures[K]>): number;
+
+        /** @signal */
+        connect_after<K extends keyof DOMHTMLLinkElement.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, DOMHTMLLinkElement.SignalSignatures[K]>): number;
+
+        /** @signal */
+        emit<K extends keyof DOMHTMLLinkElement.SignalSignatures>(signal: K, ...args: GObject.GjsParameters<DOMHTMLLinkElement.SignalSignatures[K]>): void;
+
+        // Methods
+        /**
+         * @returns A `gchar`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_charset(): string;
+
+        /**
+         * @returns A `gboolean`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_disabled(): boolean;
+
+        /**
+         * @returns A `gchar`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_href(): string;
+
+        /**
+         * @returns A `gchar`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_hreflang(): string;
+
+        /**
+         * @returns A `gchar`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_media(): string;
+
+        /**
+         * @returns A `gchar`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_rel(): string;
+
+        /**
+         * @returns A `gchar`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_rev(): string;
+
+        /**
+         * @returns A {@link WebKit2WebExtension.DOMStyleSheet}
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_sheet(): DOMStyleSheet;
+
+        /**
+         * @returns A {@link WebKit2WebExtension.DOMDOMTokenList}
+         * @since 2.16
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_sizes(): DOMDOMTokenList;
+
+        /**
+         * @returns A `gchar`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_target(): string;
+
+        /**
+         * @returns A `gchar`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_type_attr(): string;
+
+        /**
+         * @param value A `gchar`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        set_charset(value: string): void;
+
+        /**
+         * @param value A `gboolean`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        set_disabled(value: boolean): void;
+
+        /**
+         * @param value A `gchar`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        set_href(value: string): void;
+
+        /**
+         * @param value A `gchar`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        set_hreflang(value: string): void;
+
+        /**
+         * @param value A `gchar`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        set_media(value: string): void;
+
+        /**
+         * @param value A `gchar`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        set_rel(value: string): void;
+
+        /**
+         * @param value A `gchar`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        set_rev(value: string): void;
+
+        /**
+         * @param value a `gchar`
+         * @since 2.16
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        set_sizes(value: string): void;
+
+        /**
+         * @param value A `gchar`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        set_target(value: string): void;
+
+        /**
+         * @param value A `gchar`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        set_type_attr(value: string): void;
+    }
+
+
+    namespace DOMHTMLMapElement {
+        // Signal signatures
+        interface SignalSignatures extends DOMHTMLElement.SignalSignatures {
+            "notify::areas": (pspec: GObject.ParamSpec) => void;
+            "notify::name": (pspec: GObject.ParamSpec) => void;
+            "notify::access-key": (pspec: GObject.ParamSpec) => void;
+            "notify::content-editable": (pspec: GObject.ParamSpec) => void;
+            "notify::dir": (pspec: GObject.ParamSpec) => void;
+            "notify::draggable": (pspec: GObject.ParamSpec) => void;
+            "notify::hidden": (pspec: GObject.ParamSpec) => void;
+            "notify::inner-text": (pspec: GObject.ParamSpec) => void;
+            "notify::is-content-editable": (pspec: GObject.ParamSpec) => void;
+            "notify::lang": (pspec: GObject.ParamSpec) => void;
+            "notify::outer-text": (pspec: GObject.ParamSpec) => void;
+            "notify::spellcheck": (pspec: GObject.ParamSpec) => void;
+            "notify::tab-index": (pspec: GObject.ParamSpec) => void;
+            "notify::title": (pspec: GObject.ParamSpec) => void;
+            "notify::translate": (pspec: GObject.ParamSpec) => void;
+            "notify::webkitdropzone": (pspec: GObject.ParamSpec) => void;
+            "notify::attributes": (pspec: GObject.ParamSpec) => void;
+            "notify::child-element-count": (pspec: GObject.ParamSpec) => void;
+            "notify::children": (pspec: GObject.ParamSpec) => void;
+            "notify::class-list": (pspec: GObject.ParamSpec) => void;
+            "notify::class-name": (pspec: GObject.ParamSpec) => void;
+            "notify::client-height": (pspec: GObject.ParamSpec) => void;
+            "notify::client-left": (pspec: GObject.ParamSpec) => void;
+            "notify::client-top": (pspec: GObject.ParamSpec) => void;
+            "notify::client-width": (pspec: GObject.ParamSpec) => void;
+            "notify::first-element-child": (pspec: GObject.ParamSpec) => void;
+            "notify::id": (pspec: GObject.ParamSpec) => void;
+            "notify::inner-html": (pspec: GObject.ParamSpec) => void;
+            "notify::last-element-child": (pspec: GObject.ParamSpec) => void;
+            "notify::local-name": (pspec: GObject.ParamSpec) => void;
+            "notify::namespace-uri": (pspec: GObject.ParamSpec) => void;
+            "notify::next-element-sibling": (pspec: GObject.ParamSpec) => void;
+            "notify::offset-height": (pspec: GObject.ParamSpec) => void;
+            "notify::offset-left": (pspec: GObject.ParamSpec) => void;
+            "notify::offset-parent": (pspec: GObject.ParamSpec) => void;
+            "notify::offset-top": (pspec: GObject.ParamSpec) => void;
+            "notify::offset-width": (pspec: GObject.ParamSpec) => void;
+            "notify::outer-html": (pspec: GObject.ParamSpec) => void;
+            "notify::prefix": (pspec: GObject.ParamSpec) => void;
+            "notify::previous-element-sibling": (pspec: GObject.ParamSpec) => void;
+            "notify::scroll-height": (pspec: GObject.ParamSpec) => void;
+            "notify::scroll-left": (pspec: GObject.ParamSpec) => void;
+            "notify::scroll-top": (pspec: GObject.ParamSpec) => void;
+            "notify::scroll-width": (pspec: GObject.ParamSpec) => void;
+            "notify::style": (pspec: GObject.ParamSpec) => void;
+            "notify::tag-name": (pspec: GObject.ParamSpec) => void;
+            "notify::webkit-region-overset": (pspec: GObject.ParamSpec) => void;
+            "notify::base-uri": (pspec: GObject.ParamSpec) => void;
+            "notify::child-nodes": (pspec: GObject.ParamSpec) => void;
+            "notify::first-child": (pspec: GObject.ParamSpec) => void;
+            "notify::last-child": (pspec: GObject.ParamSpec) => void;
+            "notify::next-sibling": (pspec: GObject.ParamSpec) => void;
+            "notify::node-name": (pspec: GObject.ParamSpec) => void;
+            "notify::node-type": (pspec: GObject.ParamSpec) => void;
+            "notify::node-value": (pspec: GObject.ParamSpec) => void;
+            "notify::owner-document": (pspec: GObject.ParamSpec) => void;
+            "notify::parent-element": (pspec: GObject.ParamSpec) => void;
+            "notify::parent-node": (pspec: GObject.ParamSpec) => void;
+            "notify::previous-sibling": (pspec: GObject.ParamSpec) => void;
+            "notify::text-content": (pspec: GObject.ParamSpec) => void;
+            "notify::core-object": (pspec: GObject.ParamSpec) => void;
+        }
+
+        // Constructor properties interface
+        interface ConstructorProps extends DOMHTMLElement.ConstructorProps, DOMEventTarget.ConstructorProps {
+            areas: DOMHTMLCollection;
+            name: string;
+        }
+    }
+
+    /**
+     * @gir-type Class
+     */
+    class DOMHTMLMapElement extends DOMHTMLElement implements DOMEventTarget {
+        static $gtype: GObject.GType<DOMHTMLMapElement>;
+
+        // Properties
+        /**
+         * @read-only
+         */
+        get areas(): DOMHTMLCollection;
+
+        get name(): string;
+        set name(val: string);
+
+        /**
+         * Compile-time signal type information.
+         *
+         * This instance property is generated only for TypeScript type checking.
+         * It is not defined at runtime and should not be accessed in JS code.
+         * @internal
+         */
+        $signals: DOMHTMLMapElement.SignalSignatures;
+
+        // Constructors
+        constructor(properties?: Partial<DOMHTMLMapElement.ConstructorProps>, ...args: any[]);
+
+        _init(...args: any[]): void;
+
+        // Signals
+        /** @signal */
+        connect<K extends keyof DOMHTMLMapElement.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, DOMHTMLMapElement.SignalSignatures[K]>): number;
+
+        /** @signal */
+        connect_after<K extends keyof DOMHTMLMapElement.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, DOMHTMLMapElement.SignalSignatures[K]>): number;
+
+        /** @signal */
+        emit<K extends keyof DOMHTMLMapElement.SignalSignatures>(signal: K, ...args: GObject.GjsParameters<DOMHTMLMapElement.SignalSignatures[K]>): void;
+
+        // Methods
+        /**
+         * @returns A {@link WebKit2WebExtension.DOMHTMLCollection}
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_areas(): DOMHTMLCollection;
+
+        /**
+         * @returns A `gchar`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_name(): string;
+
+        /**
+         * @param value A `gchar`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        set_name(value: string): void;
+    }
+
+
+    namespace DOMHTMLMarqueeElement {
+        // Signal signatures
+        interface SignalSignatures extends DOMHTMLElement.SignalSignatures {
+            "notify::access-key": (pspec: GObject.ParamSpec) => void;
+            "notify::content-editable": (pspec: GObject.ParamSpec) => void;
+            "notify::dir": (pspec: GObject.ParamSpec) => void;
+            "notify::draggable": (pspec: GObject.ParamSpec) => void;
+            "notify::hidden": (pspec: GObject.ParamSpec) => void;
+            "notify::inner-text": (pspec: GObject.ParamSpec) => void;
+            "notify::is-content-editable": (pspec: GObject.ParamSpec) => void;
+            "notify::lang": (pspec: GObject.ParamSpec) => void;
+            "notify::outer-text": (pspec: GObject.ParamSpec) => void;
+            "notify::spellcheck": (pspec: GObject.ParamSpec) => void;
+            "notify::tab-index": (pspec: GObject.ParamSpec) => void;
+            "notify::title": (pspec: GObject.ParamSpec) => void;
+            "notify::translate": (pspec: GObject.ParamSpec) => void;
+            "notify::webkitdropzone": (pspec: GObject.ParamSpec) => void;
+            "notify::attributes": (pspec: GObject.ParamSpec) => void;
+            "notify::child-element-count": (pspec: GObject.ParamSpec) => void;
+            "notify::children": (pspec: GObject.ParamSpec) => void;
+            "notify::class-list": (pspec: GObject.ParamSpec) => void;
+            "notify::class-name": (pspec: GObject.ParamSpec) => void;
+            "notify::client-height": (pspec: GObject.ParamSpec) => void;
+            "notify::client-left": (pspec: GObject.ParamSpec) => void;
+            "notify::client-top": (pspec: GObject.ParamSpec) => void;
+            "notify::client-width": (pspec: GObject.ParamSpec) => void;
+            "notify::first-element-child": (pspec: GObject.ParamSpec) => void;
+            "notify::id": (pspec: GObject.ParamSpec) => void;
+            "notify::inner-html": (pspec: GObject.ParamSpec) => void;
+            "notify::last-element-child": (pspec: GObject.ParamSpec) => void;
+            "notify::local-name": (pspec: GObject.ParamSpec) => void;
+            "notify::namespace-uri": (pspec: GObject.ParamSpec) => void;
+            "notify::next-element-sibling": (pspec: GObject.ParamSpec) => void;
+            "notify::offset-height": (pspec: GObject.ParamSpec) => void;
+            "notify::offset-left": (pspec: GObject.ParamSpec) => void;
+            "notify::offset-parent": (pspec: GObject.ParamSpec) => void;
+            "notify::offset-top": (pspec: GObject.ParamSpec) => void;
+            "notify::offset-width": (pspec: GObject.ParamSpec) => void;
+            "notify::outer-html": (pspec: GObject.ParamSpec) => void;
+            "notify::prefix": (pspec: GObject.ParamSpec) => void;
+            "notify::previous-element-sibling": (pspec: GObject.ParamSpec) => void;
+            "notify::scroll-height": (pspec: GObject.ParamSpec) => void;
+            "notify::scroll-left": (pspec: GObject.ParamSpec) => void;
+            "notify::scroll-top": (pspec: GObject.ParamSpec) => void;
+            "notify::scroll-width": (pspec: GObject.ParamSpec) => void;
+            "notify::style": (pspec: GObject.ParamSpec) => void;
+            "notify::tag-name": (pspec: GObject.ParamSpec) => void;
+            "notify::webkit-region-overset": (pspec: GObject.ParamSpec) => void;
+            "notify::base-uri": (pspec: GObject.ParamSpec) => void;
+            "notify::child-nodes": (pspec: GObject.ParamSpec) => void;
+            "notify::first-child": (pspec: GObject.ParamSpec) => void;
+            "notify::last-child": (pspec: GObject.ParamSpec) => void;
+            "notify::next-sibling": (pspec: GObject.ParamSpec) => void;
+            "notify::node-name": (pspec: GObject.ParamSpec) => void;
+            "notify::node-type": (pspec: GObject.ParamSpec) => void;
+            "notify::node-value": (pspec: GObject.ParamSpec) => void;
+            "notify::owner-document": (pspec: GObject.ParamSpec) => void;
+            "notify::parent-element": (pspec: GObject.ParamSpec) => void;
+            "notify::parent-node": (pspec: GObject.ParamSpec) => void;
+            "notify::previous-sibling": (pspec: GObject.ParamSpec) => void;
+            "notify::text-content": (pspec: GObject.ParamSpec) => void;
+            "notify::core-object": (pspec: GObject.ParamSpec) => void;
+        }
+
+        // Constructor properties interface
+        interface ConstructorProps extends DOMHTMLElement.ConstructorProps, DOMEventTarget.ConstructorProps {}
+    }
+
+    /**
+     * @gir-type Class
+     */
+    class DOMHTMLMarqueeElement extends DOMHTMLElement implements DOMEventTarget {
+        static $gtype: GObject.GType<DOMHTMLMarqueeElement>;
+
+        /**
+         * Compile-time signal type information.
+         *
+         * This instance property is generated only for TypeScript type checking.
+         * It is not defined at runtime and should not be accessed in JS code.
+         * @internal
+         */
+        $signals: DOMHTMLMarqueeElement.SignalSignatures;
+
+        // Constructors
+        constructor(properties?: Partial<DOMHTMLMarqueeElement.ConstructorProps>, ...args: any[]);
+
+        _init(...args: any[]): void;
+
+        // Signals
+        /** @signal */
+        connect<K extends keyof DOMHTMLMarqueeElement.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, DOMHTMLMarqueeElement.SignalSignatures[K]>): number;
+
+        /** @signal */
+        connect_after<K extends keyof DOMHTMLMarqueeElement.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, DOMHTMLMarqueeElement.SignalSignatures[K]>): number;
+
+        /** @signal */
+        emit<K extends keyof DOMHTMLMarqueeElement.SignalSignatures>(signal: K, ...args: GObject.GjsParameters<DOMHTMLMarqueeElement.SignalSignatures[K]>): void;
+
+        // Methods
+        /**
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        start(): void;
+
+        /**
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        stop(): void;
+    }
+
+
+    namespace DOMHTMLMenuElement {
+        // Signal signatures
+        interface SignalSignatures extends DOMHTMLElement.SignalSignatures {
+            "notify::compact": (pspec: GObject.ParamSpec) => void;
+            "notify::access-key": (pspec: GObject.ParamSpec) => void;
+            "notify::content-editable": (pspec: GObject.ParamSpec) => void;
+            "notify::dir": (pspec: GObject.ParamSpec) => void;
+            "notify::draggable": (pspec: GObject.ParamSpec) => void;
+            "notify::hidden": (pspec: GObject.ParamSpec) => void;
+            "notify::inner-text": (pspec: GObject.ParamSpec) => void;
+            "notify::is-content-editable": (pspec: GObject.ParamSpec) => void;
+            "notify::lang": (pspec: GObject.ParamSpec) => void;
+            "notify::outer-text": (pspec: GObject.ParamSpec) => void;
+            "notify::spellcheck": (pspec: GObject.ParamSpec) => void;
+            "notify::tab-index": (pspec: GObject.ParamSpec) => void;
+            "notify::title": (pspec: GObject.ParamSpec) => void;
+            "notify::translate": (pspec: GObject.ParamSpec) => void;
+            "notify::webkitdropzone": (pspec: GObject.ParamSpec) => void;
+            "notify::attributes": (pspec: GObject.ParamSpec) => void;
+            "notify::child-element-count": (pspec: GObject.ParamSpec) => void;
+            "notify::children": (pspec: GObject.ParamSpec) => void;
+            "notify::class-list": (pspec: GObject.ParamSpec) => void;
+            "notify::class-name": (pspec: GObject.ParamSpec) => void;
+            "notify::client-height": (pspec: GObject.ParamSpec) => void;
+            "notify::client-left": (pspec: GObject.ParamSpec) => void;
+            "notify::client-top": (pspec: GObject.ParamSpec) => void;
+            "notify::client-width": (pspec: GObject.ParamSpec) => void;
+            "notify::first-element-child": (pspec: GObject.ParamSpec) => void;
+            "notify::id": (pspec: GObject.ParamSpec) => void;
+            "notify::inner-html": (pspec: GObject.ParamSpec) => void;
+            "notify::last-element-child": (pspec: GObject.ParamSpec) => void;
+            "notify::local-name": (pspec: GObject.ParamSpec) => void;
+            "notify::namespace-uri": (pspec: GObject.ParamSpec) => void;
+            "notify::next-element-sibling": (pspec: GObject.ParamSpec) => void;
+            "notify::offset-height": (pspec: GObject.ParamSpec) => void;
+            "notify::offset-left": (pspec: GObject.ParamSpec) => void;
+            "notify::offset-parent": (pspec: GObject.ParamSpec) => void;
+            "notify::offset-top": (pspec: GObject.ParamSpec) => void;
+            "notify::offset-width": (pspec: GObject.ParamSpec) => void;
+            "notify::outer-html": (pspec: GObject.ParamSpec) => void;
+            "notify::prefix": (pspec: GObject.ParamSpec) => void;
+            "notify::previous-element-sibling": (pspec: GObject.ParamSpec) => void;
+            "notify::scroll-height": (pspec: GObject.ParamSpec) => void;
+            "notify::scroll-left": (pspec: GObject.ParamSpec) => void;
+            "notify::scroll-top": (pspec: GObject.ParamSpec) => void;
+            "notify::scroll-width": (pspec: GObject.ParamSpec) => void;
+            "notify::style": (pspec: GObject.ParamSpec) => void;
+            "notify::tag-name": (pspec: GObject.ParamSpec) => void;
+            "notify::webkit-region-overset": (pspec: GObject.ParamSpec) => void;
+            "notify::base-uri": (pspec: GObject.ParamSpec) => void;
+            "notify::child-nodes": (pspec: GObject.ParamSpec) => void;
+            "notify::first-child": (pspec: GObject.ParamSpec) => void;
+            "notify::last-child": (pspec: GObject.ParamSpec) => void;
+            "notify::next-sibling": (pspec: GObject.ParamSpec) => void;
+            "notify::node-name": (pspec: GObject.ParamSpec) => void;
+            "notify::node-type": (pspec: GObject.ParamSpec) => void;
+            "notify::node-value": (pspec: GObject.ParamSpec) => void;
+            "notify::owner-document": (pspec: GObject.ParamSpec) => void;
+            "notify::parent-element": (pspec: GObject.ParamSpec) => void;
+            "notify::parent-node": (pspec: GObject.ParamSpec) => void;
+            "notify::previous-sibling": (pspec: GObject.ParamSpec) => void;
+            "notify::text-content": (pspec: GObject.ParamSpec) => void;
+            "notify::core-object": (pspec: GObject.ParamSpec) => void;
+        }
+
+        // Constructor properties interface
+        interface ConstructorProps extends DOMHTMLElement.ConstructorProps, DOMEventTarget.ConstructorProps {
+            compact: boolean;
+        }
+    }
+
+    /**
+     * @gir-type Class
+     */
+    class DOMHTMLMenuElement extends DOMHTMLElement implements DOMEventTarget {
+        static $gtype: GObject.GType<DOMHTMLMenuElement>;
+
+        // Properties
+        /**
+         * @default false
+         */
+        get compact(): boolean;
+        set compact(val: boolean);
+
+        /**
+         * Compile-time signal type information.
+         *
+         * This instance property is generated only for TypeScript type checking.
+         * It is not defined at runtime and should not be accessed in JS code.
+         * @internal
+         */
+        $signals: DOMHTMLMenuElement.SignalSignatures;
+
+        // Constructors
+        constructor(properties?: Partial<DOMHTMLMenuElement.ConstructorProps>, ...args: any[]);
+
+        _init(...args: any[]): void;
+
+        // Signals
+        /** @signal */
+        connect<K extends keyof DOMHTMLMenuElement.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, DOMHTMLMenuElement.SignalSignatures[K]>): number;
+
+        /** @signal */
+        connect_after<K extends keyof DOMHTMLMenuElement.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, DOMHTMLMenuElement.SignalSignatures[K]>): number;
+
+        /** @signal */
+        emit<K extends keyof DOMHTMLMenuElement.SignalSignatures>(signal: K, ...args: GObject.GjsParameters<DOMHTMLMenuElement.SignalSignatures[K]>): void;
+
+        // Methods
+        /**
+         * @returns A `gboolean`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_compact(): boolean;
+
+        /**
+         * @param value A `gboolean`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        set_compact(value: boolean): void;
+    }
+
+
+    namespace DOMHTMLMetaElement {
+        // Signal signatures
+        interface SignalSignatures extends DOMHTMLElement.SignalSignatures {
+            "notify::content": (pspec: GObject.ParamSpec) => void;
+            "notify::http-equiv": (pspec: GObject.ParamSpec) => void;
+            "notify::name": (pspec: GObject.ParamSpec) => void;
+            "notify::scheme": (pspec: GObject.ParamSpec) => void;
+            "notify::access-key": (pspec: GObject.ParamSpec) => void;
+            "notify::content-editable": (pspec: GObject.ParamSpec) => void;
+            "notify::dir": (pspec: GObject.ParamSpec) => void;
+            "notify::draggable": (pspec: GObject.ParamSpec) => void;
+            "notify::hidden": (pspec: GObject.ParamSpec) => void;
+            "notify::inner-text": (pspec: GObject.ParamSpec) => void;
+            "notify::is-content-editable": (pspec: GObject.ParamSpec) => void;
+            "notify::lang": (pspec: GObject.ParamSpec) => void;
+            "notify::outer-text": (pspec: GObject.ParamSpec) => void;
+            "notify::spellcheck": (pspec: GObject.ParamSpec) => void;
+            "notify::tab-index": (pspec: GObject.ParamSpec) => void;
+            "notify::title": (pspec: GObject.ParamSpec) => void;
+            "notify::translate": (pspec: GObject.ParamSpec) => void;
+            "notify::webkitdropzone": (pspec: GObject.ParamSpec) => void;
+            "notify::attributes": (pspec: GObject.ParamSpec) => void;
+            "notify::child-element-count": (pspec: GObject.ParamSpec) => void;
+            "notify::children": (pspec: GObject.ParamSpec) => void;
+            "notify::class-list": (pspec: GObject.ParamSpec) => void;
+            "notify::class-name": (pspec: GObject.ParamSpec) => void;
+            "notify::client-height": (pspec: GObject.ParamSpec) => void;
+            "notify::client-left": (pspec: GObject.ParamSpec) => void;
+            "notify::client-top": (pspec: GObject.ParamSpec) => void;
+            "notify::client-width": (pspec: GObject.ParamSpec) => void;
+            "notify::first-element-child": (pspec: GObject.ParamSpec) => void;
+            "notify::id": (pspec: GObject.ParamSpec) => void;
+            "notify::inner-html": (pspec: GObject.ParamSpec) => void;
+            "notify::last-element-child": (pspec: GObject.ParamSpec) => void;
+            "notify::local-name": (pspec: GObject.ParamSpec) => void;
+            "notify::namespace-uri": (pspec: GObject.ParamSpec) => void;
+            "notify::next-element-sibling": (pspec: GObject.ParamSpec) => void;
+            "notify::offset-height": (pspec: GObject.ParamSpec) => void;
+            "notify::offset-left": (pspec: GObject.ParamSpec) => void;
+            "notify::offset-parent": (pspec: GObject.ParamSpec) => void;
+            "notify::offset-top": (pspec: GObject.ParamSpec) => void;
+            "notify::offset-width": (pspec: GObject.ParamSpec) => void;
+            "notify::outer-html": (pspec: GObject.ParamSpec) => void;
+            "notify::prefix": (pspec: GObject.ParamSpec) => void;
+            "notify::previous-element-sibling": (pspec: GObject.ParamSpec) => void;
+            "notify::scroll-height": (pspec: GObject.ParamSpec) => void;
+            "notify::scroll-left": (pspec: GObject.ParamSpec) => void;
+            "notify::scroll-top": (pspec: GObject.ParamSpec) => void;
+            "notify::scroll-width": (pspec: GObject.ParamSpec) => void;
+            "notify::style": (pspec: GObject.ParamSpec) => void;
+            "notify::tag-name": (pspec: GObject.ParamSpec) => void;
+            "notify::webkit-region-overset": (pspec: GObject.ParamSpec) => void;
+            "notify::base-uri": (pspec: GObject.ParamSpec) => void;
+            "notify::child-nodes": (pspec: GObject.ParamSpec) => void;
+            "notify::first-child": (pspec: GObject.ParamSpec) => void;
+            "notify::last-child": (pspec: GObject.ParamSpec) => void;
+            "notify::next-sibling": (pspec: GObject.ParamSpec) => void;
+            "notify::node-name": (pspec: GObject.ParamSpec) => void;
+            "notify::node-type": (pspec: GObject.ParamSpec) => void;
+            "notify::node-value": (pspec: GObject.ParamSpec) => void;
+            "notify::owner-document": (pspec: GObject.ParamSpec) => void;
+            "notify::parent-element": (pspec: GObject.ParamSpec) => void;
+            "notify::parent-node": (pspec: GObject.ParamSpec) => void;
+            "notify::previous-sibling": (pspec: GObject.ParamSpec) => void;
+            "notify::text-content": (pspec: GObject.ParamSpec) => void;
+            "notify::core-object": (pspec: GObject.ParamSpec) => void;
+        }
+
+        // Constructor properties interface
+        interface ConstructorProps extends DOMHTMLElement.ConstructorProps, DOMEventTarget.ConstructorProps {
+            content: string;
+            http_equiv: string;
+            httpEquiv: string;
+            name: string;
+            scheme: string;
+        }
+    }
+
+    /**
+     * @gir-type Class
+     */
+    class DOMHTMLMetaElement extends DOMHTMLElement implements DOMEventTarget {
+        static $gtype: GObject.GType<DOMHTMLMetaElement>;
+
+        // Properties
+        get content(): string;
+        set content(val: string);
+
+        get http_equiv(): string;
+        set http_equiv(val: string);
+
+        get httpEquiv(): string;
+        set httpEquiv(val: string);
+
+        get name(): string;
+        set name(val: string);
+
+        get scheme(): string;
+        set scheme(val: string);
+
+        /**
+         * Compile-time signal type information.
+         *
+         * This instance property is generated only for TypeScript type checking.
+         * It is not defined at runtime and should not be accessed in JS code.
+         * @internal
+         */
+        $signals: DOMHTMLMetaElement.SignalSignatures;
+
+        // Constructors
+        constructor(properties?: Partial<DOMHTMLMetaElement.ConstructorProps>, ...args: any[]);
+
+        _init(...args: any[]): void;
+
+        // Signals
+        /** @signal */
+        connect<K extends keyof DOMHTMLMetaElement.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, DOMHTMLMetaElement.SignalSignatures[K]>): number;
+
+        /** @signal */
+        connect_after<K extends keyof DOMHTMLMetaElement.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, DOMHTMLMetaElement.SignalSignatures[K]>): number;
+
+        /** @signal */
+        emit<K extends keyof DOMHTMLMetaElement.SignalSignatures>(signal: K, ...args: GObject.GjsParameters<DOMHTMLMetaElement.SignalSignatures[K]>): void;
+
+        // Methods
+        /**
+         * @returns A `gchar`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_content(): string;
+
+        /**
+         * @returns A `gchar`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_http_equiv(): string;
+
+        /**
+         * @returns A `gchar`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_name(): string;
+
+        /**
+         * @returns A `gchar`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_scheme(): string;
+
+        /**
+         * @param value A `gchar`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        set_content(value: string): void;
+
+        /**
+         * @param value A `gchar`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        set_http_equiv(value: string): void;
+
+        /**
+         * @param value A `gchar`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        set_name(value: string): void;
+
+        /**
+         * @param value A `gchar`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        set_scheme(value: string): void;
+    }
+
+
+    namespace DOMHTMLModElement {
+        // Signal signatures
+        interface SignalSignatures extends DOMHTMLElement.SignalSignatures {
+            "notify::cite": (pspec: GObject.ParamSpec) => void;
+            "notify::date-time": (pspec: GObject.ParamSpec) => void;
+            "notify::access-key": (pspec: GObject.ParamSpec) => void;
+            "notify::content-editable": (pspec: GObject.ParamSpec) => void;
+            "notify::dir": (pspec: GObject.ParamSpec) => void;
+            "notify::draggable": (pspec: GObject.ParamSpec) => void;
+            "notify::hidden": (pspec: GObject.ParamSpec) => void;
+            "notify::inner-text": (pspec: GObject.ParamSpec) => void;
+            "notify::is-content-editable": (pspec: GObject.ParamSpec) => void;
+            "notify::lang": (pspec: GObject.ParamSpec) => void;
+            "notify::outer-text": (pspec: GObject.ParamSpec) => void;
+            "notify::spellcheck": (pspec: GObject.ParamSpec) => void;
+            "notify::tab-index": (pspec: GObject.ParamSpec) => void;
+            "notify::title": (pspec: GObject.ParamSpec) => void;
+            "notify::translate": (pspec: GObject.ParamSpec) => void;
+            "notify::webkitdropzone": (pspec: GObject.ParamSpec) => void;
+            "notify::attributes": (pspec: GObject.ParamSpec) => void;
+            "notify::child-element-count": (pspec: GObject.ParamSpec) => void;
+            "notify::children": (pspec: GObject.ParamSpec) => void;
+            "notify::class-list": (pspec: GObject.ParamSpec) => void;
+            "notify::class-name": (pspec: GObject.ParamSpec) => void;
+            "notify::client-height": (pspec: GObject.ParamSpec) => void;
+            "notify::client-left": (pspec: GObject.ParamSpec) => void;
+            "notify::client-top": (pspec: GObject.ParamSpec) => void;
+            "notify::client-width": (pspec: GObject.ParamSpec) => void;
+            "notify::first-element-child": (pspec: GObject.ParamSpec) => void;
+            "notify::id": (pspec: GObject.ParamSpec) => void;
+            "notify::inner-html": (pspec: GObject.ParamSpec) => void;
+            "notify::last-element-child": (pspec: GObject.ParamSpec) => void;
+            "notify::local-name": (pspec: GObject.ParamSpec) => void;
+            "notify::namespace-uri": (pspec: GObject.ParamSpec) => void;
+            "notify::next-element-sibling": (pspec: GObject.ParamSpec) => void;
+            "notify::offset-height": (pspec: GObject.ParamSpec) => void;
+            "notify::offset-left": (pspec: GObject.ParamSpec) => void;
+            "notify::offset-parent": (pspec: GObject.ParamSpec) => void;
+            "notify::offset-top": (pspec: GObject.ParamSpec) => void;
+            "notify::offset-width": (pspec: GObject.ParamSpec) => void;
+            "notify::outer-html": (pspec: GObject.ParamSpec) => void;
+            "notify::prefix": (pspec: GObject.ParamSpec) => void;
+            "notify::previous-element-sibling": (pspec: GObject.ParamSpec) => void;
+            "notify::scroll-height": (pspec: GObject.ParamSpec) => void;
+            "notify::scroll-left": (pspec: GObject.ParamSpec) => void;
+            "notify::scroll-top": (pspec: GObject.ParamSpec) => void;
+            "notify::scroll-width": (pspec: GObject.ParamSpec) => void;
+            "notify::style": (pspec: GObject.ParamSpec) => void;
+            "notify::tag-name": (pspec: GObject.ParamSpec) => void;
+            "notify::webkit-region-overset": (pspec: GObject.ParamSpec) => void;
+            "notify::base-uri": (pspec: GObject.ParamSpec) => void;
+            "notify::child-nodes": (pspec: GObject.ParamSpec) => void;
+            "notify::first-child": (pspec: GObject.ParamSpec) => void;
+            "notify::last-child": (pspec: GObject.ParamSpec) => void;
+            "notify::next-sibling": (pspec: GObject.ParamSpec) => void;
+            "notify::node-name": (pspec: GObject.ParamSpec) => void;
+            "notify::node-type": (pspec: GObject.ParamSpec) => void;
+            "notify::node-value": (pspec: GObject.ParamSpec) => void;
+            "notify::owner-document": (pspec: GObject.ParamSpec) => void;
+            "notify::parent-element": (pspec: GObject.ParamSpec) => void;
+            "notify::parent-node": (pspec: GObject.ParamSpec) => void;
+            "notify::previous-sibling": (pspec: GObject.ParamSpec) => void;
+            "notify::text-content": (pspec: GObject.ParamSpec) => void;
+            "notify::core-object": (pspec: GObject.ParamSpec) => void;
+        }
+
+        // Constructor properties interface
+        interface ConstructorProps extends DOMHTMLElement.ConstructorProps, DOMEventTarget.ConstructorProps {
+            cite: string;
+            date_time: string;
+            dateTime: string;
+        }
+    }
+
+    /**
+     * @gir-type Class
+     */
+    class DOMHTMLModElement extends DOMHTMLElement implements DOMEventTarget {
+        static $gtype: GObject.GType<DOMHTMLModElement>;
+
+        // Properties
+        get cite(): string;
+        set cite(val: string);
+
+        get date_time(): string;
+        set date_time(val: string);
+
+        get dateTime(): string;
+        set dateTime(val: string);
+
+        /**
+         * Compile-time signal type information.
+         *
+         * This instance property is generated only for TypeScript type checking.
+         * It is not defined at runtime and should not be accessed in JS code.
+         * @internal
+         */
+        $signals: DOMHTMLModElement.SignalSignatures;
+
+        // Constructors
+        constructor(properties?: Partial<DOMHTMLModElement.ConstructorProps>, ...args: any[]);
+
+        _init(...args: any[]): void;
+
+        // Signals
+        /** @signal */
+        connect<K extends keyof DOMHTMLModElement.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, DOMHTMLModElement.SignalSignatures[K]>): number;
+
+        /** @signal */
+        connect_after<K extends keyof DOMHTMLModElement.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, DOMHTMLModElement.SignalSignatures[K]>): number;
+
+        /** @signal */
+        emit<K extends keyof DOMHTMLModElement.SignalSignatures>(signal: K, ...args: GObject.GjsParameters<DOMHTMLModElement.SignalSignatures[K]>): void;
+
+        // Methods
+        /**
+         * @returns A `gchar`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_cite(): string;
+
+        /**
+         * @returns A `gchar`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_date_time(): string;
+
+        /**
+         * @param value A `gchar`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        set_cite(value: string): void;
+
+        /**
+         * @param value A `gchar`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        set_date_time(value: string): void;
+    }
+
+
+    namespace DOMHTMLOListElement {
+        // Signal signatures
+        interface SignalSignatures extends DOMHTMLElement.SignalSignatures {
+            "notify::compact": (pspec: GObject.ParamSpec) => void;
+            "notify::start": (pspec: GObject.ParamSpec) => void;
+            "notify::type": (pspec: GObject.ParamSpec) => void;
+            "notify::access-key": (pspec: GObject.ParamSpec) => void;
+            "notify::content-editable": (pspec: GObject.ParamSpec) => void;
+            "notify::dir": (pspec: GObject.ParamSpec) => void;
+            "notify::draggable": (pspec: GObject.ParamSpec) => void;
+            "notify::hidden": (pspec: GObject.ParamSpec) => void;
+            "notify::inner-text": (pspec: GObject.ParamSpec) => void;
+            "notify::is-content-editable": (pspec: GObject.ParamSpec) => void;
+            "notify::lang": (pspec: GObject.ParamSpec) => void;
+            "notify::outer-text": (pspec: GObject.ParamSpec) => void;
+            "notify::spellcheck": (pspec: GObject.ParamSpec) => void;
+            "notify::tab-index": (pspec: GObject.ParamSpec) => void;
+            "notify::title": (pspec: GObject.ParamSpec) => void;
+            "notify::translate": (pspec: GObject.ParamSpec) => void;
+            "notify::webkitdropzone": (pspec: GObject.ParamSpec) => void;
+            "notify::attributes": (pspec: GObject.ParamSpec) => void;
+            "notify::child-element-count": (pspec: GObject.ParamSpec) => void;
+            "notify::children": (pspec: GObject.ParamSpec) => void;
+            "notify::class-list": (pspec: GObject.ParamSpec) => void;
+            "notify::class-name": (pspec: GObject.ParamSpec) => void;
+            "notify::client-height": (pspec: GObject.ParamSpec) => void;
+            "notify::client-left": (pspec: GObject.ParamSpec) => void;
+            "notify::client-top": (pspec: GObject.ParamSpec) => void;
+            "notify::client-width": (pspec: GObject.ParamSpec) => void;
+            "notify::first-element-child": (pspec: GObject.ParamSpec) => void;
+            "notify::id": (pspec: GObject.ParamSpec) => void;
+            "notify::inner-html": (pspec: GObject.ParamSpec) => void;
+            "notify::last-element-child": (pspec: GObject.ParamSpec) => void;
+            "notify::local-name": (pspec: GObject.ParamSpec) => void;
+            "notify::namespace-uri": (pspec: GObject.ParamSpec) => void;
+            "notify::next-element-sibling": (pspec: GObject.ParamSpec) => void;
+            "notify::offset-height": (pspec: GObject.ParamSpec) => void;
+            "notify::offset-left": (pspec: GObject.ParamSpec) => void;
+            "notify::offset-parent": (pspec: GObject.ParamSpec) => void;
+            "notify::offset-top": (pspec: GObject.ParamSpec) => void;
+            "notify::offset-width": (pspec: GObject.ParamSpec) => void;
+            "notify::outer-html": (pspec: GObject.ParamSpec) => void;
+            "notify::prefix": (pspec: GObject.ParamSpec) => void;
+            "notify::previous-element-sibling": (pspec: GObject.ParamSpec) => void;
+            "notify::scroll-height": (pspec: GObject.ParamSpec) => void;
+            "notify::scroll-left": (pspec: GObject.ParamSpec) => void;
+            "notify::scroll-top": (pspec: GObject.ParamSpec) => void;
+            "notify::scroll-width": (pspec: GObject.ParamSpec) => void;
+            "notify::style": (pspec: GObject.ParamSpec) => void;
+            "notify::tag-name": (pspec: GObject.ParamSpec) => void;
+            "notify::webkit-region-overset": (pspec: GObject.ParamSpec) => void;
+            "notify::base-uri": (pspec: GObject.ParamSpec) => void;
+            "notify::child-nodes": (pspec: GObject.ParamSpec) => void;
+            "notify::first-child": (pspec: GObject.ParamSpec) => void;
+            "notify::last-child": (pspec: GObject.ParamSpec) => void;
+            "notify::next-sibling": (pspec: GObject.ParamSpec) => void;
+            "notify::node-name": (pspec: GObject.ParamSpec) => void;
+            "notify::node-type": (pspec: GObject.ParamSpec) => void;
+            "notify::node-value": (pspec: GObject.ParamSpec) => void;
+            "notify::owner-document": (pspec: GObject.ParamSpec) => void;
+            "notify::parent-element": (pspec: GObject.ParamSpec) => void;
+            "notify::parent-node": (pspec: GObject.ParamSpec) => void;
+            "notify::previous-sibling": (pspec: GObject.ParamSpec) => void;
+            "notify::text-content": (pspec: GObject.ParamSpec) => void;
+            "notify::core-object": (pspec: GObject.ParamSpec) => void;
+        }
+
+        // Constructor properties interface
+        interface ConstructorProps extends DOMHTMLElement.ConstructorProps, DOMEventTarget.ConstructorProps {
+            compact: boolean;
+            start: bigint | number;
+            type: string;
+        }
+    }
+
+    /**
+     * @gir-type Class
+     */
+    class DOMHTMLOListElement extends DOMHTMLElement implements DOMEventTarget {
+        static $gtype: GObject.GType<DOMHTMLOListElement>;
+
+        // Properties
+        /**
+         * @default false
+         */
+        get compact(): boolean;
+        set compact(val: boolean);
+
+        /**
+         * @default 0
+         */
+        get start(): number;
+        set start(val: bigint | number);
+
+        get type(): string;
+        set type(val: string);
+
+        /**
+         * Compile-time signal type information.
+         *
+         * This instance property is generated only for TypeScript type checking.
+         * It is not defined at runtime and should not be accessed in JS code.
+         * @internal
+         */
+        $signals: DOMHTMLOListElement.SignalSignatures;
+
+        // Constructors
+        constructor(properties?: Partial<DOMHTMLOListElement.ConstructorProps>, ...args: any[]);
+
+        _init(...args: any[]): void;
+
+        // Signals
+        /** @signal */
+        connect<K extends keyof DOMHTMLOListElement.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, DOMHTMLOListElement.SignalSignatures[K]>): number;
+
+        /** @signal */
+        connect_after<K extends keyof DOMHTMLOListElement.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, DOMHTMLOListElement.SignalSignatures[K]>): number;
+
+        /** @signal */
+        emit<K extends keyof DOMHTMLOListElement.SignalSignatures>(signal: K, ...args: GObject.GjsParameters<DOMHTMLOListElement.SignalSignatures[K]>): void;
+
+        // Methods
+        /**
+         * @returns A `gboolean`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_compact(): boolean;
+
+        /**
+         * @returns A `glong`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_start(): number;
+
+        /**
+         * @returns A `gchar`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_type_attr(): string;
+
+        /**
+         * @param value A `gboolean`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        set_compact(value: boolean): void;
+
+        /**
+         * @param value A `glong`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        set_start(value: bigint | number): void;
+
+        /**
+         * @param value A `gchar`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        set_type_attr(value: string): void;
+    }
+
+
+    namespace DOMHTMLObjectElement {
+        // Signal signatures
+        interface SignalSignatures extends DOMHTMLElement.SignalSignatures {
+            "notify::align": (pspec: GObject.ParamSpec) => void;
+            "notify::archive": (pspec: GObject.ParamSpec) => void;
+            "notify::border": (pspec: GObject.ParamSpec) => void;
+            "notify::code": (pspec: GObject.ParamSpec) => void;
+            "notify::code-base": (pspec: GObject.ParamSpec) => void;
+            "notify::code-type": (pspec: GObject.ParamSpec) => void;
+            "notify::content-document": (pspec: GObject.ParamSpec) => void;
+            "notify::data": (pspec: GObject.ParamSpec) => void;
+            "notify::declare": (pspec: GObject.ParamSpec) => void;
+            "notify::form": (pspec: GObject.ParamSpec) => void;
+            "notify::height": (pspec: GObject.ParamSpec) => void;
+            "notify::hspace": (pspec: GObject.ParamSpec) => void;
+            "notify::name": (pspec: GObject.ParamSpec) => void;
+            "notify::standby": (pspec: GObject.ParamSpec) => void;
+            "notify::type": (pspec: GObject.ParamSpec) => void;
+            "notify::use-map": (pspec: GObject.ParamSpec) => void;
+            "notify::vspace": (pspec: GObject.ParamSpec) => void;
+            "notify::width": (pspec: GObject.ParamSpec) => void;
+            "notify::access-key": (pspec: GObject.ParamSpec) => void;
+            "notify::content-editable": (pspec: GObject.ParamSpec) => void;
+            "notify::dir": (pspec: GObject.ParamSpec) => void;
+            "notify::draggable": (pspec: GObject.ParamSpec) => void;
+            "notify::hidden": (pspec: GObject.ParamSpec) => void;
+            "notify::inner-text": (pspec: GObject.ParamSpec) => void;
+            "notify::is-content-editable": (pspec: GObject.ParamSpec) => void;
+            "notify::lang": (pspec: GObject.ParamSpec) => void;
+            "notify::outer-text": (pspec: GObject.ParamSpec) => void;
+            "notify::spellcheck": (pspec: GObject.ParamSpec) => void;
+            "notify::tab-index": (pspec: GObject.ParamSpec) => void;
+            "notify::title": (pspec: GObject.ParamSpec) => void;
+            "notify::translate": (pspec: GObject.ParamSpec) => void;
+            "notify::webkitdropzone": (pspec: GObject.ParamSpec) => void;
+            "notify::attributes": (pspec: GObject.ParamSpec) => void;
+            "notify::child-element-count": (pspec: GObject.ParamSpec) => void;
+            "notify::children": (pspec: GObject.ParamSpec) => void;
+            "notify::class-list": (pspec: GObject.ParamSpec) => void;
+            "notify::class-name": (pspec: GObject.ParamSpec) => void;
+            "notify::client-height": (pspec: GObject.ParamSpec) => void;
+            "notify::client-left": (pspec: GObject.ParamSpec) => void;
+            "notify::client-top": (pspec: GObject.ParamSpec) => void;
+            "notify::client-width": (pspec: GObject.ParamSpec) => void;
+            "notify::first-element-child": (pspec: GObject.ParamSpec) => void;
+            "notify::id": (pspec: GObject.ParamSpec) => void;
+            "notify::inner-html": (pspec: GObject.ParamSpec) => void;
+            "notify::last-element-child": (pspec: GObject.ParamSpec) => void;
+            "notify::local-name": (pspec: GObject.ParamSpec) => void;
+            "notify::namespace-uri": (pspec: GObject.ParamSpec) => void;
+            "notify::next-element-sibling": (pspec: GObject.ParamSpec) => void;
+            "notify::offset-height": (pspec: GObject.ParamSpec) => void;
+            "notify::offset-left": (pspec: GObject.ParamSpec) => void;
+            "notify::offset-parent": (pspec: GObject.ParamSpec) => void;
+            "notify::offset-top": (pspec: GObject.ParamSpec) => void;
+            "notify::offset-width": (pspec: GObject.ParamSpec) => void;
+            "notify::outer-html": (pspec: GObject.ParamSpec) => void;
+            "notify::prefix": (pspec: GObject.ParamSpec) => void;
+            "notify::previous-element-sibling": (pspec: GObject.ParamSpec) => void;
+            "notify::scroll-height": (pspec: GObject.ParamSpec) => void;
+            "notify::scroll-left": (pspec: GObject.ParamSpec) => void;
+            "notify::scroll-top": (pspec: GObject.ParamSpec) => void;
+            "notify::scroll-width": (pspec: GObject.ParamSpec) => void;
+            "notify::style": (pspec: GObject.ParamSpec) => void;
+            "notify::tag-name": (pspec: GObject.ParamSpec) => void;
+            "notify::webkit-region-overset": (pspec: GObject.ParamSpec) => void;
+            "notify::base-uri": (pspec: GObject.ParamSpec) => void;
+            "notify::child-nodes": (pspec: GObject.ParamSpec) => void;
+            "notify::first-child": (pspec: GObject.ParamSpec) => void;
+            "notify::last-child": (pspec: GObject.ParamSpec) => void;
+            "notify::next-sibling": (pspec: GObject.ParamSpec) => void;
+            "notify::node-name": (pspec: GObject.ParamSpec) => void;
+            "notify::node-type": (pspec: GObject.ParamSpec) => void;
+            "notify::node-value": (pspec: GObject.ParamSpec) => void;
+            "notify::owner-document": (pspec: GObject.ParamSpec) => void;
+            "notify::parent-element": (pspec: GObject.ParamSpec) => void;
+            "notify::parent-node": (pspec: GObject.ParamSpec) => void;
+            "notify::previous-sibling": (pspec: GObject.ParamSpec) => void;
+            "notify::text-content": (pspec: GObject.ParamSpec) => void;
+            "notify::core-object": (pspec: GObject.ParamSpec) => void;
+        }
+
+        // Constructor properties interface
+        interface ConstructorProps extends DOMHTMLElement.ConstructorProps, DOMEventTarget.ConstructorProps {
+            align: string;
+            archive: string;
+            border: string;
+            code: string;
+            code_base: string;
+            codeBase: string;
+            code_type: string;
+            codeType: string;
+            content_document: DOMDocument;
+            contentDocument: DOMDocument;
+            data: string;
+            declare: boolean;
+            form: DOMHTMLFormElement;
+            height: string;
+            hspace: bigint | number;
+            name: string;
+            standby: string;
+            type: string;
+            use_map: string;
+            useMap: string;
+            vspace: bigint | number;
+            width: string;
+        }
+    }
+
+    /**
+     * @gir-type Class
+     */
+    class DOMHTMLObjectElement extends DOMHTMLElement implements DOMEventTarget {
+        static $gtype: GObject.GType<DOMHTMLObjectElement>;
+
+        // Properties
+        get align(): string;
+        set align(val: string);
+
+        get archive(): string;
+        set archive(val: string);
+
+        get border(): string;
+        set border(val: string);
+
+        get code(): string;
+        set code(val: string);
+
+        get code_base(): string;
+        set code_base(val: string);
+
+        get codeBase(): string;
+        set codeBase(val: string);
+
+        get code_type(): string;
+        set code_type(val: string);
+
+        get codeType(): string;
+        set codeType(val: string);
+
+        /**
+         * @read-only
+         */
+        get content_document(): DOMDocument;
+
+        /**
+         * @read-only
+         */
+        get contentDocument(): DOMDocument;
+
+        get data(): string;
+        set data(val: string);
+
+        /**
+         * @default false
+         */
+        get declare(): boolean;
+        set declare(val: boolean);
+
+        /**
+         * @read-only
+         */
+        get form(): DOMHTMLFormElement;
+
+        get height(): string;
+        set height(val: string);
+
+        /**
+         * @default 0
+         */
+        get hspace(): number;
+        set hspace(val: bigint | number);
+
+        get name(): string;
+        set name(val: string);
+
+        get standby(): string;
+        set standby(val: string);
+
+        get type(): string;
+        set type(val: string);
+
+        get use_map(): string;
+        set use_map(val: string);
+
+        get useMap(): string;
+        set useMap(val: string);
+
+        /**
+         * @default 0
+         */
+        get vspace(): number;
+        set vspace(val: bigint | number);
+
+        get width(): string;
+        set width(val: string);
+
+        /**
+         * Compile-time signal type information.
+         *
+         * This instance property is generated only for TypeScript type checking.
+         * It is not defined at runtime and should not be accessed in JS code.
+         * @internal
+         */
+        $signals: DOMHTMLObjectElement.SignalSignatures;
+
+        // Constructors
+        constructor(properties?: Partial<DOMHTMLObjectElement.ConstructorProps>, ...args: any[]);
+
+        _init(...args: any[]): void;
+
+        // Signals
+        /** @signal */
+        connect<K extends keyof DOMHTMLObjectElement.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, DOMHTMLObjectElement.SignalSignatures[K]>): number;
+
+        /** @signal */
+        connect_after<K extends keyof DOMHTMLObjectElement.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, DOMHTMLObjectElement.SignalSignatures[K]>): number;
+
+        /** @signal */
+        emit<K extends keyof DOMHTMLObjectElement.SignalSignatures>(signal: K, ...args: GObject.GjsParameters<DOMHTMLObjectElement.SignalSignatures[K]>): void;
+
+        // Methods
+        /**
+         * @returns A `gchar`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_align(): string;
+
+        /**
+         * @returns A `gchar`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_archive(): string;
+
+        /**
+         * @returns A `gchar`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_border(): string;
+
+        /**
+         * @returns A `gchar`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_code(): string;
+
+        /**
+         * @returns A `gchar`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_code_base(): string;
+
+        /**
+         * @returns A `gchar`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_code_type(): string;
+
+        /**
+         * @returns A {@link WebKit2WebExtension.DOMDocument}
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_content_document(): DOMDocument;
+
+        /**
+         * @returns A `gchar`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_data(): string;
+
+        /**
+         * @param args 
+         */
+    // Conflicted with GObject.Object.get_data
+        get_data(...args: never[]): any;
+
+        /**
+         * @returns A `gboolean`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_declare(): boolean;
+
+        /**
+         * @returns A {@link WebKit2WebExtension.DOMHTMLFormElement}
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_form(): DOMHTMLFormElement;
+
+        /**
+         * @returns A `gchar`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_height(): string;
+
+        /**
+         * @returns A `glong`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_hspace(): number;
+
+        /**
+         * @returns A `gchar`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_name(): string;
+
+        /**
+         * @returns A `gchar`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_standby(): string;
+
+        /**
+         * @returns A `gchar`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_type_attr(): string;
+
+        /**
+         * @returns A `gchar`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_use_map(): string;
+
+        /**
+         * @returns A `glong`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_vspace(): number;
+
+        /**
+         * @returns A `gchar`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_width(): string;
+
+        /**
+         * @param value A `gchar`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        set_align(value: string): void;
+
+        /**
+         * @param value A `gchar`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        set_archive(value: string): void;
+
+        /**
+         * @param value A `gchar`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        set_border(value: string): void;
+
+        /**
+         * @param value A `gchar`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        set_code(value: string): void;
+
+        /**
+         * @param value A `gchar`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        set_code_base(value: string): void;
+
+        /**
+         * @param value A `gchar`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        set_code_type(value: string): void;
+
+        /**
+         * @param value A `gchar`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        set_data(value: string): void;
+
+        /**
+         * @param value A `gboolean`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        set_declare(value: boolean): void;
+
+        /**
+         * @param value A `gchar`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        set_height(value: string): void;
+
+        /**
+         * @param value A `glong`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        set_hspace(value: bigint | number): void;
+
+        /**
+         * @param value A `gchar`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        set_name(value: string): void;
+
+        /**
+         * @param value A `gchar`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        set_standby(value: string): void;
+
+        /**
+         * @param value A `gchar`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        set_type_attr(value: string): void;
+
+        /**
+         * @param value A `gchar`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        set_use_map(value: string): void;
+
+        /**
+         * @param value A `glong`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        set_vspace(value: bigint | number): void;
+
+        /**
+         * @param value A `gchar`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        set_width(value: string): void;
+    }
+
+
+    namespace DOMHTMLOptGroupElement {
+        // Signal signatures
+        interface SignalSignatures extends DOMHTMLElement.SignalSignatures {
+            "notify::disabled": (pspec: GObject.ParamSpec) => void;
+            "notify::label": (pspec: GObject.ParamSpec) => void;
+            "notify::access-key": (pspec: GObject.ParamSpec) => void;
+            "notify::content-editable": (pspec: GObject.ParamSpec) => void;
+            "notify::dir": (pspec: GObject.ParamSpec) => void;
+            "notify::draggable": (pspec: GObject.ParamSpec) => void;
+            "notify::hidden": (pspec: GObject.ParamSpec) => void;
+            "notify::inner-text": (pspec: GObject.ParamSpec) => void;
+            "notify::is-content-editable": (pspec: GObject.ParamSpec) => void;
+            "notify::lang": (pspec: GObject.ParamSpec) => void;
+            "notify::outer-text": (pspec: GObject.ParamSpec) => void;
+            "notify::spellcheck": (pspec: GObject.ParamSpec) => void;
+            "notify::tab-index": (pspec: GObject.ParamSpec) => void;
+            "notify::title": (pspec: GObject.ParamSpec) => void;
+            "notify::translate": (pspec: GObject.ParamSpec) => void;
+            "notify::webkitdropzone": (pspec: GObject.ParamSpec) => void;
+            "notify::attributes": (pspec: GObject.ParamSpec) => void;
+            "notify::child-element-count": (pspec: GObject.ParamSpec) => void;
+            "notify::children": (pspec: GObject.ParamSpec) => void;
+            "notify::class-list": (pspec: GObject.ParamSpec) => void;
+            "notify::class-name": (pspec: GObject.ParamSpec) => void;
+            "notify::client-height": (pspec: GObject.ParamSpec) => void;
+            "notify::client-left": (pspec: GObject.ParamSpec) => void;
+            "notify::client-top": (pspec: GObject.ParamSpec) => void;
+            "notify::client-width": (pspec: GObject.ParamSpec) => void;
+            "notify::first-element-child": (pspec: GObject.ParamSpec) => void;
+            "notify::id": (pspec: GObject.ParamSpec) => void;
+            "notify::inner-html": (pspec: GObject.ParamSpec) => void;
+            "notify::last-element-child": (pspec: GObject.ParamSpec) => void;
+            "notify::local-name": (pspec: GObject.ParamSpec) => void;
+            "notify::namespace-uri": (pspec: GObject.ParamSpec) => void;
+            "notify::next-element-sibling": (pspec: GObject.ParamSpec) => void;
+            "notify::offset-height": (pspec: GObject.ParamSpec) => void;
+            "notify::offset-left": (pspec: GObject.ParamSpec) => void;
+            "notify::offset-parent": (pspec: GObject.ParamSpec) => void;
+            "notify::offset-top": (pspec: GObject.ParamSpec) => void;
+            "notify::offset-width": (pspec: GObject.ParamSpec) => void;
+            "notify::outer-html": (pspec: GObject.ParamSpec) => void;
+            "notify::prefix": (pspec: GObject.ParamSpec) => void;
+            "notify::previous-element-sibling": (pspec: GObject.ParamSpec) => void;
+            "notify::scroll-height": (pspec: GObject.ParamSpec) => void;
+            "notify::scroll-left": (pspec: GObject.ParamSpec) => void;
+            "notify::scroll-top": (pspec: GObject.ParamSpec) => void;
+            "notify::scroll-width": (pspec: GObject.ParamSpec) => void;
+            "notify::style": (pspec: GObject.ParamSpec) => void;
+            "notify::tag-name": (pspec: GObject.ParamSpec) => void;
+            "notify::webkit-region-overset": (pspec: GObject.ParamSpec) => void;
+            "notify::base-uri": (pspec: GObject.ParamSpec) => void;
+            "notify::child-nodes": (pspec: GObject.ParamSpec) => void;
+            "notify::first-child": (pspec: GObject.ParamSpec) => void;
+            "notify::last-child": (pspec: GObject.ParamSpec) => void;
+            "notify::next-sibling": (pspec: GObject.ParamSpec) => void;
+            "notify::node-name": (pspec: GObject.ParamSpec) => void;
+            "notify::node-type": (pspec: GObject.ParamSpec) => void;
+            "notify::node-value": (pspec: GObject.ParamSpec) => void;
+            "notify::owner-document": (pspec: GObject.ParamSpec) => void;
+            "notify::parent-element": (pspec: GObject.ParamSpec) => void;
+            "notify::parent-node": (pspec: GObject.ParamSpec) => void;
+            "notify::previous-sibling": (pspec: GObject.ParamSpec) => void;
+            "notify::text-content": (pspec: GObject.ParamSpec) => void;
+            "notify::core-object": (pspec: GObject.ParamSpec) => void;
+        }
+
+        // Constructor properties interface
+        interface ConstructorProps extends DOMHTMLElement.ConstructorProps, DOMEventTarget.ConstructorProps {
+            disabled: boolean;
+            label: string;
+        }
+    }
+
+    /**
+     * @gir-type Class
+     */
+    class DOMHTMLOptGroupElement extends DOMHTMLElement implements DOMEventTarget {
+        static $gtype: GObject.GType<DOMHTMLOptGroupElement>;
+
+        // Properties
+        /**
+         * @default false
+         */
+        get disabled(): boolean;
+        set disabled(val: boolean);
+
+        get label(): string;
+        set label(val: string);
+
+        /**
+         * Compile-time signal type information.
+         *
+         * This instance property is generated only for TypeScript type checking.
+         * It is not defined at runtime and should not be accessed in JS code.
+         * @internal
+         */
+        $signals: DOMHTMLOptGroupElement.SignalSignatures;
+
+        // Constructors
+        constructor(properties?: Partial<DOMHTMLOptGroupElement.ConstructorProps>, ...args: any[]);
+
+        _init(...args: any[]): void;
+
+        // Signals
+        /** @signal */
+        connect<K extends keyof DOMHTMLOptGroupElement.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, DOMHTMLOptGroupElement.SignalSignatures[K]>): number;
+
+        /** @signal */
+        connect_after<K extends keyof DOMHTMLOptGroupElement.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, DOMHTMLOptGroupElement.SignalSignatures[K]>): number;
+
+        /** @signal */
+        emit<K extends keyof DOMHTMLOptGroupElement.SignalSignatures>(signal: K, ...args: GObject.GjsParameters<DOMHTMLOptGroupElement.SignalSignatures[K]>): void;
+
+        // Methods
+        /**
+         * @returns A `gboolean`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_disabled(): boolean;
+
+        /**
+         * @returns A `gchar`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_label(): string;
+
+        /**
+         * @param value A `gboolean`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        set_disabled(value: boolean): void;
+
+        /**
+         * @param value A `gchar`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        set_label(value: string): void;
+    }
+
+
+    namespace DOMHTMLOptionElement {
+        // Signal signatures
+        interface SignalSignatures extends DOMHTMLElement.SignalSignatures {
+            "notify::default-selected": (pspec: GObject.ParamSpec) => void;
+            "notify::disabled": (pspec: GObject.ParamSpec) => void;
+            "notify::form": (pspec: GObject.ParamSpec) => void;
+            "notify::index": (pspec: GObject.ParamSpec) => void;
+            "notify::label": (pspec: GObject.ParamSpec) => void;
+            "notify::selected": (pspec: GObject.ParamSpec) => void;
+            "notify::text": (pspec: GObject.ParamSpec) => void;
+            "notify::value": (pspec: GObject.ParamSpec) => void;
+            "notify::access-key": (pspec: GObject.ParamSpec) => void;
+            "notify::content-editable": (pspec: GObject.ParamSpec) => void;
+            "notify::dir": (pspec: GObject.ParamSpec) => void;
+            "notify::draggable": (pspec: GObject.ParamSpec) => void;
+            "notify::hidden": (pspec: GObject.ParamSpec) => void;
+            "notify::inner-text": (pspec: GObject.ParamSpec) => void;
+            "notify::is-content-editable": (pspec: GObject.ParamSpec) => void;
+            "notify::lang": (pspec: GObject.ParamSpec) => void;
+            "notify::outer-text": (pspec: GObject.ParamSpec) => void;
+            "notify::spellcheck": (pspec: GObject.ParamSpec) => void;
+            "notify::tab-index": (pspec: GObject.ParamSpec) => void;
+            "notify::title": (pspec: GObject.ParamSpec) => void;
+            "notify::translate": (pspec: GObject.ParamSpec) => void;
+            "notify::webkitdropzone": (pspec: GObject.ParamSpec) => void;
+            "notify::attributes": (pspec: GObject.ParamSpec) => void;
+            "notify::child-element-count": (pspec: GObject.ParamSpec) => void;
+            "notify::children": (pspec: GObject.ParamSpec) => void;
+            "notify::class-list": (pspec: GObject.ParamSpec) => void;
+            "notify::class-name": (pspec: GObject.ParamSpec) => void;
+            "notify::client-height": (pspec: GObject.ParamSpec) => void;
+            "notify::client-left": (pspec: GObject.ParamSpec) => void;
+            "notify::client-top": (pspec: GObject.ParamSpec) => void;
+            "notify::client-width": (pspec: GObject.ParamSpec) => void;
+            "notify::first-element-child": (pspec: GObject.ParamSpec) => void;
+            "notify::id": (pspec: GObject.ParamSpec) => void;
+            "notify::inner-html": (pspec: GObject.ParamSpec) => void;
+            "notify::last-element-child": (pspec: GObject.ParamSpec) => void;
+            "notify::local-name": (pspec: GObject.ParamSpec) => void;
+            "notify::namespace-uri": (pspec: GObject.ParamSpec) => void;
+            "notify::next-element-sibling": (pspec: GObject.ParamSpec) => void;
+            "notify::offset-height": (pspec: GObject.ParamSpec) => void;
+            "notify::offset-left": (pspec: GObject.ParamSpec) => void;
+            "notify::offset-parent": (pspec: GObject.ParamSpec) => void;
+            "notify::offset-top": (pspec: GObject.ParamSpec) => void;
+            "notify::offset-width": (pspec: GObject.ParamSpec) => void;
+            "notify::outer-html": (pspec: GObject.ParamSpec) => void;
+            "notify::prefix": (pspec: GObject.ParamSpec) => void;
+            "notify::previous-element-sibling": (pspec: GObject.ParamSpec) => void;
+            "notify::scroll-height": (pspec: GObject.ParamSpec) => void;
+            "notify::scroll-left": (pspec: GObject.ParamSpec) => void;
+            "notify::scroll-top": (pspec: GObject.ParamSpec) => void;
+            "notify::scroll-width": (pspec: GObject.ParamSpec) => void;
+            "notify::style": (pspec: GObject.ParamSpec) => void;
+            "notify::tag-name": (pspec: GObject.ParamSpec) => void;
+            "notify::webkit-region-overset": (pspec: GObject.ParamSpec) => void;
+            "notify::base-uri": (pspec: GObject.ParamSpec) => void;
+            "notify::child-nodes": (pspec: GObject.ParamSpec) => void;
+            "notify::first-child": (pspec: GObject.ParamSpec) => void;
+            "notify::last-child": (pspec: GObject.ParamSpec) => void;
+            "notify::next-sibling": (pspec: GObject.ParamSpec) => void;
+            "notify::node-name": (pspec: GObject.ParamSpec) => void;
+            "notify::node-type": (pspec: GObject.ParamSpec) => void;
+            "notify::node-value": (pspec: GObject.ParamSpec) => void;
+            "notify::owner-document": (pspec: GObject.ParamSpec) => void;
+            "notify::parent-element": (pspec: GObject.ParamSpec) => void;
+            "notify::parent-node": (pspec: GObject.ParamSpec) => void;
+            "notify::previous-sibling": (pspec: GObject.ParamSpec) => void;
+            "notify::text-content": (pspec: GObject.ParamSpec) => void;
+            "notify::core-object": (pspec: GObject.ParamSpec) => void;
+        }
+
+        // Constructor properties interface
+        interface ConstructorProps extends DOMHTMLElement.ConstructorProps, DOMEventTarget.ConstructorProps {
+            default_selected: boolean;
+            defaultSelected: boolean;
+            disabled: boolean;
+            form: DOMHTMLFormElement;
+            index: bigint | number;
+            label: string;
+            selected: boolean;
+            text: string;
+            value: string;
+        }
+    }
+
+    /**
+     * @gir-type Class
+     */
+    class DOMHTMLOptionElement extends DOMHTMLElement implements DOMEventTarget {
+        static $gtype: GObject.GType<DOMHTMLOptionElement>;
+
+        // Properties
+        /**
+         * @default false
+         */
+        get default_selected(): boolean;
+        set default_selected(val: boolean);
+
+        /**
+         * @default false
+         */
+        get defaultSelected(): boolean;
+        set defaultSelected(val: boolean);
+
+        /**
+         * @default false
+         */
+        get disabled(): boolean;
+        set disabled(val: boolean);
+
+        /**
+         * @read-only
+         */
+        get form(): DOMHTMLFormElement;
+
+        /**
+         * @read-only
+         * @default 0
+         */
+        get index(): number;
+
+        get label(): string;
+        set label(val: string);
+
+        /**
+         * @default false
+         */
+        get selected(): boolean;
+        set selected(val: boolean);
+
+        /**
+         * @read-only
+         */
+        get text(): string;
+
+        get value(): string;
+        set value(val: string);
+
+        /**
+         * Compile-time signal type information.
+         *
+         * This instance property is generated only for TypeScript type checking.
+         * It is not defined at runtime and should not be accessed in JS code.
+         * @internal
+         */
+        $signals: DOMHTMLOptionElement.SignalSignatures;
+
+        // Constructors
+        constructor(properties?: Partial<DOMHTMLOptionElement.ConstructorProps>, ...args: any[]);
+
+        _init(...args: any[]): void;
+
+        // Signals
+        /** @signal */
+        connect<K extends keyof DOMHTMLOptionElement.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, DOMHTMLOptionElement.SignalSignatures[K]>): number;
+
+        /** @signal */
+        connect_after<K extends keyof DOMHTMLOptionElement.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, DOMHTMLOptionElement.SignalSignatures[K]>): number;
+
+        /** @signal */
+        emit<K extends keyof DOMHTMLOptionElement.SignalSignatures>(signal: K, ...args: GObject.GjsParameters<DOMHTMLOptionElement.SignalSignatures[K]>): void;
+
+        // Methods
+        /**
+         * @returns A `gboolean`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_default_selected(): boolean;
+
+        /**
+         * @returns A `gboolean`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_disabled(): boolean;
+
+        /**
+         * @returns A {@link WebKit2WebExtension.DOMHTMLFormElement}
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_form(): DOMHTMLFormElement;
+
+        /**
+         * @returns A `glong`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_index(): number;
+
+        /**
+         * @returns A `gchar`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_label(): string;
+
+        /**
+         * @returns A `gboolean`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_selected(): boolean;
+
+        /**
+         * @returns A `gchar`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_text(): string;
+
+        /**
+         * @returns A `gchar`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_value(): string;
+
+        /**
+         * @param value A `gboolean`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        set_default_selected(value: boolean): void;
+
+        /**
+         * @param value A `gboolean`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        set_disabled(value: boolean): void;
+
+        /**
+         * @param value A `gchar`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        set_label(value: string): void;
+
+        /**
+         * @param value A `gboolean`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        set_selected(value: boolean): void;
+
+        /**
+         * @param value A `gchar`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        set_value(value: string): void;
+    }
+
+
+    namespace DOMHTMLOptionsCollection {
+        // Signal signatures
+        interface SignalSignatures extends DOMHTMLCollection.SignalSignatures {
+            "notify::length": (pspec: GObject.ParamSpec) => void;
+            "notify::selected-index": (pspec: GObject.ParamSpec) => void;
+            "notify::core-object": (pspec: GObject.ParamSpec) => void;
+        }
+
+        // Constructor properties interface
+        interface ConstructorProps extends DOMHTMLCollection.ConstructorProps {
+            length: bigint | number;
+            selected_index: bigint | number;
+            selectedIndex: bigint | number;
+        }
+    }
+
+    /**
+     * @gir-type Class
+     */
+    class DOMHTMLOptionsCollection extends DOMHTMLCollection {
+        static $gtype: GObject.GType<DOMHTMLOptionsCollection>;
+
+        // Properties
+        /**
+         * @read-only
+         * @default 0
+         */
+        get length(): number;
+
+        /**
+         * @default 0
+         */
+        get selected_index(): number;
+        set selected_index(val: bigint | number);
+
+        /**
+         * @default 0
+         */
+        get selectedIndex(): number;
+        set selectedIndex(val: bigint | number);
+
+        /**
+         * Compile-time signal type information.
+         *
+         * This instance property is generated only for TypeScript type checking.
+         * It is not defined at runtime and should not be accessed in JS code.
+         * @internal
+         */
+        $signals: DOMHTMLOptionsCollection.SignalSignatures;
+
+        // Constructors
+        constructor(properties?: Partial<DOMHTMLOptionsCollection.ConstructorProps>, ...args: any[]);
+
+        _init(...args: any[]): void;
+
+        // Signals
+        /** @signal */
+        connect<K extends keyof DOMHTMLOptionsCollection.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, DOMHTMLOptionsCollection.SignalSignatures[K]>): number;
+
+        /** @signal */
+        connect_after<K extends keyof DOMHTMLOptionsCollection.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, DOMHTMLOptionsCollection.SignalSignatures[K]>): number;
+
+        /** @signal */
+        emit<K extends keyof DOMHTMLOptionsCollection.SignalSignatures>(signal: K, ...args: GObject.GjsParameters<DOMHTMLOptionsCollection.SignalSignatures[K]>): void;
+
+        // Methods
+        /**
+         * @returns A `gulong`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_length(): number;
+
+        /**
+         * @returns A `glong`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_selected_index(): number;
+
+        /**
+         * @param name A `gchar`
+         * @returns A {@link WebKit2WebExtension.DOMNode}
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        named_item(name: string): DOMNode;
+
+        /**
+         * @param value A `glong`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        set_selected_index(value: bigint | number): void;
+    }
+
+
+    namespace DOMHTMLParagraphElement {
+        // Signal signatures
+        interface SignalSignatures extends DOMHTMLElement.SignalSignatures {
+            "notify::align": (pspec: GObject.ParamSpec) => void;
+            "notify::access-key": (pspec: GObject.ParamSpec) => void;
+            "notify::content-editable": (pspec: GObject.ParamSpec) => void;
+            "notify::dir": (pspec: GObject.ParamSpec) => void;
+            "notify::draggable": (pspec: GObject.ParamSpec) => void;
+            "notify::hidden": (pspec: GObject.ParamSpec) => void;
+            "notify::inner-text": (pspec: GObject.ParamSpec) => void;
+            "notify::is-content-editable": (pspec: GObject.ParamSpec) => void;
+            "notify::lang": (pspec: GObject.ParamSpec) => void;
+            "notify::outer-text": (pspec: GObject.ParamSpec) => void;
+            "notify::spellcheck": (pspec: GObject.ParamSpec) => void;
+            "notify::tab-index": (pspec: GObject.ParamSpec) => void;
+            "notify::title": (pspec: GObject.ParamSpec) => void;
+            "notify::translate": (pspec: GObject.ParamSpec) => void;
+            "notify::webkitdropzone": (pspec: GObject.ParamSpec) => void;
+            "notify::attributes": (pspec: GObject.ParamSpec) => void;
+            "notify::child-element-count": (pspec: GObject.ParamSpec) => void;
+            "notify::children": (pspec: GObject.ParamSpec) => void;
+            "notify::class-list": (pspec: GObject.ParamSpec) => void;
+            "notify::class-name": (pspec: GObject.ParamSpec) => void;
+            "notify::client-height": (pspec: GObject.ParamSpec) => void;
+            "notify::client-left": (pspec: GObject.ParamSpec) => void;
+            "notify::client-top": (pspec: GObject.ParamSpec) => void;
+            "notify::client-width": (pspec: GObject.ParamSpec) => void;
+            "notify::first-element-child": (pspec: GObject.ParamSpec) => void;
+            "notify::id": (pspec: GObject.ParamSpec) => void;
+            "notify::inner-html": (pspec: GObject.ParamSpec) => void;
+            "notify::last-element-child": (pspec: GObject.ParamSpec) => void;
+            "notify::local-name": (pspec: GObject.ParamSpec) => void;
+            "notify::namespace-uri": (pspec: GObject.ParamSpec) => void;
+            "notify::next-element-sibling": (pspec: GObject.ParamSpec) => void;
+            "notify::offset-height": (pspec: GObject.ParamSpec) => void;
+            "notify::offset-left": (pspec: GObject.ParamSpec) => void;
+            "notify::offset-parent": (pspec: GObject.ParamSpec) => void;
+            "notify::offset-top": (pspec: GObject.ParamSpec) => void;
+            "notify::offset-width": (pspec: GObject.ParamSpec) => void;
+            "notify::outer-html": (pspec: GObject.ParamSpec) => void;
+            "notify::prefix": (pspec: GObject.ParamSpec) => void;
+            "notify::previous-element-sibling": (pspec: GObject.ParamSpec) => void;
+            "notify::scroll-height": (pspec: GObject.ParamSpec) => void;
+            "notify::scroll-left": (pspec: GObject.ParamSpec) => void;
+            "notify::scroll-top": (pspec: GObject.ParamSpec) => void;
+            "notify::scroll-width": (pspec: GObject.ParamSpec) => void;
+            "notify::style": (pspec: GObject.ParamSpec) => void;
+            "notify::tag-name": (pspec: GObject.ParamSpec) => void;
+            "notify::webkit-region-overset": (pspec: GObject.ParamSpec) => void;
+            "notify::base-uri": (pspec: GObject.ParamSpec) => void;
+            "notify::child-nodes": (pspec: GObject.ParamSpec) => void;
+            "notify::first-child": (pspec: GObject.ParamSpec) => void;
+            "notify::last-child": (pspec: GObject.ParamSpec) => void;
+            "notify::next-sibling": (pspec: GObject.ParamSpec) => void;
+            "notify::node-name": (pspec: GObject.ParamSpec) => void;
+            "notify::node-type": (pspec: GObject.ParamSpec) => void;
+            "notify::node-value": (pspec: GObject.ParamSpec) => void;
+            "notify::owner-document": (pspec: GObject.ParamSpec) => void;
+            "notify::parent-element": (pspec: GObject.ParamSpec) => void;
+            "notify::parent-node": (pspec: GObject.ParamSpec) => void;
+            "notify::previous-sibling": (pspec: GObject.ParamSpec) => void;
+            "notify::text-content": (pspec: GObject.ParamSpec) => void;
+            "notify::core-object": (pspec: GObject.ParamSpec) => void;
+        }
+
+        // Constructor properties interface
+        interface ConstructorProps extends DOMHTMLElement.ConstructorProps, DOMEventTarget.ConstructorProps {
+            align: string;
+        }
+    }
+
+    /**
+     * @gir-type Class
+     */
+    class DOMHTMLParagraphElement extends DOMHTMLElement implements DOMEventTarget {
+        static $gtype: GObject.GType<DOMHTMLParagraphElement>;
+
+        // Properties
+        get align(): string;
+        set align(val: string);
+
+        /**
+         * Compile-time signal type information.
+         *
+         * This instance property is generated only for TypeScript type checking.
+         * It is not defined at runtime and should not be accessed in JS code.
+         * @internal
+         */
+        $signals: DOMHTMLParagraphElement.SignalSignatures;
+
+        // Constructors
+        constructor(properties?: Partial<DOMHTMLParagraphElement.ConstructorProps>, ...args: any[]);
+
+        _init(...args: any[]): void;
+
+        // Signals
+        /** @signal */
+        connect<K extends keyof DOMHTMLParagraphElement.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, DOMHTMLParagraphElement.SignalSignatures[K]>): number;
+
+        /** @signal */
+        connect_after<K extends keyof DOMHTMLParagraphElement.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, DOMHTMLParagraphElement.SignalSignatures[K]>): number;
+
+        /** @signal */
+        emit<K extends keyof DOMHTMLParagraphElement.SignalSignatures>(signal: K, ...args: GObject.GjsParameters<DOMHTMLParagraphElement.SignalSignatures[K]>): void;
+
+        // Methods
+        /**
+         * @returns A `gchar`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_align(): string;
+
+        /**
+         * @param value A `gchar`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        set_align(value: string): void;
+    }
+
+
+    namespace DOMHTMLParamElement {
+        // Signal signatures
+        interface SignalSignatures extends DOMHTMLElement.SignalSignatures {
+            "notify::name": (pspec: GObject.ParamSpec) => void;
+            "notify::type": (pspec: GObject.ParamSpec) => void;
+            "notify::value": (pspec: GObject.ParamSpec) => void;
+            "notify::value-type": (pspec: GObject.ParamSpec) => void;
+            "notify::access-key": (pspec: GObject.ParamSpec) => void;
+            "notify::content-editable": (pspec: GObject.ParamSpec) => void;
+            "notify::dir": (pspec: GObject.ParamSpec) => void;
+            "notify::draggable": (pspec: GObject.ParamSpec) => void;
+            "notify::hidden": (pspec: GObject.ParamSpec) => void;
+            "notify::inner-text": (pspec: GObject.ParamSpec) => void;
+            "notify::is-content-editable": (pspec: GObject.ParamSpec) => void;
+            "notify::lang": (pspec: GObject.ParamSpec) => void;
+            "notify::outer-text": (pspec: GObject.ParamSpec) => void;
+            "notify::spellcheck": (pspec: GObject.ParamSpec) => void;
+            "notify::tab-index": (pspec: GObject.ParamSpec) => void;
+            "notify::title": (pspec: GObject.ParamSpec) => void;
+            "notify::translate": (pspec: GObject.ParamSpec) => void;
+            "notify::webkitdropzone": (pspec: GObject.ParamSpec) => void;
+            "notify::attributes": (pspec: GObject.ParamSpec) => void;
+            "notify::child-element-count": (pspec: GObject.ParamSpec) => void;
+            "notify::children": (pspec: GObject.ParamSpec) => void;
+            "notify::class-list": (pspec: GObject.ParamSpec) => void;
+            "notify::class-name": (pspec: GObject.ParamSpec) => void;
+            "notify::client-height": (pspec: GObject.ParamSpec) => void;
+            "notify::client-left": (pspec: GObject.ParamSpec) => void;
+            "notify::client-top": (pspec: GObject.ParamSpec) => void;
+            "notify::client-width": (pspec: GObject.ParamSpec) => void;
+            "notify::first-element-child": (pspec: GObject.ParamSpec) => void;
+            "notify::id": (pspec: GObject.ParamSpec) => void;
+            "notify::inner-html": (pspec: GObject.ParamSpec) => void;
+            "notify::last-element-child": (pspec: GObject.ParamSpec) => void;
+            "notify::local-name": (pspec: GObject.ParamSpec) => void;
+            "notify::namespace-uri": (pspec: GObject.ParamSpec) => void;
+            "notify::next-element-sibling": (pspec: GObject.ParamSpec) => void;
+            "notify::offset-height": (pspec: GObject.ParamSpec) => void;
+            "notify::offset-left": (pspec: GObject.ParamSpec) => void;
+            "notify::offset-parent": (pspec: GObject.ParamSpec) => void;
+            "notify::offset-top": (pspec: GObject.ParamSpec) => void;
+            "notify::offset-width": (pspec: GObject.ParamSpec) => void;
+            "notify::outer-html": (pspec: GObject.ParamSpec) => void;
+            "notify::prefix": (pspec: GObject.ParamSpec) => void;
+            "notify::previous-element-sibling": (pspec: GObject.ParamSpec) => void;
+            "notify::scroll-height": (pspec: GObject.ParamSpec) => void;
+            "notify::scroll-left": (pspec: GObject.ParamSpec) => void;
+            "notify::scroll-top": (pspec: GObject.ParamSpec) => void;
+            "notify::scroll-width": (pspec: GObject.ParamSpec) => void;
+            "notify::style": (pspec: GObject.ParamSpec) => void;
+            "notify::tag-name": (pspec: GObject.ParamSpec) => void;
+            "notify::webkit-region-overset": (pspec: GObject.ParamSpec) => void;
+            "notify::base-uri": (pspec: GObject.ParamSpec) => void;
+            "notify::child-nodes": (pspec: GObject.ParamSpec) => void;
+            "notify::first-child": (pspec: GObject.ParamSpec) => void;
+            "notify::last-child": (pspec: GObject.ParamSpec) => void;
+            "notify::next-sibling": (pspec: GObject.ParamSpec) => void;
+            "notify::node-name": (pspec: GObject.ParamSpec) => void;
+            "notify::node-type": (pspec: GObject.ParamSpec) => void;
+            "notify::node-value": (pspec: GObject.ParamSpec) => void;
+            "notify::owner-document": (pspec: GObject.ParamSpec) => void;
+            "notify::parent-element": (pspec: GObject.ParamSpec) => void;
+            "notify::parent-node": (pspec: GObject.ParamSpec) => void;
+            "notify::previous-sibling": (pspec: GObject.ParamSpec) => void;
+            "notify::text-content": (pspec: GObject.ParamSpec) => void;
+            "notify::core-object": (pspec: GObject.ParamSpec) => void;
+        }
+
+        // Constructor properties interface
+        interface ConstructorProps extends DOMHTMLElement.ConstructorProps, DOMEventTarget.ConstructorProps {
+            name: string;
+            type: string;
+            value: string;
+            value_type: string;
+            valueType: string;
+        }
+    }
+
+    /**
+     * @gir-type Class
+     */
+    class DOMHTMLParamElement extends DOMHTMLElement implements DOMEventTarget {
+        static $gtype: GObject.GType<DOMHTMLParamElement>;
+
+        // Properties
+        get name(): string;
+        set name(val: string);
+
+        get type(): string;
+        set type(val: string);
+
+        get value(): string;
+        set value(val: string);
+
+        get value_type(): string;
+        set value_type(val: string);
+
+        get valueType(): string;
+        set valueType(val: string);
+
+        /**
+         * Compile-time signal type information.
+         *
+         * This instance property is generated only for TypeScript type checking.
+         * It is not defined at runtime and should not be accessed in JS code.
+         * @internal
+         */
+        $signals: DOMHTMLParamElement.SignalSignatures;
+
+        // Constructors
+        constructor(properties?: Partial<DOMHTMLParamElement.ConstructorProps>, ...args: any[]);
+
+        _init(...args: any[]): void;
+
+        // Signals
+        /** @signal */
+        connect<K extends keyof DOMHTMLParamElement.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, DOMHTMLParamElement.SignalSignatures[K]>): number;
+
+        /** @signal */
+        connect_after<K extends keyof DOMHTMLParamElement.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, DOMHTMLParamElement.SignalSignatures[K]>): number;
+
+        /** @signal */
+        emit<K extends keyof DOMHTMLParamElement.SignalSignatures>(signal: K, ...args: GObject.GjsParameters<DOMHTMLParamElement.SignalSignatures[K]>): void;
+
+        // Methods
+        /**
+         * @returns A `gchar`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_name(): string;
+
+        /**
+         * @returns A `gchar`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_type_attr(): string;
+
+        /**
+         * @returns A `gchar`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_value(): string;
+
+        /**
+         * @returns A `gchar`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_value_type(): string;
+
+        /**
+         * @param value A `gchar`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        set_name(value: string): void;
+
+        /**
+         * @param value A `gchar`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        set_type_attr(value: string): void;
+
+        /**
+         * @param value A `gchar`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        set_value(value: string): void;
+
+        /**
+         * @param value A `gchar`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        set_value_type(value: string): void;
+    }
+
+
+    namespace DOMHTMLPreElement {
+        // Signal signatures
+        interface SignalSignatures extends DOMHTMLElement.SignalSignatures {
+            "notify::width": (pspec: GObject.ParamSpec) => void;
+            "notify::wrap": (pspec: GObject.ParamSpec) => void;
+            "notify::access-key": (pspec: GObject.ParamSpec) => void;
+            "notify::content-editable": (pspec: GObject.ParamSpec) => void;
+            "notify::dir": (pspec: GObject.ParamSpec) => void;
+            "notify::draggable": (pspec: GObject.ParamSpec) => void;
+            "notify::hidden": (pspec: GObject.ParamSpec) => void;
+            "notify::inner-text": (pspec: GObject.ParamSpec) => void;
+            "notify::is-content-editable": (pspec: GObject.ParamSpec) => void;
+            "notify::lang": (pspec: GObject.ParamSpec) => void;
+            "notify::outer-text": (pspec: GObject.ParamSpec) => void;
+            "notify::spellcheck": (pspec: GObject.ParamSpec) => void;
+            "notify::tab-index": (pspec: GObject.ParamSpec) => void;
+            "notify::title": (pspec: GObject.ParamSpec) => void;
+            "notify::translate": (pspec: GObject.ParamSpec) => void;
+            "notify::webkitdropzone": (pspec: GObject.ParamSpec) => void;
+            "notify::attributes": (pspec: GObject.ParamSpec) => void;
+            "notify::child-element-count": (pspec: GObject.ParamSpec) => void;
+            "notify::children": (pspec: GObject.ParamSpec) => void;
+            "notify::class-list": (pspec: GObject.ParamSpec) => void;
+            "notify::class-name": (pspec: GObject.ParamSpec) => void;
+            "notify::client-height": (pspec: GObject.ParamSpec) => void;
+            "notify::client-left": (pspec: GObject.ParamSpec) => void;
+            "notify::client-top": (pspec: GObject.ParamSpec) => void;
+            "notify::client-width": (pspec: GObject.ParamSpec) => void;
+            "notify::first-element-child": (pspec: GObject.ParamSpec) => void;
+            "notify::id": (pspec: GObject.ParamSpec) => void;
+            "notify::inner-html": (pspec: GObject.ParamSpec) => void;
+            "notify::last-element-child": (pspec: GObject.ParamSpec) => void;
+            "notify::local-name": (pspec: GObject.ParamSpec) => void;
+            "notify::namespace-uri": (pspec: GObject.ParamSpec) => void;
+            "notify::next-element-sibling": (pspec: GObject.ParamSpec) => void;
+            "notify::offset-height": (pspec: GObject.ParamSpec) => void;
+            "notify::offset-left": (pspec: GObject.ParamSpec) => void;
+            "notify::offset-parent": (pspec: GObject.ParamSpec) => void;
+            "notify::offset-top": (pspec: GObject.ParamSpec) => void;
+            "notify::offset-width": (pspec: GObject.ParamSpec) => void;
+            "notify::outer-html": (pspec: GObject.ParamSpec) => void;
+            "notify::prefix": (pspec: GObject.ParamSpec) => void;
+            "notify::previous-element-sibling": (pspec: GObject.ParamSpec) => void;
+            "notify::scroll-height": (pspec: GObject.ParamSpec) => void;
+            "notify::scroll-left": (pspec: GObject.ParamSpec) => void;
+            "notify::scroll-top": (pspec: GObject.ParamSpec) => void;
+            "notify::scroll-width": (pspec: GObject.ParamSpec) => void;
+            "notify::style": (pspec: GObject.ParamSpec) => void;
+            "notify::tag-name": (pspec: GObject.ParamSpec) => void;
+            "notify::webkit-region-overset": (pspec: GObject.ParamSpec) => void;
+            "notify::base-uri": (pspec: GObject.ParamSpec) => void;
+            "notify::child-nodes": (pspec: GObject.ParamSpec) => void;
+            "notify::first-child": (pspec: GObject.ParamSpec) => void;
+            "notify::last-child": (pspec: GObject.ParamSpec) => void;
+            "notify::next-sibling": (pspec: GObject.ParamSpec) => void;
+            "notify::node-name": (pspec: GObject.ParamSpec) => void;
+            "notify::node-type": (pspec: GObject.ParamSpec) => void;
+            "notify::node-value": (pspec: GObject.ParamSpec) => void;
+            "notify::owner-document": (pspec: GObject.ParamSpec) => void;
+            "notify::parent-element": (pspec: GObject.ParamSpec) => void;
+            "notify::parent-node": (pspec: GObject.ParamSpec) => void;
+            "notify::previous-sibling": (pspec: GObject.ParamSpec) => void;
+            "notify::text-content": (pspec: GObject.ParamSpec) => void;
+            "notify::core-object": (pspec: GObject.ParamSpec) => void;
+        }
+
+        // Constructor properties interface
+        interface ConstructorProps extends DOMHTMLElement.ConstructorProps, DOMEventTarget.ConstructorProps {
+            width: bigint | number;
+            wrap: boolean;
+        }
+    }
+
+    /**
+     * @gir-type Class
+     */
+    class DOMHTMLPreElement extends DOMHTMLElement implements DOMEventTarget {
+        static $gtype: GObject.GType<DOMHTMLPreElement>;
+
+        // Properties
+        /**
+         * @default 0
+         */
+        get width(): number;
+        set width(val: bigint | number);
+
+        /**
+         * @default false
+         */
+        get wrap(): boolean;
+        set wrap(val: boolean);
+
+        /**
+         * Compile-time signal type information.
+         *
+         * This instance property is generated only for TypeScript type checking.
+         * It is not defined at runtime and should not be accessed in JS code.
+         * @internal
+         */
+        $signals: DOMHTMLPreElement.SignalSignatures;
+
+        // Constructors
+        constructor(properties?: Partial<DOMHTMLPreElement.ConstructorProps>, ...args: any[]);
+
+        _init(...args: any[]): void;
+
+        // Signals
+        /** @signal */
+        connect<K extends keyof DOMHTMLPreElement.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, DOMHTMLPreElement.SignalSignatures[K]>): number;
+
+        /** @signal */
+        connect_after<K extends keyof DOMHTMLPreElement.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, DOMHTMLPreElement.SignalSignatures[K]>): number;
+
+        /** @signal */
+        emit<K extends keyof DOMHTMLPreElement.SignalSignatures>(signal: K, ...args: GObject.GjsParameters<DOMHTMLPreElement.SignalSignatures[K]>): void;
+
+        // Methods
+        /**
+         * @returns A `glong`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_width(): number;
+
+        /**
+         * @returns A `gboolean`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_wrap(): boolean;
+
+        /**
+         * @param value A `glong`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        set_width(value: bigint | number): void;
+
+        /**
+         * @param value A `gboolean`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        set_wrap(value: boolean): void;
+    }
+
+
+    namespace DOMHTMLQuoteElement {
+        // Signal signatures
+        interface SignalSignatures extends DOMHTMLElement.SignalSignatures {
+            "notify::cite": (pspec: GObject.ParamSpec) => void;
+            "notify::access-key": (pspec: GObject.ParamSpec) => void;
+            "notify::content-editable": (pspec: GObject.ParamSpec) => void;
+            "notify::dir": (pspec: GObject.ParamSpec) => void;
+            "notify::draggable": (pspec: GObject.ParamSpec) => void;
+            "notify::hidden": (pspec: GObject.ParamSpec) => void;
+            "notify::inner-text": (pspec: GObject.ParamSpec) => void;
+            "notify::is-content-editable": (pspec: GObject.ParamSpec) => void;
+            "notify::lang": (pspec: GObject.ParamSpec) => void;
+            "notify::outer-text": (pspec: GObject.ParamSpec) => void;
+            "notify::spellcheck": (pspec: GObject.ParamSpec) => void;
+            "notify::tab-index": (pspec: GObject.ParamSpec) => void;
+            "notify::title": (pspec: GObject.ParamSpec) => void;
+            "notify::translate": (pspec: GObject.ParamSpec) => void;
+            "notify::webkitdropzone": (pspec: GObject.ParamSpec) => void;
+            "notify::attributes": (pspec: GObject.ParamSpec) => void;
+            "notify::child-element-count": (pspec: GObject.ParamSpec) => void;
+            "notify::children": (pspec: GObject.ParamSpec) => void;
+            "notify::class-list": (pspec: GObject.ParamSpec) => void;
+            "notify::class-name": (pspec: GObject.ParamSpec) => void;
+            "notify::client-height": (pspec: GObject.ParamSpec) => void;
+            "notify::client-left": (pspec: GObject.ParamSpec) => void;
+            "notify::client-top": (pspec: GObject.ParamSpec) => void;
+            "notify::client-width": (pspec: GObject.ParamSpec) => void;
+            "notify::first-element-child": (pspec: GObject.ParamSpec) => void;
+            "notify::id": (pspec: GObject.ParamSpec) => void;
+            "notify::inner-html": (pspec: GObject.ParamSpec) => void;
+            "notify::last-element-child": (pspec: GObject.ParamSpec) => void;
+            "notify::local-name": (pspec: GObject.ParamSpec) => void;
+            "notify::namespace-uri": (pspec: GObject.ParamSpec) => void;
+            "notify::next-element-sibling": (pspec: GObject.ParamSpec) => void;
+            "notify::offset-height": (pspec: GObject.ParamSpec) => void;
+            "notify::offset-left": (pspec: GObject.ParamSpec) => void;
+            "notify::offset-parent": (pspec: GObject.ParamSpec) => void;
+            "notify::offset-top": (pspec: GObject.ParamSpec) => void;
+            "notify::offset-width": (pspec: GObject.ParamSpec) => void;
+            "notify::outer-html": (pspec: GObject.ParamSpec) => void;
+            "notify::prefix": (pspec: GObject.ParamSpec) => void;
+            "notify::previous-element-sibling": (pspec: GObject.ParamSpec) => void;
+            "notify::scroll-height": (pspec: GObject.ParamSpec) => void;
+            "notify::scroll-left": (pspec: GObject.ParamSpec) => void;
+            "notify::scroll-top": (pspec: GObject.ParamSpec) => void;
+            "notify::scroll-width": (pspec: GObject.ParamSpec) => void;
+            "notify::style": (pspec: GObject.ParamSpec) => void;
+            "notify::tag-name": (pspec: GObject.ParamSpec) => void;
+            "notify::webkit-region-overset": (pspec: GObject.ParamSpec) => void;
+            "notify::base-uri": (pspec: GObject.ParamSpec) => void;
+            "notify::child-nodes": (pspec: GObject.ParamSpec) => void;
+            "notify::first-child": (pspec: GObject.ParamSpec) => void;
+            "notify::last-child": (pspec: GObject.ParamSpec) => void;
+            "notify::next-sibling": (pspec: GObject.ParamSpec) => void;
+            "notify::node-name": (pspec: GObject.ParamSpec) => void;
+            "notify::node-type": (pspec: GObject.ParamSpec) => void;
+            "notify::node-value": (pspec: GObject.ParamSpec) => void;
+            "notify::owner-document": (pspec: GObject.ParamSpec) => void;
+            "notify::parent-element": (pspec: GObject.ParamSpec) => void;
+            "notify::parent-node": (pspec: GObject.ParamSpec) => void;
+            "notify::previous-sibling": (pspec: GObject.ParamSpec) => void;
+            "notify::text-content": (pspec: GObject.ParamSpec) => void;
+            "notify::core-object": (pspec: GObject.ParamSpec) => void;
+        }
+
+        // Constructor properties interface
+        interface ConstructorProps extends DOMHTMLElement.ConstructorProps, DOMEventTarget.ConstructorProps {
+            cite: string;
+        }
+    }
+
+    /**
+     * @gir-type Class
+     */
+    class DOMHTMLQuoteElement extends DOMHTMLElement implements DOMEventTarget {
+        static $gtype: GObject.GType<DOMHTMLQuoteElement>;
+
+        // Properties
+        get cite(): string;
+        set cite(val: string);
+
+        /**
+         * Compile-time signal type information.
+         *
+         * This instance property is generated only for TypeScript type checking.
+         * It is not defined at runtime and should not be accessed in JS code.
+         * @internal
+         */
+        $signals: DOMHTMLQuoteElement.SignalSignatures;
+
+        // Constructors
+        constructor(properties?: Partial<DOMHTMLQuoteElement.ConstructorProps>, ...args: any[]);
+
+        _init(...args: any[]): void;
+
+        // Signals
+        /** @signal */
+        connect<K extends keyof DOMHTMLQuoteElement.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, DOMHTMLQuoteElement.SignalSignatures[K]>): number;
+
+        /** @signal */
+        connect_after<K extends keyof DOMHTMLQuoteElement.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, DOMHTMLQuoteElement.SignalSignatures[K]>): number;
+
+        /** @signal */
+        emit<K extends keyof DOMHTMLQuoteElement.SignalSignatures>(signal: K, ...args: GObject.GjsParameters<DOMHTMLQuoteElement.SignalSignatures[K]>): void;
+
+        // Methods
+        /**
+         * @returns A `gchar`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_cite(): string;
+
+        /**
+         * @param value A `gchar`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        set_cite(value: string): void;
+    }
+
+
+    namespace DOMHTMLScriptElement {
+        // Signal signatures
+        interface SignalSignatures extends DOMHTMLElement.SignalSignatures {
+            "notify::charset": (pspec: GObject.ParamSpec) => void;
+            "notify::defer": (pspec: GObject.ParamSpec) => void;
+            "notify::event": (pspec: GObject.ParamSpec) => void;
+            "notify::html-for": (pspec: GObject.ParamSpec) => void;
+            "notify::src": (pspec: GObject.ParamSpec) => void;
+            "notify::text": (pspec: GObject.ParamSpec) => void;
+            "notify::type": (pspec: GObject.ParamSpec) => void;
+            "notify::access-key": (pspec: GObject.ParamSpec) => void;
+            "notify::content-editable": (pspec: GObject.ParamSpec) => void;
+            "notify::dir": (pspec: GObject.ParamSpec) => void;
+            "notify::draggable": (pspec: GObject.ParamSpec) => void;
+            "notify::hidden": (pspec: GObject.ParamSpec) => void;
+            "notify::inner-text": (pspec: GObject.ParamSpec) => void;
+            "notify::is-content-editable": (pspec: GObject.ParamSpec) => void;
+            "notify::lang": (pspec: GObject.ParamSpec) => void;
+            "notify::outer-text": (pspec: GObject.ParamSpec) => void;
+            "notify::spellcheck": (pspec: GObject.ParamSpec) => void;
+            "notify::tab-index": (pspec: GObject.ParamSpec) => void;
+            "notify::title": (pspec: GObject.ParamSpec) => void;
+            "notify::translate": (pspec: GObject.ParamSpec) => void;
+            "notify::webkitdropzone": (pspec: GObject.ParamSpec) => void;
+            "notify::attributes": (pspec: GObject.ParamSpec) => void;
+            "notify::child-element-count": (pspec: GObject.ParamSpec) => void;
+            "notify::children": (pspec: GObject.ParamSpec) => void;
+            "notify::class-list": (pspec: GObject.ParamSpec) => void;
+            "notify::class-name": (pspec: GObject.ParamSpec) => void;
+            "notify::client-height": (pspec: GObject.ParamSpec) => void;
+            "notify::client-left": (pspec: GObject.ParamSpec) => void;
+            "notify::client-top": (pspec: GObject.ParamSpec) => void;
+            "notify::client-width": (pspec: GObject.ParamSpec) => void;
+            "notify::first-element-child": (pspec: GObject.ParamSpec) => void;
+            "notify::id": (pspec: GObject.ParamSpec) => void;
+            "notify::inner-html": (pspec: GObject.ParamSpec) => void;
+            "notify::last-element-child": (pspec: GObject.ParamSpec) => void;
+            "notify::local-name": (pspec: GObject.ParamSpec) => void;
+            "notify::namespace-uri": (pspec: GObject.ParamSpec) => void;
+            "notify::next-element-sibling": (pspec: GObject.ParamSpec) => void;
+            "notify::offset-height": (pspec: GObject.ParamSpec) => void;
+            "notify::offset-left": (pspec: GObject.ParamSpec) => void;
+            "notify::offset-parent": (pspec: GObject.ParamSpec) => void;
+            "notify::offset-top": (pspec: GObject.ParamSpec) => void;
+            "notify::offset-width": (pspec: GObject.ParamSpec) => void;
+            "notify::outer-html": (pspec: GObject.ParamSpec) => void;
+            "notify::prefix": (pspec: GObject.ParamSpec) => void;
+            "notify::previous-element-sibling": (pspec: GObject.ParamSpec) => void;
+            "notify::scroll-height": (pspec: GObject.ParamSpec) => void;
+            "notify::scroll-left": (pspec: GObject.ParamSpec) => void;
+            "notify::scroll-top": (pspec: GObject.ParamSpec) => void;
+            "notify::scroll-width": (pspec: GObject.ParamSpec) => void;
+            "notify::style": (pspec: GObject.ParamSpec) => void;
+            "notify::tag-name": (pspec: GObject.ParamSpec) => void;
+            "notify::webkit-region-overset": (pspec: GObject.ParamSpec) => void;
+            "notify::base-uri": (pspec: GObject.ParamSpec) => void;
+            "notify::child-nodes": (pspec: GObject.ParamSpec) => void;
+            "notify::first-child": (pspec: GObject.ParamSpec) => void;
+            "notify::last-child": (pspec: GObject.ParamSpec) => void;
+            "notify::next-sibling": (pspec: GObject.ParamSpec) => void;
+            "notify::node-name": (pspec: GObject.ParamSpec) => void;
+            "notify::node-type": (pspec: GObject.ParamSpec) => void;
+            "notify::node-value": (pspec: GObject.ParamSpec) => void;
+            "notify::owner-document": (pspec: GObject.ParamSpec) => void;
+            "notify::parent-element": (pspec: GObject.ParamSpec) => void;
+            "notify::parent-node": (pspec: GObject.ParamSpec) => void;
+            "notify::previous-sibling": (pspec: GObject.ParamSpec) => void;
+            "notify::text-content": (pspec: GObject.ParamSpec) => void;
+            "notify::core-object": (pspec: GObject.ParamSpec) => void;
+        }
+
+        // Constructor properties interface
+        interface ConstructorProps extends DOMHTMLElement.ConstructorProps, DOMEventTarget.ConstructorProps {
+            charset: string;
+            defer: boolean;
+            event: string;
+            html_for: string;
+            htmlFor: string;
+            src: string;
+            text: string;
+            type: string;
+        }
+    }
+
+    /**
+     * @gir-type Class
+     */
+    class DOMHTMLScriptElement extends DOMHTMLElement implements DOMEventTarget {
+        static $gtype: GObject.GType<DOMHTMLScriptElement>;
+
+        // Properties
+        get charset(): string;
+        set charset(val: string);
+
+        /**
+         * @default false
+         */
+        get defer(): boolean;
+        set defer(val: boolean);
+
+        get event(): string;
+        set event(val: string);
+
+        get html_for(): string;
+        set html_for(val: string);
+
+        get htmlFor(): string;
+        set htmlFor(val: string);
+
+        get src(): string;
+        set src(val: string);
+
+        get text(): string;
+        set text(val: string);
+
+        get type(): string;
+        set type(val: string);
+
+        /**
+         * Compile-time signal type information.
+         *
+         * This instance property is generated only for TypeScript type checking.
+         * It is not defined at runtime and should not be accessed in JS code.
+         * @internal
+         */
+        $signals: DOMHTMLScriptElement.SignalSignatures;
+
+        // Constructors
+        constructor(properties?: Partial<DOMHTMLScriptElement.ConstructorProps>, ...args: any[]);
+
+        _init(...args: any[]): void;
+
+        // Signals
+        /** @signal */
+        connect<K extends keyof DOMHTMLScriptElement.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, DOMHTMLScriptElement.SignalSignatures[K]>): number;
+
+        /** @signal */
+        connect_after<K extends keyof DOMHTMLScriptElement.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, DOMHTMLScriptElement.SignalSignatures[K]>): number;
+
+        /** @signal */
+        emit<K extends keyof DOMHTMLScriptElement.SignalSignatures>(signal: K, ...args: GObject.GjsParameters<DOMHTMLScriptElement.SignalSignatures[K]>): void;
+
+        // Methods
+        /**
+         * @returns A `gchar`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_charset(): string;
+
+        /**
+         * @returns A `gboolean`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_defer(): boolean;
+
+        /**
+         * @returns A `gchar`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_event(): string;
+
+        /**
+         * @returns A `gchar`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_html_for(): string;
+
+        /**
+         * @returns A `gchar`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_src(): string;
+
+        /**
+         * @returns A `gchar`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_text(): string;
+
+        /**
+         * @returns A `gchar`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_type_attr(): string;
+
+        /**
+         * @param value A `gchar`
+         * @since 2.16
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        set_charset(value: string): void;
+
+        /**
+         * @param value A `gboolean`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        set_defer(value: boolean): void;
+
+        /**
+         * @param value A `gchar`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        set_event(value: string): void;
+
+        /**
+         * @param value A `gchar`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        set_html_for(value: string): void;
+
+        /**
+         * @param value A `gchar`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        set_src(value: string): void;
+
+        /**
+         * @param value A `gchar`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        set_text(value: string): void;
+
+        /**
+         * @param value A `gchar`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        set_type_attr(value: string): void;
+    }
+
+
+    namespace DOMHTMLSelectElement {
+        // Signal signatures
+        interface SignalSignatures extends DOMHTMLElement.SignalSignatures {
+            "notify::autofocus": (pspec: GObject.ParamSpec) => void;
+            "notify::disabled": (pspec: GObject.ParamSpec) => void;
+            "notify::form": (pspec: GObject.ParamSpec) => void;
+            "notify::length": (pspec: GObject.ParamSpec) => void;
+            "notify::multiple": (pspec: GObject.ParamSpec) => void;
+            "notify::name": (pspec: GObject.ParamSpec) => void;
+            "notify::options": (pspec: GObject.ParamSpec) => void;
+            "notify::selected-index": (pspec: GObject.ParamSpec) => void;
+            "notify::size": (pspec: GObject.ParamSpec) => void;
+            "notify::type": (pspec: GObject.ParamSpec) => void;
+            "notify::value": (pspec: GObject.ParamSpec) => void;
+            "notify::will-validate": (pspec: GObject.ParamSpec) => void;
+            "notify::access-key": (pspec: GObject.ParamSpec) => void;
+            "notify::content-editable": (pspec: GObject.ParamSpec) => void;
+            "notify::dir": (pspec: GObject.ParamSpec) => void;
+            "notify::draggable": (pspec: GObject.ParamSpec) => void;
+            "notify::hidden": (pspec: GObject.ParamSpec) => void;
+            "notify::inner-text": (pspec: GObject.ParamSpec) => void;
+            "notify::is-content-editable": (pspec: GObject.ParamSpec) => void;
+            "notify::lang": (pspec: GObject.ParamSpec) => void;
+            "notify::outer-text": (pspec: GObject.ParamSpec) => void;
+            "notify::spellcheck": (pspec: GObject.ParamSpec) => void;
+            "notify::tab-index": (pspec: GObject.ParamSpec) => void;
+            "notify::title": (pspec: GObject.ParamSpec) => void;
+            "notify::translate": (pspec: GObject.ParamSpec) => void;
+            "notify::webkitdropzone": (pspec: GObject.ParamSpec) => void;
+            "notify::attributes": (pspec: GObject.ParamSpec) => void;
+            "notify::child-element-count": (pspec: GObject.ParamSpec) => void;
+            "notify::children": (pspec: GObject.ParamSpec) => void;
+            "notify::class-list": (pspec: GObject.ParamSpec) => void;
+            "notify::class-name": (pspec: GObject.ParamSpec) => void;
+            "notify::client-height": (pspec: GObject.ParamSpec) => void;
+            "notify::client-left": (pspec: GObject.ParamSpec) => void;
+            "notify::client-top": (pspec: GObject.ParamSpec) => void;
+            "notify::client-width": (pspec: GObject.ParamSpec) => void;
+            "notify::first-element-child": (pspec: GObject.ParamSpec) => void;
+            "notify::id": (pspec: GObject.ParamSpec) => void;
+            "notify::inner-html": (pspec: GObject.ParamSpec) => void;
+            "notify::last-element-child": (pspec: GObject.ParamSpec) => void;
+            "notify::local-name": (pspec: GObject.ParamSpec) => void;
+            "notify::namespace-uri": (pspec: GObject.ParamSpec) => void;
+            "notify::next-element-sibling": (pspec: GObject.ParamSpec) => void;
+            "notify::offset-height": (pspec: GObject.ParamSpec) => void;
+            "notify::offset-left": (pspec: GObject.ParamSpec) => void;
+            "notify::offset-parent": (pspec: GObject.ParamSpec) => void;
+            "notify::offset-top": (pspec: GObject.ParamSpec) => void;
+            "notify::offset-width": (pspec: GObject.ParamSpec) => void;
+            "notify::outer-html": (pspec: GObject.ParamSpec) => void;
+            "notify::prefix": (pspec: GObject.ParamSpec) => void;
+            "notify::previous-element-sibling": (pspec: GObject.ParamSpec) => void;
+            "notify::scroll-height": (pspec: GObject.ParamSpec) => void;
+            "notify::scroll-left": (pspec: GObject.ParamSpec) => void;
+            "notify::scroll-top": (pspec: GObject.ParamSpec) => void;
+            "notify::scroll-width": (pspec: GObject.ParamSpec) => void;
+            "notify::style": (pspec: GObject.ParamSpec) => void;
+            "notify::tag-name": (pspec: GObject.ParamSpec) => void;
+            "notify::webkit-region-overset": (pspec: GObject.ParamSpec) => void;
+            "notify::base-uri": (pspec: GObject.ParamSpec) => void;
+            "notify::child-nodes": (pspec: GObject.ParamSpec) => void;
+            "notify::first-child": (pspec: GObject.ParamSpec) => void;
+            "notify::last-child": (pspec: GObject.ParamSpec) => void;
+            "notify::next-sibling": (pspec: GObject.ParamSpec) => void;
+            "notify::node-name": (pspec: GObject.ParamSpec) => void;
+            "notify::node-type": (pspec: GObject.ParamSpec) => void;
+            "notify::node-value": (pspec: GObject.ParamSpec) => void;
+            "notify::owner-document": (pspec: GObject.ParamSpec) => void;
+            "notify::parent-element": (pspec: GObject.ParamSpec) => void;
+            "notify::parent-node": (pspec: GObject.ParamSpec) => void;
+            "notify::previous-sibling": (pspec: GObject.ParamSpec) => void;
+            "notify::text-content": (pspec: GObject.ParamSpec) => void;
+            "notify::core-object": (pspec: GObject.ParamSpec) => void;
+        }
+
+        // Constructor properties interface
+        interface ConstructorProps extends DOMHTMLElement.ConstructorProps, DOMEventTarget.ConstructorProps {
+            autofocus: boolean;
+            disabled: boolean;
+            form: DOMHTMLFormElement;
+            length: bigint | number;
+            multiple: boolean;
+            name: string;
+            options: DOMHTMLOptionsCollection;
+            selected_index: bigint | number;
+            selectedIndex: bigint | number;
+            size: bigint | number;
+            type: string;
+            value: string;
+            will_validate: boolean;
+            willValidate: boolean;
+        }
+    }
+
+    /**
+     * @gir-type Class
+     */
+    class DOMHTMLSelectElement extends DOMHTMLElement implements DOMEventTarget {
+        static $gtype: GObject.GType<DOMHTMLSelectElement>;
+
+        // Properties
+        /**
+         * @default false
+         */
+        get autofocus(): boolean;
+        set autofocus(val: boolean);
+
+        /**
+         * @default false
+         */
+        get disabled(): boolean;
+        set disabled(val: boolean);
+
+        /**
+         * @read-only
+         */
+        get form(): DOMHTMLFormElement;
+
+        /**
+         * @default 0
+         */
+        get length(): number;
+        set length(val: bigint | number);
+
+        /**
+         * @default false
+         */
+        get multiple(): boolean;
+        set multiple(val: boolean);
+
+        get name(): string;
+        set name(val: string);
+
+        /**
+         * @read-only
+         */
+        get options(): DOMHTMLOptionsCollection;
+
+        /**
+         * @default 0
+         */
+        get selected_index(): number;
+        set selected_index(val: bigint | number);
+
+        /**
+         * @default 0
+         */
+        get selectedIndex(): number;
+        set selectedIndex(val: bigint | number);
+
+        /**
+         * @default 0
+         */
+        get size(): number;
+        set size(val: bigint | number);
+
+        /**
+         * @read-only
+         */
+        get type(): string;
+
+        get value(): string;
+        set value(val: string);
+
+        /**
+         * @read-only
+         * @default false
+         */
+        get will_validate(): boolean;
+
+        /**
+         * @read-only
+         * @default false
+         */
+        get willValidate(): boolean;
+
+        /**
+         * Compile-time signal type information.
+         *
+         * This instance property is generated only for TypeScript type checking.
+         * It is not defined at runtime and should not be accessed in JS code.
+         * @internal
+         */
+        $signals: DOMHTMLSelectElement.SignalSignatures;
+
+        // Constructors
+        constructor(properties?: Partial<DOMHTMLSelectElement.ConstructorProps>, ...args: any[]);
+
+        _init(...args: any[]): void;
+
+        // Signals
+        /** @signal */
+        connect<K extends keyof DOMHTMLSelectElement.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, DOMHTMLSelectElement.SignalSignatures[K]>): number;
+
+        /** @signal */
+        connect_after<K extends keyof DOMHTMLSelectElement.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, DOMHTMLSelectElement.SignalSignatures[K]>): number;
+
+        /** @signal */
+        emit<K extends keyof DOMHTMLSelectElement.SignalSignatures>(signal: K, ...args: GObject.GjsParameters<DOMHTMLSelectElement.SignalSignatures[K]>): void;
+
+        // Methods
+        /**
+         * @param element A {@link WebKit2WebExtension.DOMHTMLElement}
+         * @param before A {@link WebKit2WebExtension.DOMHTMLElement}
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         * @throws GLib.Error
+         */
+        add(element: DOMHTMLElement, before: DOMHTMLElement): void;
+
+        /**
+         * @returns A `gboolean`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_autofocus(): boolean;
+
+        /**
+         * @returns A `gboolean`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_disabled(): boolean;
+
+        /**
+         * @returns A {@link WebKit2WebExtension.DOMHTMLFormElement}
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_form(): DOMHTMLFormElement;
+
+        /**
+         * @returns A `gulong`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_length(): number;
+
+        /**
+         * @returns A `gboolean`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_multiple(): boolean;
+
+        /**
+         * @returns A `gchar`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_name(): string;
+
+        /**
+         * @returns A {@link WebKit2WebExtension.DOMHTMLOptionsCollection}
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_options(): DOMHTMLOptionsCollection;
+
+        /**
+         * @returns A `gchar`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_select_type(): string;
+
+        /**
+         * @returns A `glong`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_selected_index(): number;
+
+        /**
+         * @returns A `glong`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_size(): number;
+
+        /**
+         * @returns A `gchar`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_value(): string;
+
+        /**
+         * @returns A `gboolean`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_will_validate(): boolean;
+
+        /**
+         * @param index A `gulong`
+         * @returns A {@link WebKit2WebExtension.DOMNode}
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        item(index: bigint | number): DOMNode;
+
+        /**
+         * @param name A `gchar`
+         * @returns A {@link WebKit2WebExtension.DOMNode}
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        named_item(name: string): DOMNode;
+
+        /**
+         * @param index A `glong`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        remove(index: bigint | number): void;
+
+        /**
+         * @param args 
+         */
+    // Conflicted with WebKit2WebExtension.DOMElement.remove
+        remove(...args: never[]): any;
+
+        /**
+         * @param value A `gboolean`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        set_autofocus(value: boolean): void;
+
+        /**
+         * @param value A `gboolean`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        set_disabled(value: boolean): void;
+
+        /**
+         * @param value A `gulong`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         * @throws GLib.Error
+         */
+        set_length(value: bigint | number): void;
+
+        /**
+         * @param value A `gboolean`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        set_multiple(value: boolean): void;
+
+        /**
+         * @param value A `gchar`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        set_name(value: string): void;
+
+        /**
+         * @param value A `glong`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        set_selected_index(value: bigint | number): void;
+
+        /**
+         * @param value A `glong`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        set_size(value: bigint | number): void;
+
+        /**
+         * @param value A `gchar`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        set_value(value: string): void;
+    }
+
+
+    namespace DOMHTMLStyleElement {
+        // Signal signatures
+        interface SignalSignatures extends DOMHTMLElement.SignalSignatures {
+            "notify::disabled": (pspec: GObject.ParamSpec) => void;
+            "notify::media": (pspec: GObject.ParamSpec) => void;
+            "notify::sheet": (pspec: GObject.ParamSpec) => void;
+            "notify::type": (pspec: GObject.ParamSpec) => void;
+            "notify::access-key": (pspec: GObject.ParamSpec) => void;
+            "notify::content-editable": (pspec: GObject.ParamSpec) => void;
+            "notify::dir": (pspec: GObject.ParamSpec) => void;
+            "notify::draggable": (pspec: GObject.ParamSpec) => void;
+            "notify::hidden": (pspec: GObject.ParamSpec) => void;
+            "notify::inner-text": (pspec: GObject.ParamSpec) => void;
+            "notify::is-content-editable": (pspec: GObject.ParamSpec) => void;
+            "notify::lang": (pspec: GObject.ParamSpec) => void;
+            "notify::outer-text": (pspec: GObject.ParamSpec) => void;
+            "notify::spellcheck": (pspec: GObject.ParamSpec) => void;
+            "notify::tab-index": (pspec: GObject.ParamSpec) => void;
+            "notify::title": (pspec: GObject.ParamSpec) => void;
+            "notify::translate": (pspec: GObject.ParamSpec) => void;
+            "notify::webkitdropzone": (pspec: GObject.ParamSpec) => void;
+            "notify::attributes": (pspec: GObject.ParamSpec) => void;
+            "notify::child-element-count": (pspec: GObject.ParamSpec) => void;
+            "notify::children": (pspec: GObject.ParamSpec) => void;
+            "notify::class-list": (pspec: GObject.ParamSpec) => void;
+            "notify::class-name": (pspec: GObject.ParamSpec) => void;
+            "notify::client-height": (pspec: GObject.ParamSpec) => void;
+            "notify::client-left": (pspec: GObject.ParamSpec) => void;
+            "notify::client-top": (pspec: GObject.ParamSpec) => void;
+            "notify::client-width": (pspec: GObject.ParamSpec) => void;
+            "notify::first-element-child": (pspec: GObject.ParamSpec) => void;
+            "notify::id": (pspec: GObject.ParamSpec) => void;
+            "notify::inner-html": (pspec: GObject.ParamSpec) => void;
+            "notify::last-element-child": (pspec: GObject.ParamSpec) => void;
+            "notify::local-name": (pspec: GObject.ParamSpec) => void;
+            "notify::namespace-uri": (pspec: GObject.ParamSpec) => void;
+            "notify::next-element-sibling": (pspec: GObject.ParamSpec) => void;
+            "notify::offset-height": (pspec: GObject.ParamSpec) => void;
+            "notify::offset-left": (pspec: GObject.ParamSpec) => void;
+            "notify::offset-parent": (pspec: GObject.ParamSpec) => void;
+            "notify::offset-top": (pspec: GObject.ParamSpec) => void;
+            "notify::offset-width": (pspec: GObject.ParamSpec) => void;
+            "notify::outer-html": (pspec: GObject.ParamSpec) => void;
+            "notify::prefix": (pspec: GObject.ParamSpec) => void;
+            "notify::previous-element-sibling": (pspec: GObject.ParamSpec) => void;
+            "notify::scroll-height": (pspec: GObject.ParamSpec) => void;
+            "notify::scroll-left": (pspec: GObject.ParamSpec) => void;
+            "notify::scroll-top": (pspec: GObject.ParamSpec) => void;
+            "notify::scroll-width": (pspec: GObject.ParamSpec) => void;
+            "notify::style": (pspec: GObject.ParamSpec) => void;
+            "notify::tag-name": (pspec: GObject.ParamSpec) => void;
+            "notify::webkit-region-overset": (pspec: GObject.ParamSpec) => void;
+            "notify::base-uri": (pspec: GObject.ParamSpec) => void;
+            "notify::child-nodes": (pspec: GObject.ParamSpec) => void;
+            "notify::first-child": (pspec: GObject.ParamSpec) => void;
+            "notify::last-child": (pspec: GObject.ParamSpec) => void;
+            "notify::next-sibling": (pspec: GObject.ParamSpec) => void;
+            "notify::node-name": (pspec: GObject.ParamSpec) => void;
+            "notify::node-type": (pspec: GObject.ParamSpec) => void;
+            "notify::node-value": (pspec: GObject.ParamSpec) => void;
+            "notify::owner-document": (pspec: GObject.ParamSpec) => void;
+            "notify::parent-element": (pspec: GObject.ParamSpec) => void;
+            "notify::parent-node": (pspec: GObject.ParamSpec) => void;
+            "notify::previous-sibling": (pspec: GObject.ParamSpec) => void;
+            "notify::text-content": (pspec: GObject.ParamSpec) => void;
+            "notify::core-object": (pspec: GObject.ParamSpec) => void;
+        }
+
+        // Constructor properties interface
+        interface ConstructorProps extends DOMHTMLElement.ConstructorProps, DOMEventTarget.ConstructorProps {
+            disabled: boolean;
+            media: string;
+            sheet: DOMStyleSheet;
+            type: string;
+        }
+    }
+
+    /**
+     * @gir-type Class
+     */
+    class DOMHTMLStyleElement extends DOMHTMLElement implements DOMEventTarget {
+        static $gtype: GObject.GType<DOMHTMLStyleElement>;
+
+        // Properties
+        /**
+         * @default false
+         */
+        get disabled(): boolean;
+        set disabled(val: boolean);
+
+        get media(): string;
+        set media(val: string);
+
+        /**
+         * @read-only
+         */
+        get sheet(): DOMStyleSheet;
+
+        get type(): string;
+        set type(val: string);
+
+        /**
+         * Compile-time signal type information.
+         *
+         * This instance property is generated only for TypeScript type checking.
+         * It is not defined at runtime and should not be accessed in JS code.
+         * @internal
+         */
+        $signals: DOMHTMLStyleElement.SignalSignatures;
+
+        // Constructors
+        constructor(properties?: Partial<DOMHTMLStyleElement.ConstructorProps>, ...args: any[]);
+
+        _init(...args: any[]): void;
+
+        // Signals
+        /** @signal */
+        connect<K extends keyof DOMHTMLStyleElement.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, DOMHTMLStyleElement.SignalSignatures[K]>): number;
+
+        /** @signal */
+        connect_after<K extends keyof DOMHTMLStyleElement.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, DOMHTMLStyleElement.SignalSignatures[K]>): number;
+
+        /** @signal */
+        emit<K extends keyof DOMHTMLStyleElement.SignalSignatures>(signal: K, ...args: GObject.GjsParameters<DOMHTMLStyleElement.SignalSignatures[K]>): void;
+
+        // Methods
+        /**
+         * @returns A `gboolean`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_disabled(): boolean;
+
+        /**
+         * @returns A `gchar`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_media(): string;
+
+        /**
+         * @returns A {@link WebKit2WebExtension.DOMStyleSheet}
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_sheet(): DOMStyleSheet;
+
+        /**
+         * @returns A `gchar`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_type_attr(): string;
+
+        /**
+         * @param value A `gboolean`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        set_disabled(value: boolean): void;
+
+        /**
+         * @param value A `gchar`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        set_media(value: string): void;
+
+        /**
+         * @param value A `gchar`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        set_type_attr(value: string): void;
+    }
+
+
+    namespace DOMHTMLTableCaptionElement {
+        // Signal signatures
+        interface SignalSignatures extends DOMHTMLElement.SignalSignatures {
+            "notify::align": (pspec: GObject.ParamSpec) => void;
+            "notify::access-key": (pspec: GObject.ParamSpec) => void;
+            "notify::content-editable": (pspec: GObject.ParamSpec) => void;
+            "notify::dir": (pspec: GObject.ParamSpec) => void;
+            "notify::draggable": (pspec: GObject.ParamSpec) => void;
+            "notify::hidden": (pspec: GObject.ParamSpec) => void;
+            "notify::inner-text": (pspec: GObject.ParamSpec) => void;
+            "notify::is-content-editable": (pspec: GObject.ParamSpec) => void;
+            "notify::lang": (pspec: GObject.ParamSpec) => void;
+            "notify::outer-text": (pspec: GObject.ParamSpec) => void;
+            "notify::spellcheck": (pspec: GObject.ParamSpec) => void;
+            "notify::tab-index": (pspec: GObject.ParamSpec) => void;
+            "notify::title": (pspec: GObject.ParamSpec) => void;
+            "notify::translate": (pspec: GObject.ParamSpec) => void;
+            "notify::webkitdropzone": (pspec: GObject.ParamSpec) => void;
+            "notify::attributes": (pspec: GObject.ParamSpec) => void;
+            "notify::child-element-count": (pspec: GObject.ParamSpec) => void;
+            "notify::children": (pspec: GObject.ParamSpec) => void;
+            "notify::class-list": (pspec: GObject.ParamSpec) => void;
+            "notify::class-name": (pspec: GObject.ParamSpec) => void;
+            "notify::client-height": (pspec: GObject.ParamSpec) => void;
+            "notify::client-left": (pspec: GObject.ParamSpec) => void;
+            "notify::client-top": (pspec: GObject.ParamSpec) => void;
+            "notify::client-width": (pspec: GObject.ParamSpec) => void;
+            "notify::first-element-child": (pspec: GObject.ParamSpec) => void;
+            "notify::id": (pspec: GObject.ParamSpec) => void;
+            "notify::inner-html": (pspec: GObject.ParamSpec) => void;
+            "notify::last-element-child": (pspec: GObject.ParamSpec) => void;
+            "notify::local-name": (pspec: GObject.ParamSpec) => void;
+            "notify::namespace-uri": (pspec: GObject.ParamSpec) => void;
+            "notify::next-element-sibling": (pspec: GObject.ParamSpec) => void;
+            "notify::offset-height": (pspec: GObject.ParamSpec) => void;
+            "notify::offset-left": (pspec: GObject.ParamSpec) => void;
+            "notify::offset-parent": (pspec: GObject.ParamSpec) => void;
+            "notify::offset-top": (pspec: GObject.ParamSpec) => void;
+            "notify::offset-width": (pspec: GObject.ParamSpec) => void;
+            "notify::outer-html": (pspec: GObject.ParamSpec) => void;
+            "notify::prefix": (pspec: GObject.ParamSpec) => void;
+            "notify::previous-element-sibling": (pspec: GObject.ParamSpec) => void;
+            "notify::scroll-height": (pspec: GObject.ParamSpec) => void;
+            "notify::scroll-left": (pspec: GObject.ParamSpec) => void;
+            "notify::scroll-top": (pspec: GObject.ParamSpec) => void;
+            "notify::scroll-width": (pspec: GObject.ParamSpec) => void;
+            "notify::style": (pspec: GObject.ParamSpec) => void;
+            "notify::tag-name": (pspec: GObject.ParamSpec) => void;
+            "notify::webkit-region-overset": (pspec: GObject.ParamSpec) => void;
+            "notify::base-uri": (pspec: GObject.ParamSpec) => void;
+            "notify::child-nodes": (pspec: GObject.ParamSpec) => void;
+            "notify::first-child": (pspec: GObject.ParamSpec) => void;
+            "notify::last-child": (pspec: GObject.ParamSpec) => void;
+            "notify::next-sibling": (pspec: GObject.ParamSpec) => void;
+            "notify::node-name": (pspec: GObject.ParamSpec) => void;
+            "notify::node-type": (pspec: GObject.ParamSpec) => void;
+            "notify::node-value": (pspec: GObject.ParamSpec) => void;
+            "notify::owner-document": (pspec: GObject.ParamSpec) => void;
+            "notify::parent-element": (pspec: GObject.ParamSpec) => void;
+            "notify::parent-node": (pspec: GObject.ParamSpec) => void;
+            "notify::previous-sibling": (pspec: GObject.ParamSpec) => void;
+            "notify::text-content": (pspec: GObject.ParamSpec) => void;
+            "notify::core-object": (pspec: GObject.ParamSpec) => void;
+        }
+
+        // Constructor properties interface
+        interface ConstructorProps extends DOMHTMLElement.ConstructorProps, DOMEventTarget.ConstructorProps {
+            align: string;
+        }
+    }
+
+    /**
+     * @gir-type Class
+     */
+    class DOMHTMLTableCaptionElement extends DOMHTMLElement implements DOMEventTarget {
+        static $gtype: GObject.GType<DOMHTMLTableCaptionElement>;
+
+        // Properties
+        get align(): string;
+        set align(val: string);
+
+        /**
+         * Compile-time signal type information.
+         *
+         * This instance property is generated only for TypeScript type checking.
+         * It is not defined at runtime and should not be accessed in JS code.
+         * @internal
+         */
+        $signals: DOMHTMLTableCaptionElement.SignalSignatures;
+
+        // Constructors
+        constructor(properties?: Partial<DOMHTMLTableCaptionElement.ConstructorProps>, ...args: any[]);
+
+        _init(...args: any[]): void;
+
+        // Signals
+        /** @signal */
+        connect<K extends keyof DOMHTMLTableCaptionElement.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, DOMHTMLTableCaptionElement.SignalSignatures[K]>): number;
+
+        /** @signal */
+        connect_after<K extends keyof DOMHTMLTableCaptionElement.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, DOMHTMLTableCaptionElement.SignalSignatures[K]>): number;
+
+        /** @signal */
+        emit<K extends keyof DOMHTMLTableCaptionElement.SignalSignatures>(signal: K, ...args: GObject.GjsParameters<DOMHTMLTableCaptionElement.SignalSignatures[K]>): void;
+
+        // Methods
+        /**
+         * @returns A `gchar`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_align(): string;
+
+        /**
+         * @param value A `gchar`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        set_align(value: string): void;
+    }
+
+
+    namespace DOMHTMLTableCellElement {
+        // Signal signatures
+        interface SignalSignatures extends DOMHTMLElement.SignalSignatures {
+            "notify::abbr": (pspec: GObject.ParamSpec) => void;
+            "notify::align": (pspec: GObject.ParamSpec) => void;
+            "notify::axis": (pspec: GObject.ParamSpec) => void;
+            "notify::bg-color": (pspec: GObject.ParamSpec) => void;
+            "notify::cell-index": (pspec: GObject.ParamSpec) => void;
+            "notify::ch": (pspec: GObject.ParamSpec) => void;
+            "notify::ch-off": (pspec: GObject.ParamSpec) => void;
+            "notify::col-span": (pspec: GObject.ParamSpec) => void;
+            "notify::headers": (pspec: GObject.ParamSpec) => void;
+            "notify::height": (pspec: GObject.ParamSpec) => void;
+            "notify::no-wrap": (pspec: GObject.ParamSpec) => void;
+            "notify::row-span": (pspec: GObject.ParamSpec) => void;
+            "notify::scope": (pspec: GObject.ParamSpec) => void;
+            "notify::v-align": (pspec: GObject.ParamSpec) => void;
+            "notify::width": (pspec: GObject.ParamSpec) => void;
+            "notify::access-key": (pspec: GObject.ParamSpec) => void;
+            "notify::content-editable": (pspec: GObject.ParamSpec) => void;
+            "notify::dir": (pspec: GObject.ParamSpec) => void;
+            "notify::draggable": (pspec: GObject.ParamSpec) => void;
+            "notify::hidden": (pspec: GObject.ParamSpec) => void;
+            "notify::inner-text": (pspec: GObject.ParamSpec) => void;
+            "notify::is-content-editable": (pspec: GObject.ParamSpec) => void;
+            "notify::lang": (pspec: GObject.ParamSpec) => void;
+            "notify::outer-text": (pspec: GObject.ParamSpec) => void;
+            "notify::spellcheck": (pspec: GObject.ParamSpec) => void;
+            "notify::tab-index": (pspec: GObject.ParamSpec) => void;
+            "notify::title": (pspec: GObject.ParamSpec) => void;
+            "notify::translate": (pspec: GObject.ParamSpec) => void;
+            "notify::webkitdropzone": (pspec: GObject.ParamSpec) => void;
+            "notify::attributes": (pspec: GObject.ParamSpec) => void;
+            "notify::child-element-count": (pspec: GObject.ParamSpec) => void;
+            "notify::children": (pspec: GObject.ParamSpec) => void;
+            "notify::class-list": (pspec: GObject.ParamSpec) => void;
+            "notify::class-name": (pspec: GObject.ParamSpec) => void;
+            "notify::client-height": (pspec: GObject.ParamSpec) => void;
+            "notify::client-left": (pspec: GObject.ParamSpec) => void;
+            "notify::client-top": (pspec: GObject.ParamSpec) => void;
+            "notify::client-width": (pspec: GObject.ParamSpec) => void;
+            "notify::first-element-child": (pspec: GObject.ParamSpec) => void;
+            "notify::id": (pspec: GObject.ParamSpec) => void;
+            "notify::inner-html": (pspec: GObject.ParamSpec) => void;
+            "notify::last-element-child": (pspec: GObject.ParamSpec) => void;
+            "notify::local-name": (pspec: GObject.ParamSpec) => void;
+            "notify::namespace-uri": (pspec: GObject.ParamSpec) => void;
+            "notify::next-element-sibling": (pspec: GObject.ParamSpec) => void;
+            "notify::offset-height": (pspec: GObject.ParamSpec) => void;
+            "notify::offset-left": (pspec: GObject.ParamSpec) => void;
+            "notify::offset-parent": (pspec: GObject.ParamSpec) => void;
+            "notify::offset-top": (pspec: GObject.ParamSpec) => void;
+            "notify::offset-width": (pspec: GObject.ParamSpec) => void;
+            "notify::outer-html": (pspec: GObject.ParamSpec) => void;
+            "notify::prefix": (pspec: GObject.ParamSpec) => void;
+            "notify::previous-element-sibling": (pspec: GObject.ParamSpec) => void;
+            "notify::scroll-height": (pspec: GObject.ParamSpec) => void;
+            "notify::scroll-left": (pspec: GObject.ParamSpec) => void;
+            "notify::scroll-top": (pspec: GObject.ParamSpec) => void;
+            "notify::scroll-width": (pspec: GObject.ParamSpec) => void;
+            "notify::style": (pspec: GObject.ParamSpec) => void;
+            "notify::tag-name": (pspec: GObject.ParamSpec) => void;
+            "notify::webkit-region-overset": (pspec: GObject.ParamSpec) => void;
+            "notify::base-uri": (pspec: GObject.ParamSpec) => void;
+            "notify::child-nodes": (pspec: GObject.ParamSpec) => void;
+            "notify::first-child": (pspec: GObject.ParamSpec) => void;
+            "notify::last-child": (pspec: GObject.ParamSpec) => void;
+            "notify::next-sibling": (pspec: GObject.ParamSpec) => void;
+            "notify::node-name": (pspec: GObject.ParamSpec) => void;
+            "notify::node-type": (pspec: GObject.ParamSpec) => void;
+            "notify::node-value": (pspec: GObject.ParamSpec) => void;
+            "notify::owner-document": (pspec: GObject.ParamSpec) => void;
+            "notify::parent-element": (pspec: GObject.ParamSpec) => void;
+            "notify::parent-node": (pspec: GObject.ParamSpec) => void;
+            "notify::previous-sibling": (pspec: GObject.ParamSpec) => void;
+            "notify::text-content": (pspec: GObject.ParamSpec) => void;
+            "notify::core-object": (pspec: GObject.ParamSpec) => void;
+        }
+
+        // Constructor properties interface
+        interface ConstructorProps extends DOMHTMLElement.ConstructorProps, DOMEventTarget.ConstructorProps {
+            abbr: string;
+            align: string;
+            axis: string;
+            bg_color: string;
+            bgColor: string;
+            cell_index: bigint | number;
+            cellIndex: bigint | number;
+            ch: string;
+            ch_off: string;
+            chOff: string;
+            col_span: bigint | number;
+            colSpan: bigint | number;
+            headers: string;
+            height: string;
+            no_wrap: boolean;
+            noWrap: boolean;
+            row_span: bigint | number;
+            rowSpan: bigint | number;
+            scope: string;
+            v_align: string;
+            vAlign: string;
+            width: string;
+        }
+    }
+
+    /**
+     * @gir-type Class
+     */
+    class DOMHTMLTableCellElement extends DOMHTMLElement implements DOMEventTarget {
+        static $gtype: GObject.GType<DOMHTMLTableCellElement>;
+
+        // Properties
+        get abbr(): string;
+        set abbr(val: string);
+
+        get align(): string;
+        set align(val: string);
+
+        get axis(): string;
+        set axis(val: string);
+
+        get bg_color(): string;
+        set bg_color(val: string);
+
+        get bgColor(): string;
+        set bgColor(val: string);
+
+        /**
+         * @read-only
+         * @default 0
+         */
+        get cell_index(): number;
+
+        /**
+         * @read-only
+         * @default 0
+         */
+        get cellIndex(): number;
+
+        get ch(): string;
+        set ch(val: string);
+
+        get ch_off(): string;
+        set ch_off(val: string);
+
+        get chOff(): string;
+        set chOff(val: string);
+
+        /**
+         * @default 0
+         */
+        get col_span(): number;
+        set col_span(val: bigint | number);
+
+        /**
+         * @default 0
+         */
+        get colSpan(): number;
+        set colSpan(val: bigint | number);
+
+        get headers(): string;
+        set headers(val: string);
+
+        get height(): string;
+        set height(val: string);
+
+        /**
+         * @default false
+         */
+        get no_wrap(): boolean;
+        set no_wrap(val: boolean);
+
+        /**
+         * @default false
+         */
+        get noWrap(): boolean;
+        set noWrap(val: boolean);
+
+        /**
+         * @default 0
+         */
+        get row_span(): number;
+        set row_span(val: bigint | number);
+
+        /**
+         * @default 0
+         */
+        get rowSpan(): number;
+        set rowSpan(val: bigint | number);
+
+        get scope(): string;
+        set scope(val: string);
+
+        get v_align(): string;
+        set v_align(val: string);
+
+        get vAlign(): string;
+        set vAlign(val: string);
+
+        get width(): string;
+        set width(val: string);
+
+        /**
+         * Compile-time signal type information.
+         *
+         * This instance property is generated only for TypeScript type checking.
+         * It is not defined at runtime and should not be accessed in JS code.
+         * @internal
+         */
+        $signals: DOMHTMLTableCellElement.SignalSignatures;
+
+        // Constructors
+        constructor(properties?: Partial<DOMHTMLTableCellElement.ConstructorProps>, ...args: any[]);
+
+        _init(...args: any[]): void;
+
+        // Signals
+        /** @signal */
+        connect<K extends keyof DOMHTMLTableCellElement.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, DOMHTMLTableCellElement.SignalSignatures[K]>): number;
+
+        /** @signal */
+        connect_after<K extends keyof DOMHTMLTableCellElement.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, DOMHTMLTableCellElement.SignalSignatures[K]>): number;
+
+        /** @signal */
+        emit<K extends keyof DOMHTMLTableCellElement.SignalSignatures>(signal: K, ...args: GObject.GjsParameters<DOMHTMLTableCellElement.SignalSignatures[K]>): void;
+
+        // Methods
+        /**
+         * @returns A `gchar`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_abbr(): string;
+
+        /**
+         * @returns A `gchar`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_align(): string;
+
+        /**
+         * @returns A `gchar`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_axis(): string;
+
+        /**
+         * @returns A `gchar`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_bg_color(): string;
+
+        /**
+         * @returns A `glong`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_cell_index(): number;
+
+        /**
+         * @returns A `gchar`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_ch(): string;
+
+        /**
+         * @returns A `gchar`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_ch_off(): string;
+
+        /**
+         * @returns A `glong`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_col_span(): number;
+
+        /**
+         * @returns A `gchar`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_headers(): string;
+
+        /**
+         * @returns A `gchar`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_height(): string;
+
+        /**
+         * @returns A `gboolean`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_no_wrap(): boolean;
+
+        /**
+         * @returns A `glong`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_row_span(): number;
+
+        /**
+         * @returns A `gchar`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_scope(): string;
+
+        /**
+         * @returns A `gchar`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_v_align(): string;
+
+        /**
+         * @returns A `gchar`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_width(): string;
+
+        /**
+         * @param value A `gchar`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        set_abbr(value: string): void;
+
+        /**
+         * @param value A `gchar`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        set_align(value: string): void;
+
+        /**
+         * @param value A `gchar`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        set_axis(value: string): void;
+
+        /**
+         * @param value A `gchar`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        set_bg_color(value: string): void;
+
+        /**
+         * @param value A `gchar`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        set_ch(value: string): void;
+
+        /**
+         * @param value A `gchar`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        set_ch_off(value: string): void;
+
+        /**
+         * @param value A `glong`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        set_col_span(value: bigint | number): void;
+
+        /**
+         * @param value A `gchar`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        set_headers(value: string): void;
+
+        /**
+         * @param value A `gchar`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        set_height(value: string): void;
+
+        /**
+         * @param value A `gboolean`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        set_no_wrap(value: boolean): void;
+
+        /**
+         * @param value A `glong`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        set_row_span(value: bigint | number): void;
+
+        /**
+         * @param value A `gchar`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        set_scope(value: string): void;
+
+        /**
+         * @param value A `gchar`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        set_v_align(value: string): void;
+
+        /**
+         * @param value A `gchar`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        set_width(value: string): void;
+    }
+
+
+    namespace DOMHTMLTableColElement {
+        // Signal signatures
+        interface SignalSignatures extends DOMHTMLElement.SignalSignatures {
+            "notify::align": (pspec: GObject.ParamSpec) => void;
+            "notify::ch": (pspec: GObject.ParamSpec) => void;
+            "notify::ch-off": (pspec: GObject.ParamSpec) => void;
+            "notify::span": (pspec: GObject.ParamSpec) => void;
+            "notify::v-align": (pspec: GObject.ParamSpec) => void;
+            "notify::width": (pspec: GObject.ParamSpec) => void;
+            "notify::access-key": (pspec: GObject.ParamSpec) => void;
+            "notify::content-editable": (pspec: GObject.ParamSpec) => void;
+            "notify::dir": (pspec: GObject.ParamSpec) => void;
+            "notify::draggable": (pspec: GObject.ParamSpec) => void;
+            "notify::hidden": (pspec: GObject.ParamSpec) => void;
+            "notify::inner-text": (pspec: GObject.ParamSpec) => void;
+            "notify::is-content-editable": (pspec: GObject.ParamSpec) => void;
+            "notify::lang": (pspec: GObject.ParamSpec) => void;
+            "notify::outer-text": (pspec: GObject.ParamSpec) => void;
+            "notify::spellcheck": (pspec: GObject.ParamSpec) => void;
+            "notify::tab-index": (pspec: GObject.ParamSpec) => void;
+            "notify::title": (pspec: GObject.ParamSpec) => void;
+            "notify::translate": (pspec: GObject.ParamSpec) => void;
+            "notify::webkitdropzone": (pspec: GObject.ParamSpec) => void;
+            "notify::attributes": (pspec: GObject.ParamSpec) => void;
+            "notify::child-element-count": (pspec: GObject.ParamSpec) => void;
+            "notify::children": (pspec: GObject.ParamSpec) => void;
+            "notify::class-list": (pspec: GObject.ParamSpec) => void;
+            "notify::class-name": (pspec: GObject.ParamSpec) => void;
+            "notify::client-height": (pspec: GObject.ParamSpec) => void;
+            "notify::client-left": (pspec: GObject.ParamSpec) => void;
+            "notify::client-top": (pspec: GObject.ParamSpec) => void;
+            "notify::client-width": (pspec: GObject.ParamSpec) => void;
+            "notify::first-element-child": (pspec: GObject.ParamSpec) => void;
+            "notify::id": (pspec: GObject.ParamSpec) => void;
+            "notify::inner-html": (pspec: GObject.ParamSpec) => void;
+            "notify::last-element-child": (pspec: GObject.ParamSpec) => void;
+            "notify::local-name": (pspec: GObject.ParamSpec) => void;
+            "notify::namespace-uri": (pspec: GObject.ParamSpec) => void;
+            "notify::next-element-sibling": (pspec: GObject.ParamSpec) => void;
+            "notify::offset-height": (pspec: GObject.ParamSpec) => void;
+            "notify::offset-left": (pspec: GObject.ParamSpec) => void;
+            "notify::offset-parent": (pspec: GObject.ParamSpec) => void;
+            "notify::offset-top": (pspec: GObject.ParamSpec) => void;
+            "notify::offset-width": (pspec: GObject.ParamSpec) => void;
+            "notify::outer-html": (pspec: GObject.ParamSpec) => void;
+            "notify::prefix": (pspec: GObject.ParamSpec) => void;
+            "notify::previous-element-sibling": (pspec: GObject.ParamSpec) => void;
+            "notify::scroll-height": (pspec: GObject.ParamSpec) => void;
+            "notify::scroll-left": (pspec: GObject.ParamSpec) => void;
+            "notify::scroll-top": (pspec: GObject.ParamSpec) => void;
+            "notify::scroll-width": (pspec: GObject.ParamSpec) => void;
+            "notify::style": (pspec: GObject.ParamSpec) => void;
+            "notify::tag-name": (pspec: GObject.ParamSpec) => void;
+            "notify::webkit-region-overset": (pspec: GObject.ParamSpec) => void;
+            "notify::base-uri": (pspec: GObject.ParamSpec) => void;
+            "notify::child-nodes": (pspec: GObject.ParamSpec) => void;
+            "notify::first-child": (pspec: GObject.ParamSpec) => void;
+            "notify::last-child": (pspec: GObject.ParamSpec) => void;
+            "notify::next-sibling": (pspec: GObject.ParamSpec) => void;
+            "notify::node-name": (pspec: GObject.ParamSpec) => void;
+            "notify::node-type": (pspec: GObject.ParamSpec) => void;
+            "notify::node-value": (pspec: GObject.ParamSpec) => void;
+            "notify::owner-document": (pspec: GObject.ParamSpec) => void;
+            "notify::parent-element": (pspec: GObject.ParamSpec) => void;
+            "notify::parent-node": (pspec: GObject.ParamSpec) => void;
+            "notify::previous-sibling": (pspec: GObject.ParamSpec) => void;
+            "notify::text-content": (pspec: GObject.ParamSpec) => void;
+            "notify::core-object": (pspec: GObject.ParamSpec) => void;
+        }
+
+        // Constructor properties interface
+        interface ConstructorProps extends DOMHTMLElement.ConstructorProps, DOMEventTarget.ConstructorProps {
+            align: string;
+            ch: string;
+            ch_off: string;
+            chOff: string;
+            span: bigint | number;
+            v_align: string;
+            vAlign: string;
+            width: string;
+        }
+    }
+
+    /**
+     * @gir-type Class
+     */
+    class DOMHTMLTableColElement extends DOMHTMLElement implements DOMEventTarget {
+        static $gtype: GObject.GType<DOMHTMLTableColElement>;
+
+        // Properties
+        get align(): string;
+        set align(val: string);
+
+        get ch(): string;
+        set ch(val: string);
+
+        get ch_off(): string;
+        set ch_off(val: string);
+
+        get chOff(): string;
+        set chOff(val: string);
+
+        /**
+         * @default 0
+         */
+        get span(): number;
+        set span(val: bigint | number);
+
+        get v_align(): string;
+        set v_align(val: string);
+
+        get vAlign(): string;
+        set vAlign(val: string);
+
+        get width(): string;
+        set width(val: string);
+
+        /**
+         * Compile-time signal type information.
+         *
+         * This instance property is generated only for TypeScript type checking.
+         * It is not defined at runtime and should not be accessed in JS code.
+         * @internal
+         */
+        $signals: DOMHTMLTableColElement.SignalSignatures;
+
+        // Constructors
+        constructor(properties?: Partial<DOMHTMLTableColElement.ConstructorProps>, ...args: any[]);
+
+        _init(...args: any[]): void;
+
+        // Signals
+        /** @signal */
+        connect<K extends keyof DOMHTMLTableColElement.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, DOMHTMLTableColElement.SignalSignatures[K]>): number;
+
+        /** @signal */
+        connect_after<K extends keyof DOMHTMLTableColElement.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, DOMHTMLTableColElement.SignalSignatures[K]>): number;
+
+        /** @signal */
+        emit<K extends keyof DOMHTMLTableColElement.SignalSignatures>(signal: K, ...args: GObject.GjsParameters<DOMHTMLTableColElement.SignalSignatures[K]>): void;
+
+        // Methods
+        /**
+         * @returns A `gchar`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_align(): string;
+
+        /**
+         * @returns A `gchar`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_ch(): string;
+
+        /**
+         * @returns A `gchar`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_ch_off(): string;
+
+        /**
+         * @returns A `glong`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_span(): number;
+
+        /**
+         * @returns A `gchar`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_v_align(): string;
+
+        /**
+         * @returns A `gchar`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_width(): string;
+
+        /**
+         * @param value A `gchar`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        set_align(value: string): void;
+
+        /**
+         * @param value A `gchar`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        set_ch(value: string): void;
+
+        /**
+         * @param value A `gchar`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        set_ch_off(value: string): void;
+
+        /**
+         * @param value A `glong`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        set_span(value: bigint | number): void;
+
+        /**
+         * @param value A `gchar`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        set_v_align(value: string): void;
+
+        /**
+         * @param value A `gchar`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        set_width(value: string): void;
+    }
+
+
+    namespace DOMHTMLTableElement {
+        // Signal signatures
+        interface SignalSignatures extends DOMHTMLElement.SignalSignatures {
+            "notify::align": (pspec: GObject.ParamSpec) => void;
+            "notify::bg-color": (pspec: GObject.ParamSpec) => void;
+            "notify::border": (pspec: GObject.ParamSpec) => void;
+            "notify::caption": (pspec: GObject.ParamSpec) => void;
+            "notify::cell-padding": (pspec: GObject.ParamSpec) => void;
+            "notify::cell-spacing": (pspec: GObject.ParamSpec) => void;
+            "notify::rows": (pspec: GObject.ParamSpec) => void;
+            "notify::rules": (pspec: GObject.ParamSpec) => void;
+            "notify::summary": (pspec: GObject.ParamSpec) => void;
+            "notify::t-bodies": (pspec: GObject.ParamSpec) => void;
+            "notify::t-foot": (pspec: GObject.ParamSpec) => void;
+            "notify::t-head": (pspec: GObject.ParamSpec) => void;
+            "notify::width": (pspec: GObject.ParamSpec) => void;
+            "notify::access-key": (pspec: GObject.ParamSpec) => void;
+            "notify::content-editable": (pspec: GObject.ParamSpec) => void;
+            "notify::dir": (pspec: GObject.ParamSpec) => void;
+            "notify::draggable": (pspec: GObject.ParamSpec) => void;
+            "notify::hidden": (pspec: GObject.ParamSpec) => void;
+            "notify::inner-text": (pspec: GObject.ParamSpec) => void;
+            "notify::is-content-editable": (pspec: GObject.ParamSpec) => void;
+            "notify::lang": (pspec: GObject.ParamSpec) => void;
+            "notify::outer-text": (pspec: GObject.ParamSpec) => void;
+            "notify::spellcheck": (pspec: GObject.ParamSpec) => void;
+            "notify::tab-index": (pspec: GObject.ParamSpec) => void;
+            "notify::title": (pspec: GObject.ParamSpec) => void;
+            "notify::translate": (pspec: GObject.ParamSpec) => void;
+            "notify::webkitdropzone": (pspec: GObject.ParamSpec) => void;
+            "notify::attributes": (pspec: GObject.ParamSpec) => void;
+            "notify::child-element-count": (pspec: GObject.ParamSpec) => void;
+            "notify::children": (pspec: GObject.ParamSpec) => void;
+            "notify::class-list": (pspec: GObject.ParamSpec) => void;
+            "notify::class-name": (pspec: GObject.ParamSpec) => void;
+            "notify::client-height": (pspec: GObject.ParamSpec) => void;
+            "notify::client-left": (pspec: GObject.ParamSpec) => void;
+            "notify::client-top": (pspec: GObject.ParamSpec) => void;
+            "notify::client-width": (pspec: GObject.ParamSpec) => void;
+            "notify::first-element-child": (pspec: GObject.ParamSpec) => void;
+            "notify::id": (pspec: GObject.ParamSpec) => void;
+            "notify::inner-html": (pspec: GObject.ParamSpec) => void;
+            "notify::last-element-child": (pspec: GObject.ParamSpec) => void;
+            "notify::local-name": (pspec: GObject.ParamSpec) => void;
+            "notify::namespace-uri": (pspec: GObject.ParamSpec) => void;
+            "notify::next-element-sibling": (pspec: GObject.ParamSpec) => void;
+            "notify::offset-height": (pspec: GObject.ParamSpec) => void;
+            "notify::offset-left": (pspec: GObject.ParamSpec) => void;
+            "notify::offset-parent": (pspec: GObject.ParamSpec) => void;
+            "notify::offset-top": (pspec: GObject.ParamSpec) => void;
+            "notify::offset-width": (pspec: GObject.ParamSpec) => void;
+            "notify::outer-html": (pspec: GObject.ParamSpec) => void;
+            "notify::prefix": (pspec: GObject.ParamSpec) => void;
+            "notify::previous-element-sibling": (pspec: GObject.ParamSpec) => void;
+            "notify::scroll-height": (pspec: GObject.ParamSpec) => void;
+            "notify::scroll-left": (pspec: GObject.ParamSpec) => void;
+            "notify::scroll-top": (pspec: GObject.ParamSpec) => void;
+            "notify::scroll-width": (pspec: GObject.ParamSpec) => void;
+            "notify::style": (pspec: GObject.ParamSpec) => void;
+            "notify::tag-name": (pspec: GObject.ParamSpec) => void;
+            "notify::webkit-region-overset": (pspec: GObject.ParamSpec) => void;
+            "notify::base-uri": (pspec: GObject.ParamSpec) => void;
+            "notify::child-nodes": (pspec: GObject.ParamSpec) => void;
+            "notify::first-child": (pspec: GObject.ParamSpec) => void;
+            "notify::last-child": (pspec: GObject.ParamSpec) => void;
+            "notify::next-sibling": (pspec: GObject.ParamSpec) => void;
+            "notify::node-name": (pspec: GObject.ParamSpec) => void;
+            "notify::node-type": (pspec: GObject.ParamSpec) => void;
+            "notify::node-value": (pspec: GObject.ParamSpec) => void;
+            "notify::owner-document": (pspec: GObject.ParamSpec) => void;
+            "notify::parent-element": (pspec: GObject.ParamSpec) => void;
+            "notify::parent-node": (pspec: GObject.ParamSpec) => void;
+            "notify::previous-sibling": (pspec: GObject.ParamSpec) => void;
+            "notify::text-content": (pspec: GObject.ParamSpec) => void;
+            "notify::core-object": (pspec: GObject.ParamSpec) => void;
+        }
+
+        // Constructor properties interface
+        interface ConstructorProps extends DOMHTMLElement.ConstructorProps, DOMEventTarget.ConstructorProps {
+            align: string;
+            bg_color: string;
+            bgColor: string;
+            border: string;
+            caption: DOMHTMLTableCaptionElement;
+            cell_padding: string;
+            cellPadding: string;
+            cell_spacing: string;
+            cellSpacing: string;
+            rows: DOMHTMLCollection;
+            rules: string;
+            summary: string;
+            t_bodies: DOMHTMLCollection;
+            tBodies: DOMHTMLCollection;
+            t_foot: DOMHTMLTableSectionElement;
+            tFoot: DOMHTMLTableSectionElement;
+            t_head: DOMHTMLTableSectionElement;
+            tHead: DOMHTMLTableSectionElement;
+            width: string;
+        }
+    }
+
+    /**
+     * @gir-type Class
+     */
+    class DOMHTMLTableElement extends DOMHTMLElement implements DOMEventTarget {
+        static $gtype: GObject.GType<DOMHTMLTableElement>;
+
+        // Properties
+        get align(): string;
+        set align(val: string);
+
+        get bg_color(): string;
+        set bg_color(val: string);
+
+        get bgColor(): string;
+        set bgColor(val: string);
+
+        get border(): string;
+        set border(val: string);
+
+        /**
+         * @read-only
+         */
+        get caption(): DOMHTMLTableCaptionElement;
+
+        get cell_padding(): string;
+        set cell_padding(val: string);
+
+        get cellPadding(): string;
+        set cellPadding(val: string);
+
+        get cell_spacing(): string;
+        set cell_spacing(val: string);
+
+        get cellSpacing(): string;
+        set cellSpacing(val: string);
+
+        /**
+         * @read-only
+         */
+        get rows(): DOMHTMLCollection;
+
+        get rules(): string;
+        set rules(val: string);
+
+        get summary(): string;
+        set summary(val: string);
+
+        /**
+         * @read-only
+         */
+        get t_bodies(): DOMHTMLCollection;
+
+        /**
+         * @read-only
+         */
+        get tBodies(): DOMHTMLCollection;
+
+        /**
+         * @read-only
+         */
+        get t_foot(): DOMHTMLTableSectionElement;
+
+        /**
+         * @read-only
+         */
+        get tFoot(): DOMHTMLTableSectionElement;
+
+        /**
+         * @read-only
+         */
+        get t_head(): DOMHTMLTableSectionElement;
+
+        /**
+         * @read-only
+         */
+        get tHead(): DOMHTMLTableSectionElement;
+
+        get width(): string;
+        set width(val: string);
+
+        /**
+         * Compile-time signal type information.
+         *
+         * This instance property is generated only for TypeScript type checking.
+         * It is not defined at runtime and should not be accessed in JS code.
+         * @internal
+         */
+        $signals: DOMHTMLTableElement.SignalSignatures;
+
+        // Constructors
+        constructor(properties?: Partial<DOMHTMLTableElement.ConstructorProps>, ...args: any[]);
+
+        _init(...args: any[]): void;
+
+        // Signals
+        /** @signal */
+        connect<K extends keyof DOMHTMLTableElement.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, DOMHTMLTableElement.SignalSignatures[K]>): number;
+
+        /** @signal */
+        connect_after<K extends keyof DOMHTMLTableElement.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, DOMHTMLTableElement.SignalSignatures[K]>): number;
+
+        /** @signal */
+        emit<K extends keyof DOMHTMLTableElement.SignalSignatures>(signal: K, ...args: GObject.GjsParameters<DOMHTMLTableElement.SignalSignatures[K]>): void;
+
+        // Methods
+        /**
+         * @returns A {@link WebKit2WebExtension.DOMHTMLElement}
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        create_caption(): DOMHTMLElement;
+
+        /**
+         * @returns A {@link WebKit2WebExtension.DOMHTMLElement}
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        create_t_foot(): DOMHTMLElement;
+
+        /**
+         * @returns A {@link WebKit2WebExtension.DOMHTMLElement}
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        create_t_head(): DOMHTMLElement;
+
+        /**
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        delete_caption(): void;
+
+        /**
+         * @param index A `glong`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         * @throws GLib.Error
+         */
+        delete_row(index: bigint | number): void;
+
+        /**
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        delete_t_foot(): void;
+
+        /**
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        delete_t_head(): void;
+
+        /**
+         * @returns A `gchar`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_align(): string;
+
+        /**
+         * @returns A `gchar`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_bg_color(): string;
+
+        /**
+         * @returns A `gchar`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_border(): string;
+
+        /**
+         * @returns A {@link WebKit2WebExtension.DOMHTMLTableCaptionElement}
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_caption(): DOMHTMLTableCaptionElement;
+
+        /**
+         * @returns A `gchar`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_cell_padding(): string;
+
+        /**
+         * @returns A `gchar`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_cell_spacing(): string;
+
+        /**
+         * @returns A {@link WebKit2WebExtension.DOMHTMLCollection}
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_rows(): DOMHTMLCollection;
+
+        /**
+         * @returns A `gchar`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_rules(): string;
+
+        /**
+         * @returns A `gchar`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_summary(): string;
+
+        /**
+         * @returns A {@link WebKit2WebExtension.DOMHTMLCollection}
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_t_bodies(): DOMHTMLCollection;
+
+        /**
+         * @returns A {@link WebKit2WebExtension.DOMHTMLTableSectionElement}
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_t_foot(): DOMHTMLTableSectionElement;
+
+        /**
+         * @returns A {@link WebKit2WebExtension.DOMHTMLTableSectionElement}
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_t_head(): DOMHTMLTableSectionElement;
+
+        /**
+         * @returns A `gchar`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_width(): string;
+
+        /**
+         * @param index A `glong`
+         * @returns A {@link WebKit2WebExtension.DOMHTMLElement}
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         * @throws GLib.Error
+         */
+        insert_row(index: bigint | number): DOMHTMLElement;
+
+        /**
+         * @param value A `gchar`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        set_align(value: string): void;
+
+        /**
+         * @param value A `gchar`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        set_bg_color(value: string): void;
+
+        /**
+         * @param value A `gchar`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        set_border(value: string): void;
+
+        /**
+         * @param value A {@link WebKit2WebExtension.DOMHTMLTableCaptionElement}
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         * @throws GLib.Error
+         */
+        set_caption(value: DOMHTMLTableCaptionElement): void;
+
+        /**
+         * @param value A `gchar`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        set_cell_padding(value: string): void;
+
+        /**
+         * @param value A `gchar`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        set_cell_spacing(value: string): void;
+
+        /**
+         * @param value A `gchar`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        set_rules(value: string): void;
+
+        /**
+         * @param value A `gchar`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        set_summary(value: string): void;
+
+        /**
+         * @param value A {@link WebKit2WebExtension.DOMHTMLTableSectionElement}
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         * @throws GLib.Error
+         */
+        set_t_foot(value: DOMHTMLTableSectionElement): void;
+
+        /**
+         * @param value A {@link WebKit2WebExtension.DOMHTMLTableSectionElement}
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         * @throws GLib.Error
+         */
+        set_t_head(value: DOMHTMLTableSectionElement): void;
+
+        /**
+         * @param value A `gchar`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        set_width(value: string): void;
+    }
+
+
+    namespace DOMHTMLTableRowElement {
+        // Signal signatures
+        interface SignalSignatures extends DOMHTMLElement.SignalSignatures {
+            "notify::align": (pspec: GObject.ParamSpec) => void;
+            "notify::bg-color": (pspec: GObject.ParamSpec) => void;
+            "notify::cells": (pspec: GObject.ParamSpec) => void;
+            "notify::ch": (pspec: GObject.ParamSpec) => void;
+            "notify::ch-off": (pspec: GObject.ParamSpec) => void;
+            "notify::row-index": (pspec: GObject.ParamSpec) => void;
+            "notify::section-row-index": (pspec: GObject.ParamSpec) => void;
+            "notify::v-align": (pspec: GObject.ParamSpec) => void;
+            "notify::access-key": (pspec: GObject.ParamSpec) => void;
+            "notify::content-editable": (pspec: GObject.ParamSpec) => void;
+            "notify::dir": (pspec: GObject.ParamSpec) => void;
+            "notify::draggable": (pspec: GObject.ParamSpec) => void;
+            "notify::hidden": (pspec: GObject.ParamSpec) => void;
+            "notify::inner-text": (pspec: GObject.ParamSpec) => void;
+            "notify::is-content-editable": (pspec: GObject.ParamSpec) => void;
+            "notify::lang": (pspec: GObject.ParamSpec) => void;
+            "notify::outer-text": (pspec: GObject.ParamSpec) => void;
+            "notify::spellcheck": (pspec: GObject.ParamSpec) => void;
+            "notify::tab-index": (pspec: GObject.ParamSpec) => void;
+            "notify::title": (pspec: GObject.ParamSpec) => void;
+            "notify::translate": (pspec: GObject.ParamSpec) => void;
+            "notify::webkitdropzone": (pspec: GObject.ParamSpec) => void;
+            "notify::attributes": (pspec: GObject.ParamSpec) => void;
+            "notify::child-element-count": (pspec: GObject.ParamSpec) => void;
+            "notify::children": (pspec: GObject.ParamSpec) => void;
+            "notify::class-list": (pspec: GObject.ParamSpec) => void;
+            "notify::class-name": (pspec: GObject.ParamSpec) => void;
+            "notify::client-height": (pspec: GObject.ParamSpec) => void;
+            "notify::client-left": (pspec: GObject.ParamSpec) => void;
+            "notify::client-top": (pspec: GObject.ParamSpec) => void;
+            "notify::client-width": (pspec: GObject.ParamSpec) => void;
+            "notify::first-element-child": (pspec: GObject.ParamSpec) => void;
+            "notify::id": (pspec: GObject.ParamSpec) => void;
+            "notify::inner-html": (pspec: GObject.ParamSpec) => void;
+            "notify::last-element-child": (pspec: GObject.ParamSpec) => void;
+            "notify::local-name": (pspec: GObject.ParamSpec) => void;
+            "notify::namespace-uri": (pspec: GObject.ParamSpec) => void;
+            "notify::next-element-sibling": (pspec: GObject.ParamSpec) => void;
+            "notify::offset-height": (pspec: GObject.ParamSpec) => void;
+            "notify::offset-left": (pspec: GObject.ParamSpec) => void;
+            "notify::offset-parent": (pspec: GObject.ParamSpec) => void;
+            "notify::offset-top": (pspec: GObject.ParamSpec) => void;
+            "notify::offset-width": (pspec: GObject.ParamSpec) => void;
+            "notify::outer-html": (pspec: GObject.ParamSpec) => void;
+            "notify::prefix": (pspec: GObject.ParamSpec) => void;
+            "notify::previous-element-sibling": (pspec: GObject.ParamSpec) => void;
+            "notify::scroll-height": (pspec: GObject.ParamSpec) => void;
+            "notify::scroll-left": (pspec: GObject.ParamSpec) => void;
+            "notify::scroll-top": (pspec: GObject.ParamSpec) => void;
+            "notify::scroll-width": (pspec: GObject.ParamSpec) => void;
+            "notify::style": (pspec: GObject.ParamSpec) => void;
+            "notify::tag-name": (pspec: GObject.ParamSpec) => void;
+            "notify::webkit-region-overset": (pspec: GObject.ParamSpec) => void;
+            "notify::base-uri": (pspec: GObject.ParamSpec) => void;
+            "notify::child-nodes": (pspec: GObject.ParamSpec) => void;
+            "notify::first-child": (pspec: GObject.ParamSpec) => void;
+            "notify::last-child": (pspec: GObject.ParamSpec) => void;
+            "notify::next-sibling": (pspec: GObject.ParamSpec) => void;
+            "notify::node-name": (pspec: GObject.ParamSpec) => void;
+            "notify::node-type": (pspec: GObject.ParamSpec) => void;
+            "notify::node-value": (pspec: GObject.ParamSpec) => void;
+            "notify::owner-document": (pspec: GObject.ParamSpec) => void;
+            "notify::parent-element": (pspec: GObject.ParamSpec) => void;
+            "notify::parent-node": (pspec: GObject.ParamSpec) => void;
+            "notify::previous-sibling": (pspec: GObject.ParamSpec) => void;
+            "notify::text-content": (pspec: GObject.ParamSpec) => void;
+            "notify::core-object": (pspec: GObject.ParamSpec) => void;
+        }
+
+        // Constructor properties interface
+        interface ConstructorProps extends DOMHTMLElement.ConstructorProps, DOMEventTarget.ConstructorProps {
+            align: string;
+            bg_color: string;
+            bgColor: string;
+            cells: DOMHTMLCollection;
+            ch: string;
+            ch_off: string;
+            chOff: string;
+            row_index: bigint | number;
+            rowIndex: bigint | number;
+            section_row_index: bigint | number;
+            sectionRowIndex: bigint | number;
+            v_align: string;
+            vAlign: string;
+        }
+    }
+
+    /**
+     * @gir-type Class
+     */
+    class DOMHTMLTableRowElement extends DOMHTMLElement implements DOMEventTarget {
+        static $gtype: GObject.GType<DOMHTMLTableRowElement>;
+
+        // Properties
+        get align(): string;
+        set align(val: string);
+
+        get bg_color(): string;
+        set bg_color(val: string);
+
+        get bgColor(): string;
+        set bgColor(val: string);
+
+        /**
+         * @read-only
+         */
+        get cells(): DOMHTMLCollection;
+
+        get ch(): string;
+        set ch(val: string);
+
+        get ch_off(): string;
+        set ch_off(val: string);
+
+        get chOff(): string;
+        set chOff(val: string);
+
+        /**
+         * @read-only
+         * @default 0
+         */
+        get row_index(): number;
+
+        /**
+         * @read-only
+         * @default 0
+         */
+        get rowIndex(): number;
+
+        /**
+         * @read-only
+         * @default 0
+         */
+        get section_row_index(): number;
+
+        /**
+         * @read-only
+         * @default 0
+         */
+        get sectionRowIndex(): number;
+
+        get v_align(): string;
+        set v_align(val: string);
+
+        get vAlign(): string;
+        set vAlign(val: string);
+
+        /**
+         * Compile-time signal type information.
+         *
+         * This instance property is generated only for TypeScript type checking.
+         * It is not defined at runtime and should not be accessed in JS code.
+         * @internal
+         */
+        $signals: DOMHTMLTableRowElement.SignalSignatures;
+
+        // Constructors
+        constructor(properties?: Partial<DOMHTMLTableRowElement.ConstructorProps>, ...args: any[]);
+
+        _init(...args: any[]): void;
+
+        // Signals
+        /** @signal */
+        connect<K extends keyof DOMHTMLTableRowElement.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, DOMHTMLTableRowElement.SignalSignatures[K]>): number;
+
+        /** @signal */
+        connect_after<K extends keyof DOMHTMLTableRowElement.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, DOMHTMLTableRowElement.SignalSignatures[K]>): number;
+
+        /** @signal */
+        emit<K extends keyof DOMHTMLTableRowElement.SignalSignatures>(signal: K, ...args: GObject.GjsParameters<DOMHTMLTableRowElement.SignalSignatures[K]>): void;
+
+        // Methods
+        /**
+         * @param index A `glong`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         * @throws GLib.Error
+         */
+        delete_cell(index: bigint | number): void;
+
+        /**
+         * @returns A `gchar`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_align(): string;
+
+        /**
+         * @returns A `gchar`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_bg_color(): string;
+
+        /**
+         * @returns A {@link WebKit2WebExtension.DOMHTMLCollection}
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_cells(): DOMHTMLCollection;
+
+        /**
+         * @returns A `gchar`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_ch(): string;
+
+        /**
+         * @returns A `gchar`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_ch_off(): string;
+
+        /**
+         * @returns A `glong`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_row_index(): number;
+
+        /**
+         * @returns A `glong`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_section_row_index(): number;
+
+        /**
+         * @returns A `gchar`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_v_align(): string;
+
+        /**
+         * @param index A `glong`
+         * @returns A {@link WebKit2WebExtension.DOMHTMLElement}
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         * @throws GLib.Error
+         */
+        insert_cell(index: bigint | number): DOMHTMLElement;
+
+        /**
+         * @param value A `gchar`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        set_align(value: string): void;
+
+        /**
+         * @param value A `gchar`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        set_bg_color(value: string): void;
+
+        /**
+         * @param value A `gchar`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        set_ch(value: string): void;
+
+        /**
+         * @param value A `gchar`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        set_ch_off(value: string): void;
+
+        /**
+         * @param value A `gchar`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        set_v_align(value: string): void;
+    }
+
+
+    namespace DOMHTMLTableSectionElement {
+        // Signal signatures
+        interface SignalSignatures extends DOMHTMLElement.SignalSignatures {
+            "notify::align": (pspec: GObject.ParamSpec) => void;
+            "notify::ch": (pspec: GObject.ParamSpec) => void;
+            "notify::ch-off": (pspec: GObject.ParamSpec) => void;
+            "notify::rows": (pspec: GObject.ParamSpec) => void;
+            "notify::v-align": (pspec: GObject.ParamSpec) => void;
+            "notify::access-key": (pspec: GObject.ParamSpec) => void;
+            "notify::content-editable": (pspec: GObject.ParamSpec) => void;
+            "notify::dir": (pspec: GObject.ParamSpec) => void;
+            "notify::draggable": (pspec: GObject.ParamSpec) => void;
+            "notify::hidden": (pspec: GObject.ParamSpec) => void;
+            "notify::inner-text": (pspec: GObject.ParamSpec) => void;
+            "notify::is-content-editable": (pspec: GObject.ParamSpec) => void;
+            "notify::lang": (pspec: GObject.ParamSpec) => void;
+            "notify::outer-text": (pspec: GObject.ParamSpec) => void;
+            "notify::spellcheck": (pspec: GObject.ParamSpec) => void;
+            "notify::tab-index": (pspec: GObject.ParamSpec) => void;
+            "notify::title": (pspec: GObject.ParamSpec) => void;
+            "notify::translate": (pspec: GObject.ParamSpec) => void;
+            "notify::webkitdropzone": (pspec: GObject.ParamSpec) => void;
+            "notify::attributes": (pspec: GObject.ParamSpec) => void;
+            "notify::child-element-count": (pspec: GObject.ParamSpec) => void;
+            "notify::children": (pspec: GObject.ParamSpec) => void;
+            "notify::class-list": (pspec: GObject.ParamSpec) => void;
+            "notify::class-name": (pspec: GObject.ParamSpec) => void;
+            "notify::client-height": (pspec: GObject.ParamSpec) => void;
+            "notify::client-left": (pspec: GObject.ParamSpec) => void;
+            "notify::client-top": (pspec: GObject.ParamSpec) => void;
+            "notify::client-width": (pspec: GObject.ParamSpec) => void;
+            "notify::first-element-child": (pspec: GObject.ParamSpec) => void;
+            "notify::id": (pspec: GObject.ParamSpec) => void;
+            "notify::inner-html": (pspec: GObject.ParamSpec) => void;
+            "notify::last-element-child": (pspec: GObject.ParamSpec) => void;
+            "notify::local-name": (pspec: GObject.ParamSpec) => void;
+            "notify::namespace-uri": (pspec: GObject.ParamSpec) => void;
+            "notify::next-element-sibling": (pspec: GObject.ParamSpec) => void;
+            "notify::offset-height": (pspec: GObject.ParamSpec) => void;
+            "notify::offset-left": (pspec: GObject.ParamSpec) => void;
+            "notify::offset-parent": (pspec: GObject.ParamSpec) => void;
+            "notify::offset-top": (pspec: GObject.ParamSpec) => void;
+            "notify::offset-width": (pspec: GObject.ParamSpec) => void;
+            "notify::outer-html": (pspec: GObject.ParamSpec) => void;
+            "notify::prefix": (pspec: GObject.ParamSpec) => void;
+            "notify::previous-element-sibling": (pspec: GObject.ParamSpec) => void;
+            "notify::scroll-height": (pspec: GObject.ParamSpec) => void;
+            "notify::scroll-left": (pspec: GObject.ParamSpec) => void;
+            "notify::scroll-top": (pspec: GObject.ParamSpec) => void;
+            "notify::scroll-width": (pspec: GObject.ParamSpec) => void;
+            "notify::style": (pspec: GObject.ParamSpec) => void;
+            "notify::tag-name": (pspec: GObject.ParamSpec) => void;
+            "notify::webkit-region-overset": (pspec: GObject.ParamSpec) => void;
+            "notify::base-uri": (pspec: GObject.ParamSpec) => void;
+            "notify::child-nodes": (pspec: GObject.ParamSpec) => void;
+            "notify::first-child": (pspec: GObject.ParamSpec) => void;
+            "notify::last-child": (pspec: GObject.ParamSpec) => void;
+            "notify::next-sibling": (pspec: GObject.ParamSpec) => void;
+            "notify::node-name": (pspec: GObject.ParamSpec) => void;
+            "notify::node-type": (pspec: GObject.ParamSpec) => void;
+            "notify::node-value": (pspec: GObject.ParamSpec) => void;
+            "notify::owner-document": (pspec: GObject.ParamSpec) => void;
+            "notify::parent-element": (pspec: GObject.ParamSpec) => void;
+            "notify::parent-node": (pspec: GObject.ParamSpec) => void;
+            "notify::previous-sibling": (pspec: GObject.ParamSpec) => void;
+            "notify::text-content": (pspec: GObject.ParamSpec) => void;
+            "notify::core-object": (pspec: GObject.ParamSpec) => void;
+        }
+
+        // Constructor properties interface
+        interface ConstructorProps extends DOMHTMLElement.ConstructorProps, DOMEventTarget.ConstructorProps {
+            align: string;
+            ch: string;
+            ch_off: string;
+            chOff: string;
+            rows: DOMHTMLCollection;
+            v_align: string;
+            vAlign: string;
+        }
+    }
+
+    /**
+     * @gir-type Class
+     */
+    class DOMHTMLTableSectionElement extends DOMHTMLElement implements DOMEventTarget {
+        static $gtype: GObject.GType<DOMHTMLTableSectionElement>;
+
+        // Properties
+        get align(): string;
+        set align(val: string);
+
+        get ch(): string;
+        set ch(val: string);
+
+        get ch_off(): string;
+        set ch_off(val: string);
+
+        get chOff(): string;
+        set chOff(val: string);
+
+        /**
+         * @read-only
+         */
+        get rows(): DOMHTMLCollection;
+
+        get v_align(): string;
+        set v_align(val: string);
+
+        get vAlign(): string;
+        set vAlign(val: string);
+
+        /**
+         * Compile-time signal type information.
+         *
+         * This instance property is generated only for TypeScript type checking.
+         * It is not defined at runtime and should not be accessed in JS code.
+         * @internal
+         */
+        $signals: DOMHTMLTableSectionElement.SignalSignatures;
+
+        // Constructors
+        constructor(properties?: Partial<DOMHTMLTableSectionElement.ConstructorProps>, ...args: any[]);
+
+        _init(...args: any[]): void;
+
+        // Signals
+        /** @signal */
+        connect<K extends keyof DOMHTMLTableSectionElement.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, DOMHTMLTableSectionElement.SignalSignatures[K]>): number;
+
+        /** @signal */
+        connect_after<K extends keyof DOMHTMLTableSectionElement.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, DOMHTMLTableSectionElement.SignalSignatures[K]>): number;
+
+        /** @signal */
+        emit<K extends keyof DOMHTMLTableSectionElement.SignalSignatures>(signal: K, ...args: GObject.GjsParameters<DOMHTMLTableSectionElement.SignalSignatures[K]>): void;
+
+        // Methods
+        /**
+         * @param index A `glong`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         * @throws GLib.Error
+         */
+        delete_row(index: bigint | number): void;
+
+        /**
+         * @returns A `gchar`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_align(): string;
+
+        /**
+         * @returns A `gchar`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_ch(): string;
+
+        /**
+         * @returns A `gchar`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_ch_off(): string;
+
+        /**
+         * @returns A {@link WebKit2WebExtension.DOMHTMLCollection}
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_rows(): DOMHTMLCollection;
+
+        /**
+         * @returns A `gchar`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_v_align(): string;
+
+        /**
+         * @param index A `glong`
+         * @returns A {@link WebKit2WebExtension.DOMHTMLElement}
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         * @throws GLib.Error
+         */
+        insert_row(index: bigint | number): DOMHTMLElement;
+
+        /**
+         * @param value A `gchar`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        set_align(value: string): void;
+
+        /**
+         * @param value A `gchar`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        set_ch(value: string): void;
+
+        /**
+         * @param value A `gchar`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        set_ch_off(value: string): void;
+
+        /**
+         * @param value A `gchar`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        set_v_align(value: string): void;
+    }
+
+
+    namespace DOMHTMLTextAreaElement {
+        // Signal signatures
+        interface SignalSignatures extends DOMHTMLElement.SignalSignatures {
+            "notify::autofocus": (pspec: GObject.ParamSpec) => void;
+            "notify::cols": (pspec: GObject.ParamSpec) => void;
+            "notify::default-value": (pspec: GObject.ParamSpec) => void;
+            "notify::disabled": (pspec: GObject.ParamSpec) => void;
+            "notify::form": (pspec: GObject.ParamSpec) => void;
+            "notify::name": (pspec: GObject.ParamSpec) => void;
+            "notify::read-only": (pspec: GObject.ParamSpec) => void;
+            "notify::rows": (pspec: GObject.ParamSpec) => void;
+            "notify::selection-end": (pspec: GObject.ParamSpec) => void;
+            "notify::selection-start": (pspec: GObject.ParamSpec) => void;
+            "notify::type": (pspec: GObject.ParamSpec) => void;
+            "notify::value": (pspec: GObject.ParamSpec) => void;
+            "notify::will-validate": (pspec: GObject.ParamSpec) => void;
+            "notify::access-key": (pspec: GObject.ParamSpec) => void;
+            "notify::content-editable": (pspec: GObject.ParamSpec) => void;
+            "notify::dir": (pspec: GObject.ParamSpec) => void;
+            "notify::draggable": (pspec: GObject.ParamSpec) => void;
+            "notify::hidden": (pspec: GObject.ParamSpec) => void;
+            "notify::inner-text": (pspec: GObject.ParamSpec) => void;
+            "notify::is-content-editable": (pspec: GObject.ParamSpec) => void;
+            "notify::lang": (pspec: GObject.ParamSpec) => void;
+            "notify::outer-text": (pspec: GObject.ParamSpec) => void;
+            "notify::spellcheck": (pspec: GObject.ParamSpec) => void;
+            "notify::tab-index": (pspec: GObject.ParamSpec) => void;
+            "notify::title": (pspec: GObject.ParamSpec) => void;
+            "notify::translate": (pspec: GObject.ParamSpec) => void;
+            "notify::webkitdropzone": (pspec: GObject.ParamSpec) => void;
+            "notify::attributes": (pspec: GObject.ParamSpec) => void;
+            "notify::child-element-count": (pspec: GObject.ParamSpec) => void;
+            "notify::children": (pspec: GObject.ParamSpec) => void;
+            "notify::class-list": (pspec: GObject.ParamSpec) => void;
+            "notify::class-name": (pspec: GObject.ParamSpec) => void;
+            "notify::client-height": (pspec: GObject.ParamSpec) => void;
+            "notify::client-left": (pspec: GObject.ParamSpec) => void;
+            "notify::client-top": (pspec: GObject.ParamSpec) => void;
+            "notify::client-width": (pspec: GObject.ParamSpec) => void;
+            "notify::first-element-child": (pspec: GObject.ParamSpec) => void;
+            "notify::id": (pspec: GObject.ParamSpec) => void;
+            "notify::inner-html": (pspec: GObject.ParamSpec) => void;
+            "notify::last-element-child": (pspec: GObject.ParamSpec) => void;
+            "notify::local-name": (pspec: GObject.ParamSpec) => void;
+            "notify::namespace-uri": (pspec: GObject.ParamSpec) => void;
+            "notify::next-element-sibling": (pspec: GObject.ParamSpec) => void;
+            "notify::offset-height": (pspec: GObject.ParamSpec) => void;
+            "notify::offset-left": (pspec: GObject.ParamSpec) => void;
+            "notify::offset-parent": (pspec: GObject.ParamSpec) => void;
+            "notify::offset-top": (pspec: GObject.ParamSpec) => void;
+            "notify::offset-width": (pspec: GObject.ParamSpec) => void;
+            "notify::outer-html": (pspec: GObject.ParamSpec) => void;
+            "notify::prefix": (pspec: GObject.ParamSpec) => void;
+            "notify::previous-element-sibling": (pspec: GObject.ParamSpec) => void;
+            "notify::scroll-height": (pspec: GObject.ParamSpec) => void;
+            "notify::scroll-left": (pspec: GObject.ParamSpec) => void;
+            "notify::scroll-top": (pspec: GObject.ParamSpec) => void;
+            "notify::scroll-width": (pspec: GObject.ParamSpec) => void;
+            "notify::style": (pspec: GObject.ParamSpec) => void;
+            "notify::tag-name": (pspec: GObject.ParamSpec) => void;
+            "notify::webkit-region-overset": (pspec: GObject.ParamSpec) => void;
+            "notify::base-uri": (pspec: GObject.ParamSpec) => void;
+            "notify::child-nodes": (pspec: GObject.ParamSpec) => void;
+            "notify::first-child": (pspec: GObject.ParamSpec) => void;
+            "notify::last-child": (pspec: GObject.ParamSpec) => void;
+            "notify::next-sibling": (pspec: GObject.ParamSpec) => void;
+            "notify::node-name": (pspec: GObject.ParamSpec) => void;
+            "notify::node-type": (pspec: GObject.ParamSpec) => void;
+            "notify::node-value": (pspec: GObject.ParamSpec) => void;
+            "notify::owner-document": (pspec: GObject.ParamSpec) => void;
+            "notify::parent-element": (pspec: GObject.ParamSpec) => void;
+            "notify::parent-node": (pspec: GObject.ParamSpec) => void;
+            "notify::previous-sibling": (pspec: GObject.ParamSpec) => void;
+            "notify::text-content": (pspec: GObject.ParamSpec) => void;
+            "notify::core-object": (pspec: GObject.ParamSpec) => void;
+        }
+
+        // Constructor properties interface
+        interface ConstructorProps extends DOMHTMLElement.ConstructorProps, DOMEventTarget.ConstructorProps {
+            autofocus: boolean;
+            cols: bigint | number;
+            default_value: string;
+            defaultValue: string;
+            disabled: boolean;
+            form: DOMHTMLFormElement;
+            name: string;
+            read_only: boolean;
+            readOnly: boolean;
+            rows: bigint | number;
+            selection_end: bigint | number;
+            selectionEnd: bigint | number;
+            selection_start: bigint | number;
+            selectionStart: bigint | number;
+            type: string;
+            value: string;
+            will_validate: boolean;
+            willValidate: boolean;
+        }
+    }
+
+    /**
+     * @gir-type Class
+     */
+    class DOMHTMLTextAreaElement extends DOMHTMLElement implements DOMEventTarget {
+        static $gtype: GObject.GType<DOMHTMLTextAreaElement>;
+
+        // Properties
+        /**
+         * @default false
+         */
+        get autofocus(): boolean;
+        set autofocus(val: boolean);
+
+        /**
+         * @default 0
+         */
+        get cols(): number;
+        set cols(val: bigint | number);
+
+        get default_value(): string;
+        set default_value(val: string);
+
+        get defaultValue(): string;
+        set defaultValue(val: string);
+
+        /**
+         * @default false
+         */
+        get disabled(): boolean;
+        set disabled(val: boolean);
+
+        /**
+         * @read-only
+         */
+        get form(): DOMHTMLFormElement;
+
+        get name(): string;
+        set name(val: string);
+
+        /**
+         * @default false
+         */
+        get read_only(): boolean;
+        set read_only(val: boolean);
+
+        /**
+         * @default false
+         */
+        get readOnly(): boolean;
+        set readOnly(val: boolean);
+
+        /**
+         * @default 0
+         */
+        get rows(): number;
+        set rows(val: bigint | number);
+
+        /**
+         * @default 0
+         */
+        get selection_end(): number;
+        set selection_end(val: bigint | number);
+
+        /**
+         * @default 0
+         */
+        get selectionEnd(): number;
+        set selectionEnd(val: bigint | number);
+
+        /**
+         * @default 0
+         */
+        get selection_start(): number;
+        set selection_start(val: bigint | number);
+
+        /**
+         * @default 0
+         */
+        get selectionStart(): number;
+        set selectionStart(val: bigint | number);
+
+        /**
+         * @read-only
+         */
+        get type(): string;
+
+        get value(): string;
+        set value(val: string);
+
+        /**
+         * @read-only
+         * @default false
+         */
+        get will_validate(): boolean;
+
+        /**
+         * @read-only
+         * @default false
+         */
+        get willValidate(): boolean;
+
+        /**
+         * Compile-time signal type information.
+         *
+         * This instance property is generated only for TypeScript type checking.
+         * It is not defined at runtime and should not be accessed in JS code.
+         * @internal
+         */
+        $signals: DOMHTMLTextAreaElement.SignalSignatures;
+
+        // Constructors
+        constructor(properties?: Partial<DOMHTMLTextAreaElement.ConstructorProps>, ...args: any[]);
+
+        _init(...args: any[]): void;
+
+        // Signals
+        /** @signal */
+        connect<K extends keyof DOMHTMLTextAreaElement.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, DOMHTMLTextAreaElement.SignalSignatures[K]>): number;
+
+        /** @signal */
+        connect_after<K extends keyof DOMHTMLTextAreaElement.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, DOMHTMLTextAreaElement.SignalSignatures[K]>): number;
+
+        /** @signal */
+        emit<K extends keyof DOMHTMLTextAreaElement.SignalSignatures>(signal: K, ...args: GObject.GjsParameters<DOMHTMLTextAreaElement.SignalSignatures[K]>): void;
+
+        // Methods
+        /**
+         * @returns A `gchar`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_area_type(): string;
+
+        /**
+         * @returns A `gboolean`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_autofocus(): boolean;
+
+        /**
+         * @returns A `glong`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_cols(): number;
+
+        /**
+         * @returns A `gchar`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_default_value(): string;
+
+        /**
+         * @returns A `gboolean`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_disabled(): boolean;
+
+        /**
+         * @returns A {@link WebKit2WebExtension.DOMHTMLFormElement}
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_form(): DOMHTMLFormElement;
+
+        /**
+         * @returns A `gchar`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_name(): string;
+
+        /**
+         * @returns A `gboolean`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_read_only(): boolean;
+
+        /**
+         * @returns A `glong`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_rows(): number;
+
+        /**
+         * @returns A `glong`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_selection_end(): number;
+
+        /**
+         * @returns A `glong`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_selection_start(): number;
+
+        /**
+         * @returns A `gchar`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_value(): string;
+
+        /**
+         * @returns A `gboolean`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_will_validate(): boolean;
+
+        /**
+         * @returns A `gboolean`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        is_edited(): boolean;
+
+        /**
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        select(): void;
+
+        /**
+         * @param value A `gboolean`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        set_autofocus(value: boolean): void;
+
+        /**
+         * @param value A `glong`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        set_cols(value: bigint | number): void;
+
+        /**
+         * @param value A `gchar`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        set_default_value(value: string): void;
+
+        /**
+         * @param value A `gboolean`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        set_disabled(value: boolean): void;
+
+        /**
+         * @param value A `gchar`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        set_name(value: string): void;
+
+        /**
+         * @param value A `gboolean`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        set_read_only(value: boolean): void;
+
+        /**
+         * @param value A `glong`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        set_rows(value: bigint | number): void;
+
+        /**
+         * @param value A `glong`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        set_selection_end(value: bigint | number): void;
+
+        /**
+         * @param start A `glong`
+         * @param end A `glong`
+         * @param direction A `gchar`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        set_selection_range(start: bigint | number, end: bigint | number, direction: string): void;
+
+        /**
+         * @param value A `glong`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        set_selection_start(value: bigint | number): void;
+
+        /**
+         * @param value A `gchar`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        set_value(value: string): void;
+    }
+
+
+    namespace DOMHTMLTitleElement {
+        // Signal signatures
+        interface SignalSignatures extends DOMHTMLElement.SignalSignatures {
+            "notify::text": (pspec: GObject.ParamSpec) => void;
+            "notify::access-key": (pspec: GObject.ParamSpec) => void;
+            "notify::content-editable": (pspec: GObject.ParamSpec) => void;
+            "notify::dir": (pspec: GObject.ParamSpec) => void;
+            "notify::draggable": (pspec: GObject.ParamSpec) => void;
+            "notify::hidden": (pspec: GObject.ParamSpec) => void;
+            "notify::inner-text": (pspec: GObject.ParamSpec) => void;
+            "notify::is-content-editable": (pspec: GObject.ParamSpec) => void;
+            "notify::lang": (pspec: GObject.ParamSpec) => void;
+            "notify::outer-text": (pspec: GObject.ParamSpec) => void;
+            "notify::spellcheck": (pspec: GObject.ParamSpec) => void;
+            "notify::tab-index": (pspec: GObject.ParamSpec) => void;
+            "notify::title": (pspec: GObject.ParamSpec) => void;
+            "notify::translate": (pspec: GObject.ParamSpec) => void;
+            "notify::webkitdropzone": (pspec: GObject.ParamSpec) => void;
+            "notify::attributes": (pspec: GObject.ParamSpec) => void;
+            "notify::child-element-count": (pspec: GObject.ParamSpec) => void;
+            "notify::children": (pspec: GObject.ParamSpec) => void;
+            "notify::class-list": (pspec: GObject.ParamSpec) => void;
+            "notify::class-name": (pspec: GObject.ParamSpec) => void;
+            "notify::client-height": (pspec: GObject.ParamSpec) => void;
+            "notify::client-left": (pspec: GObject.ParamSpec) => void;
+            "notify::client-top": (pspec: GObject.ParamSpec) => void;
+            "notify::client-width": (pspec: GObject.ParamSpec) => void;
+            "notify::first-element-child": (pspec: GObject.ParamSpec) => void;
+            "notify::id": (pspec: GObject.ParamSpec) => void;
+            "notify::inner-html": (pspec: GObject.ParamSpec) => void;
+            "notify::last-element-child": (pspec: GObject.ParamSpec) => void;
+            "notify::local-name": (pspec: GObject.ParamSpec) => void;
+            "notify::namespace-uri": (pspec: GObject.ParamSpec) => void;
+            "notify::next-element-sibling": (pspec: GObject.ParamSpec) => void;
+            "notify::offset-height": (pspec: GObject.ParamSpec) => void;
+            "notify::offset-left": (pspec: GObject.ParamSpec) => void;
+            "notify::offset-parent": (pspec: GObject.ParamSpec) => void;
+            "notify::offset-top": (pspec: GObject.ParamSpec) => void;
+            "notify::offset-width": (pspec: GObject.ParamSpec) => void;
+            "notify::outer-html": (pspec: GObject.ParamSpec) => void;
+            "notify::prefix": (pspec: GObject.ParamSpec) => void;
+            "notify::previous-element-sibling": (pspec: GObject.ParamSpec) => void;
+            "notify::scroll-height": (pspec: GObject.ParamSpec) => void;
+            "notify::scroll-left": (pspec: GObject.ParamSpec) => void;
+            "notify::scroll-top": (pspec: GObject.ParamSpec) => void;
+            "notify::scroll-width": (pspec: GObject.ParamSpec) => void;
+            "notify::style": (pspec: GObject.ParamSpec) => void;
+            "notify::tag-name": (pspec: GObject.ParamSpec) => void;
+            "notify::webkit-region-overset": (pspec: GObject.ParamSpec) => void;
+            "notify::base-uri": (pspec: GObject.ParamSpec) => void;
+            "notify::child-nodes": (pspec: GObject.ParamSpec) => void;
+            "notify::first-child": (pspec: GObject.ParamSpec) => void;
+            "notify::last-child": (pspec: GObject.ParamSpec) => void;
+            "notify::next-sibling": (pspec: GObject.ParamSpec) => void;
+            "notify::node-name": (pspec: GObject.ParamSpec) => void;
+            "notify::node-type": (pspec: GObject.ParamSpec) => void;
+            "notify::node-value": (pspec: GObject.ParamSpec) => void;
+            "notify::owner-document": (pspec: GObject.ParamSpec) => void;
+            "notify::parent-element": (pspec: GObject.ParamSpec) => void;
+            "notify::parent-node": (pspec: GObject.ParamSpec) => void;
+            "notify::previous-sibling": (pspec: GObject.ParamSpec) => void;
+            "notify::text-content": (pspec: GObject.ParamSpec) => void;
+            "notify::core-object": (pspec: GObject.ParamSpec) => void;
+        }
+
+        // Constructor properties interface
+        interface ConstructorProps extends DOMHTMLElement.ConstructorProps, DOMEventTarget.ConstructorProps {
+            text: string;
+        }
+    }
+
+    /**
+     * @gir-type Class
+     */
+    class DOMHTMLTitleElement extends DOMHTMLElement implements DOMEventTarget {
+        static $gtype: GObject.GType<DOMHTMLTitleElement>;
+
+        // Properties
+        get text(): string;
+        set text(val: string);
+
+        /**
+         * Compile-time signal type information.
+         *
+         * This instance property is generated only for TypeScript type checking.
+         * It is not defined at runtime and should not be accessed in JS code.
+         * @internal
+         */
+        $signals: DOMHTMLTitleElement.SignalSignatures;
+
+        // Constructors
+        constructor(properties?: Partial<DOMHTMLTitleElement.ConstructorProps>, ...args: any[]);
+
+        _init(...args: any[]): void;
+
+        // Signals
+        /** @signal */
+        connect<K extends keyof DOMHTMLTitleElement.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, DOMHTMLTitleElement.SignalSignatures[K]>): number;
+
+        /** @signal */
+        connect_after<K extends keyof DOMHTMLTitleElement.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, DOMHTMLTitleElement.SignalSignatures[K]>): number;
+
+        /** @signal */
+        emit<K extends keyof DOMHTMLTitleElement.SignalSignatures>(signal: K, ...args: GObject.GjsParameters<DOMHTMLTitleElement.SignalSignatures[K]>): void;
+
+        // Methods
+        /**
+         * @returns A `gchar`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_text(): string;
+
+        /**
+         * @param value A `gchar`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        set_text(value: string): void;
+    }
+
+
+    namespace DOMHTMLUListElement {
+        // Signal signatures
+        interface SignalSignatures extends DOMHTMLElement.SignalSignatures {
+            "notify::compact": (pspec: GObject.ParamSpec) => void;
+            "notify::type": (pspec: GObject.ParamSpec) => void;
+            "notify::access-key": (pspec: GObject.ParamSpec) => void;
+            "notify::content-editable": (pspec: GObject.ParamSpec) => void;
+            "notify::dir": (pspec: GObject.ParamSpec) => void;
+            "notify::draggable": (pspec: GObject.ParamSpec) => void;
+            "notify::hidden": (pspec: GObject.ParamSpec) => void;
+            "notify::inner-text": (pspec: GObject.ParamSpec) => void;
+            "notify::is-content-editable": (pspec: GObject.ParamSpec) => void;
+            "notify::lang": (pspec: GObject.ParamSpec) => void;
+            "notify::outer-text": (pspec: GObject.ParamSpec) => void;
+            "notify::spellcheck": (pspec: GObject.ParamSpec) => void;
+            "notify::tab-index": (pspec: GObject.ParamSpec) => void;
+            "notify::title": (pspec: GObject.ParamSpec) => void;
+            "notify::translate": (pspec: GObject.ParamSpec) => void;
+            "notify::webkitdropzone": (pspec: GObject.ParamSpec) => void;
+            "notify::attributes": (pspec: GObject.ParamSpec) => void;
+            "notify::child-element-count": (pspec: GObject.ParamSpec) => void;
+            "notify::children": (pspec: GObject.ParamSpec) => void;
+            "notify::class-list": (pspec: GObject.ParamSpec) => void;
+            "notify::class-name": (pspec: GObject.ParamSpec) => void;
+            "notify::client-height": (pspec: GObject.ParamSpec) => void;
+            "notify::client-left": (pspec: GObject.ParamSpec) => void;
+            "notify::client-top": (pspec: GObject.ParamSpec) => void;
+            "notify::client-width": (pspec: GObject.ParamSpec) => void;
+            "notify::first-element-child": (pspec: GObject.ParamSpec) => void;
+            "notify::id": (pspec: GObject.ParamSpec) => void;
+            "notify::inner-html": (pspec: GObject.ParamSpec) => void;
+            "notify::last-element-child": (pspec: GObject.ParamSpec) => void;
+            "notify::local-name": (pspec: GObject.ParamSpec) => void;
+            "notify::namespace-uri": (pspec: GObject.ParamSpec) => void;
+            "notify::next-element-sibling": (pspec: GObject.ParamSpec) => void;
+            "notify::offset-height": (pspec: GObject.ParamSpec) => void;
+            "notify::offset-left": (pspec: GObject.ParamSpec) => void;
+            "notify::offset-parent": (pspec: GObject.ParamSpec) => void;
+            "notify::offset-top": (pspec: GObject.ParamSpec) => void;
+            "notify::offset-width": (pspec: GObject.ParamSpec) => void;
+            "notify::outer-html": (pspec: GObject.ParamSpec) => void;
+            "notify::prefix": (pspec: GObject.ParamSpec) => void;
+            "notify::previous-element-sibling": (pspec: GObject.ParamSpec) => void;
+            "notify::scroll-height": (pspec: GObject.ParamSpec) => void;
+            "notify::scroll-left": (pspec: GObject.ParamSpec) => void;
+            "notify::scroll-top": (pspec: GObject.ParamSpec) => void;
+            "notify::scroll-width": (pspec: GObject.ParamSpec) => void;
+            "notify::style": (pspec: GObject.ParamSpec) => void;
+            "notify::tag-name": (pspec: GObject.ParamSpec) => void;
+            "notify::webkit-region-overset": (pspec: GObject.ParamSpec) => void;
+            "notify::base-uri": (pspec: GObject.ParamSpec) => void;
+            "notify::child-nodes": (pspec: GObject.ParamSpec) => void;
+            "notify::first-child": (pspec: GObject.ParamSpec) => void;
+            "notify::last-child": (pspec: GObject.ParamSpec) => void;
+            "notify::next-sibling": (pspec: GObject.ParamSpec) => void;
+            "notify::node-name": (pspec: GObject.ParamSpec) => void;
+            "notify::node-type": (pspec: GObject.ParamSpec) => void;
+            "notify::node-value": (pspec: GObject.ParamSpec) => void;
+            "notify::owner-document": (pspec: GObject.ParamSpec) => void;
+            "notify::parent-element": (pspec: GObject.ParamSpec) => void;
+            "notify::parent-node": (pspec: GObject.ParamSpec) => void;
+            "notify::previous-sibling": (pspec: GObject.ParamSpec) => void;
+            "notify::text-content": (pspec: GObject.ParamSpec) => void;
+            "notify::core-object": (pspec: GObject.ParamSpec) => void;
+        }
+
+        // Constructor properties interface
+        interface ConstructorProps extends DOMHTMLElement.ConstructorProps, DOMEventTarget.ConstructorProps {
+            compact: boolean;
+            type: string;
+        }
+    }
+
+    /**
+     * @gir-type Class
+     */
+    class DOMHTMLUListElement extends DOMHTMLElement implements DOMEventTarget {
+        static $gtype: GObject.GType<DOMHTMLUListElement>;
+
+        // Properties
+        /**
+         * @default false
+         */
+        get compact(): boolean;
+        set compact(val: boolean);
+
+        get type(): string;
+        set type(val: string);
+
+        /**
+         * Compile-time signal type information.
+         *
+         * This instance property is generated only for TypeScript type checking.
+         * It is not defined at runtime and should not be accessed in JS code.
+         * @internal
+         */
+        $signals: DOMHTMLUListElement.SignalSignatures;
+
+        // Constructors
+        constructor(properties?: Partial<DOMHTMLUListElement.ConstructorProps>, ...args: any[]);
+
+        _init(...args: any[]): void;
+
+        // Signals
+        /** @signal */
+        connect<K extends keyof DOMHTMLUListElement.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, DOMHTMLUListElement.SignalSignatures[K]>): number;
+
+        /** @signal */
+        connect_after<K extends keyof DOMHTMLUListElement.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, DOMHTMLUListElement.SignalSignatures[K]>): number;
+
+        /** @signal */
+        emit<K extends keyof DOMHTMLUListElement.SignalSignatures>(signal: K, ...args: GObject.GjsParameters<DOMHTMLUListElement.SignalSignatures[K]>): void;
+
+        // Methods
+        /**
+         * @returns A `gboolean`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_compact(): boolean;
+
+        /**
+         * @returns A `gchar`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_type_attr(): string;
+
+        /**
+         * @param value A `gboolean`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        set_compact(value: boolean): void;
+
+        /**
+         * @param value A `gchar`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        set_type_attr(value: string): void;
+    }
+
+
+    namespace DOMKeyboardEvent {
+        // Signal signatures
+        interface SignalSignatures extends DOMUIEvent.SignalSignatures {
+            "notify::alt-graph-key": (pspec: GObject.ParamSpec) => void;
+            "notify::alt-key": (pspec: GObject.ParamSpec) => void;
+            "notify::ctrl-key": (pspec: GObject.ParamSpec) => void;
+            "notify::key-identifier": (pspec: GObject.ParamSpec) => void;
+            "notify::key-location": (pspec: GObject.ParamSpec) => void;
+            "notify::meta-key": (pspec: GObject.ParamSpec) => void;
+            "notify::shift-key": (pspec: GObject.ParamSpec) => void;
+            "notify::char-code": (pspec: GObject.ParamSpec) => void;
+            "notify::detail": (pspec: GObject.ParamSpec) => void;
+            "notify::key-code": (pspec: GObject.ParamSpec) => void;
+            "notify::layer-x": (pspec: GObject.ParamSpec) => void;
+            "notify::layer-y": (pspec: GObject.ParamSpec) => void;
+            "notify::page-x": (pspec: GObject.ParamSpec) => void;
+            "notify::page-y": (pspec: GObject.ParamSpec) => void;
+            "notify::view": (pspec: GObject.ParamSpec) => void;
+            "notify::bubbles": (pspec: GObject.ParamSpec) => void;
+            "notify::cancel-bubble": (pspec: GObject.ParamSpec) => void;
+            "notify::cancelable": (pspec: GObject.ParamSpec) => void;
+            "notify::current-target": (pspec: GObject.ParamSpec) => void;
+            "notify::event-phase": (pspec: GObject.ParamSpec) => void;
+            "notify::return-value": (pspec: GObject.ParamSpec) => void;
+            "notify::src-element": (pspec: GObject.ParamSpec) => void;
+            "notify::target": (pspec: GObject.ParamSpec) => void;
+            "notify::time-stamp": (pspec: GObject.ParamSpec) => void;
+            "notify::type": (pspec: GObject.ParamSpec) => void;
+            "notify::core-object": (pspec: GObject.ParamSpec) => void;
+        }
+
+        // Constructor properties interface
+        interface ConstructorProps extends DOMUIEvent.ConstructorProps {
+            alt_graph_key: boolean;
+            altGraphKey: boolean;
+            alt_key: boolean;
+            altKey: boolean;
+            ctrl_key: boolean;
+            ctrlKey: boolean;
+            key_identifier: string;
+            keyIdentifier: string;
+            key_location: bigint | number;
+            keyLocation: bigint | number;
+            meta_key: boolean;
+            metaKey: boolean;
+            shift_key: boolean;
+            shiftKey: boolean;
+        }
+    }
+
+    /**
+     * @gir-type Class
+     */
+    class DOMKeyboardEvent extends DOMUIEvent {
+        static $gtype: GObject.GType<DOMKeyboardEvent>;
+
+        // Properties
+        /**
+         * @read-only
+         * @default false
+         */
+        get alt_graph_key(): boolean;
+
+        /**
+         * @read-only
+         * @default false
+         */
+        get altGraphKey(): boolean;
+
+        /**
+         * @read-only
+         * @default false
+         */
+        get alt_key(): boolean;
+
+        /**
+         * @read-only
+         * @default false
+         */
+        get altKey(): boolean;
+
+        /**
+         * @read-only
+         * @default false
+         */
+        get ctrl_key(): boolean;
+
+        /**
+         * @read-only
+         * @default false
+         */
+        get ctrlKey(): boolean;
+
+        /**
+         * @read-only
+         */
+        get key_identifier(): string;
+
+        /**
+         * @read-only
+         */
+        get keyIdentifier(): string;
+
+        /**
+         * @read-only
+         * @default 0
+         */
+        get key_location(): number;
+
+        /**
+         * @read-only
+         * @default 0
+         */
+        get keyLocation(): number;
+
+        /**
+         * @read-only
+         * @default false
+         */
+        get meta_key(): boolean;
+
+        /**
+         * @read-only
+         * @default false
+         */
+        get metaKey(): boolean;
+
+        /**
+         * @read-only
+         * @default false
+         */
+        get shift_key(): boolean;
+
+        /**
+         * @read-only
+         * @default false
+         */
+        get shiftKey(): boolean;
+
+        /**
+         * Compile-time signal type information.
+         *
+         * This instance property is generated only for TypeScript type checking.
+         * It is not defined at runtime and should not be accessed in JS code.
+         * @internal
+         */
+        $signals: DOMKeyboardEvent.SignalSignatures;
+
+        // Constructors
+        constructor(properties?: Partial<DOMKeyboardEvent.ConstructorProps>, ...args: any[]);
+
+        _init(...args: any[]): void;
+
+        // Signals
+        /** @signal */
+        connect<K extends keyof DOMKeyboardEvent.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, DOMKeyboardEvent.SignalSignatures[K]>): number;
+
+        /** @signal */
+        connect_after<K extends keyof DOMKeyboardEvent.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, DOMKeyboardEvent.SignalSignatures[K]>): number;
+
+        /** @signal */
+        emit<K extends keyof DOMKeyboardEvent.SignalSignatures>(signal: K, ...args: GObject.GjsParameters<DOMKeyboardEvent.SignalSignatures[K]>): void;
+
+        // Methods
+        /**
+         * @returns A `gboolean`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_alt_graph_key(): boolean;
+
+        /**
+         * @returns A `gboolean`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_alt_key(): boolean;
+
+        /**
+         * @returns A `gboolean`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_ctrl_key(): boolean;
+
+        /**
+         * @returns A `gchar`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_key_identifier(): string;
+
+        /**
+         * @returns A `gulong`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_key_location(): number;
+
+        /**
+         * @returns A `gboolean`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_meta_key(): boolean;
+
+        /**
+         * @param keyIdentifierArg A `gchar`
+         * @returns A `gboolean`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_modifier_state(keyIdentifierArg: string): boolean;
+
+        /**
+         * @returns A `gboolean`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_shift_key(): boolean;
+
+        /**
+         * @param type A `gchar`
+         * @param canBubble A `gboolean`
+         * @param cancelable A `gboolean`
+         * @param view A {@link WebKit2WebExtension.DOMDOMWindow}
+         * @param keyIdentifier A `gchar`
+         * @param location A `gulong`
+         * @param ctrlKey A `gboolean`
+         * @param altKey A `gboolean`
+         * @param shiftKey A `gboolean`
+         * @param metaKey A `gboolean`
+         * @param altGraphKey A `gboolean`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        init_keyboard_event(type: string, canBubble: boolean, cancelable: boolean, view: DOMDOMWindow, keyIdentifier: string, location: bigint | number, ctrlKey: boolean, altKey: boolean, shiftKey: boolean, metaKey: boolean, altGraphKey: boolean): void;
+    }
+
+
+    namespace DOMMediaList {
+        // Signal signatures
+        interface SignalSignatures extends DOMObject.SignalSignatures {
+            "notify::length": (pspec: GObject.ParamSpec) => void;
+            "notify::media-text": (pspec: GObject.ParamSpec) => void;
+            "notify::core-object": (pspec: GObject.ParamSpec) => void;
+        }
+
+        // Constructor properties interface
+        interface ConstructorProps extends DOMObject.ConstructorProps {
+            length: bigint | number;
+            media_text: string;
+            mediaText: string;
+        }
+    }
+
+    /**
+     * @gir-type Class
+     */
+    class DOMMediaList extends DOMObject {
+        static $gtype: GObject.GType<DOMMediaList>;
+
+        // Properties
+        /**
+         * @read-only
+         * @default 0
+         */
+        get length(): number;
+
+        get media_text(): string;
+        set media_text(val: string);
+
+        get mediaText(): string;
+        set mediaText(val: string);
+
+        /**
+         * Compile-time signal type information.
+         *
+         * This instance property is generated only for TypeScript type checking.
+         * It is not defined at runtime and should not be accessed in JS code.
+         * @internal
+         */
+        $signals: DOMMediaList.SignalSignatures;
+
+        // Constructors
+        constructor(properties?: Partial<DOMMediaList.ConstructorProps>, ...args: any[]);
+
+        _init(...args: any[]): void;
+
+        // Signals
+        /** @signal */
+        connect<K extends keyof DOMMediaList.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, DOMMediaList.SignalSignatures[K]>): number;
+
+        /** @signal */
+        connect_after<K extends keyof DOMMediaList.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, DOMMediaList.SignalSignatures[K]>): number;
+
+        /** @signal */
+        emit<K extends keyof DOMMediaList.SignalSignatures>(signal: K, ...args: GObject.GjsParameters<DOMMediaList.SignalSignatures[K]>): void;
+
+        // Methods
+        /**
+         * @param newMedium A `gchar`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         * @throws GLib.Error
+         */
+        append_medium(newMedium: string): void;
+
+        /**
+         * @param oldMedium A `gchar`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         * @throws GLib.Error
+         */
+        delete_medium(oldMedium: string): void;
+
+        /**
+         * @returns A `gulong`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_length(): number;
+
+        /**
+         * @returns A `gchar`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_media_text(): string;
+
+        /**
+         * @param index A `gulong`
+         * @returns A `gchar`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        item(index: bigint | number): string;
+
+        /**
+         * @param value A `gchar`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         * @throws GLib.Error
+         */
+        set_media_text(value: string): void;
+    }
+
+
+    namespace DOMMouseEvent {
+        // Signal signatures
+        interface SignalSignatures extends DOMUIEvent.SignalSignatures {
+            "notify::alt-key": (pspec: GObject.ParamSpec) => void;
+            "notify::button": (pspec: GObject.ParamSpec) => void;
+            "notify::client-x": (pspec: GObject.ParamSpec) => void;
+            "notify::client-y": (pspec: GObject.ParamSpec) => void;
+            "notify::ctrl-key": (pspec: GObject.ParamSpec) => void;
+            "notify::from-element": (pspec: GObject.ParamSpec) => void;
+            "notify::meta-key": (pspec: GObject.ParamSpec) => void;
+            "notify::offset-x": (pspec: GObject.ParamSpec) => void;
+            "notify::offset-y": (pspec: GObject.ParamSpec) => void;
+            "notify::related-target": (pspec: GObject.ParamSpec) => void;
+            "notify::screen-x": (pspec: GObject.ParamSpec) => void;
+            "notify::screen-y": (pspec: GObject.ParamSpec) => void;
+            "notify::shift-key": (pspec: GObject.ParamSpec) => void;
+            "notify::to-element": (pspec: GObject.ParamSpec) => void;
+            "notify::x": (pspec: GObject.ParamSpec) => void;
+            "notify::y": (pspec: GObject.ParamSpec) => void;
+            "notify::char-code": (pspec: GObject.ParamSpec) => void;
+            "notify::detail": (pspec: GObject.ParamSpec) => void;
+            "notify::key-code": (pspec: GObject.ParamSpec) => void;
+            "notify::layer-x": (pspec: GObject.ParamSpec) => void;
+            "notify::layer-y": (pspec: GObject.ParamSpec) => void;
+            "notify::page-x": (pspec: GObject.ParamSpec) => void;
+            "notify::page-y": (pspec: GObject.ParamSpec) => void;
+            "notify::view": (pspec: GObject.ParamSpec) => void;
+            "notify::bubbles": (pspec: GObject.ParamSpec) => void;
+            "notify::cancel-bubble": (pspec: GObject.ParamSpec) => void;
+            "notify::cancelable": (pspec: GObject.ParamSpec) => void;
+            "notify::current-target": (pspec: GObject.ParamSpec) => void;
+            "notify::event-phase": (pspec: GObject.ParamSpec) => void;
+            "notify::return-value": (pspec: GObject.ParamSpec) => void;
+            "notify::src-element": (pspec: GObject.ParamSpec) => void;
+            "notify::target": (pspec: GObject.ParamSpec) => void;
+            "notify::time-stamp": (pspec: GObject.ParamSpec) => void;
+            "notify::type": (pspec: GObject.ParamSpec) => void;
+            "notify::core-object": (pspec: GObject.ParamSpec) => void;
+        }
+
+        // Constructor properties interface
+        interface ConstructorProps extends DOMUIEvent.ConstructorProps {
+            alt_key: boolean;
+            altKey: boolean;
+            button: number;
+            client_x: bigint | number;
+            clientX: bigint | number;
+            client_y: bigint | number;
+            clientY: bigint | number;
+            ctrl_key: boolean;
+            ctrlKey: boolean;
+            from_element: DOMNode;
+            fromElement: DOMNode;
+            meta_key: boolean;
+            metaKey: boolean;
+            offset_x: bigint | number;
+            offsetX: bigint | number;
+            offset_y: bigint | number;
+            offsetY: bigint | number;
+            related_target: DOMEventTarget;
+            relatedTarget: DOMEventTarget;
+            screen_x: bigint | number;
+            screenX: bigint | number;
+            screen_y: bigint | number;
+            screenY: bigint | number;
+            shift_key: boolean;
+            shiftKey: boolean;
+            to_element: DOMNode;
+            toElement: DOMNode;
+            x: bigint | number;
+            y: bigint | number;
+        }
+    }
+
+    /**
+     * @gir-type Class
+     */
+    class DOMMouseEvent extends DOMUIEvent {
+        static $gtype: GObject.GType<DOMMouseEvent>;
+
+        // Properties
+        /**
+         * @read-only
+         * @default false
+         */
+        get alt_key(): boolean;
+
+        /**
+         * @read-only
+         * @default false
+         */
+        get altKey(): boolean;
+
+        /**
+         * @read-only
+         * @default 0
+         */
+        get button(): number;
+
+        /**
+         * @read-only
+         * @default 0
+         */
+        get client_x(): number;
+
+        /**
+         * @read-only
+         * @default 0
+         */
+        get clientX(): number;
+
+        /**
+         * @read-only
+         * @default 0
+         */
+        get client_y(): number;
+
+        /**
+         * @read-only
+         * @default 0
+         */
+        get clientY(): number;
+
+        /**
+         * @read-only
+         * @default false
+         */
+        get ctrl_key(): boolean;
+
+        /**
+         * @read-only
+         * @default false
+         */
+        get ctrlKey(): boolean;
+
+        /**
+         * @read-only
+         */
+        get from_element(): DOMNode;
+
+        /**
+         * @read-only
+         */
+        get fromElement(): DOMNode;
+
+        /**
+         * @read-only
+         * @default false
+         */
+        get meta_key(): boolean;
+
+        /**
+         * @read-only
+         * @default false
+         */
+        get metaKey(): boolean;
+
+        /**
+         * @read-only
+         * @default 0
+         */
+        get offset_x(): number;
+
+        /**
+         * @read-only
+         * @default 0
+         */
+        get offsetX(): number;
+
+        /**
+         * @read-only
+         * @default 0
+         */
+        get offset_y(): number;
+
+        /**
+         * @read-only
+         * @default 0
+         */
+        get offsetY(): number;
+
+        /**
+         * @read-only
+         */
+        get related_target(): DOMEventTarget;
+
+        /**
+         * @read-only
+         */
+        get relatedTarget(): DOMEventTarget;
+
+        /**
+         * @read-only
+         * @default 0
+         */
+        get screen_x(): number;
+
+        /**
+         * @read-only
+         * @default 0
+         */
+        get screenX(): number;
+
+        /**
+         * @read-only
+         * @default 0
+         */
+        get screen_y(): number;
+
+        /**
+         * @read-only
+         * @default 0
+         */
+        get screenY(): number;
+
+        /**
+         * @read-only
+         * @default false
+         */
+        get shift_key(): boolean;
+
+        /**
+         * @read-only
+         * @default false
+         */
+        get shiftKey(): boolean;
+
+        /**
+         * @read-only
+         */
+        get to_element(): DOMNode;
+
+        /**
+         * @read-only
+         */
+        get toElement(): DOMNode;
+
+        /**
+         * @read-only
+         * @default 0
+         */
+        get x(): number;
+
+        /**
+         * @read-only
+         * @default 0
+         */
+        get y(): number;
+
+        /**
+         * Compile-time signal type information.
+         *
+         * This instance property is generated only for TypeScript type checking.
+         * It is not defined at runtime and should not be accessed in JS code.
+         * @internal
+         */
+        $signals: DOMMouseEvent.SignalSignatures;
+
+        // Constructors
+        constructor(properties?: Partial<DOMMouseEvent.ConstructorProps>, ...args: any[]);
+
+        _init(...args: any[]): void;
+
+        // Signals
+        /** @signal */
+        connect<K extends keyof DOMMouseEvent.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, DOMMouseEvent.SignalSignatures[K]>): number;
+
+        /** @signal */
+        connect_after<K extends keyof DOMMouseEvent.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, DOMMouseEvent.SignalSignatures[K]>): number;
+
+        /** @signal */
+        emit<K extends keyof DOMMouseEvent.SignalSignatures>(signal: K, ...args: GObject.GjsParameters<DOMMouseEvent.SignalSignatures[K]>): void;
+
+        // Methods
+        /**
+         * @returns A `gboolean`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_alt_key(): boolean;
+
+        /**
+         * @returns A `gushort`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_button(): number;
+
+        /**
+         * @returns A `glong`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_client_x(): number;
+
+        /**
+         * @returns A `glong`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_client_y(): number;
+
+        /**
+         * @returns A `gboolean`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_ctrl_key(): boolean;
+
+        /**
+         * @returns A {@link WebKit2WebExtension.DOMNode}
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_from_element(): DOMNode;
+
+        /**
+         * @returns A `gboolean`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_meta_key(): boolean;
+
+        /**
+         * @returns A `glong`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_offset_x(): number;
+
+        /**
+         * @returns A `glong`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_offset_y(): number;
+
+        /**
+         * @returns A {@link WebKit2WebExtension.DOMEventTarget}
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_related_target(): DOMEventTarget;
+
+        /**
+         * @returns A `glong`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_screen_x(): number;
+
+        /**
+         * @returns A `glong`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_screen_y(): number;
+
+        /**
+         * @returns A `gboolean`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_shift_key(): boolean;
+
+        /**
+         * @returns A {@link WebKit2WebExtension.DOMNode}
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_to_element(): DOMNode;
+
+        /**
+         * @returns A `glong`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_x(): number;
+
+        /**
+         * @returns A `glong`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_y(): number;
+
+        /**
+         * @param type A `gchar`
+         * @param canBubble A `gboolean`
+         * @param cancelable A `gboolean`
+         * @param view A {@link WebKit2WebExtension.DOMDOMWindow}
+         * @param detail A `glong`
+         * @param screenX A `glong`
+         * @param screenY A `glong`
+         * @param clientX A `glong`
+         * @param clientY A `glong`
+         * @param ctrlKey A `gboolean`
+         * @param altKey A `gboolean`
+         * @param shiftKey A `gboolean`
+         * @param metaKey A `gboolean`
+         * @param button A `gushort`
+         * @param relatedTarget A {@link WebKit2WebExtension.DOMEventTarget}
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        init_mouse_event(type: string, canBubble: boolean, cancelable: boolean, view: DOMDOMWindow, detail: bigint | number, screenX: bigint | number, screenY: bigint | number, clientX: bigint | number, clientY: bigint | number, ctrlKey: boolean, altKey: boolean, shiftKey: boolean, metaKey: boolean, button: number, relatedTarget: DOMEventTarget): void;
+    }
+
+
+    namespace DOMNamedNodeMap {
+        // Signal signatures
+        interface SignalSignatures extends DOMObject.SignalSignatures {
+            "notify::length": (pspec: GObject.ParamSpec) => void;
+            "notify::core-object": (pspec: GObject.ParamSpec) => void;
+        }
+
+        // Constructor properties interface
+        interface ConstructorProps extends DOMObject.ConstructorProps {
+            length: bigint | number;
+        }
+    }
+
+    /**
+     * @gir-type Class
+     */
+    class DOMNamedNodeMap extends DOMObject {
+        static $gtype: GObject.GType<DOMNamedNodeMap>;
+
+        // Properties
+        /**
+         * @read-only
+         * @default 0
+         */
+        get length(): number;
+
+        /**
+         * Compile-time signal type information.
+         *
+         * This instance property is generated only for TypeScript type checking.
+         * It is not defined at runtime and should not be accessed in JS code.
+         * @internal
+         */
+        $signals: DOMNamedNodeMap.SignalSignatures;
+
+        // Constructors
+        constructor(properties?: Partial<DOMNamedNodeMap.ConstructorProps>, ...args: any[]);
+
+        _init(...args: any[]): void;
+
+        // Signals
+        /** @signal */
+        connect<K extends keyof DOMNamedNodeMap.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, DOMNamedNodeMap.SignalSignatures[K]>): number;
+
+        /** @signal */
+        connect_after<K extends keyof DOMNamedNodeMap.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, DOMNamedNodeMap.SignalSignatures[K]>): number;
+
+        /** @signal */
+        emit<K extends keyof DOMNamedNodeMap.SignalSignatures>(signal: K, ...args: GObject.GjsParameters<DOMNamedNodeMap.SignalSignatures[K]>): void;
+
+        // Methods
+        /**
+         * @returns A `gulong`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_length(): number;
+
+        /**
+         * @param name A `gchar`
+         * @returns A {@link WebKit2WebExtension.DOMNode}
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_named_item(name: string): DOMNode;
+
+        /**
+         * @param namespaceURI A `gchar`
+         * @param localName A `gchar`
+         * @returns A {@link WebKit2WebExtension.DOMNode}
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_named_item_ns(namespaceURI: string, localName: string): DOMNode;
+
+        /**
+         * @param index A `gulong`
+         * @returns A {@link WebKit2WebExtension.DOMNode}
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        item(index: bigint | number): DOMNode;
+
+        /**
+         * @param name A `gchar`
+         * @returns A {@link WebKit2WebExtension.DOMNode}
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         * @throws GLib.Error
+         */
+        remove_named_item(name: string): DOMNode;
+
+        /**
+         * @param namespaceURI A `gchar`
+         * @param localName A `gchar`
+         * @returns A {@link WebKit2WebExtension.DOMNode}
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         * @throws GLib.Error
+         */
+        remove_named_item_ns(namespaceURI: string, localName: string): DOMNode;
+
+        /**
+         * @param node A {@link WebKit2WebExtension.DOMNode}
+         * @returns A {@link WebKit2WebExtension.DOMNode}
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         * @throws GLib.Error
+         */
+        set_named_item(node: DOMNode): DOMNode;
+
+        /**
+         * @param node A {@link WebKit2WebExtension.DOMNode}
+         * @returns A {@link WebKit2WebExtension.DOMNode}
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         * @throws GLib.Error
+         */
+        set_named_item_ns(node: DOMNode): DOMNode;
+    }
+
+
+    namespace DOMNode {
+        // Signal signatures
+        interface SignalSignatures extends DOMObject.SignalSignatures {
+            "notify::base-uri": (pspec: GObject.ParamSpec) => void;
+            "notify::child-nodes": (pspec: GObject.ParamSpec) => void;
+            "notify::first-child": (pspec: GObject.ParamSpec) => void;
+            "notify::last-child": (pspec: GObject.ParamSpec) => void;
+            "notify::next-sibling": (pspec: GObject.ParamSpec) => void;
+            "notify::node-name": (pspec: GObject.ParamSpec) => void;
+            "notify::node-type": (pspec: GObject.ParamSpec) => void;
+            "notify::node-value": (pspec: GObject.ParamSpec) => void;
+            "notify::owner-document": (pspec: GObject.ParamSpec) => void;
+            "notify::parent-element": (pspec: GObject.ParamSpec) => void;
+            "notify::parent-node": (pspec: GObject.ParamSpec) => void;
+            "notify::previous-sibling": (pspec: GObject.ParamSpec) => void;
+            "notify::text-content": (pspec: GObject.ParamSpec) => void;
+            "notify::core-object": (pspec: GObject.ParamSpec) => void;
+        }
+
+        // Constructor properties interface
+        interface ConstructorProps extends DOMObject.ConstructorProps, DOMEventTarget.ConstructorProps {
+            base_uri: string;
+            baseUri: string;
+            child_nodes: DOMNodeList;
+            childNodes: DOMNodeList;
+            first_child: DOMNode;
+            firstChild: DOMNode;
+            last_child: DOMNode;
+            lastChild: DOMNode;
+            next_sibling: DOMNode;
+            nextSibling: DOMNode;
+            node_name: string;
+            nodeName: string;
+            node_type: number;
+            nodeType: number;
+            node_value: string;
+            nodeValue: string;
+            owner_document: DOMDocument;
+            ownerDocument: DOMDocument;
+            parent_element: DOMElement;
+            parentElement: DOMElement;
+            parent_node: DOMNode;
+            parentNode: DOMNode;
+            previous_sibling: DOMNode;
+            previousSibling: DOMNode;
+            text_content: string;
+            textContent: string;
+        }
+    }
+
+    /**
+     * @gir-type Class
+     */
+    class DOMNode extends DOMObject implements DOMEventTarget {
+        static $gtype: GObject.GType<DOMNode>;
+
+        // Properties
+        /**
+         * @read-only
+         */
+        get base_uri(): string;
+
+        /**
+         * @read-only
+         */
+        get baseUri(): string;
+
+        /**
+         * @read-only
+         */
+        get child_nodes(): DOMNodeList;
+
+        /**
+         * @read-only
+         */
+        get childNodes(): DOMNodeList;
+
+        /**
+         * @read-only
+         */
+        get first_child(): DOMNode;
+
+        /**
+         * @read-only
+         */
+        get firstChild(): DOMNode;
+
+        /**
+         * @read-only
+         */
+        get last_child(): DOMNode;
+
+        /**
+         * @read-only
+         */
+        get lastChild(): DOMNode;
+
+        /**
+         * @read-only
+         */
+        get next_sibling(): DOMNode;
+
+        /**
+         * @read-only
+         */
+        get nextSibling(): DOMNode;
+
+        /**
+         * @read-only
+         */
+        get node_name(): string;
+
+        /**
+         * @read-only
+         */
+        get nodeName(): string;
+
+        /**
+         * @read-only
+         * @default 0
+         */
+        get node_type(): number;
+
+        /**
+         * @read-only
+         * @default 0
+         */
+        get nodeType(): number;
+
+        get node_value(): string;
+        set node_value(val: string);
+
+        get nodeValue(): string;
+        set nodeValue(val: string);
+
+        /**
+         * @read-only
+         */
+        get owner_document(): DOMDocument;
+
+        /**
+         * @read-only
+         */
+        get ownerDocument(): DOMDocument;
+
+        /**
+         * @read-only
+         */
+        get parent_element(): DOMElement;
+
+        /**
+         * @read-only
+         */
+        get parentElement(): DOMElement;
+
+        /**
+         * @read-only
+         */
+        get parent_node(): DOMNode;
+
+        /**
+         * @read-only
+         */
+        get parentNode(): DOMNode;
+
+        /**
+         * @read-only
+         */
+        get previous_sibling(): DOMNode;
+
+        /**
+         * @read-only
+         */
+        get previousSibling(): DOMNode;
+
+        get text_content(): string;
+        set text_content(val: string);
+
+        get textContent(): string;
+        set textContent(val: string);
+
+        /**
+         * Compile-time signal type information.
+         *
+         * This instance property is generated only for TypeScript type checking.
+         * It is not defined at runtime and should not be accessed in JS code.
+         * @internal
+         */
+        $signals: DOMNode.SignalSignatures;
+
+        // Constructors
+        constructor(properties?: Partial<DOMNode.ConstructorProps>, ...args: any[]);
+
+        _init(...args: any[]): void;
+
+        // Signals
+        /** @signal */
+        connect<K extends keyof DOMNode.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, DOMNode.SignalSignatures[K]>): number;
+
+        /** @signal */
+        connect_after<K extends keyof DOMNode.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, DOMNode.SignalSignatures[K]>): number;
+
+        /** @signal */
+        emit<K extends keyof DOMNode.SignalSignatures>(signal: K, ...args: GObject.GjsParameters<DOMNode.SignalSignatures[K]>): void;
+
+        // Static methods
+        /**
+         * Get the {@link WebKit2WebExtension.DOMNode} for the DOM node referenced by `value`.
+         * @param value a {@link JavaScriptCore.Value}
+         * @since 2.22
+         * @deprecated since 2.40
+         */
+        static for_js_value(value: JavaScriptCore.Value): DOMNode;
+
+        // Methods
+        /**
+         * @param newChild A {@link WebKit2WebExtension.DOMNode}
+         * @returns A {@link WebKit2WebExtension.DOMNode}
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         * @throws GLib.Error
+         */
+        append_child(newChild: DOMNode): DOMNode;
+
+        /**
+         * @param deep A `gboolean`
+         * @returns A {@link WebKit2WebExtension.DOMNode}
+         * @deprecated since 2.14: Use `webkit_dom_node_clone_node_with_error()` instead.
+         * @throws GLib.Error
+         */
+        clone_node(deep: boolean): DOMNode;
+
+        /**
+         * @param deep A `gboolean`
+         * @returns A {@link WebKit2WebExtension.DOMNode}
+         * @since 2.14
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         * @throws GLib.Error
+         */
+        clone_node_with_error(deep: boolean): DOMNode;
+
+        /**
+         * @param other A {@link WebKit2WebExtension.DOMNode}
+         * @returns A `gushort`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        compare_document_position(other: DOMNode): number;
+
+        /**
+         * @param other A {@link WebKit2WebExtension.DOMNode}
+         * @returns A `gboolean`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        contains(other: DOMNode): boolean;
+
+        /**
+         * @returns A `gchar`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_base_uri(): string;
+
+        /**
+         * @returns A {@link WebKit2WebExtension.DOMNodeList}
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_child_nodes(): DOMNodeList;
+
+        /**
+         * @returns A {@link WebKit2WebExtension.DOMNode}
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_first_child(): DOMNode;
+
+        /**
+         * @returns A {@link WebKit2WebExtension.DOMNode}
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_last_child(): DOMNode;
+
+        /**
+         * @returns A `gchar`
+         * @deprecated since 2.14: Use `webkit_dom_attr_get_local_name()` or `webkit_dom_element_get_local_name()` instead.
+         */
+        get_local_name(): string;
+
+        /**
+         * @returns A `gchar`
+         * @deprecated since 2.14: Use `webkit_dom_attr_get_namespace_uri()` or `webkit_dom_element_get_namespace_uri()` instead.
+         */
+        get_namespace_uri(): string;
+
+        /**
+         * @returns A {@link WebKit2WebExtension.DOMNode}
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_next_sibling(): DOMNode;
+
+        /**
+         * @returns A `gchar`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_node_name(): string;
+
+        /**
+         * @returns A `gushort`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_node_type(): number;
+
+        /**
+         * @returns A `gchar`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_node_value(): string;
+
+        /**
+         * @returns A {@link WebKit2WebExtension.DOMDocument}
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_owner_document(): DOMDocument;
+
+        /**
+         * @returns A {@link WebKit2WebExtension.DOMElement}
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_parent_element(): DOMElement;
+
+        /**
+         * @returns A {@link WebKit2WebExtension.DOMNode}
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_parent_node(): DOMNode;
+
+        /**
+         * @returns A `gchar`
+         * @deprecated since 2.14: Use `webkit_dom_attr_get_prefix()` or `webkit_dom_element_get_prefix()` instead.
+         */
+        get_prefix(): string;
+
+        /**
+         * @returns A {@link WebKit2WebExtension.DOMNode}
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_previous_sibling(): DOMNode;
+
+        /**
+         * @returns A `gchar`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_text_content(): string;
+
+        /**
+         * @returns A `gboolean`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        has_child_nodes(): boolean;
+
+        /**
+         * @param newChild A {@link WebKit2WebExtension.DOMNode}
+         * @param refChild A {@link WebKit2WebExtension.DOMNode}
+         * @returns A {@link WebKit2WebExtension.DOMNode}
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         * @throws GLib.Error
+         */
+        insert_before(newChild: DOMNode, refChild: DOMNode | null): DOMNode;
+
+        /**
+         * @param namespaceURI A `gchar`
+         * @returns A `gboolean`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        is_default_namespace(namespaceURI: string): boolean;
+
+        /**
+         * @param other A {@link WebKit2WebExtension.DOMNode}
+         * @returns A `gboolean`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        is_equal_node(other: DOMNode): boolean;
+
+        /**
+         * @param other A {@link WebKit2WebExtension.DOMNode}
+         * @returns A `gboolean`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        is_same_node(other: DOMNode): boolean;
+
+        /**
+         * @param feature A `gchar`
+         * @param version A `gchar`
+         * @returns A `gboolean`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        is_supported(feature: string, version: string): boolean;
+
+        /**
+         * @param prefix A `gchar`
+         * @returns A `gchar`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        lookup_namespace_uri(prefix: string): string;
+
+        /**
+         * @param namespaceURI A `gchar`
+         * @returns A `gchar`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        lookup_prefix(namespaceURI: string): string;
+
+        /**
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        normalize(): void;
+
+        /**
+         * @param oldChild A {@link WebKit2WebExtension.DOMNode}
+         * @returns A {@link WebKit2WebExtension.DOMNode}
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         * @throws GLib.Error
+         */
+        remove_child(oldChild: DOMNode): DOMNode;
+
+        /**
+         * @param newChild A {@link WebKit2WebExtension.DOMNode}
+         * @param oldChild A {@link WebKit2WebExtension.DOMNode}
+         * @returns A {@link WebKit2WebExtension.DOMNode}
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         * @throws GLib.Error
+         */
+        replace_child(newChild: DOMNode, oldChild: DOMNode): DOMNode;
+
+        /**
+         * @param value A `gchar`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         * @throws GLib.Error
+         */
+        set_node_value(value: string): void;
+
+        /**
+         * @param value A `gchar`
+         * @deprecated since 2.14
+         * @throws GLib.Error
+         */
+        set_prefix(value: string): void;
+
+        /**
+         * @param value A `gchar`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         * @throws GLib.Error
+         */
+        set_text_content(value: string): void;
+
+        /**
+         * Version of `webkit_dom_event_target_add_event_listener()` using a closure
+         * instead of callbacks for easier binding in other languages.
+         * @param event_name A `gchar`
+         * @param handler A {@link GObject.Closure}
+         * @param use_capture A `gboolean`
+         * @returns a `gboolean`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        add_event_listener(event_name: string, handler: GObject.Closure, use_capture: boolean): boolean;
+
+        /**
+         * @param event A {@link WebKit2WebExtension.DOMEvent}
+         * @returns a `gboolean`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         * @throws GLib.Error
+         */
+        dispatch_event(event: DOMEvent): boolean;
+
+        /**
+         * Version of `webkit_dom_event_target_remove_event_listener()` using a closure
+         * instead of callbacks for easier binding in other languages.
+         * @param event_name A `gchar`
+         * @param handler A {@link GObject.Closure}
+         * @param use_capture A `gboolean`
+         * @returns a `gboolean`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        remove_event_listener(event_name: string, handler: GObject.Closure, use_capture: boolean): boolean;
+
+        /**
+         * @param event_name 
+         * @param handler 
+         * @param use_capture 
+         * @virtual
+         */
+        vfunc_add_event_listener(event_name: string, handler: GObject.Closure, use_capture: boolean): boolean;
+
+        /**
+         * @param event A {@link WebKit2WebExtension.DOMEvent}
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         * @virtual
+         */
+        vfunc_dispatch_event(event: DOMEvent): boolean;
+
+        /**
+         * @param event_name A `gchar`
+         * @param handler A {@link GObject.Callback}
+         * @param use_capture A `gboolean`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         * @virtual
+         */
+        vfunc_remove_event_listener(event_name: string, handler: null, use_capture: boolean): boolean;
+    }
+
+
+    namespace DOMNodeIterator {
+        // Signal signatures
+        interface SignalSignatures extends DOMObject.SignalSignatures {
+            "notify::filter": (pspec: GObject.ParamSpec) => void;
+            "notify::pointer-before-reference-node": (pspec: GObject.ParamSpec) => void;
+            "notify::reference-node": (pspec: GObject.ParamSpec) => void;
+            "notify::root": (pspec: GObject.ParamSpec) => void;
+            "notify::what-to-show": (pspec: GObject.ParamSpec) => void;
+            "notify::core-object": (pspec: GObject.ParamSpec) => void;
+        }
+
+        // Constructor properties interface
+        interface ConstructorProps extends DOMObject.ConstructorProps {
+            filter: DOMNodeFilter;
+            pointer_before_reference_node: boolean;
+            pointerBeforeReferenceNode: boolean;
+            reference_node: DOMNode;
+            referenceNode: DOMNode;
+            root: DOMNode;
+            what_to_show: bigint | number;
+            whatToShow: bigint | number;
+        }
+    }
+
+    /**
+     * @gir-type Class
+     */
+    class DOMNodeIterator extends DOMObject {
+        static $gtype: GObject.GType<DOMNodeIterator>;
+
+        // Properties
+        /**
+         * @read-only
+         */
+        get filter(): DOMNodeFilter;
+
+        /**
+         * @read-only
+         * @default false
+         */
+        get pointer_before_reference_node(): boolean;
+
+        /**
+         * @read-only
+         * @default false
+         */
+        get pointerBeforeReferenceNode(): boolean;
+
+        /**
+         * @read-only
+         */
+        get reference_node(): DOMNode;
+
+        /**
+         * @read-only
+         */
+        get referenceNode(): DOMNode;
+
+        /**
+         * @read-only
+         */
+        get root(): DOMNode;
+
+        /**
+         * @read-only
+         * @default 0
+         */
+        get what_to_show(): number;
+
+        /**
+         * @read-only
+         * @default 0
+         */
+        get whatToShow(): number;
+
+        /**
+         * Compile-time signal type information.
+         *
+         * This instance property is generated only for TypeScript type checking.
+         * It is not defined at runtime and should not be accessed in JS code.
+         * @internal
+         */
+        $signals: DOMNodeIterator.SignalSignatures;
+
+        // Constructors
+        constructor(properties?: Partial<DOMNodeIterator.ConstructorProps>, ...args: any[]);
+
+        _init(...args: any[]): void;
+
+        // Signals
+        /** @signal */
+        connect<K extends keyof DOMNodeIterator.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, DOMNodeIterator.SignalSignatures[K]>): number;
+
+        /** @signal */
+        connect_after<K extends keyof DOMNodeIterator.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, DOMNodeIterator.SignalSignatures[K]>): number;
+
+        /** @signal */
+        emit<K extends keyof DOMNodeIterator.SignalSignatures>(signal: K, ...args: GObject.GjsParameters<DOMNodeIterator.SignalSignatures[K]>): void;
+
+        // Methods
+        /**
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        detach(): void;
+
+        /**
+         * This function has been removed from the DOM spec and it just returns `false`.
+         * @returns A `gboolean`
+         * @deprecated since 2.12
+         */
+        get_expand_entity_references(): boolean;
+
+        /**
+         * @returns A {@link WebKit2WebExtension.DOMNodeFilter}
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_filter(): DOMNodeFilter;
+
+        /**
+         * @returns A `gboolean`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_pointer_before_reference_node(): boolean;
+
+        /**
+         * @returns A {@link WebKit2WebExtension.DOMNode}
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_reference_node(): DOMNode;
+
+        /**
+         * @returns A {@link WebKit2WebExtension.DOMNode}
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_root(): DOMNode;
+
+        /**
+         * @returns A `gulong`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_what_to_show(): number;
+
+        /**
+         * @returns A {@link WebKit2WebExtension.DOMNode}
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         * @throws GLib.Error
+         */
+        next_node(): DOMNode;
+
+        /**
+         * @returns A {@link WebKit2WebExtension.DOMNode}
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         * @throws GLib.Error
+         */
+        previous_node(): DOMNode;
+    }
+
+
+    namespace DOMNodeList {
+        // Signal signatures
+        interface SignalSignatures extends DOMObject.SignalSignatures {
+            "notify::length": (pspec: GObject.ParamSpec) => void;
+            "notify::core-object": (pspec: GObject.ParamSpec) => void;
+        }
+
+        // Constructor properties interface
+        interface ConstructorProps extends DOMObject.ConstructorProps {
+            length: bigint | number;
+        }
+    }
+
+    /**
+     * @gir-type Class
+     */
+    class DOMNodeList extends DOMObject {
+        static $gtype: GObject.GType<DOMNodeList>;
+
+        // Properties
+        /**
+         * @read-only
+         * @default 0
+         */
+        get length(): number;
+
+        /**
+         * Compile-time signal type information.
+         *
+         * This instance property is generated only for TypeScript type checking.
+         * It is not defined at runtime and should not be accessed in JS code.
+         * @internal
+         */
+        $signals: DOMNodeList.SignalSignatures;
+
+        // Constructors
+        constructor(properties?: Partial<DOMNodeList.ConstructorProps>, ...args: any[]);
+
+        _init(...args: any[]): void;
+
+        // Signals
+        /** @signal */
+        connect<K extends keyof DOMNodeList.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, DOMNodeList.SignalSignatures[K]>): number;
+
+        /** @signal */
+        connect_after<K extends keyof DOMNodeList.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, DOMNodeList.SignalSignatures[K]>): number;
+
+        /** @signal */
+        emit<K extends keyof DOMNodeList.SignalSignatures>(signal: K, ...args: GObject.GjsParameters<DOMNodeList.SignalSignatures[K]>): void;
+
+        // Methods
+        /**
+         * @returns A `gulong`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_length(): number;
+
+        /**
+         * @param index A `gulong`
+         * @returns A {@link WebKit2WebExtension.DOMNode}
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        item(index: bigint | number): DOMNode;
+    }
+
+
+    namespace DOMObject {
+        // Signal signatures
+        interface SignalSignatures extends GObject.Object.SignalSignatures {
+            "notify::core-object": (pspec: GObject.ParamSpec) => void;
+        }
+
+        // Constructor properties interface
+        interface ConstructorProps extends GObject.Object.ConstructorProps {
+            core_object: never;
+            coreObject: never;
+        }
+    }
+
+    /**
+     * @gir-type Class
+     */
+    class DOMObject extends GObject.Object {
+        static $gtype: GObject.GType<DOMObject>;
+
+        // Properties
+        /**
+         * @construct-only
+         */
+        set core_object(val: never);
+
+        /**
+         * @construct-only
+         */
+        set coreObject(val: never);
+
+        /**
+         * Compile-time signal type information.
+         *
+         * This instance property is generated only for TypeScript type checking.
+         * It is not defined at runtime and should not be accessed in JS code.
+         * @internal
+         */
+        $signals: DOMObject.SignalSignatures;
+
+        // Fields
+        parentInstance: GObject.Object;
+
+        // Constructors
+        constructor(properties?: Partial<DOMObject.ConstructorProps>, ...args: any[]);
+
+        _init(...args: any[]): void;
+
+        // Signals
+        /** @signal */
+        connect<K extends keyof DOMObject.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, DOMObject.SignalSignatures[K]>): number;
+
+        /** @signal */
+        connect_after<K extends keyof DOMObject.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, DOMObject.SignalSignatures[K]>): number;
+
+        /** @signal */
+        emit<K extends keyof DOMObject.SignalSignatures>(signal: K, ...args: GObject.GjsParameters<DOMObject.SignalSignatures[K]>): void;
+    }
+
+
+    namespace DOMProcessingInstruction {
+        // Signal signatures
+        interface SignalSignatures extends DOMCharacterData.SignalSignatures {
+            "notify::sheet": (pspec: GObject.ParamSpec) => void;
+            "notify::target": (pspec: GObject.ParamSpec) => void;
+            "notify::data": (pspec: GObject.ParamSpec) => void;
+            "notify::length": (pspec: GObject.ParamSpec) => void;
+            "notify::base-uri": (pspec: GObject.ParamSpec) => void;
+            "notify::child-nodes": (pspec: GObject.ParamSpec) => void;
+            "notify::first-child": (pspec: GObject.ParamSpec) => void;
+            "notify::last-child": (pspec: GObject.ParamSpec) => void;
+            "notify::next-sibling": (pspec: GObject.ParamSpec) => void;
+            "notify::node-name": (pspec: GObject.ParamSpec) => void;
+            "notify::node-type": (pspec: GObject.ParamSpec) => void;
+            "notify::node-value": (pspec: GObject.ParamSpec) => void;
+            "notify::owner-document": (pspec: GObject.ParamSpec) => void;
+            "notify::parent-element": (pspec: GObject.ParamSpec) => void;
+            "notify::parent-node": (pspec: GObject.ParamSpec) => void;
+            "notify::previous-sibling": (pspec: GObject.ParamSpec) => void;
+            "notify::text-content": (pspec: GObject.ParamSpec) => void;
+            "notify::core-object": (pspec: GObject.ParamSpec) => void;
+        }
+
+        // Constructor properties interface
+        interface ConstructorProps extends DOMCharacterData.ConstructorProps, DOMEventTarget.ConstructorProps {
+            sheet: DOMStyleSheet;
+            target: string;
+        }
+    }
+
+    /**
+     * @gir-type Class
+     */
+    class DOMProcessingInstruction extends DOMCharacterData implements DOMEventTarget {
+        static $gtype: GObject.GType<DOMProcessingInstruction>;
+
+        // Properties
+        /**
+         * @read-only
+         */
+        get sheet(): DOMStyleSheet;
+
+        /**
+         * @read-only
+         */
+        get target(): string;
+
+        /**
+         * Compile-time signal type information.
+         *
+         * This instance property is generated only for TypeScript type checking.
+         * It is not defined at runtime and should not be accessed in JS code.
+         * @internal
+         */
+        $signals: DOMProcessingInstruction.SignalSignatures;
+
+        // Constructors
+        constructor(properties?: Partial<DOMProcessingInstruction.ConstructorProps>, ...args: any[]);
+
+        _init(...args: any[]): void;
+
+        // Signals
+        /** @signal */
+        connect<K extends keyof DOMProcessingInstruction.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, DOMProcessingInstruction.SignalSignatures[K]>): number;
+
+        /** @signal */
+        connect_after<K extends keyof DOMProcessingInstruction.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, DOMProcessingInstruction.SignalSignatures[K]>): number;
+
+        /** @signal */
+        emit<K extends keyof DOMProcessingInstruction.SignalSignatures>(signal: K, ...args: GObject.GjsParameters<DOMProcessingInstruction.SignalSignatures[K]>): void;
+
+        // Methods
+        /**
+         * @returns A {@link WebKit2WebExtension.DOMStyleSheet}
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_sheet(): DOMStyleSheet;
+
+        /**
+         * @returns A `gchar`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_target(): string;
+
+        /**
+         * Gets a named field from the objects table of associations (see `g_object_set_data()`).
+         * @param key name of the key for that association
+         * @returns the data if found,          or `null` if no such data exists.
+         */
+        get_data(key: string): null;
+
+        /**
+         * @param args 
+         */
+        // Conflicted with WebKit2WebExtension.DOMCharacterData.get_data
+        get_data(...args: never[]): any;
+
+        /**
+         * Each object carries around a table of associations from
+         * strings to pointers.  This function lets you set an association.
+         * 
+         * If the object already had an association with that name,
+         * the old association will be destroyed.
+         * 
+         * Internally, the `key` is converted to a {@link GLib.Quark} using `g_quark_from_string()`.
+         * This means a copy of `key` is kept permanently (even after `object` has been
+         * finalized) — so it is recommended to only use a small, bounded set of values
+         * for `key` in your program, to avoid the {@link GLib.Quark} storage growing unbounded.
+         * @param key name of the key
+         * @param data data to associate with that key
+         */
+        set_data(key: string, data: null): void;
+
+        /**
+         * @param args 
+         */
+        // Conflicted with WebKit2WebExtension.DOMCharacterData.set_data
+        set_data(...args: never[]): any;
+    }
+
+
+    namespace DOMRange {
+        // Signal signatures
+        interface SignalSignatures extends DOMObject.SignalSignatures {
+            "notify::collapsed": (pspec: GObject.ParamSpec) => void;
+            "notify::common-ancestor-container": (pspec: GObject.ParamSpec) => void;
+            "notify::end-container": (pspec: GObject.ParamSpec) => void;
+            "notify::end-offset": (pspec: GObject.ParamSpec) => void;
+            "notify::start-container": (pspec: GObject.ParamSpec) => void;
+            "notify::start-offset": (pspec: GObject.ParamSpec) => void;
+            "notify::text": (pspec: GObject.ParamSpec) => void;
+            "notify::core-object": (pspec: GObject.ParamSpec) => void;
+        }
+
+        // Constructor properties interface
+        interface ConstructorProps extends DOMObject.ConstructorProps {
+            collapsed: boolean;
+            common_ancestor_container: DOMNode;
+            commonAncestorContainer: DOMNode;
+            end_container: DOMNode;
+            endContainer: DOMNode;
+            end_offset: bigint | number;
+            endOffset: bigint | number;
+            start_container: DOMNode;
+            startContainer: DOMNode;
+            start_offset: bigint | number;
+            startOffset: bigint | number;
+            text: string;
+        }
+    }
+
+    /**
+     * @gir-type Class
+     */
+    class DOMRange extends DOMObject {
+        static $gtype: GObject.GType<DOMRange>;
+
+        // Properties
+        /**
+         * @read-only
+         * @default false
+         */
+        get collapsed(): boolean;
+
+        /**
+         * @read-only
+         */
+        get common_ancestor_container(): DOMNode;
+
+        /**
+         * @read-only
+         */
+        get commonAncestorContainer(): DOMNode;
+
+        /**
+         * @read-only
+         */
+        get end_container(): DOMNode;
+
+        /**
+         * @read-only
+         */
+        get endContainer(): DOMNode;
+
+        /**
+         * @read-only
+         * @default 0
+         */
+        get end_offset(): number;
+
+        /**
+         * @read-only
+         * @default 0
+         */
+        get endOffset(): number;
+
+        /**
+         * @read-only
+         */
+        get start_container(): DOMNode;
+
+        /**
+         * @read-only
+         */
+        get startContainer(): DOMNode;
+
+        /**
+         * @read-only
+         * @default 0
+         */
+        get start_offset(): number;
+
+        /**
+         * @read-only
+         * @default 0
+         */
+        get startOffset(): number;
+
+        /**
+         * @read-only
+         */
+        get text(): string;
+
+        /**
+         * Compile-time signal type information.
+         *
+         * This instance property is generated only for TypeScript type checking.
+         * It is not defined at runtime and should not be accessed in JS code.
+         * @internal
+         */
+        $signals: DOMRange.SignalSignatures;
+
+        // Constructors
+        constructor(properties?: Partial<DOMRange.ConstructorProps>, ...args: any[]);
+
+        _init(...args: any[]): void;
+
+        // Signals
+        /** @signal */
+        connect<K extends keyof DOMRange.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, DOMRange.SignalSignatures[K]>): number;
+
+        /** @signal */
+        connect_after<K extends keyof DOMRange.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, DOMRange.SignalSignatures[K]>): number;
+
+        /** @signal */
+        emit<K extends keyof DOMRange.SignalSignatures>(signal: K, ...args: GObject.GjsParameters<DOMRange.SignalSignatures[K]>): void;
+
+        // Methods
+        /**
+         * @returns A {@link WebKit2WebExtension.DOMDocumentFragment}
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         * @throws GLib.Error
+         */
+        clone_contents(): DOMDocumentFragment;
+
+        /**
+         * @returns A {@link WebKit2WebExtension.DOMRange}
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         * @throws GLib.Error
+         */
+        clone_range(): DOMRange;
+
+        /**
+         * @param toStart A `gboolean`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         * @throws GLib.Error
+         */
+        collapse(toStart: boolean): void;
+
+        /**
+         * @param how A `gushort`
+         * @param sourceRange A {@link WebKit2WebExtension.DOMRange}
+         * @returns A `gshort`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         * @throws GLib.Error
+         */
+        compare_boundary_points(how: number, sourceRange: DOMRange): number;
+
+        /**
+         * @param refNode A {@link WebKit2WebExtension.DOMNode}
+         * @returns A `gshort`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         * @throws GLib.Error
+         */
+        compare_node(refNode: DOMNode): number;
+
+        /**
+         * @param refNode A {@link WebKit2WebExtension.DOMNode}
+         * @param offset A `glong`
+         * @returns A `gshort`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         * @throws GLib.Error
+         */
+        compare_point(refNode: DOMNode, offset: bigint | number): number;
+
+        /**
+         * @param html A `gchar`
+         * @returns A {@link WebKit2WebExtension.DOMDocumentFragment}
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         * @throws GLib.Error
+         */
+        create_contextual_fragment(html: string): DOMDocumentFragment;
+
+        /**
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         * @throws GLib.Error
+         */
+        delete_contents(): void;
+
+        /**
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         * @throws GLib.Error
+         */
+        detach(): void;
+
+        /**
+         * @param unit A `gchar`
+         * @since 2.16
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         * @throws GLib.Error
+         */
+        expand(unit: string): void;
+
+        /**
+         * @returns A {@link WebKit2WebExtension.DOMDocumentFragment}
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         * @throws GLib.Error
+         */
+        extract_contents(): DOMDocumentFragment;
+
+        /**
+         * @returns A `gboolean`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         * @throws GLib.Error
+         */
+        get_collapsed(): boolean;
+
+        /**
+         * @returns A {@link WebKit2WebExtension.DOMNode}
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         * @throws GLib.Error
+         */
+        get_common_ancestor_container(): DOMNode;
+
+        /**
+         * @returns A {@link WebKit2WebExtension.DOMNode}
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         * @throws GLib.Error
+         */
+        get_end_container(): DOMNode;
+
+        /**
+         * @returns A `glong`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         * @throws GLib.Error
+         */
+        get_end_offset(): number;
+
+        /**
+         * @returns A {@link WebKit2WebExtension.DOMNode}
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         * @throws GLib.Error
+         */
+        get_start_container(): DOMNode;
+
+        /**
+         * @returns A `glong`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         * @throws GLib.Error
+         */
+        get_start_offset(): number;
+
+        /**
+         * @returns A `gchar`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_text(): string;
+
+        /**
+         * @param newNode A {@link WebKit2WebExtension.DOMNode}
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         * @throws GLib.Error
+         */
+        insert_node(newNode: DOMNode): void;
+
+        /**
+         * @param refNode A {@link WebKit2WebExtension.DOMNode}
+         * @returns A `gboolean`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         * @throws GLib.Error
+         */
+        intersects_node(refNode: DOMNode): boolean;
+
+        /**
+         * @param refNode A {@link WebKit2WebExtension.DOMNode}
+         * @param offset A `glong`
+         * @returns A `gboolean`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         * @throws GLib.Error
+         */
+        is_point_in_range(refNode: DOMNode, offset: bigint | number): boolean;
+
+        /**
+         * @param refNode A {@link WebKit2WebExtension.DOMNode}
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         * @throws GLib.Error
+         */
+        select_node(refNode: DOMNode): void;
+
+        /**
+         * @param refNode A {@link WebKit2WebExtension.DOMNode}
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         * @throws GLib.Error
+         */
+        select_node_contents(refNode: DOMNode): void;
+
+        /**
+         * @param refNode A {@link WebKit2WebExtension.DOMNode}
+         * @param offset A `glong`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         * @throws GLib.Error
+         */
+        set_end(refNode: DOMNode, offset: bigint | number): void;
+
+        /**
+         * @param refNode A {@link WebKit2WebExtension.DOMNode}
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         * @throws GLib.Error
+         */
+        set_end_after(refNode: DOMNode): void;
+
+        /**
+         * @param refNode A {@link WebKit2WebExtension.DOMNode}
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         * @throws GLib.Error
+         */
+        set_end_before(refNode: DOMNode): void;
+
+        /**
+         * @param refNode A {@link WebKit2WebExtension.DOMNode}
+         * @param offset A `glong`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         * @throws GLib.Error
+         */
+        set_start(refNode: DOMNode, offset: bigint | number): void;
+
+        /**
+         * @param refNode A {@link WebKit2WebExtension.DOMNode}
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         * @throws GLib.Error
+         */
+        set_start_after(refNode: DOMNode): void;
+
+        /**
+         * @param refNode A {@link WebKit2WebExtension.DOMNode}
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         * @throws GLib.Error
+         */
+        set_start_before(refNode: DOMNode): void;
+
+        /**
+         * @param newParent A {@link WebKit2WebExtension.DOMNode}
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         * @throws GLib.Error
+         */
+        surround_contents(newParent: DOMNode): void;
+
+        /**
+         * @returns A `gchar`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         * @throws GLib.Error
+         */
+        to_string(): string;
+    }
+
+
+    namespace DOMStyleSheet {
+        // Signal signatures
+        interface SignalSignatures extends DOMObject.SignalSignatures {
+            "notify::disabled": (pspec: GObject.ParamSpec) => void;
+            "notify::href": (pspec: GObject.ParamSpec) => void;
+            "notify::media": (pspec: GObject.ParamSpec) => void;
+            "notify::owner-node": (pspec: GObject.ParamSpec) => void;
+            "notify::parent-style-sheet": (pspec: GObject.ParamSpec) => void;
+            "notify::title": (pspec: GObject.ParamSpec) => void;
+            "notify::type": (pspec: GObject.ParamSpec) => void;
+            "notify::core-object": (pspec: GObject.ParamSpec) => void;
+        }
+
+        // Constructor properties interface
+        interface ConstructorProps extends DOMObject.ConstructorProps {
+            disabled: boolean;
+            href: string;
+            media: DOMMediaList;
+            owner_node: DOMNode;
+            ownerNode: DOMNode;
+            parent_style_sheet: DOMStyleSheet;
+            parentStyleSheet: DOMStyleSheet;
+            title: string;
+            type: string;
+        }
+    }
+
+    /**
+     * @gir-type Class
+     */
+    class DOMStyleSheet extends DOMObject {
+        static $gtype: GObject.GType<DOMStyleSheet>;
+
+        // Properties
+        /**
+         * @default false
+         */
+        get disabled(): boolean;
+        set disabled(val: boolean);
+
+        /**
+         * @read-only
+         */
+        get href(): string;
+
+        /**
+         * @read-only
+         */
+        get media(): DOMMediaList;
+
+        /**
+         * @read-only
+         */
+        get owner_node(): DOMNode;
+
+        /**
+         * @read-only
+         */
+        get ownerNode(): DOMNode;
+
+        /**
+         * @read-only
+         */
+        get parent_style_sheet(): DOMStyleSheet;
+
+        /**
+         * @read-only
+         */
+        get parentStyleSheet(): DOMStyleSheet;
+
+        /**
+         * @read-only
+         */
+        get title(): string;
+
+        /**
+         * @read-only
+         */
+        get type(): string;
+
+        /**
+         * Compile-time signal type information.
+         *
+         * This instance property is generated only for TypeScript type checking.
+         * It is not defined at runtime and should not be accessed in JS code.
+         * @internal
+         */
+        $signals: DOMStyleSheet.SignalSignatures;
+
+        // Constructors
+        constructor(properties?: Partial<DOMStyleSheet.ConstructorProps>, ...args: any[]);
+
+        _init(...args: any[]): void;
+
+        // Signals
+        /** @signal */
+        connect<K extends keyof DOMStyleSheet.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, DOMStyleSheet.SignalSignatures[K]>): number;
+
+        /** @signal */
+        connect_after<K extends keyof DOMStyleSheet.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, DOMStyleSheet.SignalSignatures[K]>): number;
+
+        /** @signal */
+        emit<K extends keyof DOMStyleSheet.SignalSignatures>(signal: K, ...args: GObject.GjsParameters<DOMStyleSheet.SignalSignatures[K]>): void;
+
+        // Methods
+        /**
+         * @returns A `gchar`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_content_type(): string;
+
+        /**
+         * @returns A `gboolean`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_disabled(): boolean;
+
+        /**
+         * @returns A `gchar`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_href(): string;
+
+        /**
+         * @returns A {@link WebKit2WebExtension.DOMMediaList}
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_media(): DOMMediaList;
+
+        /**
+         * @returns A {@link WebKit2WebExtension.DOMNode}
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_owner_node(): DOMNode;
+
+        /**
+         * @returns A {@link WebKit2WebExtension.DOMStyleSheet}
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_parent_style_sheet(): DOMStyleSheet;
+
+        /**
+         * @returns A `gchar`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_title(): string;
+
+        /**
+         * @param value A `gboolean`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        set_disabled(value: boolean): void;
+    }
+
+
+    namespace DOMStyleSheetList {
+        // Signal signatures
+        interface SignalSignatures extends DOMObject.SignalSignatures {
+            "notify::length": (pspec: GObject.ParamSpec) => void;
+            "notify::core-object": (pspec: GObject.ParamSpec) => void;
+        }
+
+        // Constructor properties interface
+        interface ConstructorProps extends DOMObject.ConstructorProps {
+            length: bigint | number;
+        }
+    }
+
+    /**
+     * @gir-type Class
+     */
+    class DOMStyleSheetList extends DOMObject {
+        static $gtype: GObject.GType<DOMStyleSheetList>;
+
+        // Properties
+        /**
+         * @read-only
+         * @default 0
+         */
+        get length(): number;
+
+        /**
+         * Compile-time signal type information.
+         *
+         * This instance property is generated only for TypeScript type checking.
+         * It is not defined at runtime and should not be accessed in JS code.
+         * @internal
+         */
+        $signals: DOMStyleSheetList.SignalSignatures;
+
+        // Constructors
+        constructor(properties?: Partial<DOMStyleSheetList.ConstructorProps>, ...args: any[]);
+
+        _init(...args: any[]): void;
+
+        // Signals
+        /** @signal */
+        connect<K extends keyof DOMStyleSheetList.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, DOMStyleSheetList.SignalSignatures[K]>): number;
+
+        /** @signal */
+        connect_after<K extends keyof DOMStyleSheetList.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, DOMStyleSheetList.SignalSignatures[K]>): number;
+
+        /** @signal */
+        emit<K extends keyof DOMStyleSheetList.SignalSignatures>(signal: K, ...args: GObject.GjsParameters<DOMStyleSheetList.SignalSignatures[K]>): void;
+
+        // Methods
+        /**
+         * @returns A `gulong`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_length(): number;
+
+        /**
+         * @param index A `gulong`
+         * @returns A {@link WebKit2WebExtension.DOMStyleSheet}
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        item(index: bigint | number): DOMStyleSheet;
+    }
+
+
+    namespace DOMText {
+        // Signal signatures
+        interface SignalSignatures extends DOMCharacterData.SignalSignatures {
+            "notify::whole-text": (pspec: GObject.ParamSpec) => void;
+            "notify::data": (pspec: GObject.ParamSpec) => void;
+            "notify::length": (pspec: GObject.ParamSpec) => void;
+            "notify::base-uri": (pspec: GObject.ParamSpec) => void;
+            "notify::child-nodes": (pspec: GObject.ParamSpec) => void;
+            "notify::first-child": (pspec: GObject.ParamSpec) => void;
+            "notify::last-child": (pspec: GObject.ParamSpec) => void;
+            "notify::next-sibling": (pspec: GObject.ParamSpec) => void;
+            "notify::node-name": (pspec: GObject.ParamSpec) => void;
+            "notify::node-type": (pspec: GObject.ParamSpec) => void;
+            "notify::node-value": (pspec: GObject.ParamSpec) => void;
+            "notify::owner-document": (pspec: GObject.ParamSpec) => void;
+            "notify::parent-element": (pspec: GObject.ParamSpec) => void;
+            "notify::parent-node": (pspec: GObject.ParamSpec) => void;
+            "notify::previous-sibling": (pspec: GObject.ParamSpec) => void;
+            "notify::text-content": (pspec: GObject.ParamSpec) => void;
+            "notify::core-object": (pspec: GObject.ParamSpec) => void;
+        }
+
+        // Constructor properties interface
+        interface ConstructorProps extends DOMCharacterData.ConstructorProps, DOMEventTarget.ConstructorProps {
+            whole_text: string;
+            wholeText: string;
+        }
+    }
+
+    /**
+     * @gir-type Class
+     */
+    class DOMText extends DOMCharacterData implements DOMEventTarget {
+        static $gtype: GObject.GType<DOMText>;
+
+        // Properties
+        /**
+         * @read-only
+         */
+        get whole_text(): string;
+
+        /**
+         * @read-only
+         */
+        get wholeText(): string;
+
+        /**
+         * Compile-time signal type information.
+         *
+         * This instance property is generated only for TypeScript type checking.
+         * It is not defined at runtime and should not be accessed in JS code.
+         * @internal
+         */
+        $signals: DOMText.SignalSignatures;
+
+        // Constructors
+        constructor(properties?: Partial<DOMText.ConstructorProps>, ...args: any[]);
+
+        _init(...args: any[]): void;
+
+        // Signals
+        /** @signal */
+        connect<K extends keyof DOMText.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, DOMText.SignalSignatures[K]>): number;
+
+        /** @signal */
+        connect_after<K extends keyof DOMText.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, DOMText.SignalSignatures[K]>): number;
+
+        /** @signal */
+        emit<K extends keyof DOMText.SignalSignatures>(signal: K, ...args: GObject.GjsParameters<DOMText.SignalSignatures[K]>): void;
+
+        // Methods
+        /**
+         * @returns A `gchar`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_whole_text(): string;
+
+        /**
+         * @param content A `gchar`
+         * @returns A {@link WebKit2WebExtension.DOMText}
+         * @deprecated since 2.14
+         * @throws GLib.Error
+         */
+        replace_whole_text(content: string): DOMText;
+
+        /**
+         * @param offset A `gulong`
+         * @returns A {@link WebKit2WebExtension.DOMText}
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         * @throws GLib.Error
+         */
+        split_text(offset: bigint | number): DOMText;
+
+        /**
+         * Gets a named field from the objects table of associations (see `g_object_set_data()`).
+         * @param key name of the key for that association
+         * @returns the data if found,          or `null` if no such data exists.
+         */
+        get_data(key: string): null;
+
+        /**
+         * @param args 
+         */
+        // Conflicted with WebKit2WebExtension.DOMCharacterData.get_data
+        get_data(...args: never[]): any;
+
+        /**
+         * Each object carries around a table of associations from
+         * strings to pointers.  This function lets you set an association.
+         * 
+         * If the object already had an association with that name,
+         * the old association will be destroyed.
+         * 
+         * Internally, the `key` is converted to a {@link GLib.Quark} using `g_quark_from_string()`.
+         * This means a copy of `key` is kept permanently (even after `object` has been
+         * finalized) — so it is recommended to only use a small, bounded set of values
+         * for `key` in your program, to avoid the {@link GLib.Quark} storage growing unbounded.
+         * @param key name of the key
+         * @param data data to associate with that key
+         */
+        set_data(key: string, data: null): void;
+
+        /**
+         * @param args 
+         */
+        // Conflicted with WebKit2WebExtension.DOMCharacterData.set_data
+        set_data(...args: never[]): any;
+    }
+
+
+    namespace DOMTreeWalker {
+        // Signal signatures
+        interface SignalSignatures extends DOMObject.SignalSignatures {
+            "notify::current-node": (pspec: GObject.ParamSpec) => void;
+            "notify::filter": (pspec: GObject.ParamSpec) => void;
+            "notify::root": (pspec: GObject.ParamSpec) => void;
+            "notify::what-to-show": (pspec: GObject.ParamSpec) => void;
+            "notify::core-object": (pspec: GObject.ParamSpec) => void;
+        }
+
+        // Constructor properties interface
+        interface ConstructorProps extends DOMObject.ConstructorProps {
+            current_node: DOMNode;
+            currentNode: DOMNode;
+            filter: DOMNodeFilter;
+            root: DOMNode;
+            what_to_show: bigint | number;
+            whatToShow: bigint | number;
+        }
+    }
+
+    /**
+     * @gir-type Class
+     */
+    class DOMTreeWalker extends DOMObject {
+        static $gtype: GObject.GType<DOMTreeWalker>;
+
+        // Properties
+        /**
+         * @read-only
+         */
+        get current_node(): DOMNode;
+
+        /**
+         * @read-only
+         */
+        get currentNode(): DOMNode;
+
+        /**
+         * @read-only
+         */
+        get filter(): DOMNodeFilter;
+
+        /**
+         * @read-only
+         */
+        get root(): DOMNode;
+
+        /**
+         * @read-only
+         * @default 0
+         */
+        get what_to_show(): number;
+
+        /**
+         * @read-only
+         * @default 0
+         */
+        get whatToShow(): number;
+
+        /**
+         * Compile-time signal type information.
+         *
+         * This instance property is generated only for TypeScript type checking.
+         * It is not defined at runtime and should not be accessed in JS code.
+         * @internal
+         */
+        $signals: DOMTreeWalker.SignalSignatures;
+
+        // Constructors
+        constructor(properties?: Partial<DOMTreeWalker.ConstructorProps>, ...args: any[]);
+
+        _init(...args: any[]): void;
+
+        // Signals
+        /** @signal */
+        connect<K extends keyof DOMTreeWalker.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, DOMTreeWalker.SignalSignatures[K]>): number;
+
+        /** @signal */
+        connect_after<K extends keyof DOMTreeWalker.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, DOMTreeWalker.SignalSignatures[K]>): number;
+
+        /** @signal */
+        emit<K extends keyof DOMTreeWalker.SignalSignatures>(signal: K, ...args: GObject.GjsParameters<DOMTreeWalker.SignalSignatures[K]>): void;
+
+        // Methods
+        /**
+         * @returns A {@link WebKit2WebExtension.DOMNode}
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        first_child(): DOMNode;
+
+        /**
+         * @returns A {@link WebKit2WebExtension.DOMNode}
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_current_node(): DOMNode;
+
+        /**
+         * This function has been removed from the DOM spec and it just returns `false`.
+         * @returns A `gboolean`
+         * @deprecated since 2.12
+         */
+        get_expand_entity_references(): boolean;
+
+        /**
+         * @returns A {@link WebKit2WebExtension.DOMNodeFilter}
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_filter(): DOMNodeFilter;
+
+        /**
+         * @returns A {@link WebKit2WebExtension.DOMNode}
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_root(): DOMNode;
+
+        /**
+         * @returns A `gulong`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_what_to_show(): number;
+
+        /**
+         * @returns A {@link WebKit2WebExtension.DOMNode}
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        last_child(): DOMNode;
+
+        /**
+         * @returns A {@link WebKit2WebExtension.DOMNode}
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        next_node(): DOMNode;
+
+        /**
+         * @returns A {@link WebKit2WebExtension.DOMNode}
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        next_sibling(): DOMNode;
+
+        /**
+         * @returns A {@link WebKit2WebExtension.DOMNode}
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        parent_node(): DOMNode;
+
+        /**
+         * @returns A {@link WebKit2WebExtension.DOMNode}
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        previous_node(): DOMNode;
+
+        /**
+         * @returns A {@link WebKit2WebExtension.DOMNode}
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        previous_sibling(): DOMNode;
+
+        /**
+         * @param value A {@link WebKit2WebExtension.DOMNode}
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         * @throws GLib.Error
+         */
+        set_current_node(value: DOMNode): void;
+    }
+
+
+    namespace DOMUIEvent {
+        // Signal signatures
+        interface SignalSignatures extends DOMEvent.SignalSignatures {
+            "notify::char-code": (pspec: GObject.ParamSpec) => void;
+            "notify::detail": (pspec: GObject.ParamSpec) => void;
+            "notify::key-code": (pspec: GObject.ParamSpec) => void;
+            "notify::layer-x": (pspec: GObject.ParamSpec) => void;
+            "notify::layer-y": (pspec: GObject.ParamSpec) => void;
+            "notify::page-x": (pspec: GObject.ParamSpec) => void;
+            "notify::page-y": (pspec: GObject.ParamSpec) => void;
+            "notify::view": (pspec: GObject.ParamSpec) => void;
+            "notify::bubbles": (pspec: GObject.ParamSpec) => void;
+            "notify::cancel-bubble": (pspec: GObject.ParamSpec) => void;
+            "notify::cancelable": (pspec: GObject.ParamSpec) => void;
+            "notify::current-target": (pspec: GObject.ParamSpec) => void;
+            "notify::event-phase": (pspec: GObject.ParamSpec) => void;
+            "notify::return-value": (pspec: GObject.ParamSpec) => void;
+            "notify::src-element": (pspec: GObject.ParamSpec) => void;
+            "notify::target": (pspec: GObject.ParamSpec) => void;
+            "notify::time-stamp": (pspec: GObject.ParamSpec) => void;
+            "notify::type": (pspec: GObject.ParamSpec) => void;
+            "notify::core-object": (pspec: GObject.ParamSpec) => void;
+        }
+
+        // Constructor properties interface
+        interface ConstructorProps extends DOMEvent.ConstructorProps {
+            char_code: bigint | number;
+            charCode: bigint | number;
+            detail: bigint | number;
+            key_code: bigint | number;
+            keyCode: bigint | number;
+            layer_x: bigint | number;
+            layerX: bigint | number;
+            layer_y: bigint | number;
+            layerY: bigint | number;
+            page_x: bigint | number;
+            pageX: bigint | number;
+            page_y: bigint | number;
+            pageY: bigint | number;
+            view: DOMDOMWindow;
+        }
+    }
+
+    /**
+     * @gir-type Class
+     */
+    class DOMUIEvent extends DOMEvent {
+        static $gtype: GObject.GType<DOMUIEvent>;
+
+        // Properties
+        /**
+         * @read-only
+         * @default 0
+         */
+        get char_code(): number;
+
+        /**
+         * @read-only
+         * @default 0
+         */
+        get charCode(): number;
+
+        /**
+         * @read-only
+         * @default 0
+         */
+        get detail(): number;
+
+        /**
+         * @read-only
+         * @default 0
+         */
+        get key_code(): number;
+
+        /**
+         * @read-only
+         * @default 0
+         */
+        get keyCode(): number;
+
+        /**
+         * @read-only
+         * @default 0
+         */
+        get layer_x(): number;
+
+        /**
+         * @read-only
+         * @default 0
+         */
+        get layerX(): number;
+
+        /**
+         * @read-only
+         * @default 0
+         */
+        get layer_y(): number;
+
+        /**
+         * @read-only
+         * @default 0
+         */
+        get layerY(): number;
+
+        /**
+         * @read-only
+         * @default 0
+         */
+        get page_x(): number;
+
+        /**
+         * @read-only
+         * @default 0
+         */
+        get pageX(): number;
+
+        /**
+         * @read-only
+         * @default 0
+         */
+        get page_y(): number;
+
+        /**
+         * @read-only
+         * @default 0
+         */
+        get pageY(): number;
+
+        /**
+         * @read-only
+         */
+        get view(): DOMDOMWindow;
+
+        /**
+         * Compile-time signal type information.
+         *
+         * This instance property is generated only for TypeScript type checking.
+         * It is not defined at runtime and should not be accessed in JS code.
+         * @internal
+         */
+        $signals: DOMUIEvent.SignalSignatures;
+
+        // Constructors
+        constructor(properties?: Partial<DOMUIEvent.ConstructorProps>, ...args: any[]);
+
+        _init(...args: any[]): void;
+
+        // Signals
+        /** @signal */
+        connect<K extends keyof DOMUIEvent.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, DOMUIEvent.SignalSignatures[K]>): number;
+
+        /** @signal */
+        connect_after<K extends keyof DOMUIEvent.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, DOMUIEvent.SignalSignatures[K]>): number;
+
+        /** @signal */
+        emit<K extends keyof DOMUIEvent.SignalSignatures>(signal: K, ...args: GObject.GjsParameters<DOMUIEvent.SignalSignatures[K]>): void;
+
+        // Methods
+        /**
+         * @returns A `glong`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_char_code(): number;
+
+        /**
+         * @returns A `glong`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_detail(): number;
+
+        /**
+         * @returns A `glong`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_key_code(): number;
+
+        /**
+         * @returns A `glong`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_layer_x(): number;
+
+        /**
+         * @returns A `glong`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_layer_y(): number;
+
+        /**
+         * @returns A `glong`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_page_x(): number;
+
+        /**
+         * @returns A `glong`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_page_y(): number;
+
+        /**
+         * @returns A {@link WebKit2WebExtension.DOMDOMWindow}
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_view(): DOMDOMWindow;
+
+        /**
+         * @param type A `gchar`
+         * @param canBubble A `gboolean`
+         * @param cancelable A `gboolean`
+         * @param view A {@link WebKit2WebExtension.DOMDOMWindow}
+         * @param detail A `glong`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        init_ui_event(type: string, canBubble: boolean, cancelable: boolean, view: DOMDOMWindow, detail: bigint | number): void;
+    }
+
+
+    namespace DOMWheelEvent {
+        // Signal signatures
+        interface SignalSignatures extends DOMMouseEvent.SignalSignatures {
+            "notify::wheel-delta": (pspec: GObject.ParamSpec) => void;
+            "notify::wheel-delta-x": (pspec: GObject.ParamSpec) => void;
+            "notify::wheel-delta-y": (pspec: GObject.ParamSpec) => void;
+            "notify::alt-key": (pspec: GObject.ParamSpec) => void;
+            "notify::button": (pspec: GObject.ParamSpec) => void;
+            "notify::client-x": (pspec: GObject.ParamSpec) => void;
+            "notify::client-y": (pspec: GObject.ParamSpec) => void;
+            "notify::ctrl-key": (pspec: GObject.ParamSpec) => void;
+            "notify::from-element": (pspec: GObject.ParamSpec) => void;
+            "notify::meta-key": (pspec: GObject.ParamSpec) => void;
+            "notify::offset-x": (pspec: GObject.ParamSpec) => void;
+            "notify::offset-y": (pspec: GObject.ParamSpec) => void;
+            "notify::related-target": (pspec: GObject.ParamSpec) => void;
+            "notify::screen-x": (pspec: GObject.ParamSpec) => void;
+            "notify::screen-y": (pspec: GObject.ParamSpec) => void;
+            "notify::shift-key": (pspec: GObject.ParamSpec) => void;
+            "notify::to-element": (pspec: GObject.ParamSpec) => void;
+            "notify::x": (pspec: GObject.ParamSpec) => void;
+            "notify::y": (pspec: GObject.ParamSpec) => void;
+            "notify::char-code": (pspec: GObject.ParamSpec) => void;
+            "notify::detail": (pspec: GObject.ParamSpec) => void;
+            "notify::key-code": (pspec: GObject.ParamSpec) => void;
+            "notify::layer-x": (pspec: GObject.ParamSpec) => void;
+            "notify::layer-y": (pspec: GObject.ParamSpec) => void;
+            "notify::page-x": (pspec: GObject.ParamSpec) => void;
+            "notify::page-y": (pspec: GObject.ParamSpec) => void;
+            "notify::view": (pspec: GObject.ParamSpec) => void;
+            "notify::bubbles": (pspec: GObject.ParamSpec) => void;
+            "notify::cancel-bubble": (pspec: GObject.ParamSpec) => void;
+            "notify::cancelable": (pspec: GObject.ParamSpec) => void;
+            "notify::current-target": (pspec: GObject.ParamSpec) => void;
+            "notify::event-phase": (pspec: GObject.ParamSpec) => void;
+            "notify::return-value": (pspec: GObject.ParamSpec) => void;
+            "notify::src-element": (pspec: GObject.ParamSpec) => void;
+            "notify::target": (pspec: GObject.ParamSpec) => void;
+            "notify::time-stamp": (pspec: GObject.ParamSpec) => void;
+            "notify::type": (pspec: GObject.ParamSpec) => void;
+            "notify::core-object": (pspec: GObject.ParamSpec) => void;
+        }
+
+        // Constructor properties interface
+        interface ConstructorProps extends DOMMouseEvent.ConstructorProps {
+            wheel_delta: bigint | number;
+            wheelDelta: bigint | number;
+            wheel_delta_x: bigint | number;
+            wheelDeltaX: bigint | number;
+            wheel_delta_y: bigint | number;
+            wheelDeltaY: bigint | number;
+        }
+    }
+
+    /**
+     * @gir-type Class
+     */
+    class DOMWheelEvent extends DOMMouseEvent {
+        static $gtype: GObject.GType<DOMWheelEvent>;
+
+        // Properties
+        /**
+         * @read-only
+         * @default 0
+         */
+        get wheel_delta(): number;
+
+        /**
+         * @read-only
+         * @default 0
+         */
+        get wheelDelta(): number;
+
+        /**
+         * @read-only
+         * @default 0
+         */
+        get wheel_delta_x(): number;
+
+        /**
+         * @read-only
+         * @default 0
+         */
+        get wheelDeltaX(): number;
+
+        /**
+         * @read-only
+         * @default 0
+         */
+        get wheel_delta_y(): number;
+
+        /**
+         * @read-only
+         * @default 0
+         */
+        get wheelDeltaY(): number;
+
+        /**
+         * Compile-time signal type information.
+         *
+         * This instance property is generated only for TypeScript type checking.
+         * It is not defined at runtime and should not be accessed in JS code.
+         * @internal
+         */
+        $signals: DOMWheelEvent.SignalSignatures;
+
+        // Constructors
+        constructor(properties?: Partial<DOMWheelEvent.ConstructorProps>, ...args: any[]);
+
+        _init(...args: any[]): void;
+
+        // Signals
+        /** @signal */
+        connect<K extends keyof DOMWheelEvent.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, DOMWheelEvent.SignalSignatures[K]>): number;
+
+        /** @signal */
+        connect_after<K extends keyof DOMWheelEvent.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, DOMWheelEvent.SignalSignatures[K]>): number;
+
+        /** @signal */
+        emit<K extends keyof DOMWheelEvent.SignalSignatures>(signal: K, ...args: GObject.GjsParameters<DOMWheelEvent.SignalSignatures[K]>): void;
+
+        // Methods
+        /**
+         * @returns A `glong`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_wheel_delta(): number;
+
+        /**
+         * @returns A `glong`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_wheel_delta_x(): number;
+
+        /**
+         * @returns A `glong`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_wheel_delta_y(): number;
+
+        /**
+         * @param wheelDeltaX A `glong`
+         * @param wheelDeltaY A `glong`
+         * @param view A {@link WebKit2WebExtension.DOMDOMWindow}
+         * @param screenX A `glong`
+         * @param screenY A `glong`
+         * @param clientX A `glong`
+         * @param clientY A `glong`
+         * @param ctrlKey A `gboolean`
+         * @param altKey A `gboolean`
+         * @param shiftKey A `gboolean`
+         * @param metaKey A `gboolean`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        init_wheel_event(wheelDeltaX: bigint | number, wheelDeltaY: bigint | number, view: DOMDOMWindow, screenX: bigint | number, screenY: bigint | number, clientX: bigint | number, clientY: bigint | number, ctrlKey: boolean, altKey: boolean, shiftKey: boolean, metaKey: boolean): void;
+    }
+
+
+    namespace DOMXPathExpression {
+        // Signal signatures
+        interface SignalSignatures extends DOMObject.SignalSignatures {
+            "notify::core-object": (pspec: GObject.ParamSpec) => void;
+        }
+
+        // Constructor properties interface
+        interface ConstructorProps extends DOMObject.ConstructorProps {}
+    }
+
+    /**
+     * @gir-type Class
+     */
+    class DOMXPathExpression extends DOMObject {
+        static $gtype: GObject.GType<DOMXPathExpression>;
+
+        /**
+         * Compile-time signal type information.
+         *
+         * This instance property is generated only for TypeScript type checking.
+         * It is not defined at runtime and should not be accessed in JS code.
+         * @internal
+         */
+        $signals: DOMXPathExpression.SignalSignatures;
+
+        // Constructors
+        constructor(properties?: Partial<DOMXPathExpression.ConstructorProps>, ...args: any[]);
+
+        _init(...args: any[]): void;
+
+        // Signals
+        /** @signal */
+        connect<K extends keyof DOMXPathExpression.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, DOMXPathExpression.SignalSignatures[K]>): number;
+
+        /** @signal */
+        connect_after<K extends keyof DOMXPathExpression.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, DOMXPathExpression.SignalSignatures[K]>): number;
+
+        /** @signal */
+        emit<K extends keyof DOMXPathExpression.SignalSignatures>(signal: K, ...args: GObject.GjsParameters<DOMXPathExpression.SignalSignatures[K]>): void;
+
+        // Methods
+        /**
+         * @param contextNode A {@link WebKit2WebExtension.DOMNode}
+         * @param type A `gushort`
+         * @param inResult A {@link WebKit2WebExtension.DOMXPathResult}
+         * @returns A {@link WebKit2WebExtension.DOMXPathResult}
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         * @throws GLib.Error
+         */
+        evaluate(contextNode: DOMNode, type: number, inResult: DOMXPathResult): DOMXPathResult;
+    }
+
+
+    namespace DOMXPathResult {
+        // Signal signatures
+        interface SignalSignatures extends DOMObject.SignalSignatures {
+            "notify::boolean-value": (pspec: GObject.ParamSpec) => void;
+            "notify::invalid-iterator-state": (pspec: GObject.ParamSpec) => void;
+            "notify::number-value": (pspec: GObject.ParamSpec) => void;
+            "notify::result-type": (pspec: GObject.ParamSpec) => void;
+            "notify::single-node-value": (pspec: GObject.ParamSpec) => void;
+            "notify::snapshot-length": (pspec: GObject.ParamSpec) => void;
+            "notify::string-value": (pspec: GObject.ParamSpec) => void;
+            "notify::core-object": (pspec: GObject.ParamSpec) => void;
+        }
+
+        // Constructor properties interface
+        interface ConstructorProps extends DOMObject.ConstructorProps {
+            boolean_value: boolean;
+            booleanValue: boolean;
+            invalid_iterator_state: boolean;
+            invalidIteratorState: boolean;
+            number_value: number;
+            numberValue: number;
+            result_type: number;
+            resultType: number;
+            single_node_value: DOMNode;
+            singleNodeValue: DOMNode;
+            snapshot_length: bigint | number;
+            snapshotLength: bigint | number;
+            string_value: string;
+            stringValue: string;
+        }
+    }
+
+    /**
+     * @gir-type Class
+     */
+    class DOMXPathResult extends DOMObject {
+        static $gtype: GObject.GType<DOMXPathResult>;
+
+        // Properties
+        /**
+         * @read-only
+         * @default false
+         */
+        get boolean_value(): boolean;
+
+        /**
+         * @read-only
+         * @default false
+         */
+        get booleanValue(): boolean;
+
+        /**
+         * @read-only
+         * @default false
+         */
+        get invalid_iterator_state(): boolean;
+
+        /**
+         * @read-only
+         * @default false
+         */
+        get invalidIteratorState(): boolean;
+
+        /**
+         * @read-only
+         * @default 0
+         */
+        get number_value(): number;
+
+        /**
+         * @read-only
+         * @default 0
+         */
+        get numberValue(): number;
+
+        /**
+         * @read-only
+         * @default 0
+         */
+        get result_type(): number;
+
+        /**
+         * @read-only
+         * @default 0
+         */
+        get resultType(): number;
+
+        /**
+         * @read-only
+         */
+        get single_node_value(): DOMNode;
+
+        /**
+         * @read-only
+         */
+        get singleNodeValue(): DOMNode;
+
+        /**
+         * @read-only
+         * @default 0
+         */
+        get snapshot_length(): number;
+
+        /**
+         * @read-only
+         * @default 0
+         */
+        get snapshotLength(): number;
+
+        /**
+         * @read-only
+         */
+        get string_value(): string;
+
+        /**
+         * @read-only
+         */
+        get stringValue(): string;
+
+        /**
+         * Compile-time signal type information.
+         *
+         * This instance property is generated only for TypeScript type checking.
+         * It is not defined at runtime and should not be accessed in JS code.
+         * @internal
+         */
+        $signals: DOMXPathResult.SignalSignatures;
+
+        // Constructors
+        constructor(properties?: Partial<DOMXPathResult.ConstructorProps>, ...args: any[]);
+
+        _init(...args: any[]): void;
+
+        // Signals
+        /** @signal */
+        connect<K extends keyof DOMXPathResult.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, DOMXPathResult.SignalSignatures[K]>): number;
+
+        /** @signal */
+        connect_after<K extends keyof DOMXPathResult.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, DOMXPathResult.SignalSignatures[K]>): number;
+
+        /** @signal */
+        emit<K extends keyof DOMXPathResult.SignalSignatures>(signal: K, ...args: GObject.GjsParameters<DOMXPathResult.SignalSignatures[K]>): void;
+
+        // Methods
+        /**
+         * @returns A `gboolean`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         * @throws GLib.Error
+         */
+        get_boolean_value(): boolean;
+
+        /**
+         * @returns A `gboolean`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_invalid_iterator_state(): boolean;
+
+        /**
+         * @returns A `gdouble`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         * @throws GLib.Error
+         */
+        get_number_value(): number;
+
+        /**
+         * @returns A `gushort`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        get_result_type(): number;
+
+        /**
+         * @returns A {@link WebKit2WebExtension.DOMNode}
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         * @throws GLib.Error
+         */
+        get_single_node_value(): DOMNode;
+
+        /**
+         * @returns A `gulong`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         * @throws GLib.Error
+         */
+        get_snapshot_length(): number;
+
+        /**
+         * @returns A `gchar`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         * @throws GLib.Error
+         */
+        get_string_value(): string;
+
+        /**
+         * @returns A {@link WebKit2WebExtension.DOMNode}
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         * @throws GLib.Error
+         */
+        iterate_next(): DOMNode;
+
+        /**
+         * @param index A `gulong`
+         * @returns A {@link WebKit2WebExtension.DOMNode}
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         * @throws GLib.Error
+         */
+        snapshot_item(index: bigint | number): DOMNode;
+    }
+
+
+    namespace Frame {
+        // Signal signatures
+        interface SignalSignatures extends GObject.Object.SignalSignatures {}
+
+        // Constructor properties interface
+        interface ConstructorProps extends GObject.Object.ConstructorProps {}
+    }
+
+    /**
+     * A web page frame.
+     * 
+     * Each {@link WebKit2WebExtension.WebPage} has at least one main frame, and can have any number
+     * of subframes.
+     * @gir-type Class
+     * @since 2.26
+     */
+    class Frame extends GObject.Object {
+        static $gtype: GObject.GType<Frame>;
+
+        /**
+         * Compile-time signal type information.
+         *
+         * This instance property is generated only for TypeScript type checking.
+         * It is not defined at runtime and should not be accessed in JS code.
+         * @internal
+         */
+        $signals: Frame.SignalSignatures;
+
+        // Constructors
+        constructor(properties?: Partial<Frame.ConstructorProps>, ...args: any[]);
+
+        _init(...args: any[]): void;
+
+        // Signals
+        /** @signal */
+        connect<K extends keyof Frame.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, Frame.SignalSignatures[K]>): number;
+
+        /** @signal */
+        connect_after<K extends keyof Frame.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, Frame.SignalSignatures[K]>): number;
+
+        /** @signal */
+        emit<K extends keyof Frame.SignalSignatures>(signal: K, ...args: GObject.GjsParameters<Frame.SignalSignatures[K]>): void;
+
+        // Methods
+        /**
+         * Gets the process-unique identifier of this {@link WebKit2WebExtension.Frame}. No other
+         * frame in the same web process will have the same ID; however, frames
+         * in other web processes may.
+         * @returns the identifier of `frame`
+         * @since 2.26
+         */
+        get_id(): number;
+
+        /**
+         * Get the JavaScript execution context of `frame`. Use this function to bridge
+         * between the WebKit and JavaScriptCore APIs.
+         * @returns the {@link JavaScriptCore.Context} for the JavaScript execution context of `frame`.
+         * @since 2.22
+         */
+        get_js_context(): JavaScriptCore.Context;
+
+        /**
+         * Get the JavaScript execution context of `frame` for the given {@link WebKit2WebExtension.ScriptWorld}.
+         * @param world a {@link WebKit2WebExtension.ScriptWorld}
+         * @returns the {@link JavaScriptCore.Context} for the JavaScript execution context of `frame` for `world`.
+         * @since 2.22
+         */
+        get_js_context_for_script_world(world: ScriptWorld): JavaScriptCore.Context;
+
+        /**
+         * Get a {@link JavaScriptCore.Value} referencing the given DOM object. The value is created in the JavaScript execution
+         * context of `frame`.
+         * @param dom_object a {@link WebKit2WebExtension.DOMObject}
+         * @returns the {@link JavaScriptCore.Value} referencing `dom_object`.
+         * @since 2.22
+         * @deprecated since 2.40
+         */
+        get_js_value_for_dom_object(dom_object: DOMObject): JavaScriptCore.Value;
+
+        /**
+         * Get a {@link JavaScriptCore.Value} referencing the given DOM object. The value is created in the JavaScript execution
+         * context of `frame` for the given {@link WebKit2WebExtension.ScriptWorld}.
+         * @param dom_object a {@link WebKit2WebExtension.DOMObject}
+         * @param world a {@link WebKit2WebExtension.ScriptWorld}
+         * @returns the {@link JavaScriptCore.Value} referencing `dom_object`
+         * @since 2.22
+         * @deprecated since 2.40
+         */
+        get_js_value_for_dom_object_in_script_world(dom_object: DOMObject, world: ScriptWorld): JavaScriptCore.Value;
+
+        /**
+         * Gets the current active URI of `frame`.
+         * @returns the current active URI of `frame` or `null` if nothing has been    loaded yet.
+         * @since 2.2
+         */
+        get_uri(): string;
+
+        /**
+         * Gets whether `frame` is the main frame of a {@link WebKit2WebExtension.WebPage}.
+         * @returns `true` if `frame` is a main frame or `false` otherwise
+         * @since 2.2
+         */
+        is_main_frame(): boolean;
+    }
+
+
+    namespace HitTestResult {
+        // Signal signatures
+        interface SignalSignatures extends GObject.Object.SignalSignatures {
+            "notify::context": (pspec: GObject.ParamSpec) => void;
+            "notify::image-uri": (pspec: GObject.ParamSpec) => void;
+            "notify::link-label": (pspec: GObject.ParamSpec) => void;
+            "notify::link-title": (pspec: GObject.ParamSpec) => void;
+            "notify::link-uri": (pspec: GObject.ParamSpec) => void;
+            "notify::media-uri": (pspec: GObject.ParamSpec) => void;
+        }
+
+        // Constructor properties interface
+        interface ConstructorProps extends GObject.Object.ConstructorProps {
+            context: number;
+            image_uri: string;
+            imageUri: string;
+            link_label: string;
+            linkLabel: string;
+            link_title: string;
+            linkTitle: string;
+            link_uri: string;
+            linkUri: string;
+            media_uri: string;
+            mediaUri: string;
+        }
+    }
+
+    /**
+     * Result of a Hit Test.
+     * 
+     * A Hit Test is an operation to get context information about a given
+     * point in a `WebKitWebView`. {@link WebKit2WebExtension.HitTestResult} represents the
+     * result of a Hit Test. It provides context information about what is
+     * at the coordinates of the Hit Test, such as if there's a link,
+     * an image or a media.
+     * 
+     * You can get the context of the HitTestResult with
+     * `webkit_hit_test_result_get_context()` that returns a bitmask of
+     * {@link WebKit2WebExtension.HitTestResultContext} flags. You can also use
+     * `webkit_hit_test_result_context_is_link()`, `webkit_hit_test_result_context_is_image()` and
+     * `webkit_hit_test_result_context_is_media()` to determine whether there's
+     * a link, image or a media element at the coordinates of the Hit Test.
+     * Note that it's possible that several {@link WebKit2WebExtension.HitTestResultContext} flags
+     * are active at the same time, for example if there's a link containing an image.
+     * 
+     * When the mouse is moved over a `WebKitWebView` a Hit Test is performed
+     * for the mouse coordinates and `WebKitWebView::mouse-target-changed`
+     * signal is emitted with a {@link WebKit2WebExtension.HitTestResult}.
+     * @gir-type Class
+     */
+    class HitTestResult extends GObject.Object {
+        static $gtype: GObject.GType<HitTestResult>;
+
+        // Properties
+        /**
+         * Bitmask of {@link WebKit2WebExtension.HitTestResultContext} flags representing
+         * the context of the {@link WebKit2WebExtension.HitTestResult}.
+         * @construct-only
+         * @default 0
+         */
+        get context(): number;
+
+        /**
+         * The URI of the image if flag {@link WebKit2WebExtension.HitTestResultContext.IMAGE}
+         * is present in {@link WebKit2WebExtension.HitTestResult.context}
+         * @construct-only
+         * @default null
+         */
+        get image_uri(): string;
+
+        /**
+         * The URI of the image if flag {@link WebKit2WebExtension.HitTestResultContext.IMAGE}
+         * is present in {@link WebKit2WebExtension.HitTestResult.context}
+         * @construct-only
+         * @default null
+         */
+        get imageUri(): string;
+
+        /**
+         * The label of the link if flag {@link WebKit2WebExtension.HitTestResultContext.LINK}
+         * is present in {@link WebKit2WebExtension.HitTestResult.context}
+         * @construct-only
+         * @default null
+         */
+        get link_label(): string;
+
+        /**
+         * The label of the link if flag {@link WebKit2WebExtension.HitTestResultContext.LINK}
+         * is present in {@link WebKit2WebExtension.HitTestResult.context}
+         * @construct-only
+         * @default null
+         */
+        get linkLabel(): string;
+
+        /**
+         * The title of the link if flag {@link WebKit2WebExtension.HitTestResultContext.LINK}
+         * is present in {@link WebKit2WebExtension.HitTestResult.context}
+         * @construct-only
+         * @default null
+         */
+        get link_title(): string;
+
+        /**
+         * The title of the link if flag {@link WebKit2WebExtension.HitTestResultContext.LINK}
+         * is present in {@link WebKit2WebExtension.HitTestResult.context}
+         * @construct-only
+         * @default null
+         */
+        get linkTitle(): string;
+
+        /**
+         * The URI of the link if flag {@link WebKit2WebExtension.HitTestResultContext.LINK}
+         * is present in {@link WebKit2WebExtension.HitTestResult.context}
+         * @construct-only
+         * @default null
+         */
+        get link_uri(): string;
+
+        /**
+         * The URI of the link if flag {@link WebKit2WebExtension.HitTestResultContext.LINK}
+         * is present in {@link WebKit2WebExtension.HitTestResult.context}
+         * @construct-only
+         * @default null
+         */
+        get linkUri(): string;
+
+        /**
+         * The URI of the media if flag {@link WebKit2WebExtension.HitTestResultContext.MEDIA}
+         * is present in {@link WebKit2WebExtension.HitTestResult.context}
+         * @construct-only
+         * @default null
+         */
+        get media_uri(): string;
+
+        /**
+         * The URI of the media if flag {@link WebKit2WebExtension.HitTestResultContext.MEDIA}
+         * is present in {@link WebKit2WebExtension.HitTestResult.context}
+         * @construct-only
+         * @default null
+         */
+        get mediaUri(): string;
+
+        /**
+         * Compile-time signal type information.
+         *
+         * This instance property is generated only for TypeScript type checking.
+         * It is not defined at runtime and should not be accessed in JS code.
+         * @internal
+         */
+        $signals: HitTestResult.SignalSignatures;
+
+        // Constructors
+        constructor(properties?: Partial<HitTestResult.ConstructorProps>, ...args: any[]);
+
+        _init(...args: any[]): void;
+
+        // Signals
+        /** @signal */
+        connect<K extends keyof HitTestResult.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, HitTestResult.SignalSignatures[K]>): number;
+
+        /** @signal */
+        connect_after<K extends keyof HitTestResult.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, HitTestResult.SignalSignatures[K]>): number;
+
+        /** @signal */
+        emit<K extends keyof HitTestResult.SignalSignatures>(signal: K, ...args: GObject.GjsParameters<HitTestResult.SignalSignatures[K]>): void;
+
+        // Methods
+        /**
+         * Gets whether {@link WebKit2WebExtension.HitTestResultContext.EDITABLE} flag is present in
+         * {@link WebKit2WebExtension.HitTestResult.context}.
+         * @returns `true` if there's an editable element at the coordinates of the `hit_test_result`,    or `false` otherwise
+         */
+        context_is_editable(): boolean;
+
+        /**
+         * Gets whether {@link WebKit2WebExtension.HitTestResultContext.IMAGE} flag is present in
+         * {@link WebKit2WebExtension.HitTestResult.context}.
+         * @returns `true` if there's an image element in the coordinates of the Hit Test,    or `false` otherwise
+         */
+        context_is_image(): boolean;
+
+        /**
+         * Gets whether {@link WebKit2WebExtension.HitTestResultContext.LINK} flag is present in
+         * {@link WebKit2WebExtension.HitTestResult.context}.
+         * @returns `true` if there's a link element in the coordinates of the Hit Test,    or `false` otherwise
+         */
+        context_is_link(): boolean;
+
+        /**
+         * Gets whether {@link WebKit2WebExtension.HitTestResultContext.MEDIA} flag is present in
+         * {@link WebKit2WebExtension.HitTestResult.context}.
+         * @returns `true` if there's a media element in the coordinates of the Hit Test,    or `false` otherwise
+         */
+        context_is_media(): boolean;
+
+        /**
+         * Gets whether {@link WebKit2WebExtension.HitTestResultContext.SCROLLBAR} flag is present in
+         * {@link WebKit2WebExtension.HitTestResult.context}.
+         * @returns `true` if there's a scrollbar element at the coordinates of the `hit_test_result`,    or `false` otherwise
+         */
+        context_is_scrollbar(): boolean;
+
+        /**
+         * Gets whether {@link WebKit2WebExtension.HitTestResultContext.SELECTION} flag is present in
+         * {@link WebKit2WebExtension.HitTestResult.context}.
+         * @returns `true` if there's a selected element at the coordinates of the `hit_test_result`,    or `false` otherwise
+         * @since 2.8
+         */
+        context_is_selection(): boolean;
+
+        /**
+         * Gets the value of the {@link WebKit2WebExtension.HitTestResult.context} property.
+         * @returns a bitmask of {@link WebKit2WebExtension.HitTestResultContext} flags
+         */
+        get_context(): number;
+
+        /**
+         * Gets the value of the {@link WebKit2WebExtension.HitTestResult.image_uri} property.
+         * @returns the URI of the image element in the coordinates of the Hit Test,    or `null` if there isn't an image element in `hit_test_result` context
+         */
+        get_image_uri(): string;
+
+        /**
+         * Gets the value of the {@link WebKit2WebExtension.HitTestResult.link_label} property.
+         * @returns the label of the link element in the coordinates of the Hit Test,    or `null` if there isn't a link element in `hit_test_result` context or the    link element doesn't have a label
+         */
+        get_link_label(): string;
+
+        /**
+         * Gets the value of the {@link WebKit2WebExtension.HitTestResult.link_title} property.
+         * @returns the title of the link element in the coordinates of the Hit Test,    or `null` if there isn't a link element in `hit_test_result` context or the    link element doesn't have a title
+         */
+        get_link_title(): string;
+
+        /**
+         * Gets the value of the {@link WebKit2WebExtension.HitTestResult.link_uri} property.
+         * @returns the URI of the link element in the coordinates of the Hit Test,    or `null` if there isn't a link element in `hit_test_result` context
+         */
+        get_link_uri(): string;
+
+        /**
+         * Gets the value of the {@link WebKit2WebExtension.HitTestResult.media_uri} property.
+         * @returns the URI of the media element in the coordinates of the Hit Test,    or `null` if there isn't a media element in `hit_test_result` context
+         */
+        get_media_uri(): string;
+    }
+
+
+    namespace ScriptWorld {
+        // Signal signatures
+        interface SignalSignatures extends GObject.Object.SignalSignatures {
+            /**
+             * Emitted when the JavaScript window object in a {@link WebKit2WebExtension.ScriptWorld} has been
+             * cleared. This is the preferred place to set custom properties on the window
+             * object using the JavaScriptCore API. You can get the window object of `frame`
+             * from the JavaScript execution context of `world` that is returned by
+             * `webkit_frame_get_js_context_for_script_world()`.
+             * @signal
+             * @since 2.2
+             * @run-last
+             */
+            "window-object-cleared": (page: WebPage, frame: Frame) => void;
+        }
+
+        // Constructor properties interface
+        interface ConstructorProps extends GObject.Object.ConstructorProps {}
+    }
+
+    /**
+     * @gir-type Class
+     */
+    class ScriptWorld extends GObject.Object {
+        static $gtype: GObject.GType<ScriptWorld>;
+
+        /**
+         * Compile-time signal type information.
+         *
+         * This instance property is generated only for TypeScript type checking.
+         * It is not defined at runtime and should not be accessed in JS code.
+         * @internal
+         */
+        $signals: ScriptWorld.SignalSignatures;
+
+        // Constructors
+        constructor(properties?: Partial<ScriptWorld.ConstructorProps>, ...args: any[]);
+
+        _init(...args: any[]): void;
+
+        static ["new"](): ScriptWorld;
+
+        static new_with_name(name: string): ScriptWorld;
+
+        // Signals
+        /** @signal */
+        connect<K extends keyof ScriptWorld.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, ScriptWorld.SignalSignatures[K]>): number;
+
+        /** @signal */
+        connect_after<K extends keyof ScriptWorld.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, ScriptWorld.SignalSignatures[K]>): number;
+
+        /** @signal */
+        emit<K extends keyof ScriptWorld.SignalSignatures>(signal: K, ...args: GObject.GjsParameters<ScriptWorld.SignalSignatures[K]>): void;
+
+        // Static methods
+        /**
+         * Get the default {@link WebKit2WebExtension.ScriptWorld}. This is the normal script world
+         * where all scripts are executed by default.
+         * You can get the JavaScript execution context of a {@link WebKit2WebExtension.ScriptWorld}
+         * for a given {@link WebKit2WebExtension.Frame} with `webkit_frame_get_js_context_for_script_world()`.
+         * @since 2.2
+         */
+        static get_default(): ScriptWorld;
+
+        // Methods
+        /**
+         * Get the name of a {@link WebKit2WebExtension.ScriptWorld}.
+         * @returns the name of `world`
+         * @since 2.22
+         */
+        get_name(): string;
+    }
+
+
+    namespace URIRequest {
+        // Signal signatures
+        interface SignalSignatures extends GObject.Object.SignalSignatures {
+            "notify::uri": (pspec: GObject.ParamSpec) => void;
+        }
+
+        // Constructor properties interface
+        interface ConstructorProps extends GObject.Object.ConstructorProps {
+            uri: string;
+        }
+    }
+
+    /**
+     * Represents a URI request.
+     * 
+     * A {@link WebKit2WebExtension.URIRequest} can be created with a URI using the
+     * `webkit_uri_request_new()` method, and you can get the URI of an
+     * existing request with the `webkit_uri_request_get_uri()` one.
+     * @gir-type Class
+     */
+    class URIRequest extends GObject.Object {
+        static $gtype: GObject.GType<URIRequest>;
+
+        // Properties
+        /**
+         * The URI to which the request will be made.
+         * @default about:blank
+         */
+        get uri(): string;
+        set uri(val: string);
+
+        /**
+         * Compile-time signal type information.
+         *
+         * This instance property is generated only for TypeScript type checking.
+         * It is not defined at runtime and should not be accessed in JS code.
+         * @internal
+         */
+        $signals: URIRequest.SignalSignatures;
+
+        // Constructors
+        constructor(properties?: Partial<URIRequest.ConstructorProps>, ...args: any[]);
+
+        _init(...args: any[]): void;
+
+        static ["new"](uri: string): URIRequest;
+
+        // Signals
+        /** @signal */
+        connect<K extends keyof URIRequest.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, URIRequest.SignalSignatures[K]>): number;
+
+        /** @signal */
+        connect_after<K extends keyof URIRequest.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, URIRequest.SignalSignatures[K]>): number;
+
+        /** @signal */
+        emit<K extends keyof URIRequest.SignalSignatures>(signal: K, ...args: GObject.GjsParameters<URIRequest.SignalSignatures[K]>): void;
+
+        // Methods
+        /**
+         * Get the HTTP headers of a {@link WebKit2WebExtension.URIRequest} as a {@link Soup.MessageHeaders}.
+         * @returns a {@link Soup.MessageHeaders} with the HTTP headers of `request`    or `null` if `request` is not an HTTP request.
+         */
+        get_http_headers(): Soup.MessageHeaders;
+
+        /**
+         * Get the HTTP method of the {@link WebKit2WebExtension.URIRequest}.
+         * @returns the HTTP method of the {@link WebKit2WebExtension.URIRequest} or `null` if `request` is not    an HTTP request.
+         * @since 2.12
+         */
+        get_http_method(): string;
+
+        /**
+         * Obtains the request URI.
+         * @returns request URI, as a string.
+         */
+        get_uri(): string;
+
+        /**
+         * Set the URI of `request`
+         * @param uri an URI
+         */
+        set_uri(uri: string): void;
+    }
+
+
+    namespace URIResponse {
+        // Signal signatures
+        interface SignalSignatures extends GObject.Object.SignalSignatures {
+            "notify::content-length": (pspec: GObject.ParamSpec) => void;
+            "notify::http-headers": (pspec: GObject.ParamSpec) => void;
+            "notify::mime-type": (pspec: GObject.ParamSpec) => void;
+            "notify::status-code": (pspec: GObject.ParamSpec) => void;
+            "notify::suggested-filename": (pspec: GObject.ParamSpec) => void;
+            "notify::uri": (pspec: GObject.ParamSpec) => void;
+        }
+
+        // Constructor properties interface
+        interface ConstructorProps extends GObject.Object.ConstructorProps {
+            content_length: bigint | number;
+            contentLength: bigint | number;
+            http_headers: Soup.MessageHeaders;
+            httpHeaders: Soup.MessageHeaders;
+            mime_type: string;
+            mimeType: string;
+            status_code: number;
+            statusCode: number;
+            suggested_filename: string;
+            suggestedFilename: string;
+            uri: string;
+        }
+    }
+
+    /**
+     * Represents an URI response.
+     * 
+     * A {@link WebKit2WebExtension.URIResponse} contains information such as the URI, the
+     * status code, the content length, the mime type, the HTTP status or
+     * the suggested filename.
+     * @gir-type Class
+     */
+    class URIResponse extends GObject.Object {
+        static $gtype: GObject.GType<URIResponse>;
+
+        // Properties
+        /**
+         * The expected content length of the response.
+         * @read-only
+         * @default 0
+         */
+        get content_length(): number;
+
+        /**
+         * The expected content length of the response.
+         * @read-only
+         * @default 0
+         */
+        get contentLength(): number;
+
+        /**
+         * The HTTP headers of the response, or `null` if the response is not an HTTP response.
+         * @since 2.6
+         * @read-only
+         */
+        get http_headers(): Soup.MessageHeaders;
+
+        /**
+         * The HTTP headers of the response, or `null` if the response is not an HTTP response.
+         * @since 2.6
+         * @read-only
+         */
+        get httpHeaders(): Soup.MessageHeaders;
+
+        /**
+         * The MIME type of the response.
+         * @read-only
+         * @default null
+         */
+        get mime_type(): string;
+
+        /**
+         * The MIME type of the response.
+         * @read-only
+         * @default null
+         */
+        get mimeType(): string;
+
+        /**
+         * The status code of the response as returned by the server.
+         * @read-only
+         * @default 0
+         */
+        get status_code(): number;
+
+        /**
+         * The status code of the response as returned by the server.
+         * @read-only
+         * @default 0
+         */
+        get statusCode(): number;
+
+        /**
+         * The suggested filename for the URI response.
+         * @read-only
+         * @default null
+         */
+        get suggested_filename(): string;
+
+        /**
+         * The suggested filename for the URI response.
+         * @read-only
+         * @default null
+         */
+        get suggestedFilename(): string;
+
+        /**
+         * The URI for which the response was made.
+         * @read-only
+         * @default null
+         */
+        get uri(): string;
+
+        /**
+         * Compile-time signal type information.
+         *
+         * This instance property is generated only for TypeScript type checking.
+         * It is not defined at runtime and should not be accessed in JS code.
+         * @internal
+         */
+        $signals: URIResponse.SignalSignatures;
+
+        // Constructors
+        constructor(properties?: Partial<URIResponse.ConstructorProps>, ...args: any[]);
+
+        _init(...args: any[]): void;
+
+        // Signals
+        /** @signal */
+        connect<K extends keyof URIResponse.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, URIResponse.SignalSignatures[K]>): number;
+
+        /** @signal */
+        connect_after<K extends keyof URIResponse.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, URIResponse.SignalSignatures[K]>): number;
+
+        /** @signal */
+        emit<K extends keyof URIResponse.SignalSignatures>(signal: K, ...args: GObject.GjsParameters<URIResponse.SignalSignatures[K]>): void;
+
+        // Methods
+        /**
+         * Get the expected content length of the {@link WebKit2WebExtension.URIResponse}.
+         * 
+         * It can be 0 if the server provided an incorrect or missing Content-Length.
+         * @returns the expected content length of `response`.
+         */
+        get_content_length(): number;
+
+        /**
+         * Get the HTTP headers of a {@link WebKit2WebExtension.URIResponse} as a {@link Soup.MessageHeaders}.
+         * @returns a {@link Soup.MessageHeaders} with the HTTP headers of `response`    or `null` if `response` is not an HTTP response.
+         * @since 2.6
+         */
+        get_http_headers(): Soup.MessageHeaders;
+
+        /**
+         * Gets the MIME type of the response.
+         * @returns MIME type, as a string.
+         */
+        get_mime_type(): string;
+
+        /**
+         * Get the status code of the {@link WebKit2WebExtension.URIResponse}.
+         * 
+         * Get the status code of the {@link WebKit2WebExtension.URIResponse} as returned by
+         * the server. It will normally be a `SoupKnownStatusCode`, for
+         * example {@link Soup.Status.OK}, though the server can respond with any
+         * unsigned integer.
+         * @returns the status code of `response`
+         */
+        get_status_code(): number;
+
+        /**
+         * Get the suggested filename for `response`.
+         * 
+         * Get the suggested filename for `response`, as specified by
+         * the 'Content-Disposition' HTTP header, or `null` if it's not
+         * present.
+         * @returns the suggested filename or `null` if    the 'Content-Disposition' HTTP header is not present.
+         */
+        get_suggested_filename(): string;
+
+        /**
+         * Gets the URI which resulted in the response.
+         * @returns response URI, as a string.
+         */
+        get_uri(): string;
+    }
+
+
+    namespace UserMessage {
+        // Signal signatures
+        interface SignalSignatures extends GObject.InitiallyUnowned.SignalSignatures {
+            "notify::fd-list": (pspec: GObject.ParamSpec) => void;
+            "notify::name": (pspec: GObject.ParamSpec) => void;
+            "notify::parameters": (pspec: GObject.ParamSpec) => void;
+        }
+
+        // Constructor properties interface
+        interface ConstructorProps extends GObject.InitiallyUnowned.ConstructorProps {
+            fd_list: Gio.UnixFDList | null;
+            fdList: Gio.UnixFDList | null;
+            name: string;
+            parameters: GLib.Variant | null;
+        }
+    }
+
+    /**
+     * Message that can be sent between the UI process and web process extensions.
+     * 
+     * A WebKitUserMessage is a message that can be used for the communication between the UI process
+     * and web process extensions. A WebKitUserMessage always has a name, and it can also include parameters and
+     * UNIX file descriptors. Messages can be sent from a `WebKitWebContext` to all web process extensions,
+     * from a web process extension to its corresponding `WebKitWebContext`, and from a `WebKitWebView` to its
+     * corresponding {@link WebKit2WebExtension.WebPage} (and vice versa). One to one messages can be replied to directly with
+     * `webkit_user_message_send_reply()`.
+     * @gir-type Class
+     * @since 2.28
+     */
+    class UserMessage extends GObject.InitiallyUnowned {
+        static $gtype: GObject.GType<UserMessage>;
+
+        // Properties
+        /**
+         * The UNIX file descriptors of the user message.
+         * @since 2.28
+         * @construct-only
+         */
+        get fd_list(): Gio.UnixFDList | null;
+
+        /**
+         * The UNIX file descriptors of the user message.
+         * @since 2.28
+         * @construct-only
+         */
+        get fdList(): Gio.UnixFDList | null;
+
+        /**
+         * The name of the user message.
+         * @since 2.28
+         * @construct-only
+         * @default null
+         */
+        get name(): string;
+
+        /**
+         * The parameters of the user message as a {@link GLib.Variant}, or `null`
+         * if the message doesn't include parameters. Note that only complete types are
+         * allowed.
+         * @since 2.28
+         * @construct-only
+         */
+        get parameters(): GLib.Variant | null;
+
+        /**
+         * Compile-time signal type information.
+         *
+         * This instance property is generated only for TypeScript type checking.
+         * It is not defined at runtime and should not be accessed in JS code.
+         * @internal
+         */
+        $signals: UserMessage.SignalSignatures;
+
+        // Constructors
+        constructor(properties?: Partial<UserMessage.ConstructorProps>, ...args: any[]);
+
+        _init(...args: any[]): void;
+
+        static ["new"](name: string, parameters: GLib.Variant | null): UserMessage;
+
+        static new_with_fd_list(name: string, parameters: GLib.Variant | null, fd_list: Gio.UnixFDList | null): UserMessage;
+
+        // Signals
+        /** @signal */
+        connect<K extends keyof UserMessage.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, UserMessage.SignalSignatures[K]>): number;
+
+        /** @signal */
+        connect_after<K extends keyof UserMessage.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, UserMessage.SignalSignatures[K]>): number;
+
+        /** @signal */
+        emit<K extends keyof UserMessage.SignalSignatures>(signal: K, ...args: GObject.GjsParameters<UserMessage.SignalSignatures[K]>): void;
+
+        // Static methods
+        /**
+         * Gets the quark for the domain of user message errors.
+         */
+        static error_quark(): GLib.Quark;
+
+        // Methods
+        /**
+         * Get the `message` list of file descritpor.
+         * @returns the message list of file descriptors
+         * @since 2.28
+         */
+        get_fd_list(): Gio.UnixFDList | null;
+
+        /**
+         * Get the `message` name.
+         * @returns the message name
+         * @since 2.28
+         */
+        get_name(): string;
+
+        /**
+         * Get the `message` parameters.
+         * @returns the message parameters
+         * @since 2.28
+         */
+        get_parameters(): GLib.Variant | null;
+
+        /**
+         * Send a reply to an user message.
+         * 
+         * If `reply` is floating, it's consumed.
+         * You can only send a reply to a {@link WebKit2WebExtension.UserMessage} that has been
+         * received.
+         * @param reply a {@link WebKit2WebExtension.UserMessage} to send as reply
+         * @since 2.28
+         */
+        send_reply(reply: UserMessage): void;
+    }
+
+
+    namespace WebEditor {
+        // Signal signatures
+        interface SignalSignatures extends GObject.Object.SignalSignatures {
+            /**
+             * This signal is emitted for every selection change inside a {@link WebKit2WebExtension.WebPage}
+             * as well as for every caret position change as the caret is a collapsed
+             * selection.
+             * @signal
+             * @since 2.10
+             * @run-last
+             */
+            "selection-changed": () => void;
+        }
+
+        // Constructor properties interface
+        interface ConstructorProps extends GObject.Object.ConstructorProps {}
+    }
+
+    /**
+     * Access to editing capabilities of a {@link WebKit2WebExtension.WebPage}.
+     * 
+     * The WebKitWebEditor provides access to various editing capabilities of
+     * a {@link WebKit2WebExtension.WebPage} such as the possibility to react to the current selection in
+     * {@link WebKit2WebExtension.WebPage}.
+     * @gir-type Class
+     * @since 2.10
+     */
+    class WebEditor extends GObject.Object {
+        static $gtype: GObject.GType<WebEditor>;
+
+        /**
+         * Compile-time signal type information.
+         *
+         * This instance property is generated only for TypeScript type checking.
+         * It is not defined at runtime and should not be accessed in JS code.
+         * @internal
+         */
+        $signals: WebEditor.SignalSignatures;
+
+        // Constructors
+        constructor(properties?: Partial<WebEditor.ConstructorProps>, ...args: any[]);
+
+        _init(...args: any[]): void;
+
+        // Signals
+        /** @signal */
+        connect<K extends keyof WebEditor.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, WebEditor.SignalSignatures[K]>): number;
+
+        /** @signal */
+        connect_after<K extends keyof WebEditor.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, WebEditor.SignalSignatures[K]>): number;
+
+        /** @signal */
+        emit<K extends keyof WebEditor.SignalSignatures>(signal: K, ...args: GObject.GjsParameters<WebEditor.SignalSignatures[K]>): void;
+
+        // Methods
+        /**
+         * Gets the {@link WebKit2WebExtension.WebPage} that is associated with the {@link WebKit2WebExtension.WebEditor}.
+         * @returns the associated {@link WebKit2WebExtension.WebPage}
+         * @since 2.10
+         */
+        get_page(): WebPage;
+    }
+
+
+    namespace WebExtension {
+        // Signal signatures
+        interface SignalSignatures extends GObject.Object.SignalSignatures {
+            /**
+             * This signal is emitted when a new {@link WebKit2WebExtension.WebPage} is created in
+             * the Web Process.
+             * @signal
+             * @run-last
+             */
+            "page-created": (web_page: WebPage) => void;
+            /**
+             * This signal is emitted when a {@link WebKit2WebExtension.UserMessage} is received from the
+             * `WebKitWebContext` corresponding to `extension`. Messages sent by `WebKitWebContext`
+             * are always broadcast to all web extensions and they can't be
+             * replied to. Calling `webkit_user_message_send_reply()` will do nothing.
+             * @signal
+             * @since 2.28
+             * @run-last
+             */
+            "user-message-received": (message: UserMessage) => void;
+        }
+
+        // Constructor properties interface
+        interface ConstructorProps extends GObject.Object.ConstructorProps {}
+    }
+
+    /**
+     * Represents an extension of the WebProcess.
+     * 
+     * WebKitWebExtension is a loadable module for the WebProcess. It allows you to execute code in the
+     * WebProcess and to use the DOM API, to change any request or to inject custom
+     * JavaScript code, for example.
+     * 
+     * To create a WebKitWebExtension you should write a module with an initialization function that could
+     * be either `webkit_web_extension_initialize()` with prototype {@link WebKit2WebExtension.WebExtensionInitializeFunction} or
+     * `webkit_web_extension_initialize_with_user_data()` with prototype {@link WebKit2WebExtension.WebExtensionInitializeWithUserDataFunction}.
+     * This function has to be public and it has to use the #G_MODULE_EXPORT macro. It is called when the
+     * web process is initialized.
+     * 
+     * ```c
+     * static void
+     * web_page_created_callback (WebKitWebExtension *extension,
+     *                            WebKitWebPage      *web_page,
+     *                            gpointer            user_data)
+     * {
+     *     g_print ("Page %d created for %s\n",
+     *              webkit_web_page_get_id (web_page),
+     *              webkit_web_page_get_uri (web_page));
+     * }
+     * 
+     * G_MODULE_EXPORT void
+     * webkit_web_extension_initialize (WebKitWebExtension *extension)
+     * {
+     *     g_signal_connect (extension, "page-created",
+     *                       G_CALLBACK (web_page_created_callback),
+     *                       NULL);
+     * }
+     * ```
+     * 
+     * The previous piece of code shows a trivial example of an extension that notifies when
+     * a {@link WebKit2WebExtension.WebPage} is created.
+     * 
+     * WebKit has to know where it can find the created WebKitWebExtension. To do so you
+     * should use the `webkit_web_context_set_web_extensions_directory()` function. The signal
+     * `WebKitWebContext::initialize-web-extensions` is the recommended place to call it.
+     * 
+     * To provide the initialization data used by the `webkit_web_extension_initialize_with_user_data()`
+     * function, you have to call `webkit_web_context_set_web_extensions_initialization_user_data()` with
+     * the desired data as parameter. You can see an example of this in the following piece of code:
+     * 
+     * ```c
+     * #define WEB_EXTENSIONS_DIRECTORY // ...
+     * 
+     * static void
+     * initialize_web_extensions (WebKitWebContext *context,
+     *                            gpointer          user_data)
+     * {
+     *   // Web Extensions get a different ID for each Web Process
+     *   static guint32 unique_id = 0;
+     * 
+     *   webkit_web_context_set_web_extensions_directory (
+     *      context, WEB_EXTENSIONS_DIRECTORY);
+     *   webkit_web_context_set_web_extensions_initialization_user_data (
+     *      context, g_variant_new_uint32 (unique_id++));
+     * }
+     * 
+     * int main (int argc, char **argv)
+     * {
+     *   g_signal_connect (webkit_web_context_get_default (),
+     *                    "initialize-web-extensions",
+     *                     G_CALLBACK (initialize_web_extensions),
+     *                     NULL);
+     * 
+     *   GtkWidget *view = webkit_web_view_new ();
+     * 
+     *   // ...
+     * }
+     * ```
+     * @gir-type Class
+     */
+    class WebExtension extends GObject.Object {
+        static $gtype: GObject.GType<WebExtension>;
+
+        /**
+         * Compile-time signal type information.
+         *
+         * This instance property is generated only for TypeScript type checking.
+         * It is not defined at runtime and should not be accessed in JS code.
+         * @internal
+         */
+        $signals: WebExtension.SignalSignatures;
+
+        // Constructors
+        constructor(properties?: Partial<WebExtension.ConstructorProps>, ...args: any[]);
+
+        _init(...args: any[]): void;
+
+        // Signals
+        /** @signal */
+        connect<K extends keyof WebExtension.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, WebExtension.SignalSignatures[K]>): number;
+
+        /** @signal */
+        connect_after<K extends keyof WebExtension.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, WebExtension.SignalSignatures[K]>): number;
+
+        /** @signal */
+        emit<K extends keyof WebExtension.SignalSignatures>(signal: K, ...args: GObject.GjsParameters<WebExtension.SignalSignatures[K]>): void;
+
+        // Methods
+        /**
+         * Get the web page of the given `page_id`.
+         * @param page_id the identifier of the {@link WebKit2WebExtension.WebPage} to get
+         * @returns the {@link WebKit2WebExtension.WebPage} for the given `page_id`, or `null` if the    identifier doesn't correspond to an existing web page.
+         */
+        get_page(page_id: bigint | number): WebPage;
+
+        /**
+         * Send `message` to the `WebKitWebContext` corresponding to `extension`. If `message` is floating, it's consumed.
+         * 
+         * If you don't expect any reply, or you simply want to ignore it, you can pass `null` as `callback`.
+         * When the operation is finished, `callback` will be called. You can then call
+         * `webkit_web_extension_send_message_to_context_finish()` to get the message reply.
+         * @param message a {@link WebKit2WebExtension.UserMessage}
+         * @param cancellable a {@link Gio.Cancellable} or `null` to ignore
+         * @since 2.28
+         */
+        send_message_to_context(message: UserMessage, cancellable: Gio.Cancellable | null): globalThis.Promise<UserMessage>;
+
+        /**
+         * Send `message` to the `WebKitWebContext` corresponding to `extension`. If `message` is floating, it's consumed.
+         * 
+         * If you don't expect any reply, or you simply want to ignore it, you can pass `null` as `callback`.
+         * When the operation is finished, `callback` will be called. You can then call
+         * `webkit_web_extension_send_message_to_context_finish()` to get the message reply.
+         * @param message a {@link WebKit2WebExtension.UserMessage}
+         * @param cancellable a {@link Gio.Cancellable} or `null` to ignore
+         * @param callback A {@link Gio.AsyncReadyCallback} to call when the request is satisfied or `null`
+         * @since 2.28
+         */
+        send_message_to_context(message: UserMessage, cancellable: Gio.Cancellable | null, callback: Gio.AsyncReadyCallback<this> | null): void;
+
+        /**
+         * Send `message` to the `WebKitWebContext` corresponding to `extension`. If `message` is floating, it's consumed.
+         * 
+         * If you don't expect any reply, or you simply want to ignore it, you can pass `null` as `callback`.
+         * When the operation is finished, `callback` will be called. You can then call
+         * `webkit_web_extension_send_message_to_context_finish()` to get the message reply.
+         * @param message a {@link WebKit2WebExtension.UserMessage}
+         * @param cancellable a {@link Gio.Cancellable} or `null` to ignore
+         * @param callback A {@link Gio.AsyncReadyCallback} to call when the request is satisfied or `null`
+         * @since 2.28
+         */
+        send_message_to_context(message: UserMessage, cancellable: Gio.Cancellable | null, callback?: Gio.AsyncReadyCallback<this> | null): globalThis.Promise<UserMessage> | void;
+
+        /**
+         * Finish an asynchronous operation started with `webkit_web_extension_send_message_to_context()`.
+         * @param result a {@link Gio.AsyncResult}
+         * @returns a {@link WebKit2WebExtension.UserMessage} with the reply or `null` in case of error.
+         * @since 2.28
+         * @throws GLib.Error
+         */
+        send_message_to_context_finish(result: Gio.AsyncResult): UserMessage;
+    }
+
+
+    namespace WebFormManager {
+        // Signal signatures
+        interface SignalSignatures extends GObject.Object.SignalSignatures {
+            /**
+             * Emitted after form elements (or form associated elements) are associated with `frame`.
+             * This is useful to implement form auto filling for web pages where form fields are added
+             * dynamically. This signal might be emitted multiple times for the same frame.
+             * 
+             * Note that this signal could be also emitted when form controls are moved between forms. In
+             * that case, the `elements` array carries the list of those elements which have moved.
+             * 
+             * Clients should take a reference to the members of the `elements` array if it is desired to
+             * keep them alive after the signal handler returns.
+             * @signal
+             * @since 2.40
+             * @run-last
+             */
+            "form-controls-associated": (frame: Frame, elements: JavaScriptCore.Value[]) => void;
+            /**
+             * This signal is emitted when the DOM submit event is about to be fired for `form`.
+             * JavaScript code may rely on the submit event to detect that the user has clicked
+             * on a submit button, and to possibly cancel the form submission before
+             * {@link WebKit2WebExtension.WebFormManager.SignalSignatures.will_submit_form | WebKit2WebExtension.WebFormManager::will-submit-form} signal is emitted.
+             * However, beware that, for historical reasons, the submit event is not emitted at
+             * all if the form submission is triggered by JavaScript. For these reasons,
+             * this signal may not be used to reliably detect whether a form will be submitted.
+             * Instead, use it to detect if a user has clicked on a form's submit button even if
+             * JavaScript later cancels the form submission, or to read the values of the form's
+             * fields even if JavaScript later clears certain fields before submitting. This may
+             * be needed, for example, to implement a robust browser password manager, as some
+             * misguided websites may use such techniques to attempt to thwart password managers.
+             * @signal
+             * @since 2.40
+             * @run-last
+             */
+            "will-send-submit-event": (form: JavaScriptCore.Value, source_frame: Frame, target_frame: Frame) => void;
+            /**
+             * This signal is emitted when `form` will imminently be submitted. It can no longer
+             * be cancelled. This event always occurs immediately before a form is submitted to
+             * its target, so use this event to reliably detect when a form is submitted. This
+             * signal is emitted after {@link WebKit2WebExtension.WebFormManager.SignalSignatures.will_send_submit_event | WebKit2WebExtension.WebFormManager::will-send-submit-event} if that
+             * signal is emitted.
+             * @signal
+             * @since 2.40
+             * @run-last
+             */
+            "will-submit-form": (form: JavaScriptCore.Value, source_frame: Frame, target_frame: Frame) => void;
+        }
+
+        // Constructor properties interface
+        interface ConstructorProps extends GObject.Object.ConstructorProps {}
+    }
+
+    /**
+     * Form manager of a {@link WebKit2WebExtension.WebPage} in a {@link WebKit2WebExtension.ScriptWorld}.
+     * @gir-type Class
+     * @since 2.40
+     */
+    class WebFormManager extends GObject.Object {
+        static $gtype: GObject.GType<WebFormManager>;
+
+        /**
+         * Compile-time signal type information.
+         *
+         * This instance property is generated only for TypeScript type checking.
+         * It is not defined at runtime and should not be accessed in JS code.
+         * @internal
+         */
+        $signals: WebFormManager.SignalSignatures;
+
+        // Constructors
+        constructor(properties?: Partial<WebFormManager.ConstructorProps>, ...args: any[]);
+
+        _init(...args: any[]): void;
+
+        // Signals
+        /** @signal */
+        connect<K extends keyof WebFormManager.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, WebFormManager.SignalSignatures[K]>): number;
+
+        /** @signal */
+        connect_after<K extends keyof WebFormManager.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, WebFormManager.SignalSignatures[K]>): number;
+
+        /** @signal */
+        emit<K extends keyof WebFormManager.SignalSignatures>(signal: K, ...args: GObject.GjsParameters<WebFormManager.SignalSignatures[K]>): void;
+
+        // Static methods
+        /**
+         * Set the value of an HTML input element as if it had been edited by
+         * the user, triggering a change event, and set it as filled automatically.
+         * If `element` is not an HTML input element this function does nothing.
+         * @param element a {@link JavaScriptCore.Value}
+         * @param value the text to set
+         * @since 2.40
+         */
+        static input_element_auto_fill(element: JavaScriptCore.Value, value: string): void;
+
+        /**
+         * Get whether `element` is an HTML input element that has been filled automatically.
+         * @param element a {@link JavaScriptCore.Value}
+         * @since 2.40
+         */
+        static input_element_is_auto_filled(element: JavaScriptCore.Value): boolean;
+
+        /**
+         * Get whether `element` is an HTML text input element that has been edited by a user action.
+         * @param element a {@link JavaScriptCore.Value}
+         * @since 2.40
+         */
+        static input_element_is_user_edited(element: JavaScriptCore.Value): boolean;
+    }
+
+
+    namespace WebHitTestResult {
+        // Signal signatures
+        interface SignalSignatures extends HitTestResult.SignalSignatures {
+            "notify::node": (pspec: GObject.ParamSpec) => void;
+            "notify::context": (pspec: GObject.ParamSpec) => void;
+            "notify::image-uri": (pspec: GObject.ParamSpec) => void;
+            "notify::link-label": (pspec: GObject.ParamSpec) => void;
+            "notify::link-title": (pspec: GObject.ParamSpec) => void;
+            "notify::link-uri": (pspec: GObject.ParamSpec) => void;
+            "notify::media-uri": (pspec: GObject.ParamSpec) => void;
+        }
+
+        // Constructor properties interface
+        interface ConstructorProps extends HitTestResult.ConstructorProps {
+            node: DOMNode;
+        }
+    }
+
+    /**
+     * Result of a Hit Test (Web Process Extensions).
+     * 
+     * WebKitWebHitTestResult extends {@link WebKit2WebExtension.HitTestResult} to provide information
+     * about the {@link WebKit2WebExtension.DOMNode} in the coordinates of the Hit Test.
+     * @gir-type Class
+     * @since 2.8
+     */
+    class WebHitTestResult extends HitTestResult {
+        static $gtype: GObject.GType<WebHitTestResult>;
+
+        // Properties
+        /**
+         * The {@link WebKit2WebExtension.DOMNode}.
+         * @deprecated since 2.40
+         * @construct-only
+         */
+        get node(): DOMNode;
+
+        /**
+         * Compile-time signal type information.
+         *
+         * This instance property is generated only for TypeScript type checking.
+         * It is not defined at runtime and should not be accessed in JS code.
+         * @internal
+         */
+        $signals: WebHitTestResult.SignalSignatures;
+
+        // Constructors
+        constructor(properties?: Partial<WebHitTestResult.ConstructorProps>, ...args: any[]);
+
+        _init(...args: any[]): void;
+
+        // Signals
+        /** @signal */
+        connect<K extends keyof WebHitTestResult.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, WebHitTestResult.SignalSignatures[K]>): number;
+
+        /** @signal */
+        connect_after<K extends keyof WebHitTestResult.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, WebHitTestResult.SignalSignatures[K]>): number;
+
+        /** @signal */
+        emit<K extends keyof WebHitTestResult.SignalSignatures>(signal: K, ...args: GObject.GjsParameters<WebHitTestResult.SignalSignatures[K]>): void;
+
+        // Methods
+        /**
+         * Get the {@link JavaScriptCore.Value} for the DOM node in `world` at the coordinates of the Hit Test.
+         * @param world a {@link WebKit2WebExtension.ScriptWorld}, or `null` to use the default
+         * @returns a {@link JavaScriptCore.Value} for the DOM node, or `null`
+         * @since 2.40
+         */
+        get_js_node(world: ScriptWorld | null): JavaScriptCore.Value | null;
+
+        /**
+         * Get the {@link WebKit2WebExtension.DOMNode} in the coordinates of the Hit Test.
+         * @returns a {@link WebKit2WebExtension.DOMNode}
+         * @since 2.8
+         * @deprecated since 2.40: Use `webkit_web_hit_test_result_get_js_node()` instead
+         */
+        get_node(): DOMNode;
+    }
+
+
+    namespace WebPage {
+        // Signal signatures
+        interface SignalSignatures extends GObject.Object.SignalSignatures {
+            /**
+             * Emitted when a message is sent to the console. This can be a message
+             * produced by the use of JavaScript console API, a JavaScript exception,
+             * a security error or other errors, warnings, debug or log messages.
+             * The `console_message` contains information about the message.
+             * @signal
+             * @since 2.12
+             * @run-last
+             */
+            "console-message-sent": (console_message: ConsoleMessage) => void;
+            /**
+             * Emitted before a context menu is displayed in the UI Process to
+             * give the application a chance to customize the proposed menu,
+             * build its own context menu or pass user data to the UI Process.
+             * This signal is useful when the information available in the UI Process
+             * is not enough to build or customize the context menu, for example, to
+             * add menu entries depending on the node at the coordinates of the
+             * `hit_test_result`. Otherwise, it's recommended to use `WebKitWebView::context-menu`
+             * signal instead.
+             * @signal
+             * @since 2.8
+             * @run-last
+             */
+            "context-menu": (context_menu: ContextMenu, hit_test_result: WebHitTestResult) => boolean | void;
+            /**
+             * This signal is emitted when the DOM document of a {@link WebKit2WebExtension.WebPage} has been
+             * loaded.
+             * 
+             * You can wait for this signal to get the DOM document.
+             * @signal
+             * @run-last
+             */
+            "document-loaded": () => void;
+            /**
+             * Emitted after form elements (or form associated elements) are associated with a particular web
+             * page. This is useful to implement form auto filling for web pages where form fields are added
+             * dynamically. This signal might be emitted multiple times for the same web page.
+             * 
+             * Note that this signal could be also emitted when form controls are moved between forms. In
+             * that case, the `elements` array carries the list of those elements which have moved.
+             * 
+             * Clients should take a reference to the members of the `elements` array if it is desired to
+             * keep them alive after the signal handler returns.
+             * @signal
+             * @since 2.16
+             * @deprecated since 2.26: Use {@link WebKit2WebExtension.WebPage.SignalSignatures.form_controls_associated_for_frame | WebKit2WebExtension.WebPage::form-controls-associated-for-frame} instead.
+             * @run-last
+             */
+            "form-controls-associated": (elements: DOMElement[]) => void;
+            /**
+             * Emitted after form elements (or form associated elements) are associated with a particular web
+             * page. This is useful to implement form auto filling for web pages where form fields are added
+             * dynamically. This signal might be emitted multiple times for the same web page.
+             * 
+             * Note that this signal could be also emitted when form controls are moved between forms. In
+             * that case, the `elements` array carries the list of those elements which have moved.
+             * 
+             * Clients should take a reference to the members of the `elements` array if it is desired to
+             * keep them alive after the signal handler returns.
+             * @signal
+             * @since 2.26
+             * @deprecated since 2.40: Use {@link WebKit2WebExtension.WebFormManager.SignalSignatures.form_controls_associated | WebKit2WebExtension.WebFormManager::form-controls-associated} instead.
+             * @run-last
+             */
+            "form-controls-associated-for-frame": (elements: DOMElement[], frame: Frame) => void;
+            /**
+             * This signal is emitted when `request` is about to be sent to
+             * the server. This signal can be used to modify the {@link WebKit2WebExtension.URIRequest}
+             * that will be sent to the server. You can also cancel the resource load
+             * operation by connecting to this signal and returning `true`.
+             * 
+             * In case of a server redirection this signal is
+             * emitted again with the `request` argument containing the new
+             * request to be sent to the server due to the redirection and the
+             * `redirected_response` parameter containing the response
+             * received from the server for the initial request.
+             * 
+             * Modifications to the {@link WebKit2WebExtension.URIRequest} and its associated
+             * {@link Soup.MessageHeaders} will be taken into account when the request
+             * is sent over the network.
+             * @signal
+             * @run-last
+             */
+            "send-request": (request: URIRequest, redirected_response: URIResponse) => boolean | void;
+            /**
+             * This signal is emitted when a {@link WebKit2WebExtension.UserMessage} is received from the
+             * `WebKitWebView` corresponding to `web_page`. You can reply to the message
+             * using `webkit_user_message_send_reply()`.
+             * 
+             * You can handle the user message asynchronously by calling `g_object_ref()` on
+             * `message` and returning `true`. If the last reference of `message` is removed
+             * and the message has not been replied to, the operation in the `WebKitWebView` will
+             * finish with error {@link WebKit2WebExtension.UserMessageError.USER_MESSAGE_UNHANDLED_MESSAGE}.
+             * @signal
+             * @since 2.28
+             * @run-last
+             */
+            "user-message-received": (message: UserMessage) => boolean | void;
+            /**
+             * This signal is emitted to indicate various points during form
+             * submission. `step` indicates the current stage of form submission.
+             * 
+             * If this signal is emitted with {@link WebKit2WebExtension.FormSubmissionStep.SEND_DOM_EVENT},
+             * then the DOM submit event is about to be emitted. JavaScript code
+             * may rely on the submit event to detect that the user has clicked
+             * on a submit button, and to possibly cancel the form submission
+             * before {@link WebKit2WebExtension.FormSubmissionStep.COMPLETE}. However, beware
+             * that, for historical reasons, the submit event is not emitted at
+             * all if the form submission is triggered by JavaScript. For these
+             * reasons, {@link WebKit2WebExtension.FormSubmissionStep.SEND_DOM_EVENT} may not
+             * be used to reliably detect whether a form will be submitted.
+             * Instead, use it to detect if a user has clicked on a form's
+             * submit button even if JavaScript later cancels the form
+             * submission, or to read the values of the form's fields even if
+             * JavaScript later clears certain fields before submitting. This
+             * may be needed, for example, to implement a robust browser
+             * password manager, as some misguided websites may use such
+             * techniques to attempt to thwart password managers.
+             * 
+             * If this signal is emitted with {@link WebKit2WebExtension.FormSubmissionStep.COMPLETE},
+             * the form will imminently be submitted. It can no longer be
+             * cancelled. This event always occurs immediately before a form is
+             * submitted to its target, so use this event to reliably detect
+             * when a form is submitted. This event occurs after
+             * {@link WebKit2WebExtension.FormSubmissionStep.SEND_DOM_EVENT} if that event is
+             * emitted.
+             * @signal
+             * @since 2.20
+             * @deprecated since 2.40: Use {@link WebKit2WebExtension.WebFormManager.SignalSignatures.will_send_submit_event | WebKit2WebExtension.WebFormManager::will-send-submit-event} and {@link WebKit2WebExtension.WebFormManager.SignalSignatures.will_submit_form | WebKit2WebExtension.WebFormManager::will-submit-form} instead.
+             * @run-last
+             */
+            "will-submit-form": (form: DOMElement, step: FormSubmissionStep, source_frame: Frame, target_frame: Frame, text_field_names: string[], text_field_values: string[]) => void;
+            "notify::uri": (pspec: GObject.ParamSpec) => void;
+        }
+
+        // Constructor properties interface
+        interface ConstructorProps extends GObject.Object.ConstructorProps {
+            uri: string;
+        }
+    }
+
+    /**
+     * A loaded web page.
+     * @gir-type Class
+     */
+    class WebPage extends GObject.Object {
+        static $gtype: GObject.GType<WebPage>;
+
+        // Properties
+        /**
+         * The current active URI of the {@link WebKit2WebExtension.WebPage}.
+         * @read-only
+         * @default null
+         */
+        get uri(): string;
+
+        /**
+         * Compile-time signal type information.
+         *
+         * This instance property is generated only for TypeScript type checking.
+         * It is not defined at runtime and should not be accessed in JS code.
+         * @internal
+         */
+        $signals: WebPage.SignalSignatures;
+
+        // Constructors
+        constructor(properties?: Partial<WebPage.ConstructorProps>, ...args: any[]);
+
+        _init(...args: any[]): void;
+
+        // Signals
+        /** @signal */
+        connect<K extends keyof WebPage.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, WebPage.SignalSignatures[K]>): number;
+
+        /** @signal */
+        connect_after<K extends keyof WebPage.SignalSignatures>(signal: K, callback: GObject.SignalCallback<this, WebPage.SignalSignatures[K]>): number;
+
+        /** @signal */
+        emit<K extends keyof WebPage.SignalSignatures>(signal: K, ...args: GObject.GjsParameters<WebPage.SignalSignatures[K]>): void;
+
+        // Methods
+        /**
+         * Get the {@link WebKit2WebExtension.DOMDocument} currently loaded in `web_page`.
+         * @returns the {@link WebKit2WebExtension.DOMDocument} currently loaded, or `null`    if no document is currently loaded.
+         * @deprecated since 2.40: Use JavaScriptCore API instead.
+         */
+        get_dom_document(): DOMDocument;
+
+        /**
+         * Gets the {@link WebKit2WebExtension.WebEditor} of a {@link WebKit2WebExtension.WebPage}.
+         * @returns the {@link WebKit2WebExtension.WebEditor}
+         * @since 2.10
+         */
+        get_editor(): WebEditor;
+
+        /**
+         * Get the {@link WebKit2WebExtension.WebFormManager} of `web_page` in `world`.
+         * @param world a {@link WebKit2WebExtension.ScriptWorld}
+         * @returns a {@link WebKit2WebExtension.WebFormManager}
+         * @since 2.40
+         */
+        get_form_manager(world: ScriptWorld | null): WebFormManager;
+
+        /**
+         * Get the identifier of the {@link WebKit2WebExtension.WebPage}.
+         * @returns the identifier of `web_page`
+         */
+        get_id(): number;
+
+        /**
+         * Returns the main frame of a {@link WebKit2WebExtension.WebPage}.
+         * @returns the {@link WebKit2WebExtension.Frame} that is the main frame of `web_page`
+         * @since 2.2
+         * @deprecated since 2.48
+         */
+        get_main_frame(): Frame;
+
+        /**
+         * Returns the current active URI of `web_page`.
+         * 
+         * You can monitor the active URI by connecting to the notify::uri
+         * signal of `web_page`.
+         * @returns the current active URI of `web_page` or `null` if nothing has been    loaded yet.
+         */
+        get_uri(): string;
+
+        /**
+         * Send `message` to the `WebKitWebView` corresponding to `web_page`. If `message` is floating, it's consumed.
+         * 
+         * If you don't expect any reply, or you simply want to ignore it, you can pass `null` as `callback`.
+         * When the operation is finished, `callback` will be called. You can then call
+         * `webkit_web_page_send_message_to_view_finish()` to get the message reply.
+         * @param message a {@link WebKit2WebExtension.UserMessage}
+         * @param cancellable a {@link Gio.Cancellable} or `null` to ignore
+         * @since 2.28
+         */
+        send_message_to_view(message: UserMessage, cancellable: Gio.Cancellable | null): globalThis.Promise<UserMessage>;
+
+        /**
+         * Send `message` to the `WebKitWebView` corresponding to `web_page`. If `message` is floating, it's consumed.
+         * 
+         * If you don't expect any reply, or you simply want to ignore it, you can pass `null` as `callback`.
+         * When the operation is finished, `callback` will be called. You can then call
+         * `webkit_web_page_send_message_to_view_finish()` to get the message reply.
+         * @param message a {@link WebKit2WebExtension.UserMessage}
+         * @param cancellable a {@link Gio.Cancellable} or `null` to ignore
+         * @param callback A {@link Gio.AsyncReadyCallback} to call when the request is satisfied or `null`
+         * @since 2.28
+         */
+        send_message_to_view(message: UserMessage, cancellable: Gio.Cancellable | null, callback: Gio.AsyncReadyCallback<this> | null): void;
+
+        /**
+         * Send `message` to the `WebKitWebView` corresponding to `web_page`. If `message` is floating, it's consumed.
+         * 
+         * If you don't expect any reply, or you simply want to ignore it, you can pass `null` as `callback`.
+         * When the operation is finished, `callback` will be called. You can then call
+         * `webkit_web_page_send_message_to_view_finish()` to get the message reply.
+         * @param message a {@link WebKit2WebExtension.UserMessage}
+         * @param cancellable a {@link Gio.Cancellable} or `null` to ignore
+         * @param callback A {@link Gio.AsyncReadyCallback} to call when the request is satisfied or `null`
+         * @since 2.28
+         */
+        send_message_to_view(message: UserMessage, cancellable: Gio.Cancellable | null, callback?: Gio.AsyncReadyCallback<this> | null): globalThis.Promise<UserMessage> | void;
+
+        /**
+         * Finish an asynchronous operation started with `webkit_web_page_send_message_to_view()`.
+         * @param result a {@link Gio.AsyncResult}
+         * @returns a {@link WebKit2WebExtension.UserMessage} with the reply or `null` in case of error.
+         * @since 2.28
+         * @throws GLib.Error
+         */
+        send_message_to_view_finish(result: Gio.AsyncResult): UserMessage;
+    }
+
+
+    /**
+     * @gir-type Struct
+     */
+    abstract class ConsoleMessage {
+        static $gtype: GObject.GType<ConsoleMessage>;
+
+        // Methods
+        /**
+         * Make a copy of `console_message`.
+         * @returns A copy of passed in {@link WebKit2WebExtension.ConsoleMessage}
+         * @since 2.12
+         */
+        copy(): ConsoleMessage;
+
+        /**
+         * Free the {@link WebKit2WebExtension.ConsoleMessage}.
+         * @since 2.12
+         */
+        free(): void;
+
+        /**
+         * Gets the log level of a {@link WebKit2WebExtension.ConsoleMessage}.
+         * @returns a {@link WebKit2WebExtension.ConsoleMessageLevel} indicating the log level of `console_message`
+         * @since 2.12
+         */
+        get_level(): ConsoleMessageLevel;
+
+        /**
+         * Gets the line number of a {@link WebKit2WebExtension.ConsoleMessage}.
+         * @returns the line number of `console_message`
+         * @since 2.12
+         */
+        get_line(): number;
+
+        /**
+         * Gets the source of a {@link WebKit2WebExtension.ConsoleMessage}.
+         * @returns a {@link WebKit2WebExtension.ConsoleMessageSource} indicating the source of `console_message`
+         * @since 2.12
+         */
+        get_source(): ConsoleMessageSource;
+
+        /**
+         * Gets the source identifier of a {@link WebKit2WebExtension.ConsoleMessage}.
+         * @returns the source identifier of `console_message`
+         * @since 2.12
+         */
+        get_source_id(): string;
+
+        /**
+         * Gets the text message of a {@link WebKit2WebExtension.ConsoleMessage}.
+         * @returns the text message of `console_message`
+         * @since 2.12
+         */
+        get_text(): string;
+    }
+
+
+    /**
+     * @gir-type Alias
+     */
+    type ContextMenuClass = typeof ContextMenu;
+
+    /**
+     * @gir-type Alias
+     */
+    type ContextMenuItemClass = typeof ContextMenuItem;
+
+    /**
+     * @gir-type Struct
+     */
+    abstract class ContextMenuItemPrivate {
+        static $gtype: GObject.GType<ContextMenuItemPrivate>;
+    }
+
+
+    /**
+     * @gir-type Struct
+     */
+    abstract class ContextMenuPrivate {
+        static $gtype: GObject.GType<ContextMenuPrivate>;
+    }
+
+
+    /**
+     * @gir-type Alias
+     */
+    type DOMAttrClass = typeof DOMAttr;
+
+    /**
+     * @gir-type Alias
+     */
+    type DOMBlobClass = typeof DOMBlob;
+
+    /**
+     * @gir-type Alias
+     */
+    type DOMCDATASectionClass = typeof DOMCDATASection;
+
+    /**
+     * @gir-type Alias
+     */
+    type DOMCSSRuleClass = typeof DOMCSSRule;
+
+    /**
+     * @gir-type Alias
+     */
+    type DOMCSSRuleListClass = typeof DOMCSSRuleList;
+
+    /**
+     * @gir-type Alias
+     */
+    type DOMCSSStyleDeclarationClass = typeof DOMCSSStyleDeclaration;
+
+    /**
+     * @gir-type Alias
+     */
+    type DOMCSSStyleSheetClass = typeof DOMCSSStyleSheet;
+
+    /**
+     * @gir-type Alias
+     */
+    type DOMCSSValueClass = typeof DOMCSSValue;
+
+    /**
+     * @gir-type Alias
+     */
+    type DOMCharacterDataClass = typeof DOMCharacterData;
+
+    /**
+     * @gir-type Alias
+     */
+    type DOMClientRectClass = typeof DOMClientRect;
+
+    /**
+     * @gir-type Alias
+     */
+    type DOMClientRectListClass = typeof DOMClientRectList;
+
+    /**
+     * @gir-type Alias
+     */
+    type DOMCommentClass = typeof DOMComment;
+
+    /**
+     * @gir-type Alias
+     */
+    type DOMDOMImplementationClass = typeof DOMDOMImplementation;
+
+    /**
+     * @gir-type Alias
+     */
+    type DOMDOMSelectionClass = typeof DOMDOMSelection;
+
+    /**
+     * @gir-type Alias
+     */
+    type DOMDOMTokenListClass = typeof DOMDOMTokenList;
+
+    /**
+     * @gir-type Alias
+     */
+    type DOMDOMWindowClass = typeof DOMDOMWindow;
+
+    /**
+     * @gir-type Alias
+     */
+    type DOMDocumentClass = typeof DOMDocument;
+
+    /**
+     * @gir-type Alias
+     */
+    type DOMDocumentFragmentClass = typeof DOMDocumentFragment;
+
+    /**
+     * @gir-type Alias
+     */
+    type DOMDocumentTypeClass = typeof DOMDocumentType;
+
+    /**
+     * @gir-type Alias
+     */
+    type DOMElementClass = typeof DOMElement;
+
+    /**
+     * @gir-type Alias
+     */
+    type DOMEntityReferenceClass = typeof DOMEntityReference;
+
+    /**
+     * @gir-type Alias
+     */
+    type DOMEventClass = typeof DOMEvent;
+
+    /**
+     * @gir-type Alias
+     */
+    type DOMEventTargetIface = typeof DOMEventTarget;
+
+    /**
+     * @gir-type Alias
+     */
+    type DOMFileClass = typeof DOMFile;
+
+    /**
+     * @gir-type Alias
+     */
+    type DOMFileListClass = typeof DOMFileList;
+
+    /**
+     * @gir-type Alias
+     */
+    type DOMHTMLAnchorElementClass = typeof DOMHTMLAnchorElement;
+
+    /**
+     * @gir-type Alias
+     */
+    type DOMHTMLAppletElementClass = typeof DOMHTMLAppletElement;
+
+    /**
+     * @gir-type Alias
+     */
+    type DOMHTMLAreaElementClass = typeof DOMHTMLAreaElement;
+
+    /**
+     * @gir-type Alias
+     */
+    type DOMHTMLBRElementClass = typeof DOMHTMLBRElement;
+
+    /**
+     * @gir-type Alias
+     */
+    type DOMHTMLBaseElementClass = typeof DOMHTMLBaseElement;
+
+    /**
+     * @gir-type Alias
+     */
+    type DOMHTMLBaseFontElementClass = typeof DOMHTMLBaseFontElement;
+
+    /**
+     * @gir-type Alias
+     */
+    type DOMHTMLBodyElementClass = typeof DOMHTMLBodyElement;
+
+    /**
+     * @gir-type Alias
+     */
+    type DOMHTMLButtonElementClass = typeof DOMHTMLButtonElement;
+
+    /**
+     * @gir-type Alias
+     */
+    type DOMHTMLCanvasElementClass = typeof DOMHTMLCanvasElement;
+
+    /**
+     * @gir-type Alias
+     */
+    type DOMHTMLCollectionClass = typeof DOMHTMLCollection;
+
+    /**
+     * @gir-type Alias
+     */
+    type DOMHTMLDListElementClass = typeof DOMHTMLDListElement;
+
+    /**
+     * @gir-type Alias
+     */
+    type DOMHTMLDirectoryElementClass = typeof DOMHTMLDirectoryElement;
+
+    /**
+     * @gir-type Alias
+     */
+    type DOMHTMLDivElementClass = typeof DOMHTMLDivElement;
+
+    /**
+     * @gir-type Alias
+     */
+    type DOMHTMLDocumentClass = typeof DOMHTMLDocument;
+
+    /**
+     * @gir-type Alias
+     */
+    type DOMHTMLElementClass = typeof DOMHTMLElement;
+
+    /**
+     * @gir-type Alias
+     */
+    type DOMHTMLEmbedElementClass = typeof DOMHTMLEmbedElement;
+
+    /**
+     * @gir-type Alias
+     */
+    type DOMHTMLFieldSetElementClass = typeof DOMHTMLFieldSetElement;
+
+    /**
+     * @gir-type Alias
+     */
+    type DOMHTMLFontElementClass = typeof DOMHTMLFontElement;
+
+    /**
+     * @gir-type Alias
+     */
+    type DOMHTMLFormElementClass = typeof DOMHTMLFormElement;
+
+    /**
+     * @gir-type Alias
+     */
+    type DOMHTMLFrameElementClass = typeof DOMHTMLFrameElement;
+
+    /**
+     * @gir-type Alias
+     */
+    type DOMHTMLFrameSetElementClass = typeof DOMHTMLFrameSetElement;
+
+    /**
+     * @gir-type Alias
+     */
+    type DOMHTMLHRElementClass = typeof DOMHTMLHRElement;
+
+    /**
+     * @gir-type Alias
+     */
+    type DOMHTMLHeadElementClass = typeof DOMHTMLHeadElement;
+
+    /**
+     * @gir-type Alias
+     */
+    type DOMHTMLHeadingElementClass = typeof DOMHTMLHeadingElement;
+
+    /**
+     * @gir-type Alias
+     */
+    type DOMHTMLHtmlElementClass = typeof DOMHTMLHtmlElement;
+
+    /**
+     * @gir-type Alias
+     */
+    type DOMHTMLIFrameElementClass = typeof DOMHTMLIFrameElement;
+
+    /**
+     * @gir-type Alias
+     */
+    type DOMHTMLImageElementClass = typeof DOMHTMLImageElement;
+
+    /**
+     * @gir-type Alias
+     */
+    type DOMHTMLInputElementClass = typeof DOMHTMLInputElement;
+
+    /**
+     * @gir-type Alias
+     */
+    type DOMHTMLLIElementClass = typeof DOMHTMLLIElement;
+
+    /**
+     * @gir-type Alias
+     */
+    type DOMHTMLLabelElementClass = typeof DOMHTMLLabelElement;
+
+    /**
+     * @gir-type Alias
+     */
+    type DOMHTMLLegendElementClass = typeof DOMHTMLLegendElement;
+
+    /**
+     * @gir-type Alias
+     */
+    type DOMHTMLLinkElementClass = typeof DOMHTMLLinkElement;
+
+    /**
+     * @gir-type Alias
+     */
+    type DOMHTMLMapElementClass = typeof DOMHTMLMapElement;
+
+    /**
+     * @gir-type Alias
+     */
+    type DOMHTMLMarqueeElementClass = typeof DOMHTMLMarqueeElement;
+
+    /**
+     * @gir-type Alias
+     */
+    type DOMHTMLMenuElementClass = typeof DOMHTMLMenuElement;
+
+    /**
+     * @gir-type Alias
+     */
+    type DOMHTMLMetaElementClass = typeof DOMHTMLMetaElement;
+
+    /**
+     * @gir-type Alias
+     */
+    type DOMHTMLModElementClass = typeof DOMHTMLModElement;
+
+    /**
+     * @gir-type Alias
+     */
+    type DOMHTMLOListElementClass = typeof DOMHTMLOListElement;
+
+    /**
+     * @gir-type Alias
+     */
+    type DOMHTMLObjectElementClass = typeof DOMHTMLObjectElement;
+
+    /**
+     * @gir-type Alias
+     */
+    type DOMHTMLOptGroupElementClass = typeof DOMHTMLOptGroupElement;
+
+    /**
+     * @gir-type Alias
+     */
+    type DOMHTMLOptionElementClass = typeof DOMHTMLOptionElement;
+
+    /**
+     * @gir-type Alias
+     */
+    type DOMHTMLOptionsCollectionClass = typeof DOMHTMLOptionsCollection;
+
+    /**
+     * @gir-type Alias
+     */
+    type DOMHTMLParagraphElementClass = typeof DOMHTMLParagraphElement;
+
+    /**
+     * @gir-type Alias
+     */
+    type DOMHTMLParamElementClass = typeof DOMHTMLParamElement;
+
+    /**
+     * @gir-type Alias
+     */
+    type DOMHTMLPreElementClass = typeof DOMHTMLPreElement;
+
+    /**
+     * @gir-type Alias
+     */
+    type DOMHTMLQuoteElementClass = typeof DOMHTMLQuoteElement;
+
+    /**
+     * @gir-type Alias
+     */
+    type DOMHTMLScriptElementClass = typeof DOMHTMLScriptElement;
+
+    /**
+     * @gir-type Alias
+     */
+    type DOMHTMLSelectElementClass = typeof DOMHTMLSelectElement;
+
+    /**
+     * @gir-type Alias
+     */
+    type DOMHTMLStyleElementClass = typeof DOMHTMLStyleElement;
+
+    /**
+     * @gir-type Alias
+     */
+    type DOMHTMLTableCaptionElementClass = typeof DOMHTMLTableCaptionElement;
+
+    /**
+     * @gir-type Alias
+     */
+    type DOMHTMLTableCellElementClass = typeof DOMHTMLTableCellElement;
+
+    /**
+     * @gir-type Alias
+     */
+    type DOMHTMLTableColElementClass = typeof DOMHTMLTableColElement;
+
+    /**
+     * @gir-type Alias
+     */
+    type DOMHTMLTableElementClass = typeof DOMHTMLTableElement;
+
+    /**
+     * @gir-type Alias
+     */
+    type DOMHTMLTableRowElementClass = typeof DOMHTMLTableRowElement;
+
+    /**
+     * @gir-type Alias
+     */
+    type DOMHTMLTableSectionElementClass = typeof DOMHTMLTableSectionElement;
+
+    /**
+     * @gir-type Alias
+     */
+    type DOMHTMLTextAreaElementClass = typeof DOMHTMLTextAreaElement;
+
+    /**
+     * @gir-type Alias
+     */
+    type DOMHTMLTitleElementClass = typeof DOMHTMLTitleElement;
+
+    /**
+     * @gir-type Alias
+     */
+    type DOMHTMLUListElementClass = typeof DOMHTMLUListElement;
+
+    /**
+     * @gir-type Alias
+     */
+    type DOMKeyboardEventClass = typeof DOMKeyboardEvent;
+
+    /**
+     * @gir-type Alias
+     */
+    type DOMMediaListClass = typeof DOMMediaList;
+
+    /**
+     * @gir-type Alias
+     */
+    type DOMMouseEventClass = typeof DOMMouseEvent;
+
+    /**
+     * @gir-type Alias
+     */
+    type DOMNamedNodeMapClass = typeof DOMNamedNodeMap;
+
+    /**
+     * @gir-type Alias
+     */
+    type DOMNodeClass = typeof DOMNode;
+
+    /**
+     * @gir-type Alias
+     */
+    type DOMNodeFilterIface = typeof DOMNodeFilter;
+
+    /**
+     * @gir-type Alias
+     */
+    type DOMNodeIteratorClass = typeof DOMNodeIterator;
+
+    /**
+     * @gir-type Alias
+     */
+    type DOMNodeListClass = typeof DOMNodeList;
+
+    /**
+     * @gir-type Alias
+     */
+    type DOMObjectClass = typeof DOMObject;
+
+    /**
+     * @gir-type Alias
+     */
+    type DOMProcessingInstructionClass = typeof DOMProcessingInstruction;
+
+    /**
+     * @gir-type Alias
+     */
+    type DOMRangeClass = typeof DOMRange;
+
+    /**
+     * @gir-type Alias
+     */
+    type DOMStyleSheetClass = typeof DOMStyleSheet;
+
+    /**
+     * @gir-type Alias
+     */
+    type DOMStyleSheetListClass = typeof DOMStyleSheetList;
+
+    /**
+     * @gir-type Alias
+     */
+    type DOMTextClass = typeof DOMText;
+
+    /**
+     * @gir-type Alias
+     */
+    type DOMTreeWalkerClass = typeof DOMTreeWalker;
+
+    /**
+     * @gir-type Alias
+     */
+    type DOMUIEventClass = typeof DOMUIEvent;
+
+    /**
+     * @gir-type Alias
+     */
+    type DOMWheelEventClass = typeof DOMWheelEvent;
+
+    /**
+     * @gir-type Alias
+     */
+    type DOMXPathExpressionClass = typeof DOMXPathExpression;
+
+    /**
+     * @gir-type Alias
+     */
+    type DOMXPathNSResolverIface = typeof DOMXPathNSResolver;
+
+    /**
+     * @gir-type Alias
+     */
+    type DOMXPathResultClass = typeof DOMXPathResult;
+
+    /**
+     * @gir-type Alias
+     */
+    type FrameClass = typeof Frame;
+
+    /**
+     * @gir-type Struct
+     */
+    abstract class FramePrivate {
+        static $gtype: GObject.GType<FramePrivate>;
+    }
+
+
+    /**
+     * @gir-type Alias
+     */
+    type HitTestResultClass = typeof HitTestResult;
+
+    /**
+     * @gir-type Struct
+     */
+    abstract class HitTestResultPrivate {
+        static $gtype: GObject.GType<HitTestResultPrivate>;
+    }
+
+
+    /**
+     * @gir-type Alias
+     */
+    type ScriptWorldClass = typeof ScriptWorld;
+
+    /**
+     * @gir-type Struct
+     */
+    abstract class ScriptWorldPrivate {
+        static $gtype: GObject.GType<ScriptWorldPrivate>;
+    }
+
+
+    /**
+     * @gir-type Alias
+     */
+    type URIRequestClass = typeof URIRequest;
+
+    /**
+     * @gir-type Struct
+     */
+    abstract class URIRequestPrivate {
+        static $gtype: GObject.GType<URIRequestPrivate>;
+    }
+
+
+    /**
+     * @gir-type Alias
+     */
+    type URIResponseClass = typeof URIResponse;
+
+    /**
+     * @gir-type Struct
+     */
+    abstract class URIResponsePrivate {
+        static $gtype: GObject.GType<URIResponsePrivate>;
+    }
+
+
+    /**
+     * @gir-type Alias
+     */
+    type UserMessageClass = typeof UserMessage;
+
+    /**
+     * @gir-type Struct
+     */
+    abstract class UserMessagePrivate {
+        static $gtype: GObject.GType<UserMessagePrivate>;
+    }
+
+
+    /**
+     * @gir-type Alias
+     */
+    type WebEditorClass = typeof WebEditor;
+
+    /**
+     * @gir-type Struct
+     */
+    abstract class WebEditorPrivate {
+        static $gtype: GObject.GType<WebEditorPrivate>;
+    }
+
+
+    /**
+     * @gir-type Alias
+     */
+    type WebExtensionClass = typeof WebExtension;
+
+    /**
+     * @gir-type Struct
+     */
+    abstract class WebExtensionPrivate {
+        static $gtype: GObject.GType<WebExtensionPrivate>;
+    }
+
+
+    /**
+     * @gir-type Alias
+     */
+    type WebFormManagerClass = typeof WebFormManager;
+
+    /**
+     * @gir-type Alias
+     */
+    type WebHitTestResultClass = typeof WebHitTestResult;
+
+    /**
+     * @gir-type Struct
+     */
+    abstract class WebHitTestResultPrivate {
+        static $gtype: GObject.GType<WebHitTestResultPrivate>;
+    }
+
+
+    /**
+     * @gir-type Alias
+     */
+    type WebPageClass = typeof WebPage;
+
+    /**
+     * @gir-type Struct
+     */
+    abstract class WebPagePrivate {
+        static $gtype: GObject.GType<WebPagePrivate>;
+    }
+
+
+    namespace DOMEventTarget {
+        /**
+         * Interface for implementing DOMEventTarget.
+         * Contains only the virtual methods that need to be implemented.
+         */
+        interface Interface {
+
+            // Virtual methods
+            /**
+             * @param event_name 
+             * @param handler 
+             * @param use_capture 
+             * @virtual
+             */
+            vfunc_add_event_listener(event_name: string, handler: GObject.Closure, use_capture: boolean): boolean;
+
+            /**
+             * @param event A {@link WebKit2WebExtension.DOMEvent}
+             * @deprecated since 2.22: Use JavaScriptCore API instead
+             * @virtual
+             */
+            vfunc_dispatch_event(event: DOMEvent): boolean;
+
+            /**
+             * @param event_name A `gchar`
+             * @param handler A {@link GObject.Callback}
+             * @param use_capture A `gboolean`
+             * @deprecated since 2.22: Use JavaScriptCore API instead
+             * @virtual
+             */
+            vfunc_remove_event_listener(event_name: string, handler: null, use_capture: boolean): boolean;
+        }
+
+
+        // Constructor properties interface
+        interface ConstructorProps extends GObject.Object.ConstructorProps {}
+    }
+
+    export interface DOMEventTargetNamespace {
+        $gtype: GObject.GType<DOMEventTarget>;
+        prototype: DOMEventTarget;
+    }
+    /**
+     * @gir-type Interface
+     */
+    interface DOMEventTarget extends GObject.Object, DOMEventTarget.Interface {
+
+        // Methods
+        /**
+         * Version of `webkit_dom_event_target_add_event_listener()` using a closure
+         * instead of callbacks for easier binding in other languages.
+         * @param event_name A `gchar`
+         * @param handler A {@link GObject.Closure}
+         * @param use_capture A `gboolean`
+         * @returns a `gboolean`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        add_event_listener(event_name: string, handler: GObject.Closure, use_capture: boolean): boolean;
+
+        /**
+         * @param event A {@link WebKit2WebExtension.DOMEvent}
+         * @returns a `gboolean`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         * @throws GLib.Error
+         */
+        dispatch_event(event: DOMEvent): boolean;
+
+        /**
+         * Version of `webkit_dom_event_target_remove_event_listener()` using a closure
+         * instead of callbacks for easier binding in other languages.
+         * @param event_name A `gchar`
+         * @param handler A {@link GObject.Closure}
+         * @param use_capture A `gboolean`
+         * @returns a `gboolean`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        remove_event_listener(event_name: string, handler: GObject.Closure, use_capture: boolean): boolean;
+    }
+
+
+    export const DOMEventTarget: DOMEventTargetNamespace & {
+        new (): DOMEventTarget; // This allows `obj instanceof DOMEventTarget`
+    };
+
+    namespace DOMNodeFilter {
+        /**
+         * Interface for implementing DOMNodeFilter.
+         * Contains only the virtual methods that need to be implemented.
+         */
+        interface Interface {
+
+            // Virtual methods
+            /**
+             * @param node A {@link WebKit2WebExtension.DOMNode}
+             * @deprecated since 2.22: Use JavaScriptCore API instead
+             * @virtual
+             */
+            vfunc_accept_node(node: DOMNode): number;
+        }
+
+
+        // Constructor properties interface
+        interface ConstructorProps extends GObject.Object.ConstructorProps {}
+    }
+
+    export interface DOMNodeFilterNamespace {
+        $gtype: GObject.GType<DOMNodeFilter>;
+        prototype: DOMNodeFilter;
+    }
+    /**
+     * @gir-type Interface
+     */
+    interface DOMNodeFilter extends GObject.Object, DOMNodeFilter.Interface {
+
+        // Methods
+        /**
+         * @param node A {@link WebKit2WebExtension.DOMNode}
+         * @returns a `gshort`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        accept_node(node: DOMNode): number;
+    }
+
+
+    export const DOMNodeFilter: DOMNodeFilterNamespace & {
+        new (): DOMNodeFilter; // This allows `obj instanceof DOMNodeFilter`
+    };
+
+    namespace DOMXPathNSResolver {
+        /**
+         * Interface for implementing DOMXPathNSResolver.
+         * Contains only the virtual methods that need to be implemented.
+         */
+        interface Interface {
+
+            // Virtual methods
+            /**
+             * @param prefix The prefix to look up
+             * @deprecated since 2.22: Use JavaScriptCore API instead
+             * @virtual
+             */
+            vfunc_lookup_namespace_uri(prefix: string): string;
+        }
+
+
+        // Constructor properties interface
+        interface ConstructorProps extends GObject.Object.ConstructorProps {}
+    }
+
+    export interface DOMXPathNSResolverNamespace {
+        $gtype: GObject.GType<DOMXPathNSResolver>;
+        prototype: DOMXPathNSResolver;
+    }
+    /**
+     * @gir-type Interface
+     */
+    interface DOMXPathNSResolver extends GObject.Object, DOMXPathNSResolver.Interface {
+
+        // Methods
+        /**
+         * @param prefix The prefix to look up
+         * @returns a `gchar`
+         * @deprecated since 2.22: Use JavaScriptCore API instead
+         */
+        lookup_namespace_uri(prefix: string): string;
+    }
+
+
+    export const DOMXPathNSResolver: DOMXPathNSResolverNamespace & {
+        new (): DOMXPathNSResolver; // This allows `obj instanceof DOMXPathNSResolver`
+    };
+
+    /**
+     * Name of the imported GIR library
+     * `see` https://gitlab.gnome.org/GNOME/gjs/-/blob/master/gi/ns.cpp#L188
+     */
+    const __name__: string;
+
+    /**
+     * Version of the imported GIR library
+     * `see` https://gitlab.gnome.org/GNOME/gjs/-/blob/master/gi/ns.cpp#L189
+     */
+    const __version__: string;
+}
+
+export default WebKit2WebExtension;
+
+}
+
+declare module 'gi://WebKit2WebExtension' {
+    import WebKit2WebExtension41 from 'gi://WebKit2WebExtension?version=4.1';
+    export default WebKit2WebExtension41;
+}
+// END

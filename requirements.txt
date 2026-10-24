@@ -1,0 +1,22 @@
+# iShell system requirements
+# This is a cross-language system inventory, not a pip requirements file.
+# Do not run `pip install -r requirements.txt`.
+
+# Desktop bar
+# AGS v3 with GTK 4 / GJS support
+# libastal with AstalTray 0.1
+
+# Wallpaper-derived bar colors
+# Pywal16, providing the `wal` command and ~/.cache/wal/colors.json
+# The bar watches that JSON file; the wallpaper workflow must run `wal` after
+# changing the wallpaper.
+
+# Wayfire IPC wrapper (wayfire-ipc.ts)
+# Node.js >= 24, which can run the TypeScript wrapper with built-in type stripping
+# wf-ipcli 0.1.8 or newer, installed globally with npm
+# Python 3 and PyWayfire's `wayfire` package, required by wf-ipcli's helper scripts
+# Wayfire >= 0.10 with the `ipc` and `ipc-rules` plugins enabled
+# Export WAYFIRE_SOCKET for PyWayfire if it cannot detect the Wayfire socket.
+
+# Optional Wayfire features
+# Enable Wayfire's `wsets` plugin if using multiple workspace sets.
