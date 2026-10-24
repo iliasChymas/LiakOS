@@ -20,21 +20,29 @@ typedef struct {
   GtkLabel *caption;
   GtkLabel *status;
   GtkButton *apply_button;
+  GtkWidget *previous_button;
+  GtkWidget *next_button;
+  GtkGrid *grid;
+  GtkWidget *window;
   GThreadPool *workers;
+  char *directory;
   guint selected;
   guint completed;
+  guint generation;
   gint64 thumbnail_started;
 } Viewer;
 
 typedef struct {
   Viewer *viewer;
   guint index;
+  guint generation;
   char *path;
 } ThumbnailJob;
 
 typedef struct {
   Viewer *viewer;
   guint index;
+  guint generation;
   GBytes *encoded;
   char *error;
   double elapsed_ms;
@@ -154,12 +162,20 @@ static void next_clicked(GtkButton *button, gpointer data) {
 static void thumbnail_clicked(GtkButton *button, gpointer data) {
   (void)button;
   ThumbnailJob *click = data;
+  if (click->generation != click->viewer->generation)
+    return;
   select_image(click->viewer, click->index);
 }
 
 static gboolean show_thumbnail_result(gpointer data) {
   ThumbnailResult *result = data;
   Viewer *viewer = result->viewer;
+  if (result->generation != viewer->generation) {
+    g_clear_pointer(&result->encoded, g_bytes_unref);
+    g_free(result->error);
+    g_free(result);
+    return G_SOURCE_REMOVE;
+  }
   GtkPicture *picture =
       g_ptr_array_index(viewer->thumbnail_pictures, result->index);
 
@@ -207,6 +223,7 @@ static void thumbnail_worker(gpointer data, gpointer user_data) {
   ThumbnailResult *result = g_new0(ThumbnailResult, 1);
   result->viewer = job->viewer;
   result->index = job->index;
+  result->generation = job->generation;
   struct timespec started, pipeline_done, finished;
   clock_gettime(CLOCK_MONOTONIC, &started);
 
@@ -306,24 +323,28 @@ static void start_thumbnails(Viewer *viewer) {
   if (viewer->images->len == 0)
     return;
   viewer->thumbnail_started = g_get_monotonic_time();
+  if (!viewer->workers) {
+    GError *error = NULL;
+    viewer->workers =
+        g_thread_pool_new(thumbnail_worker, NULL, THUMB_WORKERS, FALSE, &error);
+    if (!viewer->workers) {
+      gtk_label_set_text(viewer->status, error->message);
+      g_clear_error(&error);
+      return;
+    }
+  }
   gtk_label_set_text(viewer->status, "Preparing thumbnails…");
-  g_print("[timing-c] thumbnail start count=%u workers=%d target=%dx%d "
-          "cache=none\n",
-          viewer->images->len, THUMB_WORKERS, THUMB_WIDTH, THUMB_HEIGHT);
+  g_print("[timing-c] thumbnail start generation=%u count=%u workers=%d "
+          "target=%dx%d cache=none\n",
+          viewer->generation, viewer->images->len, THUMB_WORKERS, THUMB_WIDTH,
+          THUMB_HEIGHT);
 
   GError *error = NULL;
-  viewer->workers =
-      g_thread_pool_new(thumbnail_worker, NULL, THUMB_WORKERS, FALSE, &error);
-  if (!viewer->workers) {
-    gtk_label_set_text(viewer->status, error->message);
-    g_clear_error(&error);
-    return;
-  }
-
   for (guint i = 0; i < viewer->images->len; i++) {
     ThumbnailJob *job = g_new0(ThumbnailJob, 1);
     job->viewer = viewer;
     job->index = i;
+    job->generation = viewer->generation;
     job->path = g_strdup(g_ptr_array_index(viewer->images, i));
     if (!g_thread_pool_push(viewer->workers, job, &error)) {
       thumbnail_job_free(job);
@@ -333,20 +354,121 @@ static void start_thumbnails(Viewer *viewer) {
   }
 }
 
+static void clear_thumbnail_grid(Viewer *viewer) {
+  GtkWidget *child = gtk_widget_get_first_child(GTK_WIDGET(viewer->grid));
+  while (child) {
+    GtkWidget *next = gtk_widget_get_next_sibling(child);
+    gtk_grid_remove(viewer->grid, child);
+    child = next;
+  }
+  g_ptr_array_set_size(viewer->buttons, 0);
+  g_ptr_array_set_size(viewer->thumbnail_pictures, 0);
+}
+
+static void populate_thumbnail_grid(Viewer *viewer) {
+  for (guint i = 0; i < viewer->images->len; i++) {
+    const char *path = g_ptr_array_index(viewer->images, i);
+    GtkWidget *picture = gtk_picture_new();
+    gtk_widget_set_size_request(picture, 128, 72);
+    gtk_picture_set_can_shrink(GTK_PICTURE(picture), TRUE);
+    gtk_picture_set_content_fit(GTK_PICTURE(picture), GTK_CONTENT_FIT_COVER);
+    char *filename = g_path_get_basename(path);
+    GtkWidget *label = gtk_label_new(filename);
+    gtk_label_set_max_width_chars(GTK_LABEL(label), 18);
+    gtk_label_set_ellipsize(GTK_LABEL(label), PANGO_ELLIPSIZE_MIDDLE);
+    g_free(filename);
+    GtkWidget *card = gtk_box_new(GTK_ORIENTATION_VERTICAL, 4);
+    gtk_box_append(GTK_BOX(card), picture);
+    gtk_box_append(GTK_BOX(card), label);
+    GtkWidget *button = gtk_button_new();
+    gtk_button_set_child(GTK_BUTTON(button), card);
+    gtk_widget_set_tooltip_text(button, path);
+    gtk_grid_attach(viewer->grid, button, i % THUMB_COLUMNS,
+                    i / THUMB_COLUMNS, 1, 1);
+    g_ptr_array_add(viewer->buttons, button);
+    g_ptr_array_add(viewer->thumbnail_pictures, picture);
+    ThumbnailJob *click = g_new0(ThumbnailJob, 1);
+    click->viewer = viewer;
+    click->index = i;
+    click->generation = viewer->generation;
+    g_object_set_data_full(G_OBJECT(button), "thumbnail-click-data", click,
+                           (GDestroyNotify)thumbnail_job_free);
+    g_signal_connect(button, "clicked", G_CALLBACK(thumbnail_clicked), click);
+  }
+}
+
+static void load_directory(Viewer *viewer, const char *directory) {
+  viewer->generation++;
+  viewer->completed = 0;
+  viewer->selected = 0;
+  clear_thumbnail_grid(viewer);
+  g_ptr_array_unref(viewer->images);
+  viewer->images = find_images(directory);
+  g_free(viewer->directory);
+  viewer->directory = g_strdup(directory);
+
+  gboolean has_images = viewer->images->len > 0;
+  gtk_widget_set_sensitive(viewer->previous_button, has_images);
+  gtk_widget_set_sensitive(viewer->next_button, has_images);
+  gtk_widget_set_sensitive(GTK_WIDGET(viewer->apply_button), has_images);
+  if (!has_images) {
+    char *message = g_strdup_printf("No images found in %s", directory);
+    gtk_label_set_text(viewer->status, message);
+    g_free(message);
+    gtk_label_set_text(viewer->caption, "");
+    gtk_picture_set_paintable(viewer->preview, NULL);
+    return;
+  }
+
+  populate_thumbnail_grid(viewer);
+  show_current(viewer);
+  start_thumbnails(viewer);
+}
+
+static void folder_dialog_finish(GObject *source, GAsyncResult *result,
+                                 gpointer data) {
+  Viewer *viewer = data;
+  GtkFileDialog *dialog = GTK_FILE_DIALOG(source);
+  GError *error = NULL;
+  GFile *folder = gtk_file_dialog_select_folder_finish(dialog, result, &error);
+  if (folder) {
+    char *path = g_file_get_path(folder);
+    if (path) {
+      load_directory(viewer, path);
+      g_free(path);
+    }
+    g_object_unref(folder);
+  } else if (error && !g_error_matches(error, GTK_DIALOG_ERROR,
+                                       GTK_DIALOG_ERROR_DISMISSED) &&
+             !g_error_matches(error, G_IO_ERROR, G_IO_ERROR_CANCELLED)) {
+    gtk_label_set_text(viewer->status, error->message);
+  }
+  g_clear_error(&error);
+  g_object_unref(source);
+}
+
+static void open_folder_action(GSimpleAction *action, GVariant *parameter,
+                               gpointer data) {
+  (void)action;
+  (void)parameter;
+  Viewer *viewer = data;
+  GtkFileDialog *dialog = gtk_file_dialog_new();
+  gtk_file_dialog_set_title(dialog, "Open wallpaper folder");
+  gtk_file_dialog_set_accept_label(dialog, "Open folder");
+  gtk_file_dialog_set_modal(dialog, TRUE);
+  GFile *current = g_file_new_for_path(viewer->directory);
+  gtk_file_dialog_set_initial_folder(dialog, current);
+  g_object_unref(current);
+  gtk_file_dialog_select_folder(dialog, GTK_WINDOW(viewer->window), NULL,
+                                folder_dialog_finish, viewer);
+}
+
 static void build_ui(GtkApplication *application, gpointer user_data) {
   (void)user_data;
   gint64 ui_started = g_get_monotonic_time();
-  char *directory =
-      g_build_filename(g_get_home_dir(), "Pictures", "wallpapers", NULL);
-  gint64 scan_started = g_get_monotonic_time();
   Viewer *viewer = g_new0(Viewer, 1);
   active_viewer = viewer;
-  viewer->images = find_images(directory);
-  g_print("[timing-c] image-scan directory=%s count=%u elapsed_ms=%.3f\n",
-          directory, viewer->images->len,
-          (g_get_monotonic_time() - scan_started) / 1000.0);
-  g_free(directory);
-
+  viewer->images = g_ptr_array_new_with_free_func(g_free);
   viewer->buttons = g_ptr_array_new();
   viewer->thumbnail_pictures = g_ptr_array_new();
   viewer->preview = GTK_PICTURE(gtk_picture_new());
@@ -370,19 +492,19 @@ static void build_ui(GtkApplication *application, gpointer user_data) {
 
   GtkWidget *controls = gtk_box_new(GTK_ORIENTATION_HORIZONTAL, 8);
   gtk_widget_set_halign(controls, GTK_ALIGN_CENTER);
-  GtkWidget *previous = gtk_button_new_with_label("Previous");
-  GtkWidget *next = gtk_button_new_with_label("Next");
+  viewer->previous_button = gtk_button_new_with_label("Previous");
+  viewer->next_button = gtk_button_new_with_label("Next");
   viewer->apply_button =
       GTK_BUTTON(gtk_button_new_with_label("Apply wallpaper"));
-  gtk_box_append(GTK_BOX(controls), previous);
-  gtk_box_append(GTK_BOX(controls), next);
+  gtk_box_append(GTK_BOX(controls), viewer->previous_button);
+  gtk_box_append(GTK_BOX(controls), viewer->next_button);
   gtk_box_append(GTK_BOX(controls), GTK_WIDGET(viewer->apply_button));
   gtk_box_append(GTK_BOX(content), controls);
 
-  GtkWidget *grid = gtk_grid_new();
-  gtk_grid_set_column_spacing(GTK_GRID(grid), 8);
-  gtk_grid_set_row_spacing(GTK_GRID(grid), 8);
-  gtk_widget_set_halign(grid, GTK_ALIGN_CENTER);
+  viewer->grid = GTK_GRID(gtk_grid_new());
+  gtk_grid_set_column_spacing(viewer->grid, 8);
+  gtk_grid_set_row_spacing(viewer->grid, 8);
+  gtk_widget_set_halign(GTK_WIDGET(viewer->grid), GTK_ALIGN_CENTER);
   GtkWidget *scrolled = gtk_scrolled_window_new();
   gtk_scrolled_window_set_policy(GTK_SCROLLED_WINDOW(scrolled),
                                  GTK_POLICY_NEVER, GTK_POLICY_AUTOMATIC);
@@ -390,62 +512,52 @@ static void build_ui(GtkApplication *application, gpointer user_data) {
                                              440);
   gtk_scrolled_window_set_propagate_natural_height(
       GTK_SCROLLED_WINDOW(scrolled), TRUE);
-  gtk_scrolled_window_set_child(GTK_SCROLLED_WINDOW(scrolled), grid);
-
-  for (guint i = 0; i < viewer->images->len; i++) {
-    const char *path = g_ptr_array_index(viewer->images, i);
-    GtkWidget *picture = gtk_picture_new();
-    gtk_widget_set_size_request(picture, 128, 72);
-    gtk_picture_set_can_shrink(GTK_PICTURE(picture), TRUE);
-    gtk_picture_set_content_fit(GTK_PICTURE(picture), GTK_CONTENT_FIT_COVER);
-    char *filename = g_path_get_basename(path);
-    GtkWidget *label = gtk_label_new(filename);
-    gtk_label_set_max_width_chars(GTK_LABEL(label), 18);
-    gtk_label_set_ellipsize(GTK_LABEL(label), PANGO_ELLIPSIZE_MIDDLE);
-    g_free(filename);
-    GtkWidget *card = gtk_box_new(GTK_ORIENTATION_VERTICAL, 4);
-    gtk_box_append(GTK_BOX(card), picture);
-    gtk_box_append(GTK_BOX(card), label);
-    GtkWidget *button = gtk_button_new();
-    gtk_button_set_child(GTK_BUTTON(button), card);
-    gtk_widget_set_tooltip_text(button, path);
-    gtk_grid_attach(GTK_GRID(grid), button, i % THUMB_COLUMNS,
-                    i / THUMB_COLUMNS, 1, 1);
-    g_ptr_array_add(viewer->buttons, button);
-    g_ptr_array_add(viewer->thumbnail_pictures, picture);
-    ThumbnailJob *click = g_new0(ThumbnailJob, 1);
-    click->viewer = viewer;
-    click->index = i;
-    g_object_set_data_full(G_OBJECT(button), "thumbnail-click-data", click,
-                           (GDestroyNotify)thumbnail_job_free);
-    g_signal_connect(button, "clicked", G_CALLBACK(thumbnail_clicked), click);
-  }
+  gtk_scrolled_window_set_child(GTK_SCROLLED_WINDOW(scrolled),
+                                GTK_WIDGET(viewer->grid));
   gtk_box_append(GTK_BOX(content), scrolled);
   gtk_box_append(GTK_BOX(content), GTK_WIDGET(viewer->status));
 
-  GtkWidget *window = gtk_application_window_new(application);
-  gtk_window_set_title(GTK_WINDOW(window), "LiakOs Wallpapers · C test");
-  gtk_window_set_default_size(GTK_WINDOW(window), 1600, 900);
-  gtk_window_set_child(GTK_WINDOW(window), content);
+  viewer->window = gtk_application_window_new(application);
+  gtk_window_set_title(GTK_WINDOW(viewer->window), "LiakOs Wallpapers");
+  gtk_window_set_default_size(GTK_WINDOW(viewer->window), 1600, 900);
+  gtk_window_set_child(GTK_WINDOW(viewer->window), content);
 
-  g_signal_connect(previous, "clicked", G_CALLBACK(previous_clicked), viewer);
-  g_signal_connect(next, "clicked", G_CALLBACK(next_clicked), viewer);
+  GtkWidget *header = gtk_header_bar_new();
+  gtk_header_bar_set_title_widget(GTK_HEADER_BAR(header),
+                                  gtk_label_new("LiakOs Wallpapers"));
+  GtkWidget *menu_button = gtk_menu_button_new();
+  gtk_menu_button_set_child(GTK_MENU_BUTTON(menu_button),
+                            gtk_image_new_from_icon_name("open-menu-symbolic"));
+  gtk_widget_set_tooltip_text(menu_button, "Wallpaper options");
+  GMenu *menu = g_menu_new();
+  g_menu_append(menu, "Open another folder…", "win.open-folder");
+  gtk_menu_button_set_menu_model(GTK_MENU_BUTTON(menu_button),
+                                 G_MENU_MODEL(menu));
+  gtk_header_bar_pack_end(GTK_HEADER_BAR(header), menu_button);
+  gtk_window_set_titlebar(GTK_WINDOW(viewer->window), header);
+  g_object_unref(menu);
+
+  GSimpleAction *open_folder = g_simple_action_new("open-folder", NULL);
+  g_signal_connect(open_folder, "activate", G_CALLBACK(open_folder_action),
+                   viewer);
+  g_action_map_add_action(G_ACTION_MAP(viewer->window), G_ACTION(open_folder));
+  g_object_unref(open_folder);
+
+  g_signal_connect(viewer->previous_button, "clicked",
+                   G_CALLBACK(previous_clicked), viewer);
+  g_signal_connect(viewer->next_button, "clicked", G_CALLBACK(next_clicked),
+                   viewer);
   g_signal_connect(viewer->apply_button, "clicked", G_CALLBACK(apply_clicked),
                    viewer);
-  gboolean has_images = viewer->images->len > 0;
-  gtk_widget_set_sensitive(previous, has_images);
-  gtk_widget_set_sensitive(next, has_images);
-  gtk_widget_set_sensitive(GTK_WIDGET(viewer->apply_button), has_images);
-  if (has_images)
-    show_current(viewer);
-  else
-    gtk_label_set_text(viewer->status,
-                       "No images found in ~/Pictures/wallpapers");
 
-  gtk_window_present(GTK_WINDOW(window));
+  char *directory =
+      g_build_filename(g_get_user_config_dir(), "los", "walls", NULL);
+  viewer->directory = g_strdup(directory);
+  gtk_window_present(GTK_WINDOW(viewer->window));
   g_print("[timing-c] window-presented total_ui_ms=%.3f\n",
           (g_get_monotonic_time() - ui_started) / 1000.0);
-  start_thumbnails(viewer);
+  load_directory(viewer, directory);
+  g_free(directory);
 }
 
 int main(int argc, char **argv) {
@@ -456,7 +568,7 @@ int main(int argc, char **argv) {
    * oversubscription. */
   vips_concurrency_set(1);
   GtkApplication *application = gtk_application_new(
-      "com.liakos.WallpapersCTest", G_APPLICATION_DEFAULT_FLAGS);
+      "com.liakos.Wallpapers", G_APPLICATION_DEFAULT_FLAGS);
   g_signal_connect(application, "activate", G_CALLBACK(build_ui), NULL);
   gint64 started = g_get_monotonic_time();
   int status = g_application_run(G_APPLICATION(application), argc, argv);

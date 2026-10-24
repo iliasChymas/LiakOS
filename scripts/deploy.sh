@@ -7,6 +7,7 @@ BIN_DIR="${HOME:?HOME must be set}/.local/bin"
 CONFIG_HOME=${XDG_CONFIG_HOME:-"$HOME/.config"}
 AGS_CONFIG_DIR="$CONFIG_HOME/ags"
 AGS_ENTRY="$AGS_CONFIG_DIR/app.tsx"
+WALLPAPER_DIR="$CONFIG_HOME/los/walls"
 if [ -f "$CONFIG_HOME/wayfire.ini" ]; then
   WAYFIRE_CONFIG="$CONFIG_HOME/wayfire.ini"
 elif [ -f "$CONFIG_HOME/wayfire/wayfire.ini" ]; then
@@ -20,12 +21,13 @@ printf 'Building llauncher...\n'
 printf 'Building lpaper...\n'
 "$ROOT_DIR/wallpaper-app/build.sh"
 
-mkdir -p "$BIN_DIR" "$AGS_CONFIG_DIR"
+mkdir -p "$BIN_DIR" "$AGS_CONFIG_DIR" "$WALLPAPER_DIR"
 mkdir -p "$AGS_CONFIG_DIR/icons"
 install -m 755 "$ROOT_DIR/app-launcher/build/llauncher" "$BIN_DIR/llauncher"
 install -m 755 "$ROOT_DIR/wallpaper-app/build/lpaper" "$BIN_DIR/lpaper"
 install -m 644 "$ROOT_DIR/assets/icons/bluetooth-open.svg" "$AGS_CONFIG_DIR/icons/bluetooth-open.svg"
 install -m 644 "$ROOT_DIR/assets/icons/bluetooth-closed.svg" "$AGS_CONFIG_DIR/icons/bluetooth-closed.svg"
+cp -a "$ROOT_DIR/wallpapers/." "$WALLPAPER_DIR/"
 
 if [ -f "$AGS_ENTRY" ] && ! cmp -s "$ROOT_DIR/bar.tsx" "$AGS_ENTRY"; then
   BACKUP="$AGS_ENTRY.bak"
@@ -111,6 +113,7 @@ fi
 
 printf 'Installed executables to %s\n' "$BIN_DIR"
 printf 'Installed AGS bar to %s\n' "$AGS_ENTRY"
+printf 'Copied wallpapers to %s\n' "$WALLPAPER_DIR"
 printf 'Wayfire config target: %s\n' "$WAYFIRE_CONFIG"
 printf 'Restart AGS to load the deployed bar.\n'
 printf 'Reload or restart Wayfire to apply keybinding changes.\n'

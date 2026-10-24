@@ -11,7 +11,7 @@
 
 # Wallpaper slideshow (wallpaper-app/)
 # C compiler and pkg-config
-# GTK 4 development libraries
+# GTK 4.10+ development libraries
 # libvips development library
 # Pywal16 `wal` command for applying a selected image and generating colors
 

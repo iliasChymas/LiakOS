@@ -1,7 +1,9 @@
 # LiakOs Wallpapers (C / GTK4)
 
-The viewer reads `~/Pictures/wallpapers`, provides Previous/Next navigation,
-and shows a vertically scrollable five-column thumbnail grid. It generates
+The viewer starts in `$XDG_CONFIG_HOME/los/walls` (normally
+`~/.config/los/walls`), provides Previous/Next navigation, and shows a
+vertically scrollable five-column thumbnail grid. Use the menu in the
+top-right header bar to open another wallpaper folder. It generates
 256×144 thumbnails in the background with libvips and keeps them in memory;
 it does not create a thumbnail cache on disk.
 
