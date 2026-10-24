@@ -14,8 +14,11 @@ printf 'Building lpaper...\n'
 "$ROOT_DIR/wallpaper-app/build.sh"
 
 mkdir -p "$BIN_DIR" "$AGS_CONFIG_DIR"
+mkdir -p "$AGS_CONFIG_DIR/icons"
 install -m 755 "$ROOT_DIR/app-launcher/build/llauncher" "$BIN_DIR/llauncher"
 install -m 755 "$ROOT_DIR/wallpaper-app/build/lpaper" "$BIN_DIR/lpaper"
+install -m 644 "$ROOT_DIR/assets/icons/bluetooth-open.svg" "$AGS_CONFIG_DIR/icons/bluetooth-open.svg"
+install -m 644 "$ROOT_DIR/assets/icons/bluetooth-closed.svg" "$AGS_CONFIG_DIR/icons/bluetooth-closed.svg"
 
 if [ -f "$AGS_ENTRY" ] && ! cmp -s "$ROOT_DIR/bar.tsx" "$AGS_ENTRY"; then
   BACKUP="$AGS_ENTRY.bak"
