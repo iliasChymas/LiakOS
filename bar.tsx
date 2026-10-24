@@ -20,6 +20,8 @@ type Palette = {
   background: string
   foreground: string
   accent: string
+  secondary: string
+  tertiary: string
   surface: string
 }
 
@@ -27,6 +29,8 @@ const fallbackPalette: Palette = {
   background: "#181b24",
   foreground: "#f3f4f6",
   accent: "#8aa4ff",
+  secondary: "#d3869b",
+  tertiary: "#a3be8c",
   surface: "#202431",
 }
 
@@ -75,7 +79,12 @@ function barCss(palette: Palette) {
     }
 
     .audio-button:hover {
-      background: ${withAlpha(palette.accent, 0.18)};
+      background: ${withAlpha(palette.accent, 0.32)};
+    }
+
+    .audio-button:checked {
+      background: ${withAlpha(palette.accent, 0.28)};
+      color: ${palette.accent};
     }
 
     .date-button {
@@ -89,7 +98,7 @@ function barCss(palette: Palette) {
     }
 
     .date-button:hover {
-      background: ${withAlpha(palette.accent, 0.14)};
+      background: ${withAlpha(palette.secondary, 0.28)};
     }
 
     .audio-popover {
@@ -120,11 +129,12 @@ function barCss(palette: Palette) {
     .audio-title {
       font-size: 15px;
       font-weight: 700;
+      color: ${palette.accent};
     }
 
     .audio-section-title {
       margin: 8px 0 2px;
-      color: ${palette.accent};
+      color: ${palette.secondary};
       font-size: 11px;
       font-weight: 700;
     }
@@ -133,6 +143,33 @@ function barCss(palette: Palette) {
       min-height: 50px;
       padding: 4px 2px;
       border-bottom: 1px solid ${withAlpha(palette.foreground, 0.08)};
+    }
+
+    .audio-master-row {
+      padding: 6px 8px;
+      border: 1px solid ${withAlpha(palette.accent, 0.2)};
+      border-radius: 10px;
+      background: ${withAlpha(palette.accent, 0.08)};
+    }
+
+    .audio-volume-scale trough {
+      min-height: 6px;
+      border-radius: 999px;
+      background: ${withAlpha(palette.foreground, 0.16)};
+    }
+
+    .audio-volume-scale highlight {
+      min-height: 6px;
+      border-radius: 999px;
+      background: ${palette.accent};
+    }
+
+    .audio-volume-scale slider {
+      min-width: 14px;
+      min-height: 14px;
+      border: 2px solid ${palette.foreground};
+      border-radius: 999px;
+      background: ${palette.accent};
     }
 
     .audio-device-row {
@@ -144,11 +181,12 @@ function barCss(palette: Palette) {
     }
 
     .audio-device-row:hover {
-      background: ${withAlpha(palette.accent, 0.14)};
+      background: ${withAlpha(palette.accent, 0.34)};
     }
 
     .audio-device-row.selected {
       color: ${palette.accent};
+      background: ${withAlpha(palette.accent, 0.14)};
     }
 
     .audio-muted {
@@ -174,12 +212,20 @@ function barCss(palette: Palette) {
       color: ${palette.foreground};
     }
 
+    .radio-row switch:checked {
+      background: ${withAlpha(palette.accent, 0.45)};
+    }
+
+    .radio-row switch:checked slider {
+      background: ${palette.accent};
+    }
+
     button.radio-row:hover {
-      background: ${withAlpha(palette.accent, 0.14)};
+      background: ${withAlpha(palette.accent, 0.34)};
     }
 
     .radio-status {
-      color: ${withAlpha(palette.foreground, 0.68)};
+      color: ${palette.tertiary};
       font-size: 11px;
     }
 
@@ -201,7 +247,7 @@ function barCss(palette: Palette) {
     }
 
     .tray-item:hover {
-      background: ${withAlpha(palette.accent, 0.18)};
+      background: ${withAlpha(palette.accent, 0.28)};
       color: ${palette.foreground};
     }
 
@@ -221,7 +267,36 @@ function barCss(palette: Palette) {
     }
 
     popover menuitem:hover {
-      background: ${withAlpha(palette.accent, 0.18)};
+      background: ${withAlpha(palette.accent, 0.38)};
+      color: ${palette.foreground};
+    }
+
+    popover.tray-menu > contents {
+      padding: 6px;
+      border: 1px solid ${withAlpha(palette.accent, 0.3)};
+      border-radius: 12px;
+      background: ${palette.surface};
+    }
+
+    popover.tray-menu modelbutton {
+      min-height: 32px;
+      padding: 0 10px;
+      border-radius: 8px;
+      color: ${palette.foreground};
+    }
+
+    popover.tray-menu modelbutton:hover,
+    popover.tray-menu modelbutton:focus {
+      background: ${withAlpha(palette.accent, 0.58)};
+      color: ${palette.foreground};
+    }
+
+    popover.tray-menu modelbutton:checked {
+      background: ${withAlpha(palette.secondary, 0.28)};
+    }
+
+    popover.tray-menu separator {
+      background: ${withAlpha(palette.accent, 0.35)};
     }
   `
 }
@@ -237,6 +312,8 @@ function paletteFromWal(path: string): Palette | null {
       background,
       foreground: validColor(data.special?.foreground, fallbackPalette.foreground),
       accent: validColor(data.colors?.color4, fallbackPalette.accent),
+      secondary: validColor(data.colors?.color5, fallbackPalette.secondary),
+      tertiary: validColor(data.colors?.color2, fallbackPalette.tertiary),
       surface: validColor(data.colors?.color0, background),
     }
   } catch (_error) {
@@ -249,6 +326,7 @@ function openTrayMenu(button: Gtk.Button, item: AstalTray.TrayItem) {
   if (!model) return
 
   const menu = Gtk.PopoverMenu.new_from_model(model)
+  menu.add_css_class("tray-menu")
   const updateActionGroup = () => {
     button.insert_action_group("dbusmenu", item.actionGroup)
     menu.insert_action_group("dbusmenu", item.actionGroup)
@@ -602,6 +680,7 @@ function makeAudioStreamRow(
   trackSignal(stream, stream.connect("notify::name", update))
 
   const slider = Gtk.Scale.new_with_range(Gtk.Orientation.HORIZONTAL, 0, 1, 0.01)
+  slider.add_css_class("audio-volume-scale")
   slider.set_draw_value(false)
   slider.set_hexpand(true)
   slider.set_value(stream.volume)
@@ -697,11 +776,13 @@ function openAudioPopover(anchor: Gtk.Widget) {
 
   const masterRow = new Gtk.Box({ orientation: Gtk.Orientation.VERTICAL, spacing: 4 })
   masterRow.add_css_class("audio-stream-row")
+  masterRow.add_css_class("audio-master-row")
   const masterHeader = new Gtk.Box({ orientation: Gtk.Orientation.HORIZONTAL, spacing: 8 })
   const masterIcon = Gtk.Image.new_from_icon_name("audio-volume-high-symbolic")
   const masterLabel = new Gtk.Label({ label: "Master volume", xalign: 0, hexpand: true })
   masterLabel.set_ellipsize(Pango.EllipsizeMode.END)
   const masterSlider = Gtk.Scale.new_with_range(Gtk.Orientation.HORIZONTAL, 0, 1, 0.01)
+  masterSlider.add_css_class("audio-volume-scale")
   masterSlider.set_draw_value(false)
   masterSlider.set_hexpand(true)
   const masterMute = new Gtk.ToggleButton()
