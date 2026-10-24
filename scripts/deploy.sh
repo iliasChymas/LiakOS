@@ -7,6 +7,13 @@ BIN_DIR="${HOME:?HOME must be set}/.local/bin"
 CONFIG_HOME=${XDG_CONFIG_HOME:-"$HOME/.config"}
 AGS_CONFIG_DIR="$CONFIG_HOME/ags"
 AGS_ENTRY="$AGS_CONFIG_DIR/app.tsx"
+if [ -f "$CONFIG_HOME/wayfire.ini" ]; then
+  WAYFIRE_CONFIG="$CONFIG_HOME/wayfire.ini"
+elif [ -f "$CONFIG_HOME/wayfire/wayfire.ini" ]; then
+  WAYFIRE_CONFIG="$CONFIG_HOME/wayfire/wayfire.ini"
+else
+  WAYFIRE_CONFIG="$CONFIG_HOME/wayfire.ini"
+fi
 
 printf 'Building llauncher...\n'
 "$ROOT_DIR/app-launcher/build.sh"
@@ -31,6 +38,79 @@ if [ -f "$AGS_ENTRY" ] && ! cmp -s "$ROOT_DIR/bar.tsx" "$AGS_ENTRY"; then
 fi
 install -m 644 "$ROOT_DIR/bar.tsx" "$AGS_ENTRY"
 
+# Bind Wayfire shortcuts to the desktop applications selected through XDG.
+# Resolve desktop IDs at deployment time so the keybinds launch those exact apps.
+DEFAULT_BROWSER=$(xdg-mime query default x-scheme-handler/https 2>/dev/null || true)
+DEFAULT_FILE_MANAGER=$(xdg-mime query default inode/directory 2>/dev/null || true)
+if [ -n "$DEFAULT_BROWSER" ] && [ -n "$DEFAULT_FILE_MANAGER" ]; then
+  case "$DEFAULT_BROWSER:$DEFAULT_FILE_MANAGER" in
+    *[!A-Za-z0-9._:-]*)
+      printf 'Could not use unexpected XDG desktop IDs: browser=%s file-manager=%s\n' \
+        "$DEFAULT_BROWSER" "$DEFAULT_FILE_MANAGER" >&2
+      ;;
+    *)
+      if [ ! -f "$WAYFIRE_CONFIG" ]; then
+        mkdir -p "$(dirname "$WAYFIRE_CONFIG")"
+        install -m 644 "$ROOT_DIR/config/wayfire.ini" "$WAYFIRE_CONFIG"
+      elif [ ! -e "$WAYFIRE_CONFIG.bak" ]; then
+        cp -p "$WAYFIRE_CONFIG" "$WAYFIRE_CONFIG.bak"
+        printf 'Saved existing Wayfire config to %s.bak\n' "$WAYFIRE_CONFIG"
+      fi
+
+      HOME_URI=$(python3 -c 'from pathlib import Path; import sys; print(Path(sys.argv[1]).as_uri())' "$HOME")
+
+      set_wayfire_command_option() {
+        option=$1
+        value=$2
+        temporary_config="$WAYFIRE_CONFIG.tmp"
+        awk -v option="$option" -v value="$value" '
+          /^\[command\][[:space:]]*$/ {
+            in_command = 1
+            have_command = 1
+            print
+            next
+          }
+          /^\[/ {
+            if (in_command && !updated) {
+              print option " = " value
+              updated = 1
+            }
+            in_command = 0
+            print
+            next
+          }
+          in_command && $0 ~ "^[[:space:]]*" option "[[:space:]]*=" {
+            if (!updated) print option " = " value
+            updated = 1
+            next
+          }
+          { print }
+          END {
+            if (in_command && !updated) print option " = " value
+            if (!have_command) {
+              print ""
+              print "[command]"
+              print option " = " value
+            }
+          }
+        ' "$WAYFIRE_CONFIG" > "$temporary_config"
+        mv "$temporary_config" "$WAYFIRE_CONFIG"
+      }
+
+      set_wayfire_command_option binding_browser '<super> KEY_B'
+      set_wayfire_command_option command_browser "gtk-launch '$DEFAULT_BROWSER'"
+      set_wayfire_command_option binding_file_manager '<super> KEY_E'
+      set_wayfire_command_option command_file_manager "gtk-launch '$DEFAULT_FILE_MANAGER' '$HOME_URI'"
+      printf 'Wayfire Super+B browser: %s\n' "$DEFAULT_BROWSER"
+      printf 'Wayfire Super+E file manager: %s\n' "$DEFAULT_FILE_MANAGER"
+      ;;
+  esac
+else
+  printf 'Could not resolve both XDG browser and file-manager defaults; leaving Wayfire keybinds unchanged.\n' >&2
+fi
+
 printf 'Installed executables to %s\n' "$BIN_DIR"
 printf 'Installed AGS bar to %s\n' "$AGS_ENTRY"
+printf 'Wayfire config target: %s\n' "$WAYFIRE_CONFIG"
 printf 'Restart AGS to load the deployed bar.\n'
+printf 'Reload or restart Wayfire to apply keybinding changes.\n'
