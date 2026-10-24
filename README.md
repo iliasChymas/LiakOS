@@ -1,13 +1,20 @@
 # LiakOs
 
-LiakOs is a personal Wayfire-based desktop setup. This repository contains its
-GTK desktop bar, application launcher, wallpaper picker, Wayfire configuration,
-and a small TypeScript wrapper around Wayfire IPC. The project is assembled from
-normal Linux applications and configuration; it is not a complete Linux
-distribution or a Plasma/GNOME shell.
+LiakOs is a personal Linux OS project built around Wayfire. It brings together
+the desktop shell, system apps, keybindings, theming, and the glue that makes
+them act like one system. This repository contains the GTK bar, application
+launcher, wallpaper picker, Wayfire configuration, and a TypeScript wrapper
+around Wayfire IPC.
+
+LiakOs is an opinionated user-space OS project: the chosen Linux distribution
+still supplies the kernel, boot process, package manager, and login session.
+There is no installer or bootable image yet. For now, “install LiakOs” means
+“start with Linux, clone this repo, run a deployment script, and see what
+happens.” We have successfully automated the part after the hard part.
 
 The components are developed independently and deployed together with
-`scripts/deploy.sh`.
+`scripts/deploy.sh`. The ambition is an OS; the current delivery format is a
+Git checkout and a shell script. Progress is progress.
 
 ## Components
 
