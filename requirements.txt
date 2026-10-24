@@ -4,7 +4,8 @@
 
 # Desktop bar
 # AGS v3 with GTK 4 / GJS support
-# libastal with AstalTray 0.1
+# libastal with AstalTray 0.1 and AstalWp 0.1
+# PipeWire and WirePlumber for the bar's per-app audio and device controls
 
 # Wallpaper slideshow (wallpaper-app/)
 # C compiler and pkg-config

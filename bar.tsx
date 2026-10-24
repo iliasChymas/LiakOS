@@ -5,9 +5,14 @@ import Gdk from "gi://Gdk?version=4.0"
 import Gio from "gi://Gio"
 import GLib from "gi://GLib"
 import Gtk from "gi://Gtk?version=4.0"
+import Pango from "gi://Pango?version=1.0"
 import AstalTray from "gi://AstalTray?version=0.1"
+import AstalWp from "gi://AstalWp?version=0.1"
 
+const ICON_SIZE=18
 const tray = AstalTray.Tray.get_default()
+const wireplumber = AstalWp.Wp.get_default()
+const audio = wireplumber.audio
 
 type Palette = {
   background: string
@@ -57,6 +62,81 @@ function barCss(palette: Palette) {
 
     .system-tray {
       padding: 0 2px;
+    }
+
+    .audio-button {
+      min-width: 28px;
+      min-height: 26px;
+      padding: 0 5px;
+      border-radius: 9px;
+      color: ${palette.foreground};
+    }
+
+    .audio-button:hover {
+      background: ${withAlpha(palette.accent, 0.18)};
+    }
+
+    .audio-popover {
+      background: transparent;
+      border: 0;
+      box-shadow: none;
+      padding: 0;
+    }
+
+    popover.audio-popover > contents {
+      padding: 0;
+      border: 0;
+      border-radius: 14px;
+      background: transparent;
+      box-shadow: none;
+    }
+
+    .audio-panel {
+      min-width: 360px;
+      padding: 14px;
+      border: 1px solid ${withAlpha(palette.foreground, 0.12)};
+      border-radius: 14px;
+      background: ${palette.background};
+      color: ${palette.foreground};
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
+    }
+
+    .audio-title {
+      font-size: 15px;
+      font-weight: 700;
+    }
+
+    .audio-section-title {
+      margin: 8px 0 2px;
+      color: ${palette.accent};
+      font-size: 11px;
+      font-weight: 700;
+    }
+
+    .audio-stream-row {
+      min-height: 50px;
+      padding: 4px 2px;
+      border-bottom: 1px solid ${withAlpha(palette.foreground, 0.08)};
+    }
+
+    .audio-device-row {
+      min-height: 42px;
+      padding: 0 10px;
+      border-radius: 8px;
+      background: transparent;
+      color: ${palette.foreground};
+    }
+
+    .audio-device-row:hover {
+      background: ${withAlpha(palette.accent, 0.14)};
+    }
+
+    .audio-device-row.selected {
+      color: ${palette.accent};
+    }
+
+    .audio-muted {
+      color: ${palette.accent};
     }
 
     .tray-item {
@@ -154,14 +234,13 @@ function openTrayMenu(button: Gtk.Button, item: AstalTray.TrayItem) {
     return GLib.SOURCE_REMOVE
   })
 }
-
 function TrayItem({ item }: { item: AstalTray.TrayItem }) {
   return (
     <button
       class="tray-item"
       tooltipText={createBinding(item, "tooltipText")}
     >
-      <image gicon={createBinding(item, "gicon")} pixelSize={18} />
+      <image gicon={createBinding(item, "gicon")} pixelSize={ICON_SIZE} />
       <Gtk.GestureClick
         button={1}
         onPressed={(gesture, _presses, x, y) => {
@@ -193,6 +272,332 @@ function SystemTray() {
       </For>
     </box>
   )
+}
+
+function audioStreamTitle(stream: AstalWp.Stream) {
+  return (
+    stream.get_pw_property("application.name") ||
+    stream.description ||
+    stream.name ||
+    "Application audio"
+  )
+}
+
+function isUserPlaybackStream(stream: AstalWp.Stream) {
+  if (stream.media_category === AstalWp.MediaCategory.MONITOR) return false
+
+  const identifiers = [
+    audioStreamTitle(stream),
+    stream.get_pw_property("node.name") || "",
+    stream.get_pw_property("media.name") || "",
+  ]
+  return !identifiers.some((value) => /loopback|monitor/i.test(value))
+}
+
+function makeAudioStreamRow(
+  stream: AstalWp.Stream,
+  trackSignal: (object: AstalWp.Stream, id: number) => void,
+) {
+  const row = new Gtk.Box({ orientation: Gtk.Orientation.VERTICAL, spacing: 4 })
+  row.add_css_class("audio-stream-row")
+
+  const header = new Gtk.Box({ orientation: Gtk.Orientation.HORIZONTAL, spacing: 8 })
+  const icon = Gtk.Image.new_from_icon_name("audio-x-generic-symbolic")
+  const title = new Gtk.Label({ label: audioStreamTitle(stream), xalign: 0, hexpand: true })
+  title.set_ellipsize(Pango.EllipsizeMode.END)
+
+  const mute = new Gtk.ToggleButton()
+  mute.add_css_class("audio-button")
+  const muteIcon = Gtk.Image.new_from_icon_name("audio-volume-high-symbolic")
+  mute.set_child(muteIcon)
+
+  let syncing = false
+  const update = () => {
+    syncing = true
+    mute.set_active(stream.mute)
+    muteIcon.set_from_icon_name(
+      stream.mute ? "audio-volume-muted-symbolic" : stream.volume_icon,
+    )
+    title.set_label(audioStreamTitle(stream))
+    syncing = false
+  }
+
+  mute.connect("toggled", () => {
+    if (!syncing) stream.mute = mute.get_active()
+  })
+  trackSignal(stream, stream.connect("notify::mute", update))
+  trackSignal(stream, stream.connect("notify::volume", update))
+  trackSignal(stream, stream.connect("notify::volume-icon", update))
+  trackSignal(stream, stream.connect("notify::description", update))
+  trackSignal(stream, stream.connect("notify::name", update))
+
+  const slider = Gtk.Scale.new_with_range(Gtk.Orientation.HORIZONTAL, 0, 1, 0.01)
+  slider.set_draw_value(false)
+  slider.set_hexpand(true)
+  slider.set_value(stream.volume)
+  slider.connect("value-changed", () => {
+    if (!syncing) stream.volume = slider.get_value()
+  })
+  trackSignal(stream, stream.connect("notify::volume", () => {
+    syncing = true
+    slider.set_value(stream.volume)
+    syncing = false
+  }))
+
+  header.append(icon)
+  header.append(title)
+  header.append(mute)
+  row.append(header)
+  row.append(slider)
+  return row
+}
+
+function clearBox(box: Gtk.Box) {
+  let child = box.get_first_child()
+  while (child) {
+    const next = child.get_next_sibling()
+    box.remove(child)
+    child = next
+  }
+}
+
+function appendAudioDevices(list: Gtk.Box, title: string, devices: AstalWp.Endpoint[]) {
+  const section = new Gtk.Label({ label: title, xalign: 0 })
+  section.add_css_class("audio-section-title")
+  list.append(section)
+
+  if (devices.length === 0) {
+    const empty = new Gtk.Label({ label: "No devices available", xalign: 0 })
+    list.append(empty)
+    return
+  }
+
+  for (const device of devices) {
+    const row = new Gtk.Button()
+    row.add_css_class("audio-device-row")
+    const content = new Gtk.Box({ orientation: Gtk.Orientation.HORIZONTAL, spacing: 8 })
+    const icon = Gtk.Image.new_from_icon_name(device.icon || "audio-card-symbolic")
+    const name = new Gtk.Label({
+      label: device.description || device.name || "Audio device",
+      xalign: 0,
+      hexpand: true,
+    })
+    name.set_ellipsize(Pango.EllipsizeMode.END)
+    content.append(icon)
+    content.append(name)
+    if (device.is_default) {
+      row.add_css_class("selected")
+      content.append(Gtk.Image.new_from_icon_name("emblem-ok-symbolic"))
+    }
+    row.set_child(content)
+    row.connect("clicked", () => {
+      device.is_default = true
+    })
+    list.append(row)
+  }
+}
+
+function openAudioPopover(anchor: Gtk.Widget) {
+  const popover = new Gtk.Popover()
+  popover.add_css_class("audio-popover")
+  popover.set_has_arrow(false)
+  popover.set_position(Gtk.PositionType.BOTTOM)
+  popover.set_offset(0, 8)
+
+  const stack = new Gtk.Stack()
+  stack.set_transition_type(Gtk.StackTransitionType.SLIDE_LEFT_RIGHT)
+  stack.set_transition_duration(150)
+  stack.set_vhomogeneous(false)
+
+  const appsPage = new Gtk.Box({ orientation: Gtk.Orientation.VERTICAL, spacing: 4 })
+  appsPage.add_css_class("audio-panel")
+  const appsHeader = new Gtk.Box({ orientation: Gtk.Orientation.HORIZONTAL, spacing: 8 })
+  const appsTitle = new Gtk.Label({ label: "App volume", xalign: 0, hexpand: true })
+  appsTitle.add_css_class("audio-title")
+  const devicesButton = new Gtk.Button({ icon_name: "audio-card-symbolic", tooltip_text: "Sound devices" })
+  devicesButton.add_css_class("audio-button")
+  appsHeader.append(appsTitle)
+  appsHeader.append(devicesButton)
+  const streamsScroll = new Gtk.ScrolledWindow()
+  streamsScroll.set_policy(Gtk.PolicyType.NEVER, Gtk.PolicyType.AUTOMATIC)
+  streamsScroll.set_max_content_height(360)
+  streamsScroll.set_propagate_natural_height(true)
+  const streamsList = new Gtk.Box({ orientation: Gtk.Orientation.VERTICAL, spacing: 4 })
+  const streamSignals: Array<[AstalWp.Stream, number]> = []
+
+  const masterRow = new Gtk.Box({ orientation: Gtk.Orientation.VERTICAL, spacing: 4 })
+  masterRow.add_css_class("audio-stream-row")
+  const masterHeader = new Gtk.Box({ orientation: Gtk.Orientation.HORIZONTAL, spacing: 8 })
+  const masterIcon = Gtk.Image.new_from_icon_name("audio-volume-high-symbolic")
+  const masterLabel = new Gtk.Label({ label: "Master volume", xalign: 0, hexpand: true })
+  masterLabel.set_ellipsize(Pango.EllipsizeMode.END)
+  const masterSlider = Gtk.Scale.new_with_range(Gtk.Orientation.HORIZONTAL, 0, 1, 0.01)
+  masterSlider.set_draw_value(false)
+  masterSlider.set_hexpand(true)
+  const masterMute = new Gtk.ToggleButton()
+  masterMute.add_css_class("audio-button")
+  const masterMuteIcon = Gtk.Image.new_from_icon_name("audio-volume-high-symbolic")
+  masterMute.set_child(masterMuteIcon)
+  masterHeader.append(masterIcon)
+  masterHeader.append(masterLabel)
+  masterHeader.append(masterMute)
+  masterRow.append(masterHeader)
+  masterRow.append(masterSlider)
+  streamsScroll.set_child(streamsList)
+  appsPage.append(appsHeader)
+  appsPage.append(masterRow)
+  appsPage.append(streamsScroll)
+
+  const devicesPage = new Gtk.Box({ orientation: Gtk.Orientation.VERTICAL, spacing: 8 })
+  devicesPage.add_css_class("audio-panel")
+  const devicesHeader = new Gtk.Box({ orientation: Gtk.Orientation.HORIZONTAL, spacing: 8 })
+  const backButton = new Gtk.Button({ icon_name: "go-previous-symbolic", tooltip_text: "Back to app volume" })
+  backButton.add_css_class("audio-button")
+  const devicesTitle = new Gtk.Label({ label: "Sound devices", xalign: 0 })
+  devicesTitle.add_css_class("audio-title")
+  devicesHeader.append(backButton)
+  devicesHeader.append(devicesTitle)
+  const devicesScroll = new Gtk.ScrolledWindow()
+  devicesScroll.set_policy(Gtk.PolicyType.NEVER, Gtk.PolicyType.AUTOMATIC)
+  devicesScroll.set_max_content_height(360)
+  devicesScroll.set_propagate_natural_height(true)
+  const devicesList = new Gtk.Box({ orientation: Gtk.Orientation.VERTICAL, spacing: 4 })
+  devicesScroll.set_child(devicesList)
+  devicesPage.append(devicesHeader)
+  devicesPage.append(devicesScroll)
+
+  const updateStreams = () => {
+    for (const [stream, signalId] of streamSignals) stream.disconnect(signalId)
+    streamSignals.length = 0
+    clearBox(streamsList)
+    const streams = (audio.streams ?? [])
+      .filter(
+        (stream) =>
+          stream.media_class === AstalWp.MediaClass.STREAM_OUTPUT_AUDIO &&
+          isUserPlaybackStream(stream),
+      )
+      .sort((a, b) => audioStreamTitle(a).localeCompare(audioStreamTitle(b)))
+    if (streams.length === 0) {
+      streamsList.append(new Gtk.Label({ label: "No apps are playing audio", xalign: 0 }))
+      return
+    }
+    for (const stream of streams) {
+      streamsList.append(
+        makeAudioStreamRow(stream, (object, signalId) => {
+          streamSignals.push([object, signalId])
+        }),
+      )
+    }
+  }
+
+  const updateDevices = () => {
+    clearBox(devicesList)
+    appendAudioDevices(devicesList, "OUTPUT", audio.speakers ?? [])
+    appendAudioDevices(devicesList, "INPUT", audio.microphones ?? [])
+  }
+
+  let currentSpeaker: AstalWp.Endpoint | null = null
+  let speakerSignals: number[] = []
+  let syncingMaster = false
+  const updateMasterValues = () => {
+    syncingMaster = true
+    const volume = currentSpeaker?.volume ?? 0
+    masterSlider.set_value(Math.min(1, volume))
+    masterMute.set_active(currentSpeaker?.mute ?? true)
+    const iconName =
+      !currentSpeaker || currentSpeaker.mute
+        ? "audio-volume-muted-symbolic"
+        : currentSpeaker.volume_icon
+    masterIcon.set_from_icon_name(iconName)
+    masterMuteIcon.set_from_icon_name(iconName)
+    syncingMaster = false
+  }
+  const updateMasterSpeaker = () => {
+    if (currentSpeaker) {
+      for (const signalId of speakerSignals) currentSpeaker.disconnect(signalId)
+    }
+    currentSpeaker = audio.default_speaker
+    speakerSignals = currentSpeaker
+      ? [
+          currentSpeaker.connect("notify::volume", updateMasterValues),
+          currentSpeaker.connect("notify::mute", updateMasterValues),
+          currentSpeaker.connect("notify::volume-icon", updateMasterValues),
+        ]
+      : []
+    updateMasterValues()
+  }
+  masterSlider.connect("value-changed", () => {
+    if (!syncingMaster && currentSpeaker)
+      currentSpeaker.volume = masterSlider.get_value()
+  })
+  masterMute.connect("toggled", () => {
+    if (!syncingMaster && currentSpeaker)
+      currentSpeaker.mute = masterMute.get_active()
+  })
+  updateMasterSpeaker()
+
+  const streamsChanged = audio.connect("notify::streams", updateStreams)
+  const speakersChanged = audio.connect("notify::speakers", updateDevices)
+  const microphonesChanged = audio.connect("notify::microphones", updateDevices)
+  const defaultSpeakerChanged = audio.connect("notify::default-speaker", updateDevices)
+  const masterSpeakerChanged = audio.connect("notify::default-speaker", updateMasterSpeaker)
+  const defaultMicChanged = audio.connect("notify::default-microphone", updateDevices)
+  devicesButton.connect("clicked", () => stack.set_visible_child_name("devices"))
+  backButton.connect("clicked", () => stack.set_visible_child_name("apps"))
+
+  stack.add_named(appsPage, "apps")
+  stack.add_named(devicesPage, "devices")
+  stack.set_visible_child_name("apps")
+  popover.set_child(stack)
+  updateStreams()
+  updateDevices()
+  popover.set_parent(anchor)
+  popover.connect("closed", () => {
+    audio.disconnect(streamsChanged)
+    audio.disconnect(speakersChanged)
+    audio.disconnect(microphonesChanged)
+    audio.disconnect(defaultSpeakerChanged)
+    audio.disconnect(masterSpeakerChanged)
+    audio.disconnect(defaultMicChanged)
+    if (currentSpeaker) {
+      for (const signalId of speakerSignals) currentSpeaker.disconnect(signalId)
+    }
+    for (const [stream, signalId] of streamSignals) stream.disconnect(signalId)
+    streamSignals.length = 0
+    popover.unparent()
+  })
+  popover.popup()
+}
+
+function SoundControl() {
+  const button = new Gtk.Button({ tooltip_text: "App volume and sound devices" })
+  const buttonIcon = Gtk.Image.new_from_icon_name("audio-volume-high-symbolic")
+  buttonIcon.set_pixel_size(ICON_SIZE)
+  button.set_child(buttonIcon)
+  button.add_css_class("tray-item")
+  let currentSpeaker: AstalWp.Endpoint | null = null
+  let speakerSignals: number[] = []
+  const updateIcon = () => {
+    if (currentSpeaker) {
+      for (const signalId of speakerSignals) currentSpeaker.disconnect(signalId)
+    }
+    const speaker = audio.default_speaker
+    currentSpeaker = speaker
+    speakerSignals = speaker
+      ? [
+          speaker.connect("notify::mute", updateIcon),
+          speaker.connect("notify::volume-icon", updateIcon),
+        ]
+      : []
+    buttonIcon.set_from_icon_name(
+      !speaker || speaker.mute ? "audio-volume-muted-symbolic" : speaker.volume_icon,
+    )
+  }
+  audio.connect("notify::default-speaker", updateIcon)
+  wireplumber.connect("notify::connected", updateIcon)
+  button.connect("clicked", () => openAudioPopover(button))
+  updateIcon()
+  return button
 }
 
 app.start({
@@ -241,7 +646,10 @@ app.start({
           <box $type="start" />
           {/* TODO: Add Wayfire desktop/workspace handling when working in a Wayfire session. */}
           <box $type="center" />
-          <SystemTray $type="end" />
+          <box $type="end" spacing={0}>
+            <SoundControl />
+            <SystemTray />
+          </box>
         </centerbox>
       </window>
     )
