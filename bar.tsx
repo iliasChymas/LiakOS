@@ -78,6 +78,20 @@ function barCss(palette: Palette) {
       background: ${withAlpha(palette.accent, 0.18)};
     }
 
+    .date-button {
+      min-height: 26px;
+      padding: 0 8px;
+      border: 0;
+      border-radius: 8px;
+      background: transparent;
+      color: ${palette.foreground};
+      font-size: 12px;
+    }
+
+    .date-button:hover {
+      background: ${withAlpha(palette.accent, 0.14)};
+    }
+
     .audio-popover {
       background: transparent;
       border: 0;
@@ -302,6 +316,29 @@ function SystemTray() {
       </For>
     </box>
   )
+}
+
+function DateControl() {
+  const button = new Gtk.Button({ tooltip_text: "Click to show a compact date" })
+  const label = new Gtk.Label({})
+  button.set_child(label)
+  button.add_css_class("date-button")
+  let compact = false
+  const update = () => {
+    const now = GLib.DateTime.new_now_local()
+    label.set_label(now.format(compact ? "%d %b" : "%A, %B %d, %Y") || "")
+  }
+  button.connect("clicked", () => {
+    compact = !compact
+    button.set_tooltip_text(compact ? "Click to show the full date" : "Click to show a compact date")
+    update()
+  })
+  GLib.timeout_add_seconds(GLib.PRIORITY_DEFAULT, 60, () => {
+    update()
+    return GLib.SOURCE_CONTINUE
+  })
+  update()
+  return button
 }
 
 function radioPopover(anchor: Gtk.Button, title: string, content: Gtk.Widget, cleanup: () => void = () => {}) {
@@ -878,7 +915,9 @@ app.start({
         <centerbox class="bar">
           <box $type="start" />
           {/* TODO: Add Wayfire desktop/workspace handling when working in a Wayfire session. */}
-          <box $type="center" />
+          <box $type="center">
+            <DateControl />
+          </box>
           <box $type="end" spacing={0}>
             <SoundControl />
             <BluetoothControl />
