@@ -6,8 +6,16 @@
 # AGS v3 with GTK 4 / GJS support
 # libastal with AstalTray 0.1
 
+# Wallpaper slideshow (wallpaper-app/)
+# C compiler and pkg-config
+# GTK 4 development libraries
+# libvips development library
+# Pywal16 `wal` command for applying a selected image and generating colors
+
 # Wallpaper-derived bar colors
 # Pywal16, providing the `wal` command and ~/.cache/wal/colors.json
+# jq, used by scripts/test-pywal-gtk-colors.sh to read the generated palette
+# KDE Frameworks `kwriteconfig6`, used to apply the test palette to Qt apps
 # The bar watches that JSON file; the wallpaper workflow must run `wal` after
 # changing the wallpaper.
 
