@@ -1,2 +1,4 @@
 node_modules/
 /wallpaper-app/target/
+/app-launcher/build/
+/wallpaper-app/build/

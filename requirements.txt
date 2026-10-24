@@ -12,6 +12,12 @@
 # libvips development library
 # Pywal16 `wal` command for applying a selected image and generating colors
 
+# Application launcher (app-launcher/)
+# C compiler and pkg-config
+# GTK 4 and GTK 4 Layer Shell development libraries
+# JSON-GLib and GIO development libraries
+# Wayfire with `ipc` and `ipc-rules` plugins for focusing open applications
+
 # Wallpaper-derived bar colors
 # Pywal16, providing the `wal` command and ~/.cache/wal/colors.json
 # jq, used by scripts/test-pywal-gtk-colors.sh to read the generated palette
