@@ -27,6 +27,7 @@ typedef struct {
   GtkWindow *window;
   GtkSearchEntry *search;
   GtkListBox *list;
+  GtkAdjustment *scroll_adjustment;
   GtkLabel *footer;
   GtkCssProvider *css_provider;
   GPtrArray *entries;
@@ -257,6 +258,25 @@ static GtkListBoxRow *first_visible_row(Launcher *state, int direction,
   return NULL;
 }
 
+static void scroll_row_into_view(Launcher *state, GtkListBoxRow *row) {
+  if (!row || !state->scroll_adjustment)
+    return;
+
+  graphene_rect_t bounds;
+  if (!gtk_widget_compute_bounds(GTK_WIDGET(row), GTK_WIDGET(state->list),
+                                 &bounds))
+    return;
+
+  double top = bounds.origin.y;
+  double bottom = top + bounds.size.height;
+  double value = gtk_adjustment_get_value(state->scroll_adjustment);
+  double page_size = gtk_adjustment_get_page_size(state->scroll_adjustment);
+  if (top < value)
+    gtk_adjustment_set_value(state->scroll_adjustment, top);
+  else if (bottom > value + page_size)
+    gtk_adjustment_set_value(state->scroll_adjustment, bottom - page_size);
+}
+
 static gint fuzzy_match_score(const char *query, const char *text) {
   if (!*query)
     return 0;
@@ -326,6 +346,7 @@ static void update_search(GtkEditable *editable, gpointer data) {
   g_free(folded_query);
 
   gtk_list_box_select_row(state->list, first_visible_row(state, 1, NULL));
+  scroll_row_into_view(state, gtk_list_box_get_selected_row(state->list));
 
   char *footer = g_strdup_printf(
       "%u applications   ·   ↑↓ navigate   ·   Enter focus/open   ·   "
@@ -763,8 +784,10 @@ static gboolean handle_key(GtkEventControllerKey *controller, guint keyval,
             next = GTK_LIST_BOX_ROW(child);
       }
     }
-    if (next)
+    if (next) {
       gtk_list_box_select_row(launcher_state->list, next);
+      scroll_row_into_view(launcher_state, next);
+    }
     return TRUE;
   }
   return FALSE;
@@ -847,6 +870,8 @@ static void build_ui(GtkApplication *application, gpointer data) {
   gtk_widget_add_css_class(GTK_WIDGET(state->list), "launcher-list");
   gtk_scrolled_window_set_child(GTK_SCROLLED_WINDOW(scroll),
                                 GTK_WIDGET(state->list));
+  state->scroll_adjustment =
+      gtk_scrolled_window_get_vadjustment(GTK_SCROLLED_WINDOW(scroll));
   gtk_box_append(GTK_BOX(panel), scroll);
 
   state->footer = GTK_LABEL(gtk_label_new("Loading applications…"));
