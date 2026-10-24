@@ -1,0 +1,212 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Wayfire default keybindings</title>
+  <style>
+    :root {
+      color-scheme: light dark;
+      --page: var(--background, #101319);
+      --text: var(--foreground, #e7e9ef);
+      --muted: var(--muted-foreground, #9ca3b2);
+      --panel: var(--card, #191e27);
+      --line: var(--border, #303746);
+      --accent: var(--accent, #8eb9ff);
+      --accent-bg: var(--accent-surface, #263750);
+      --code-bg: var(--code-background, #0e1218);
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      padding: 20px 0 28px;
+      background: var(--page);
+      color: var(--text);
+      font: 14px/1.45 system-ui, sans-serif;
+    }
+    .wrap { width: min(1120px, 100%); margin: 0 auto; }
+    header { display: flex; align-items: end; justify-content: space-between; gap: 18px; margin-bottom: 18px; }
+    h1 { margin: 0; font-size: clamp(23px, 4vw, 34px); letter-spacing: -.03em; }
+    .subtitle { margin: 5px 0 0; color: var(--muted); }
+    .source { color: var(--muted); font: 12px/1.4 ui-monospace, monospace; text-align: right; }
+    .toolbar { display: grid; grid-template-columns: minmax(210px, 1fr) auto; gap: 12px; align-items: center; margin: 18px 0; }
+    input[type="search"] {
+      width: 100%; min-height: 42px; padding: 0 13px; border: 1px solid var(--line);
+      border-radius: 10px; background: var(--panel); color: var(--text); font: inherit;
+    }
+    .filters { display: flex; flex-wrap: wrap; justify-content: end; gap: 7px; }
+    .filters button {
+      border: 1px solid var(--line); border-radius: 999px; padding: 7px 11px;
+      background: transparent; color: var(--text); cursor: pointer; font: inherit; font-size: 12px;
+    }
+    .filters button[aria-pressed="true"] { border-color: var(--accent); background: var(--accent-bg); color: var(--text); }
+    .summary { display: flex; justify-content: space-between; gap: 12px; color: var(--muted); font-size: 12px; margin: 0 2px 12px; }
+    .groups { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; align-items: start; }
+    section.group { padding: 15px; border: 1px solid var(--line); border-radius: 14px; background: color-mix(in srgb, var(--panel) 80%, transparent); }
+    h2 { display: flex; align-items: center; justify-content: space-between; gap: 10px; margin: 0 0 10px; font-size: 15px; }
+    .group-count { color: var(--muted); font: 11px ui-monospace, monospace; }
+    .item-list { display: grid; gap: 8px; }
+    article.item { display: grid; grid-template-columns: minmax(125px, 1fr) minmax(140px, 1fr); gap: 12px; align-items: center; padding: 10px 0; border-top: 1px solid var(--line); }
+    article.item:first-child { border-top: 0; padding-top: 3px; }
+    .action { font-weight: 580; }
+    .detail { margin-top: 3px; color: var(--muted); font-size: 11px; overflow-wrap: anywhere; }
+    .keys { display: flex; flex-wrap: wrap; align-items: center; justify-content: end; gap: 5px; }
+    kbd {
+      display: inline-block; padding: 4px 7px; border: 1px solid var(--line); border-radius: 6px;
+      background: var(--code-bg); color: var(--text); font: 11px/1.2 ui-monospace, monospace; white-space: nowrap;
+    }
+    .plus, .or { color: var(--muted); font-size: 10px; }
+    .alternative { display: inline-flex; flex-wrap: wrap; align-items: center; gap: 4px; }
+    .empty { display: none; padding: 22px; color: var(--muted); text-align: center; }
+    footer { margin-top: 14px; color: var(--muted); font-size: 12px; }
+    @media (max-width: 760px) {
+      .wrap { padding: 0 12px; }
+      header { align-items: start; flex-direction: column; }
+      .source { text-align: left; }
+      .toolbar { grid-template-columns: 1fr; }
+      .filters { justify-content: start; }
+      .groups { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 420px) {
+      article.item { grid-template-columns: 1fr; gap: 7px; }
+      .keys { justify-content: start; }
+    }
+  </style>
+</head>
+<body>
+  <main class="wrap">
+    <header>
+      <div>
+        <h1>Wayfire keybindings</h1>
+        <p class="subtitle">Default bindings, grouped by what they do. Search a key, action, plugin, or command.</p>
+      </div>
+      <div class="source">Source: config/wayfire.ini<br>WayfireWM/wayfire · master</div>
+    </header>
+
+    <div class="toolbar">
+      <input id="search" type="search" placeholder="Search: super, workspace, screenshot…" aria-label="Search keybindings">
+      <nav class="filters" aria-label="Filter groups">
+        <button type="button" data-filter="all" aria-pressed="true">All</button>
+        <button type="button" data-filter="windows">Windows</button>
+        <button type="button" data-filter="workspaces">Workspaces</button>
+        <button type="button" data-filter="apps">Apps & system</button>
+        <button type="button" data-filter="outputs">Outputs & display</button>
+        <button type="button" data-filter="mouse">Mouse</button>
+      </nav>
+    </div>
+
+    <div class="summary"><span id="shown">42 actions</span><span>Cards combine alternate shortcuts and numbered workspace selectors.</span></div>
+
+    <div class="groups" id="groups">
+      <section class="group" data-group="windows">
+        <h2>Window management <span class="group-count">11 actions</span></h2>
+        <div class="item-list">
+          <article class="item" data-search="close focused window core close_top_view"><div><div class="action">Close focused window</div><div class="detail">core · close_top_view</div></div><div class="keys"><span class="alternative"><kbd>SUPER</kbd><span class="plus">+</span><kbd>Q</kbd></span><span class="or">or</span><span class="alternative"><kbd>ALT</kbd><span class="plus">+</span><kbd>F4</kbd></span></div></article>
+          <article class="item" data-search="tile bottom left grid slot_bl"><div><div class="action">Tile bottom-left</div><div class="detail">grid · slot_bl</div></div><div class="keys"><kbd>SUPER</kbd><span class="plus">+</span><kbd>KP 1</kbd></div></article>
+          <article class="item" data-search="tile bottom grid slot_b"><div><div class="action">Tile bottom</div><div class="detail">grid · slot_b</div></div><div class="keys"><kbd>SUPER</kbd><span class="plus">+</span><kbd>KP 2</kbd></div></article>
+          <article class="item" data-search="tile bottom right grid slot_br"><div><div class="action">Tile bottom-right</div><div class="detail">grid · slot_br</div></div><div class="keys"><kbd>SUPER</kbd><span class="plus">+</span><kbd>KP 3</kbd></div></article>
+          <article class="item" data-search="tile left grid slot_l"><div><div class="action">Tile left</div><div class="detail">grid · slot_l</div></div><div class="keys"><span class="alternative"><kbd>SUPER</kbd><span class="plus">+</span><kbd>←</kbd></span><span class="or">or</span><span class="alternative"><kbd>SUPER</kbd><span class="plus">+</span><kbd>KP 4</kbd></span></div></article>
+          <article class="item" data-search="center grid slot_c"><div><div class="action">Center window</div><div class="detail">grid · slot_c</div></div><div class="keys"><span class="alternative"><kbd>SUPER</kbd><span class="plus">+</span><kbd>↑</kbd></span><span class="or">or</span><span class="alternative"><kbd>SUPER</kbd><span class="plus">+</span><kbd>KP 5</kbd></span></div></article>
+          <article class="item" data-search="tile right grid slot_r"><div><div class="action">Tile right</div><div class="detail">grid · slot_r</div></div><div class="keys"><span class="alternative"><kbd>SUPER</kbd><span class="plus">+</span><kbd>→</kbd></span><span class="or">or</span><span class="alternative"><kbd>SUPER</kbd><span class="plus">+</span><kbd>KP 6</kbd></span></div></article>
+          <article class="item" data-search="tile top left grid slot_tl"><div><div class="action">Tile top-left</div><div class="detail">grid · slot_tl</div></div><div class="keys"><kbd>SUPER</kbd><span class="plus">+</span><kbd>KP 7</kbd></div></article>
+          <article class="item" data-search="tile top grid slot_t"><div><div class="action">Tile top</div><div class="detail">grid · slot_t</div></div><div class="keys"><kbd>SUPER</kbd><span class="plus">+</span><kbd>KP 8</kbd></div></article>
+          <article class="item" data-search="tile top right grid slot_tr"><div><div class="action">Tile top-right</div><div class="detail">grid · slot_tr</div></div><div class="keys"><kbd>SUPER</kbd><span class="plus">+</span><kbd>KP 9</kbd></div></article>
+          <article class="item" data-search="restore window grid restore"><div><div class="action">Restore window size</div><div class="detail">grid · restore</div></div><div class="keys"><span class="alternative"><kbd>SUPER</kbd><span class="plus">+</span><kbd>↓</kbd></span><span class="or">or</span><span class="alternative"><kbd>SUPER</kbd><span class="plus">+</span><kbd>KP 0</kbd></span></div></article>
+        </div>
+      </section>
+
+      <section class="group" data-group="workspaces">
+        <h2>Workspaces <span class="group-count">11 actions</span></h2>
+        <div class="item-list">
+          <article class="item" data-search="switch workspace left vswitch binding_left"><div><div class="action">Switch workspace left</div><div class="detail">vswitch · binding_left</div></div><div class="keys"><kbd>CTRL</kbd><span class="plus">+</span><kbd>SUPER</kbd><span class="plus">+</span><kbd>←</kbd></div></article>
+          <article class="item" data-search="switch workspace down vswitch binding_down"><div><div class="action">Switch workspace down</div><div class="detail">vswitch · binding_down</div></div><div class="keys"><kbd>CTRL</kbd><span class="plus">+</span><kbd>SUPER</kbd><span class="plus">+</span><kbd>↓</kbd></div></article>
+          <article class="item" data-search="switch workspace up vswitch binding_up"><div><div class="action">Switch workspace up</div><div class="detail">vswitch · binding_up</div></div><div class="keys"><kbd>CTRL</kbd><span class="plus">+</span><kbd>SUPER</kbd><span class="plus">+</span><kbd>↑</kbd></div></article>
+          <article class="item" data-search="switch workspace right vswitch binding_right"><div><div class="action">Switch workspace right</div><div class="detail">vswitch · binding_right</div></div><div class="keys"><kbd>CTRL</kbd><span class="plus">+</span><kbd>SUPER</kbd><span class="plus">+</span><kbd>→</kbd></div></article>
+          <article class="item" data-search="move window workspace left with_win_left"><div><div class="action">Move window left</div><div class="detail">vswitch · with_win_left</div></div><div class="keys"><kbd>CTRL</kbd><span class="plus">+</span><kbd>SUPER</kbd><span class="plus">+</span><kbd>SHIFT</kbd><span class="plus">+</span><kbd>←</kbd></div></article>
+          <article class="item" data-search="move window workspace down with_win_down"><div><div class="action">Move window down</div><div class="detail">vswitch · with_win_down</div></div><div class="keys"><kbd>CTRL</kbd><span class="plus">+</span><kbd>SUPER</kbd><span class="plus">+</span><kbd>SHIFT</kbd><span class="plus">+</span><kbd>↓</kbd></div></article>
+          <article class="item" data-search="move window workspace up with_win_up"><div><div class="action">Move window up</div><div class="detail">vswitch · with_win_up</div></div><div class="keys"><kbd>CTRL</kbd><span class="plus">+</span><kbd>SUPER</kbd><span class="plus">+</span><kbd>SHIFT</kbd><span class="plus">+</span><kbd>↑</kbd></div></article>
+          <article class="item" data-search="move window workspace right with_win_right"><div><div class="action">Move window right</div><div class="detail">vswitch · with_win_right</div></div><div class="keys"><kbd>CTRL</kbd><span class="plus">+</span><kbd>SUPER</kbd><span class="plus">+</span><kbd>SHIFT</kbd><span class="plus">+</span><kbd>→</kbd></div></article>
+          <article class="item" data-search="overview expo toggle all workspaces"><div><div class="action">Toggle workspace overview</div><div class="detail">expo · toggle</div></div><div class="keys"><kbd>SUPER</kbd><span class="plus">+</span><kbd>E</kbd></div></article>
+          <article class="item" data-search="select workspace expo 1 2 3 4 5 6 7 8 9 overview"><div><div class="action">Select workspace 1–9</div><div class="detail">expo · select_workspace_1…9 · while overview is open</div></div><div class="keys"><kbd>1</kbd><span class="or">…</span><kbd>9</kbd></div></article>
+          <article class="item" data-search="cube workspace overview mouse left click ctrl alt"><div><div class="action">Show workspace cube</div><div class="detail">cube · activate</div></div><div class="keys"><kbd>CTRL</kbd><span class="plus">+</span><kbd>ALT</kbd><span class="plus">+</span><kbd>Left click</kbd></div></article>
+        </div>
+      </section>
+
+      <section class="group" data-group="apps">
+        <h2>Apps & system <span class="group-count">11 actions</span></h2>
+        <div class="item-list">
+          <article class="item" data-search="terminal alacritty command binding_terminal"><div><div class="action">Open terminal</div><div class="detail">command · alacritty</div></div><div class="keys"><kbd>SUPER</kbd><span class="plus">+</span><kbd>ENTER</kbd></div></article>
+          <article class="item" data-search="launcher wofi command binding_launcher"><div><div class="action">Open app launcher</div><div class="detail">command · wofi</div></div><div class="keys"><kbd>SUPER</kbd><span class="plus">+</span><kbd>SHIFT</kbd><span class="plus">+</span><kbd>ENTER</kbd></div></article>
+          <article class="item" data-search="lock screen swaylock binding_lock"><div><div class="action">Lock screen</div><div class="detail">command · swaylock</div></div><div class="keys"><kbd>SUPER</kbd><span class="plus">+</span><kbd>SHIFT</kbd><span class="plus">+</span><kbd>ESC</kbd></div></article>
+          <article class="item" data-search="logout wlogout binding_logout"><div><div class="action">Open logout menu</div><div class="detail">command · wlogout</div></div><div class="keys"><kbd>SUPER</kbd><span class="plus">+</span><kbd>ESC</kbd></div></article>
+          <article class="item" data-search="screenshot grim print binding_screenshot"><div><div class="action">Take screenshot</div><div class="detail">command · grim</div></div><div class="keys"><kbd>PRINT</kbd></div></article>
+          <article class="item" data-search="interactive screenshot select area slurp grim shift print"><div><div class="action">Select area screenshot</div><div class="detail">command · slurp + grim</div></div><div class="keys"><kbd>SHIFT</kbd><span class="plus">+</span><kbd>PRINT</kbd></div></article>
+          <article class="item" data-search="volume up amixer volumeup repeatable"><div><div class="action">Volume up</div><div class="detail">command · amixer · repeatable</div></div><div class="keys"><kbd>VOLUME UP</kbd></div></article>
+          <article class="item" data-search="volume down amixer volumedown repeatable"><div><div class="action">Volume down</div><div class="detail">command · amixer · repeatable</div></div><div class="keys"><kbd>VOLUME DOWN</kbd></div></article>
+          <article class="item" data-search="mute amixer key_mute"><div><div class="action">Toggle mute</div><div class="detail">command · amixer</div></div><div class="keys"><kbd>MUTE</kbd></div></article>
+          <article class="item" data-search="brightness up light key_brightnessup repeatable"><div><div class="action">Brightness up</div><div class="detail">command · light · repeatable</div></div><div class="keys"><kbd>BRIGHTNESS UP</kbd></div></article>
+          <article class="item" data-search="brightness down light key_brightnessdown repeatable"><div><div class="action">Brightness down</div><div class="detail">command · light · repeatable</div></div><div class="keys"><kbd>BRIGHTNESS DOWN</kbd></div></article>
+        </div>
+      </section>
+
+      <section class="group" data-group="outputs">
+        <h2>Outputs & display <span class="group-count">4 actions</span></h2>
+        <div class="item-list">
+          <article class="item" data-search="switch output monitor oswitch next_output"><div><div class="action">Focus next output</div><div class="detail">oswitch · next_output</div></div><div class="keys"><kbd>SUPER</kbd><span class="plus">+</span><kbd>O</kbd></div></article>
+          <article class="item" data-search="move window next output monitor oswitch with window"><div><div class="action">Move window to next output</div><div class="detail">oswitch · next_output_with_win</div></div><div class="keys"><kbd>SUPER</kbd><span class="plus">+</span><kbd>SHIFT</kbd><span class="plus">+</span><kbd>O</kbd></div></article>
+          <article class="item" data-search="invert colors display invert toggle"><div><div class="action">Invert output colors</div><div class="detail">invert · toggle</div></div><div class="keys"><kbd>SUPER</kbd><span class="plus">+</span><kbd>I</kbd></div></article>
+          <article class="item" data-search="menu wayfire shell toggle_menu super"><div><div class="action">Toggle Wayfire menu</div><div class="detail">wayfire-shell · toggle_menu</div></div><div class="keys"><kbd>SUPER</kbd></div></article>
+        </div>
+      </section>
+
+      <section class="group" data-group="mouse">
+        <h2>Mouse & window effects <span class="group-count">5 actions</span></h2>
+        <div class="item-list">
+          <article class="item" data-search="move drag window mouse super left button move activate"><div><div class="action">Drag window</div><div class="detail">move · activate</div></div><div class="keys"><kbd>SUPER</kbd><span class="plus">+</span><kbd>Left click</kbd><span class="detail">hold + drag</span></div></article>
+          <article class="item" data-search="resize window mouse super right button resize activate"><div><div class="action">Resize window</div><div class="detail">resize · activate</div></div><div class="keys"><kbd>SUPER</kbd><span class="plus">+</span><kbd>Right click</kbd><span class="detail">hold + drag</span></div></article>
+          <article class="item" data-search="zoom desktop scroll super zoom modifier"><div><div class="action">Zoom desktop</div><div class="detail">zoom · modifier</div></div><div class="keys"><kbd>SUPER</kbd><span class="plus">+</span><kbd>Scroll</kbd></div></article>
+          <article class="item" data-search="opacity alpha transparent scroll super alt"><div><div class="action">Change window opacity</div><div class="detail">alpha · modifier</div></div><div class="keys"><kbd>SUPER</kbd><span class="plus">+</span><kbd>ALT</kbd><span class="plus">+</span><kbd>Scroll</kbd></div></article>
+          <article class="item" data-search="rotate window mouse super ctrl right button wrot"><div><div class="action">Rotate window</div><div class="detail">wrot · activate</div></div><div class="keys"><kbd>SUPER</kbd><span class="plus">+</span><kbd>CTRL</kbd><span class="plus">+</span><kbd>Right click</kbd></div></article>
+        </div>
+      </section>
+
+      <div class="empty" id="empty">No matching keybindings.</div>
+    </div>
+
+    <footer><kbd>SUPER</kbd> is the Windows/Meta key. <kbd>KP</kbd> means the numeric keypad. The 1–9 workspace selectors work while the expo overview is open.</footer>
+  </main>
+  <script>
+    const search = document.querySelector('#search');
+    const cards = [...document.querySelectorAll('.item')];
+    const groups = [...document.querySelectorAll('.group')];
+    const count = document.querySelector('#shown');
+    const empty = document.querySelector('#empty');
+    let activeFilter = 'all';
+    function update() {
+      const query = search.value.trim().toLowerCase();
+      let visible = 0;
+      for (const card of cards) {
+        const group = card.closest('.group');
+        const matchesGroup = activeFilter === 'all' || group.dataset.group === activeFilter;
+        const matchesQuery = !query || (card.innerText + ' ' + card.dataset.search).toLowerCase().includes(query);
+        card.hidden = !(matchesGroup && matchesQuery);
+        if (!card.hidden) visible++;
+      }
+      for (const group of groups) {
+        group.hidden = !group.querySelector('.item:not([hidden])');
+      }
+      count.textContent = `${visible} ${visible === 1 ? 'action' : 'actions'}`;
+      empty.style.display = visible ? 'none' : 'block';
+    }
+    search.addEventListener('input', update);
+    document.querySelectorAll('.filters button').forEach(button => {
+      button.addEventListener('click', () => {
+        activeFilter = button.dataset.filter;
+        document.querySelectorAll('.filters button').forEach(item => item.setAttribute('aria-pressed', String(item === button)));
+        update();
+      });
+    });
+    update();
+  </script>
+</body>
+</html>
