@@ -1,0 +1,254 @@
+# LiakOs
+
+LiakOs is a personal Wayfire-based desktop setup. This repository contains its
+GTK desktop bar, application launcher, wallpaper picker, Wayfire configuration,
+and a small TypeScript wrapper around Wayfire IPC. The project is assembled from
+normal Linux applications and configuration; it is not a complete Linux
+distribution or a Plasma/GNOME shell.
+
+The components are developed independently and deployed together with
+`scripts/deploy.sh`.
+
+## Components
+
+| Component | Location | Purpose |
+| --- | --- | --- |
+| AGS bar | `bar.tsx` | GTK4 bar, system tray, audio and Bluetooth popovers, date, and Pywal colors |
+| App launcher | `app-launcher/` | C/GTK4 fuzzy launcher for installed desktop applications |
+| Wallpaper picker | `wallpaper-app/` | C/GTK4 wallpaper preview and selection app using libvips thumbnails |
+| Wallpapers | `wallpapers/` | Wallpapers copied to the deployed LiakOs wallpaper directory |
+| Wayfire config | `config/wayfire.ini` | Example Wayfire settings and keybindings |
+| Keybinding reference | `config/wayfire-keybinds.html` | Visual guide to the checked-in Wayfire keybindings |
+| Wayfire IPC wrapper | `wayfire-ipc.ts` | TypeScript wrapper for `wf-ipcli` |
+| Deployment | `scripts/deploy.sh` | Builds the C apps and installs the bar, icons, wallpapers, and Wayfire app shortcuts |
+
+## Requirements
+
+`requirements.txt` is a cross-language system inventory, **not** a pip file.
+Do not run `pip install -r requirements.txt`. Package names vary by Linux
+distribution; use the list there to find the corresponding packages.
+
+The main requirements are:
+
+- Wayfire 0.10 or newer, with the `ipc` and `ipc-rules` plugins enabled for
+  launcher focus support and the TypeScript IPC wrapper.
+- AGS v3, GTK4, libastal with AstalTray, AstalWp, and AstalBluetooth, PipeWire,
+  and WirePlumber for the bar.
+- BlueZ and `rfkill` for Bluetooth control. The current bar does not include a
+  Wi-Fi control.
+- A C compiler, `pkg-config`, GTK4 development files, GTK4 Layer Shell, JSON-GLib,
+  and GIO for the launcher.
+- GTK 4.10 or newer and libvips development files for `lpaper`.
+- Pywal16 (`wal`) to apply wallpapers and generate `~/.cache/wal/colors.json`.
+- `xdg-utils` (`xdg-mime`), `gtk-launch`, and Python 3 for default-app Wayfire
+  shortcuts managed by deployment.
+- Node.js 24 or newer, `wf-ipcli` 0.1.8 or newer, Python 3, and PyWayfire for
+  `wayfire-ipc.ts`.
+- `jq` and KDE Frameworks' `kwriteconfig6` for the GTK/Qt palette script at
+  `scripts/test-pywal-gtk-colors.sh`.
+
+The `requirements.txt` file has additional notes for individual features and
+optional Wayfire plugins.
+
+## Build and deploy
+
+From the repository root, build an individual C application with:
+
+```sh
+app-launcher/build.sh
+wallpaper-app/build.sh
+```
+
+The binaries are created at `app-launcher/build/llauncher` and
+`wallpaper-app/build/lpaper`. The run helpers compile them when needed:
+
+```sh
+app-launcher/run.sh
+wallpaper-app/tools/run-c-viewer.sh
+```
+
+Deploy the current setup with:
+
+```sh
+scripts/deploy.sh
+```
+
+Deployment builds both C apps, then installs:
+
+- `llauncher` and `lpaper` into `~/.local/bin`.
+- The AGS bar as `$XDG_CONFIG_HOME/ags/app.tsx` (normally
+  `~/.config/ags/app.tsx`). A pre-existing different bar is backed up once as
+  `app.tsx.bak`.
+- Bluetooth state icons into `$XDG_CONFIG_HOME/ags/icons/`.
+- The repository wallpapers into `$XDG_CONFIG_HOME/los/walls/` (normally
+  `~/.config/los/walls/`). Files are copied additively; existing files in the
+  target are not removed.
+- Wayfire browser and file-manager shortcuts in the existing Wayfire config.
+  Existing configs are backed up once as `wayfire.ini.bak`. If there is no
+  Wayfire config yet, deployment installs `config/wayfire.ini` first.
+
+Deployment reads the XDG defaults using `xdg-mime`, then writes those desktop
+entry IDs into the Wayfire keybinding commands. If you change the defaults,
+rerun deployment to update the shortcuts. Reload or restart Wayfire to apply
+changed keybindings, and restart AGS to load a newly deployed bar.
+
+## Wayfire and default applications
+
+`config/wayfire.ini` is the project template. Wayfire command bindings live in
+its `[command]` section; each `command_*` setting contains a command directly.
+Wayfire's documented INI format does not provide reusable application
+variables.
+
+The current project shortcuts are:
+
+| Shortcut | Action |
+| --- | --- |
+| Super+Enter | Open Ghostty |
+| Super+B | Open the default browser (deployment resolves the XDG browser) |
+| Super+Shift+Enter | Open `llauncher` |
+| Super+E | Open the default file manager in the home directory |
+| Super+F | Toggle fullscreen for the focused window |
+| Super+O | Focus the next output |
+| Super+Shift+O | Move/focus a window on the next output |
+| Ctrl+Super+Arrow | Switch Wayfire workspace |
+| Ctrl+Super+Shift+Arrow | Move the focused window between workspaces |
+| Print | Screenshot; Shift+Print opens region selection |
+| Volume and brightness keys | Adjust system volume and display brightness |
+
+See [`config/wayfire-keybinds.html`](config/wayfire-keybinds.html) for a visual
+keybinding reference. It is a static snapshot and may lag behind the INI; treat
+`config/wayfire.ini` as authoritative when entries differ. The checked-in
+config is a template; the active file is normally `~/.config/wayfire.ini` or
+`~/.config/wayfire/wayfire.ini`.
+
+Wayfire shortcuts and system defaults are separate. The active browser and file
+manager defaults are XDG MIME associations, usually stored in
+`~/.config/mimeapps.list`. Check them with:
+
+```sh
+xdg-mime query default x-scheme-handler/https
+xdg-mime query default inode/directory
+```
+
+Change them with `xdg-mime default DESKTOP_ID MIME_TYPE`, for example:
+
+```sh
+xdg-mime default brave-browser.desktop x-scheme-handler/https
+xdg-mime default org.kde.dolphin.desktop inode/directory
+```
+
+The browser shortcut uses the HTTPS default. Super+E uses the default
+`inode/directory` application and passes it the home directory.
+
+## AGS bar
+
+The bar is implemented in `bar.tsx` with AGS v3, GTK4, and Astal. It currently
+provides:
+
+- A system tray that renders item icons and their D-Bus menus. Tray-menu rows,
+  hover states, and selected states use the Pywal palette.
+- An audio popover with master volume, per-application volume and mute controls,
+  and output/input device selection.
+- Bluetooth power control, scanning, pairing, and device connect/disconnect.
+  Discovery is manual: enable Bluetooth, then choose **Scan for devices**.
+- A centered date button that switches between full and compact formats when
+  clicked.
+- Dynamic CSS colors loaded from `~/.cache/wal/colors.json`. The bar watches the
+  file and updates its styling when Pywal writes a new palette.
+
+The bar uses Pywal `color4` as its main accent, `color5` as a secondary color,
+and `color2` for additional status color. If there is no valid palette file, it
+uses its fallback palette. To run the source directly during development:
+
+```sh
+ags run bar.tsx
+```
+
+## Application launcher
+
+`app-launcher/` contains `llauncher`, a C/GTK4 launcher that lists installed
+`.desktop` applications with their icons, filters the list as you type, and
+reads its colors from Pywal.
+
+- **Enter** focuses a matching open Wayfire window when IPC can find one; if no
+  matching window exists, it launches the application.
+- **Shift+Enter** launches a new process using the desktop entry's `Exec`
+  command. Applications that enforce a single instance may still reuse their
+  existing window.
+
+The source and development instructions are in
+[`app-launcher/README.md`](app-launcher/README.md). Focusing existing windows
+requires Wayfire's `ipc` and `ipc-rules` plugins and a valid `WAYFIRE_SOCKET`.
+
+## Wallpaper picker
+
+`wallpaper-app/` contains `lpaper`, a C/GTK4 wallpaper picker. It opens
+`$XDG_CONFIG_HOME/los/walls` by default (normally `~/.config/los/walls`). The
+repository's sample wallpapers are deployed there by `scripts/deploy.sh`.
+
+The app displays a large preview, Previous/Next controls, and a vertically
+scrollable five-column thumbnail grid. Thumbnails are resized with libvips in
+background workers and kept in memory; no disk thumbnail cache is created. The
+top-right header-bar menu item **Open another folder…** loads images from a
+different folder into the same picker. Folder scanning is non-recursive and
+supports BMP, GIF, JPEG, PNG, TIFF, and WebP images.
+
+Click **Apply wallpaper** to run `wal -i` for the selected image and then run
+`scripts/test-pywal-gtk-colors.sh`. That script rewrites the configured GTK3
+and GTK4 color files and creates/applies a test Qt color scheme through
+`kwriteconfig6`. It keeps backups of existing files and prints a reminder to
+restart GTK/Qt apps before they show the new colors. This is a palette test
+workflow, not a
+general-purpose theme manager yet.
+
+See [`wallpaper-app/README.md`](wallpaper-app/README.md) for C build details and
+the standalone resize benchmark.
+
+## Pywal color workflow
+
+Generate a palette and set a wallpaper with Pywal16:
+
+```sh
+wal -i ~/Pictures/example-wallpaper.jpg
+```
+
+Pywal writes colors to `~/.cache/wal/colors.json`. The AGS bar watches that
+file. `lpaper` also runs Pywal when **Apply wallpaper** is selected, then runs
+the GTK/Qt test script. GTK and Qt applications may need a restart to pick up
+their generated colors.
+
+## Wayfire IPC wrapper
+
+`wayfire-ipc.ts` wraps `wf-ipcli`, returning parsed JSON when available and
+plain text otherwise. It currently exposes these CLI commands:
+
+```sh
+node wayfire-ipc.ts active-window
+node wayfire-ipc.ts config
+node wayfire-ipc.ts kb-layout
+node wayfire-ipc.ts touch-state enabled
+```
+
+`touch-state` accepts `enabled` or `disabled`. The TypeScript exports
+`runWfIpcli`, `getFocusedView`, and `getWayfireConfiguration` for other Node
+code. Set `WF_IPCLI_BIN` if the executable is not named `wf-ipcli` or is not in
+`PATH`. The wrapper currently covers these basic queries/actions; future
+workspace and fullscreen behavior will need additional commands and event
+subscriptions.
+
+## Development files
+
+- `requirements.txt` — cross-language system dependency inventory.
+- `tsconfig.json`, `env.d.ts`, and `@girs/` — AGS/GJS TypeScript editor types.
+- `app-launcher/compile_flags.txt` and
+  `wallpaper-app/compile_flags.txt` — clangd include/compiler flags.
+- `scripts/test-pywal-gtk-colors.sh` — test application of Pywal colors to GTK
+  and Qt.
+- `wallpaper-app/tools/resize-test.c` — standalone image-resize benchmark.
+
+Refresh clangd flags after installing or changing development packages with:
+
+```sh
+app-launcher/update-clangd-flags.sh
+wallpaper-app/tools/update-clangd-flags.sh
+```
