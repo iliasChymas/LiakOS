@@ -239,6 +239,7 @@ app.start({
       >
         <centerbox class="bar">
           <box $type="start" />
+          {/* TODO: Add Wayfire desktop/workspace handling when working in a Wayfire session. */}
           <box $type="center" />
           <SystemTray $type="end" />
         </centerbox>
