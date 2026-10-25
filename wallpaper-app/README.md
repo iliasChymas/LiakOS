@@ -30,7 +30,8 @@ The run script compiles `lpaper` if it is missing or stale, then runs it.
 Timing output is printed to the terminal with a `[timing-c]` prefix. **Apply wallpaper** runs
 `wal -i <selected-image>` and then `scripts/test-pywal-gtk-colors.sh` to update
 GTK3/GTK4 colors, write Thunar-specific GTK3 CSS, and configure Qt5/Qt6
-palettes through qt5ct/qt6ct.
+palettes through qt5ct/qt6ct. Deployment installs the color script under
+`$XDG_DATA_HOME/liakos/scripts/` for the installed `lpaper` binary.
 
 To benchmark one image resize without opening GTK:
 

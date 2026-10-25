@@ -81,6 +81,9 @@ scripts/deploy.sh
 Deployment builds both C apps, then installs:
 
 - `llauncher` and `lpaper` into `~/.local/bin`.
+- The wallpaper color script into `$XDG_DATA_HOME/liakos/scripts/` (normally
+  `~/.local/share/liakos/scripts/`) so installed `lpaper` can apply palettes
+  from any working directory.
 - The AGS bar as `$XDG_CONFIG_HOME/ags/app.tsx` (normally
   `~/.config/ags/app.tsx`). A pre-existing different bar is backed up once as
   `app.tsx.bak`.

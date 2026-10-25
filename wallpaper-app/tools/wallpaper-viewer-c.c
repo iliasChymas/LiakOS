@@ -299,6 +299,17 @@ static void apply_clicked(GtkButton *button, gpointer data) {
   const char *path = g_ptr_array_index(viewer->images, viewer->selected);
   char *script =
       g_canonicalize_filename("scripts/test-pywal-gtk-colors.sh", NULL);
+  if (!g_file_test(script, G_FILE_TEST_IS_EXECUTABLE)) {
+    g_free(script);
+    script = g_build_filename(g_get_user_data_dir(), "liakos", "scripts",
+                              "test-pywal-gtk-colors.sh", NULL);
+  }
+  if (!g_file_test(script, G_FILE_TEST_IS_EXECUTABLE)) {
+    gtk_label_set_text(viewer->status,
+                       "Wallpaper color script is missing. Run deploy.sh.");
+    g_free(script);
+    return;
+  }
   GError *error = NULL;
   GSubprocess *process = g_subprocess_new(
       G_SUBPROCESS_FLAGS_NONE, &error, "sh", "-c", "wal -i \"$1\" && \"$2\"",
