@@ -19,13 +19,18 @@ fi
 
 printf 'Building llauncher...\n'
 "$ROOT_DIR/app-launcher/build.sh"
+printf 'Building lkeybinds...\n'
+"$ROOT_DIR/keybindings-app/build.sh"
 printf 'Building lpaper...\n'
 "$ROOT_DIR/wallpaper-app/build.sh"
 
 mkdir -p "$BIN_DIR" "$AGS_CONFIG_DIR" "$WALLPAPER_DIR" "$LIAKOS_DATA_DIR/scripts"
 mkdir -p "$AGS_CONFIG_DIR/icons"
+mkdir -p "${XDG_DATA_HOME:-$HOME/.local/share}/applications"
 install -m 755 "$ROOT_DIR/app-launcher/build/llauncher" "$BIN_DIR/llauncher"
+install -m 755 "$ROOT_DIR/keybindings-app/build/lkeybinds" "$BIN_DIR/lkeybinds"
 install -m 755 "$ROOT_DIR/wallpaper-app/build/lpaper" "$BIN_DIR/lpaper"
+install -m 644 "$ROOT_DIR/keybindings-app/org.liakos.Keybindings.desktop" "${XDG_DATA_HOME:-$HOME/.local/share}/applications/org.liakos.Keybindings.desktop"
 install -m 755 "$ROOT_DIR/scripts/test-pywal-gtk-colors.sh" "$LIAKOS_DATA_DIR/scripts/test-pywal-gtk-colors.sh"
 install -m 644 "$ROOT_DIR/assets/icons/bluetooth-open.svg" "$AGS_CONFIG_DIR/icons/bluetooth-open.svg"
 install -m 644 "$ROOT_DIR/assets/icons/bluetooth-closed.svg" "$AGS_CONFIG_DIR/icons/bluetooth-closed.svg"
@@ -110,6 +115,8 @@ if [ -n "$DEFAULT_BROWSER" ] && [ -n "$DEFAULT_FILE_MANAGER" ]; then
       set_wayfire_command_option binding_browser '<super> KEY_B'
       set_wayfire_command_option command_browser "gtk-launch '$DEFAULT_BROWSER'"
       set_wayfire_command_option command_launcher 'env QT_QPA_PLATFORMTHEME=qt5ct:qt6ct llauncher'
+      set_wayfire_command_option binding_keybindings '<super> <shift> KEY_K'
+      set_wayfire_command_option command_keybindings 'lkeybinds'
       set_wayfire_command_option binding_file_manager '<super> KEY_E'
       set_wayfire_command_option command_file_manager "gtk-launch '$DEFAULT_FILE_MANAGER' '$HOME_URI'"
       printf 'Wayfire Super+B browser: %s\n' "$DEFAULT_BROWSER"
@@ -121,6 +128,7 @@ else
 fi
 
 printf 'Installed executables to %s\n' "$BIN_DIR"
+printf 'Installed keybindings app with Super+Shift+K shortcut\n'
 printf 'Installed AGS bar to %s\n' "$AGS_ENTRY"
 printf 'Copied wallpapers to %s\n' "$WALLPAPER_DIR"
 printf 'Installed wallpaper color script to %s/scripts\n' "$LIAKOS_DATA_DIR"

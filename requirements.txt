@@ -22,6 +22,11 @@
 # JSON-GLib and GIO development libraries
 # Wayfire with `ipc` and `ipc-rules` plugins for focusing open applications
 
+# Keybindings editor (keybindings-app/)
+# C compiler and pkg-config
+# GTK 4 and JSON-GLib development libraries
+# Wayfire; the editor reads and updates ~/.config/wayfire.ini (or wayfire/wayfire.ini)
+
 # Wallpaper color theming (lpaper and scripts/test-pywal-gtk-colors.sh)
 # Pywal16 (`wal`) to set wallpapers and generate ~/.cache/wal/colors.json
 # jq to read the Pywal palette

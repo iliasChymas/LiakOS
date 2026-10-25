@@ -22,6 +22,7 @@ Git checkout and a shell script. Progress is progress.
 | --- | --- | --- |
 | AGS bar | `bar.tsx` | GTK4 bar, system tray, audio and Bluetooth popovers, date, and Pywal colors |
 | App launcher | `app-launcher/` | C/GTK4 fuzzy launcher for installed desktop applications |
+| Keybindings editor | `keybindings-app/` | C/GTK4 search and editor for Wayfire keyboard shortcuts |
 | Wallpaper picker | `wallpaper-app/` | C/GTK4 wallpaper preview and selection app using libvips thumbnails |
 | Wallpapers | `wallpapers/` | Wallpapers copied to the deployed LiakOs wallpaper directory |
 | Wayfire config | `config/wayfire.ini` | Example Wayfire settings and keybindings |
@@ -61,14 +62,17 @@ From the repository root, build an individual C application with:
 
 ```sh
 app-launcher/build.sh
+keybindings-app/build.sh
 wallpaper-app/build.sh
 ```
 
-The binaries are created at `app-launcher/build/llauncher` and
-`wallpaper-app/build/lpaper`. The run helpers compile them when needed:
+The binaries are created at `app-launcher/build/llauncher`,
+`keybindings-app/build/lkeybinds`, and `wallpaper-app/build/lpaper`. The run
+helpers compile them when needed:
 
 ```sh
 app-launcher/run.sh
+keybindings-app/run.sh
 wallpaper-app/tools/run-c-viewer.sh
 ```
 
@@ -78,9 +82,10 @@ Deploy the current setup with:
 scripts/deploy.sh
 ```
 
-Deployment builds both C apps, then installs:
+Deployment builds all three C apps, then installs:
 
-- `llauncher` and `lpaper` into `~/.local/bin`.
+- `llauncher`, `lkeybinds`, and `lpaper` into `~/.local/bin`.
+- The keybindings app desktop entry and Super+Shift+K shortcut.
 - The wallpaper color script into `$XDG_DATA_HOME/liakos/scripts/` (normally
   `~/.local/share/liakos/scripts/`) so installed `lpaper` can apply palettes
   from any working directory.
@@ -115,6 +120,7 @@ The current project shortcuts are:
 | Super+Enter | Open Ghostty |
 | Super+B | Open the default browser (deployment resolves the XDG browser) |
 | Super+Shift+Enter | Open `llauncher` |
+| Super+Shift+K | Open the keybindings editor |
 | Super+E | Open Thunar in the home directory |
 | Super+F | Toggle fullscreen for the focused window |
 | Super+O | Focus the next output |
@@ -129,6 +135,15 @@ keybinding reference. It is a static snapshot and may lag behind the INI; treat
 `config/wayfire.ini` as authoritative when entries differ. The checked-in
 config is a template; the active file is normally `~/.config/wayfire.ini` or
 `~/.config/wayfire/wayfire.ini`.
+
+The keybindings editor searches shortcuts by action, key, or category. Choose
+**Edit shortcut**, press the new key combination, review the preview, and save.
+It updates the active Wayfire config and keeps a one-time
+`.liakos-backup` copy beside that file. Reload or restart Wayfire to apply the
+change. Keyboard shortcuts defined by Wayfire plugins are editable too; mouse
+gestures are not shown. It uses the same Pywal palette as the bar and reloads
+its colors when `~/.cache/wal/colors.json` changes. To edit a different config,
+set `LIAKOS_WAYFIRE_CONFIG` before launching it.
 
 Wayfire shortcuts and system defaults are separate. The active browser and file
 manager defaults are XDG MIME associations, usually stored in

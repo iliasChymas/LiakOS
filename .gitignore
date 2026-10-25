@@ -1,4 +1,5 @@
 node_modules/
 /wallpaper-app/target/
 /app-launcher/build/
+/keybindings-app/build/
 /wallpaper-app/build/
