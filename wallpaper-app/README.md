@@ -19,6 +19,10 @@ Run from any directory with:
 wallpaper-app/tools/run-c-viewer.sh
 ```
 
+Deployment adds **LiakOs Wallpaper** to the application menu with a custom
+wallpaper icon. Launch it by searching for “LiakOs Wallpaper” or running
+`lpaper`.
+
 For Zed/clangd, `compile_flags.txt` supplies the GTK4 and libvips include flags
 from `pkg-config`. Regenerate it after changing development packages with:
 
@@ -31,7 +35,10 @@ Timing output is printed to the terminal with a `[timing-c]` prefix. **Apply wal
 `wal -i <selected-image>` and then `scripts/test-pywal-gtk-colors.sh` to update
 GTK3/GTK4 colors, write Thunar-specific GTK3 CSS, and configure Qt5/Qt6
 palettes through qt5ct/qt6ct. Deployment installs the color script under
-`$XDG_DATA_HOME/liakos/scripts/` for the installed `lpaper` binary.
+`$XDG_DATA_HOME/liakos/scripts/` for the installed `lpaper` binary. On
+Wayland, Pywal16 needs a wallpaper setter; install `swaybg` on Arch with
+`sudo pacman -S swaybg`. The app reports a missing Wayland wallpaper setter
+before changing colors.
 
 To benchmark one image resize without opening GTK:
 

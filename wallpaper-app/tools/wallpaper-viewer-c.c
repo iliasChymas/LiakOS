@@ -297,6 +297,25 @@ static void apply_clicked(GtkButton *button, gpointer data) {
   (void)button;
   Viewer *viewer = data;
   const char *path = g_ptr_array_index(viewer->images, viewer->selected);
+  if (g_getenv("WAYLAND_DISPLAY")) {
+    const char *setters[] = {"swww", "awww", "swaybg", "wbg", NULL};
+    gboolean found_setter = FALSE;
+    for (guint i = 0; setters[i]; i++) {
+      char *program = g_find_program_in_path(setters[i]);
+      if (program) {
+        found_setter = TRUE;
+        g_free(program);
+        break;
+      }
+    }
+    if (!found_setter) {
+      gtk_label_set_text(
+          viewer->status,
+          "Colors can update, but no Wayland wallpaper setter is installed. "
+          "Install swaybg: sudo pacman -S swaybg.");
+      return;
+    }
+  }
   char *script =
       g_canonicalize_filename("scripts/test-pywal-gtk-colors.sh", NULL);
   if (!g_file_test(script, G_FILE_TEST_IS_EXECUTABLE)) {

@@ -11,6 +11,9 @@ yay -S --needed aylurs-gtk-shell-git libastal-meta
 # pipewire-pulse provide audio support for desktop apps and the volume widget.
 sudo pacman -S --needed gtk4-layer-shell pipewire pipewire-audio pipewire-pulse wireplumber bluez bluez-utils util-linux
 
+# Wayland wallpaper setter used by Pywal16 and lpaper on Wayfire:
+sudo pacman -S --needed swaybg
+
 # Start Bluetooth once if the bar should control Bluetooth devices:
 sudo systemctl enable --now bluetooth.service
 

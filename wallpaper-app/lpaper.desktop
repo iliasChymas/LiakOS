@@ -1,0 +1,11 @@
+[Desktop Entry]
+Type=Application
+Name=Lpaper
+Comment=Browse wallpapers and update the desktop colors
+Exec=lpaper
+TryExec=lpaper
+Icon=lpaper
+Terminal=false
+Categories=Graphics;
+Keywords=wallpaper;background;pywal;theme;
+StartupNotify=true

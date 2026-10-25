@@ -14,7 +14,8 @@
 # C compiler and pkg-config
 # GTK 4.10+ development libraries
 # libvips development library
-# Pywal16 `wal` command for applying a selected image and generating colors
+# Pywal16 `wal` command and a Wayland wallpaper setter (swaybg, swww, awww, or
+# wbg) for applying a selected image and generating colors
 
 # Application launcher (app-launcher/)
 # C compiler and pkg-config

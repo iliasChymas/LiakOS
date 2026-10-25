@@ -58,6 +58,11 @@ set_wayfire_command_option "$WAYFIRE_CONFIG" binding_keybindings '<super> <shift
 set_wayfire_command_option "$WAYFIRE_CONFIG" command_keybindings 'lkeybinds'
 set_wayfire_command_option "$WAYFIRE_CONFIG" binding_displays '<super> <shift> KEY_D'
 set_wayfire_command_option "$WAYFIRE_CONFIG" command_displays 'ldisplays'
+set_wayfire_option "$WAYFIRE_CONFIG" core preferred_decoration_mode server
+set_wayfire_option "$WAYFIRE_CONFIG" decoration title_height 0
+set_wayfire_option "$WAYFIRE_CONFIG" decoration border_size 0
+AGS_ENTRY_URI=$(python3 -c 'from pathlib import Path; import sys; print(Path(sys.argv[1]).as_posix())' "$AGS_ENTRY")
+set_wayfire_option "$WAYFIRE_CONFIG" autostart bar "ags run '$AGS_ENTRY_URI'"
 
 if [ -n "$DEFAULT_BROWSER" ]; then
   case "$DEFAULT_BROWSER" in

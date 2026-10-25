@@ -12,39 +12,40 @@ backup_once() {
   printf 'Saved backup: %s\n' "$backup_file"
 }
 
-set_wayfire_command_option() {
+set_wayfire_option() {
   config_file=$1
-  option=$2
-  value=$3
+  section=$2
+  option=$3
+  value=$4
   temporary_config="$config_file.tmp"
 
-  awk -v option="$option" -v value="$value" '
-    /^\[command\][[:space:]]*$/ {
-      in_command = 1
-      have_command = 1
+  awk -v section="$section" -v option="$option" -v value="$value" '
+    $0 == "[" section "]" {
+      in_section = 1
+      have_section = 1
       print
       next
     }
     /^\[/ {
-      if (in_command && !updated) {
+      if (in_section && !updated) {
         print option " = " value
         updated = 1
       }
-      in_command = 0
+      in_section = 0
       print
       next
     }
-    in_command && $0 ~ "^[[:space:]]*" option "[[:space:]]*=" {
+    in_section && $0 ~ "^[[:space:]]*" option "[[:space:]]*=" {
       if (!updated) print option " = " value
       updated = 1
       next
     }
     { print }
     END {
-      if (in_command && !updated) print option " = " value
-      if (!have_command) {
+      if (in_section && !updated) print option " = " value
+      if (!have_section) {
         print ""
-        print "[command]"
+        print "[" section "]"
         print option " = " value
       }
     }
@@ -52,4 +53,8 @@ set_wayfire_command_option() {
 
   chmod --reference="$config_file" "$temporary_config" 2>/dev/null || true
   mv "$temporary_config" "$config_file"
+}
+
+set_wayfire_command_option() {
+  set_wayfire_option "$1" command "$2" "$3"
 }

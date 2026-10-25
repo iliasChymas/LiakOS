@@ -50,7 +50,8 @@ The main requirements are:
 - A C compiler, `pkg-config`, GTK4 development files, GTK4 Layer Shell, JSON-GLib,
   and GIO for the launcher.
 - GTK 4.10 or newer and libvips development files for `lpaper`.
-- Pywal16 (`wal`), jq, GTK3, qt5ct, and qt6ct for dynamic wallpaper colors.
+- Pywal16 (`wal`), `swaybg` for setting the Wayland wallpaper, jq, GTK3,
+  qt5ct, and qt6ct for dynamic wallpaper colors.
 - Thunar as the file manager; the wallpaper workflow generates its GTK3 CSS.
 - `xdg-utils` (`xdg-mime`), `gtk-launch`, and Python 3 for default-app Wayfire
   shortcuts managed by deployment.
@@ -101,7 +102,8 @@ configuration and assets:
   from any working directory.
 - The AGS bar as `$XDG_CONFIG_HOME/ags/app.tsx` (normally
   `~/.config/ags/app.tsx`). A pre-existing different bar is backed up once as
-  `app.tsx.bak`.
+  `app.tsx.bak`. Deployment also adds `ags run <installed app.tsx>` to
+  Wayfire's `[autostart]` section so the bar starts at login.
 - Bluetooth state icons into `$XDG_CONFIG_HOME/ags/icons/`.
 - The repository wallpapers into `$XDG_CONFIG_HOME/los/walls/` (normally
   `~/.config/los/walls/`). Files are copied additively; existing files in the
@@ -110,11 +112,14 @@ configuration and assets:
 - Wayfire browser and file-manager shortcuts in the existing Wayfire config.
   Existing configs are backed up once as `wayfire.ini.bak`. If there is no
   Wayfire config yet, deployment installs `config/wayfire.ini` first.
+- Wayfire-side decorations are set to server mode with title-bar and border
+  sizes set to zero. Clients that draw decorations themselves and do not honor
+  the Wayland decoration preference can still show their own title bars.
 
 Deployment reads the XDG browser default and uses Thunar for the file-manager
 shortcut. If you change the browser default, rerun deployment to update its
-shortcut. Reload or restart Wayfire to apply changed keybindings, and restart
-AGS to load a newly deployed bar.
+shortcut. Reload or restart Wayfire to apply changed keybindings or autostart
+entries, and restart AGS to load a newly deployed bar.
 
 ## Wayfire and default applications
 

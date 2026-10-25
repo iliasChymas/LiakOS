@@ -29,5 +29,23 @@ install -m 644 "$ROOT_DIR/keybindings-app/org.liakos.Keybindings.desktop" \
   "$APPLICATIONS_DIR/org.liakos.Keybindings.desktop"
 install -m 644 "$ROOT_DIR/monitor-app/org.liakos.Displays.desktop" \
   "$APPLICATIONS_DIR/org.liakos.Displays.desktop"
+install -m 644 "$ROOT_DIR/wallpaper-app/lpaper.desktop" \
+  "$APPLICATIONS_DIR/lpaper.desktop"
+install -D -m 644 "$ROOT_DIR/assets/icons/lpaper.svg" \
+  "$DATA_HOME/icons/hicolor/scalable/apps/lpaper.svg"
+install -D -m 644 "$ROOT_DIR/assets/icons/lpaper.png" \
+  "$DATA_HOME/icons/hicolor/128x128/apps/lpaper.png"
+if [ ! -f "$DATA_HOME/icons/hicolor/index.theme" ] &&
+   [ -r /usr/share/icons/hicolor/index.theme ]; then
+  install -D -m 644 /usr/share/icons/hicolor/index.theme \
+    "$DATA_HOME/icons/hicolor/index.theme"
+fi
+if command -v gtk-update-icon-cache >/dev/null 2>&1 &&
+   [ -f "$DATA_HOME/icons/hicolor/index.theme" ]; then
+  gtk-update-icon-cache -f "$DATA_HOME/icons/hicolor" >/dev/null 2>&1 || true
+fi
+if command -v update-desktop-database >/dev/null 2>&1; then
+  update-desktop-database "$APPLICATIONS_DIR" >/dev/null 2>&1 || true
+fi
 
 printf 'Installed LiakOs desktop entries to %s\n' "$APPLICATIONS_DIR"
