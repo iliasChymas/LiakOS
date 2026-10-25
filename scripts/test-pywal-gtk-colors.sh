@@ -6,17 +6,13 @@ cache_home="${XDG_CACHE_HOME:-$HOME/.cache}"
 palette_file="$cache_home/wal/colors.json"
 gtk3_file="$config_home/gtk-3.0/colors.css"
 gtk4_file="$config_home/gtk-4.0/colors.css"
-kdeglobals_file="$config_home/kdeglobals"
-color_schemes_dir="${XDG_DATA_HOME:-$HOME/.local/share}/color-schemes"
-qt_scheme_file="$color_schemes_dir/LiakOsPywalTest.colors"
+gtk3_user_css="$config_home/gtk-3.0/gtk.css"
+thunar_css_file="$config_home/gtk-3.0/thunar.css"
+qt5_config_dir="$config_home/qt5ct"
+qt6_config_dir="$config_home/qt6ct"
 
 if ! command -v jq >/dev/null 2>&1; then
   printf 'Error: jq is required to read %s\n' "$palette_file" >&2
-  exit 1
-fi
-
-if ! command -v kwriteconfig6 >/dev/null 2>&1; then
-  printf 'Error: kwriteconfig6 is required to apply the Qt color scheme\n' >&2
   exit 1
 fi
 
@@ -62,142 +58,168 @@ backup_once() {
   printf 'Backed up %s to %s\n' "$file" "${file}.bak"
 }
 
-to_rgb() {
+qt_color() {
   local hex="${1#\#}"
-  printf '%d,%d,%d' \
-    "$((16#${hex:0:2}))" \
-    "$((16#${hex:2:2}))" \
-    "$((16#${hex:4:2}))"
+  printf '#ff%s' "${hex,,}"
 }
 
-background_rgb="$(to_rgb "$background")"
-foreground_rgb="$(to_rgb "$foreground")"
-accent_rgb="$(to_rgb "$accent")"
-accent_alt_rgb="$(to_rgb "$accent_alt")"
-surface_rgb="$(to_rgb "$surface")"
-muted_rgb="$(to_rgb "$muted")"
-error_rgb="$(to_rgb "$error")"
-warning_rgb="$(to_rgb "$warning")"
-success_rgb="$(to_rgb "$success")"
+qt_colors() {
+  local text="$1" button="$2" muted_text="$3" highlight="$4"
+  local link="$5" alternate="$6" placeholder="$7"
+  printf '%s\n' "[ColorScheme]"
+  printf 'active_colors=%s\n' \
+    "$(qt_color "$text"), $(qt_color "$button"), $(qt_color "$button"), $(qt_color "$button"), $(qt_color "$muted_text"), $(qt_color "$muted_text"), $(qt_color "$text"), #ffffffff, $(qt_color "$text"), $(qt_color "$background"), $(qt_color "$background"), #ff000000, $(qt_color "$highlight"), $(qt_color "$text"), $(qt_color "$link"), $(qt_color "$alternate"), $(qt_color "$button"), $(qt_color "$text"), $(qt_color "$button"), $(qt_color "$text"), #80${placeholder#\#}, $(qt_color "$highlight")"
+  printf 'disabled_colors=%s\n' \
+    "$(qt_color "$muted_text"), $(qt_color "$button"), $(qt_color "$button"), $(qt_color "$button"), $(qt_color "$muted_text"), $(qt_color "$muted_text"), $(qt_color "$muted_text"), #ffffffff, $(qt_color "$muted_text"), $(qt_color "$background"), $(qt_color "$background"), #ff000000, #66${highlight#\#}, $(qt_color "$text"), $(qt_color "$muted_text"), $(qt_color "$muted_text"), $(qt_color "$button"), $(qt_color "$muted_text"), $(qt_color "$button"), $(qt_color "$muted_text"), #80${placeholder#\#}, #66${highlight#\#}"
+  printf 'inactive_colors=%s\n' \
+    "$(qt_color "$text"), $(qt_color "$button"), $(qt_color "$button"), $(qt_color "$button"), $(qt_color "$muted_text"), $(qt_color "$muted_text"), $(qt_color "$text"), #ffffffff, $(qt_color "$text"), $(qt_color "$background"), $(qt_color "$background"), #ff000000, $(qt_color "$highlight"), $(qt_color "$text"), $(qt_color "$link"), $(qt_color "$alternate"), $(qt_color "$button"), $(qt_color "$text"), $(qt_color "$button"), $(qt_color "$text"), #80${placeholder#\#}, $(qt_color "$highlight")"
+}
 
-write_qt_scheme() {
-  mkdir -p -- "$color_schemes_dir"
-  if [[ -e "$qt_scheme_file" ]]; then
-    backup_once "$qt_scheme_file"
+update_qtct_config() {
+  local config_file="$1" palette="$2" temporary
+  if [[ -e "$config_file" ]]; then
+    backup_once "$config_file"
   fi
+  temporary="$(mktemp "${config_file}.tmp.XXXXXX")"
+  if [[ -f "$config_file" ]]; then
+    awk -v palette="$palette" '
+      BEGIN { in_appearance = 0; seen_appearance = 0; path_written = 0; custom_written = 0 }
+      /^\[/ {
+        if (in_appearance) {
+          if (!path_written) print "color_scheme_path=" palette
+          if (!custom_written) print "custom_palette=true"
+        }
+        in_appearance = ($0 == "[Appearance]")
+        if (in_appearance) seen_appearance = 1
+        print
+        next
+      }
+      in_appearance && /^[[:space:]]*color_scheme_path=/ { print "color_scheme_path=" palette; path_written = 1; next }
+      in_appearance && /^[[:space:]]*custom_palette=/ { print "custom_palette=true"; custom_written = 1; next }
+      { print }
+      END {
+        if (in_appearance) {
+          if (!path_written) print "color_scheme_path=" palette
+          if (!custom_written) print "custom_palette=true"
+        } else if (!seen_appearance) {
+          print "[Appearance]"
+          print "color_scheme_path=" palette
+          print "custom_palette=true"
+        }
+      }
+    ' "$config_file" > "$temporary"
+  else
+    printf '[Appearance]\ncolor_scheme_path=%s\ncustom_palette=true\n' "$palette" > "$temporary"
+  fi
+  chmod 600 "$temporary"
+  mv -- "$temporary" "$config_file"
+}
 
+write_qt_palette() {
+  local config_dir="$1" config_file="$2"
+  local colors_file="$config_dir/colors/liakos-pywal.conf" temporary
+  mkdir -p -- "$config_dir/colors"
+  if [[ -e "$colors_file" ]]; then
+    backup_once "$colors_file"
+  fi
+  temporary="$(mktemp "${colors_file}.tmp.XXXXXX")"
+  qt_colors "$foreground" "$surface" "$muted" "$accent" "$accent_alt" "$surface" "$muted" > "$temporary"
+  chmod 644 "$temporary"
+  mv -- "$temporary" "$colors_file"
+  update_qtct_config "$config_file" "$colors_file"
+  printf 'Updated Qt palette: %s\n' "$colors_file"
+}
+
+write_qt_palettes() {
+  write_qt_palette "$qt5_config_dir" "$qt5_config_dir/qt5ct.conf"
+  write_qt_palette "$qt6_config_dir" "$qt6_config_dir/qt6ct.conf"
+}
+
+write_thunar_css() {
   local temporary
-  temporary="$(mktemp "${qt_scheme_file}.tmp.XXXXXX")"
+  if [[ -e "$thunar_css_file" ]]; then
+    backup_once "$thunar_css_file"
+  fi
+  temporary="$(mktemp "${thunar_css_file}.tmp.XXXXXX")"
   cat > "$temporary" <<EOF
-[General]
-Name=LiakOsPywalTest
-ColorScheme=LiakOsPywalTest
-shadeSortColumn=true
+/* LiakOs Pywal colors for Thunar's GTK3 widgets. */
+window.thunar,
+.thunar {
+  background-color: $background;
+  color: $foreground;
+}
 
-[Colors:Window]
-BackgroundNormal=$background_rgb
-BackgroundAlternate=$surface_rgb
-ForegroundNormal=$foreground_rgb
-ForegroundInactive=$muted_rgb
-ForegroundActive=$accent_rgb
-ForegroundLink=$accent_alt_rgb
-ForegroundVisited=$accent_rgb
-ForegroundNegative=$error_rgb
-ForegroundNeutral=$warning_rgb
-ForegroundPositive=$success_rgb
-DecorationFocus=$accent_rgb
-DecorationHover=$accent_alt_rgb
+window.thunar .standard-view,
+.thunar .standard-view,
+window.thunar .standard-view .view,
+.thunar .standard-view .view {
+  background-color: $background;
+  color: $foreground;
+}
 
-[Colors:View]
-BackgroundNormal=$background_rgb
-BackgroundAlternate=$surface_rgb
-ForegroundNormal=$foreground_rgb
-ForegroundInactive=$muted_rgb
-ForegroundActive=$accent_rgb
-ForegroundLink=$accent_alt_rgb
-ForegroundVisited=$accent_rgb
-ForegroundNegative=$error_rgb
-ForegroundNeutral=$warning_rgb
-ForegroundPositive=$success_rgb
-DecorationFocus=$accent_rgb
-DecorationHover=$accent_alt_rgb
+window.thunar .standard-view .view:selected,
+window.thunar .standard-view .view:selected:focus,
+.thunar .standard-view .view:selected,
+.thunar .standard-view .view:selected:focus {
+  background-color: $accent;
+  color: $foreground;
+}
 
-[Colors:Button]
-BackgroundNormal=$surface_rgb
-BackgroundAlternate=$background_rgb
-ForegroundNormal=$foreground_rgb
-ForegroundInactive=$muted_rgb
-ForegroundActive=$accent_rgb
-ForegroundLink=$accent_alt_rgb
-ForegroundVisited=$accent_rgb
-ForegroundNegative=$error_rgb
-ForegroundNeutral=$warning_rgb
-ForegroundPositive=$success_rgb
-DecorationFocus=$accent_rgb
-DecorationHover=$accent_alt_rgb
+window.thunar .sidebar,
+window.thunar .shortcuts-pane,
+.thunar .sidebar,
+.thunar .shortcuts-pane {
+  background-color: $surface;
+  color: $foreground;
+}
 
-[Colors:Selection]
-BackgroundNormal=$accent_rgb
-BackgroundAlternate=$accent_alt_rgb
-ForegroundNormal=$foreground_rgb
-ForegroundInactive=$foreground_rgb
-ForegroundActive=$foreground_rgb
-ForegroundLink=$foreground_rgb
-ForegroundVisited=$foreground_rgb
-ForegroundNegative=$error_rgb
-ForegroundNeutral=$warning_rgb
-ForegroundPositive=$success_rgb
-DecorationFocus=$accent_alt_rgb
-DecorationHover=$accent_alt_rgb
+window.thunar .sidebar row:selected,
+window.thunar .shortcuts-pane row:selected,
+.thunar .sidebar row:selected,
+.thunar .shortcuts-pane row:selected {
+  background-color: $accent;
+  color: $foreground;
+}
 
-[Colors:Tooltip]
-BackgroundNormal=$surface_rgb
-BackgroundAlternate=$background_rgb
-ForegroundNormal=$foreground_rgb
-ForegroundInactive=$muted_rgb
-ForegroundActive=$accent_rgb
-ForegroundLink=$accent_alt_rgb
-ForegroundVisited=$accent_rgb
-ForegroundNegative=$error_rgb
-ForegroundNeutral=$warning_rgb
-ForegroundPositive=$success_rgb
-DecorationFocus=$accent_rgb
-DecorationHover=$accent_alt_rgb
+window.thunar #location-toolbar,
+window.thunar toolbar,
+.thunar #location-toolbar,
+.thunar toolbar {
+  background-color: $surface;
+  color: $foreground;
+}
 
-[WM]
-activeBackground=$surface_rgb
-activeBlend=$background_rgb
-activeForeground=$foreground_rgb
-inactiveBackground=$background_rgb
-inactiveBlend=$background_rgb
-inactiveForeground=$muted_rgb
+window.thunar toolbar button:hover,
+.thunar toolbar button:hover {
+  background-color: $accent_alt;
+  color: $foreground;
+}
+
+window.thunar statusbar,
+.thunar statusbar {
+  background-color: $background;
+  color: $muted;
+}
 EOF
   chmod 644 "$temporary"
-  mv -- "$temporary" "$qt_scheme_file"
-  printf 'Generated Qt color scheme: %s\n' "$qt_scheme_file"
-}
+  mv -- "$temporary" "$thunar_css_file"
+  printf 'Updated Thunar GTK3 stylesheet: %s\n' "$thunar_css_file"
 
-apply_qt_scheme() {
-  if [[ -e "$kdeglobals_file" ]]; then
-    backup_once "$kdeglobals_file"
-  fi
-
-  local group=""
-  local line key value
-  while IFS= read -r line || [[ -n "$line" ]]; do
-    if [[ "$line" =~ ^\[(.*)\]$ ]]; then
-      group="${BASH_REMATCH[1]}"
-    elif [[ "$line" == *=* ]]; then
-      key="${line%%=*}"
-      value="${line#*=}"
-      case "$group" in
-        General|Colors:*|WM)
-          kwriteconfig6 --file "$kdeglobals_file" --group "$group" --key "$key" --notify "$value"
-          ;;
-      esac
+  if ! grep -Fqx "@import 'thunar.css';" "$gtk3_user_css" 2>/dev/null; then
+    if [[ -e "$gtk3_user_css" ]]; then
+      backup_once "$gtk3_user_css"
+      temporary="$(mktemp "${gtk3_user_css}.tmp.XXXXXX")"
+      {
+        printf "@import 'thunar.css';\n"
+        cat "$gtk3_user_css"
+      } > "$temporary"
+      chmod --reference="$gtk3_user_css" "$temporary"
+      mv -- "$temporary" "$gtk3_user_css"
+    else
+      printf "@import 'thunar.css';\n" > "$gtk3_user_css"
+      chmod 644 "$gtk3_user_css"
     fi
-  done < "$qt_scheme_file"
-  printf 'Applied Qt palette to %s\n' "$kdeglobals_file"
+  fi
 }
 
 rewrite_colors() {
@@ -260,6 +282,6 @@ rewrite_colors() {
 
 rewrite_colors "$gtk3_file"
 rewrite_colors "$gtk4_file"
-write_qt_scheme
-apply_qt_scheme
-printf 'Restart GTK and Qt apps to see the test colors.\n'
+write_qt_palettes
+write_thunar_css
+printf 'GTK3, GTK4, Thunar, Qt5, and Qt6 palettes updated. Restart apps to see the new colors.\n'

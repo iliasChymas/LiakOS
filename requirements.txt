@@ -7,6 +7,7 @@
 # libastal with AstalTray, AstalWp, and AstalBluetooth 0.1
 # BlueZ and rfkill for Bluetooth control
 # xdg-utils (`xdg-mime`) and GTK 3 (`gtk-launch`) for default-app Wayfire bindings
+# Thunar as the LiakOs file manager
 # PipeWire and WirePlumber for the bar's per-app audio and device controls
 
 # Wallpaper slideshow (wallpaper-app/)
@@ -21,12 +22,14 @@
 # JSON-GLib and GIO development libraries
 # Wayfire with `ipc` and `ipc-rules` plugins for focusing open applications
 
-# Wallpaper-derived bar colors
-# Pywal16, providing the `wal` command and ~/.cache/wal/colors.json
-# jq, used by scripts/test-pywal-gtk-colors.sh to read the generated palette
-# KDE Frameworks `kwriteconfig6`, used to apply the test palette to Qt apps
-# The bar watches that JSON file; the wallpaper workflow must run `wal` after
-# changing the wallpaper.
+# Wallpaper color theming (lpaper and scripts/test-pywal-gtk-colors.sh)
+# Pywal16 (`wal`) to set wallpapers and generate ~/.cache/wal/colors.json
+# jq to read the Pywal palette
+# GTK 3 and GTK 4 runtimes for GTK application colors
+# Thunar (GTK 3); the wallpaper script writes a Thunar-specific stylesheet
+# qt5ct and qt6ct for Qt 5/Qt 6 palette support outside Plasma/GNOME
+# Restart themed applications after applying a wallpaper to load new colors.
+# The AGS bar also watches ~/.cache/wal/colors.json.
 
 # Wayfire IPC wrapper (wayfire-ipc.ts)
 # Node.js >= 24, which can run the TypeScript wrapper with built-in type stripping

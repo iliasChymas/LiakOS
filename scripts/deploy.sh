@@ -43,7 +43,13 @@ install -m 644 "$ROOT_DIR/bar.tsx" "$AGS_ENTRY"
 # Bind Wayfire shortcuts to the desktop applications selected through XDG.
 # Resolve desktop IDs at deployment time so the keybinds launch those exact apps.
 DEFAULT_BROWSER=$(xdg-mime query default x-scheme-handler/https 2>/dev/null || true)
-DEFAULT_FILE_MANAGER=$(xdg-mime query default inode/directory 2>/dev/null || true)
+DEFAULT_FILE_MANAGER=thunar.desktop
+if command -v thunar >/dev/null 2>&1; then
+  xdg-mime default "$DEFAULT_FILE_MANAGER" inode/directory
+else
+  printf 'Thunar is required for the Super+E file-manager shortcut. Install Thunar first.\n' >&2
+  DEFAULT_FILE_MANAGER=
+fi
 if [ -n "$DEFAULT_BROWSER" ] && [ -n "$DEFAULT_FILE_MANAGER" ]; then
   case "$DEFAULT_BROWSER:$DEFAULT_FILE_MANAGER" in
     *[!A-Za-z0-9._:-]*)
@@ -101,10 +107,11 @@ if [ -n "$DEFAULT_BROWSER" ] && [ -n "$DEFAULT_FILE_MANAGER" ]; then
 
       set_wayfire_command_option binding_browser '<super> KEY_B'
       set_wayfire_command_option command_browser "gtk-launch '$DEFAULT_BROWSER'"
+      set_wayfire_command_option command_launcher 'env QT_QPA_PLATFORMTHEME=qt5ct:qt6ct llauncher'
       set_wayfire_command_option binding_file_manager '<super> KEY_E'
       set_wayfire_command_option command_file_manager "gtk-launch '$DEFAULT_FILE_MANAGER' '$HOME_URI'"
       printf 'Wayfire Super+B browser: %s\n' "$DEFAULT_BROWSER"
-      printf 'Wayfire Super+E file manager: %s\n' "$DEFAULT_FILE_MANAGER"
+      printf 'Wayfire Super+E file manager: Thunar (%s)\n' "$DEFAULT_FILE_MANAGER"
       ;;
   esac
 else

@@ -28,7 +28,9 @@ wallpaper-app/tools/update-clangd-flags.sh
 
 The run script compiles `lpaper` if it is missing or stale, then runs it.
 Timing output is printed to the terminal with a `[timing-c]` prefix. **Apply wallpaper** runs
-`wal -i <selected-image>` and then `scripts/test-pywal-gtk-colors.sh`.
+`wal -i <selected-image>` and then `scripts/test-pywal-gtk-colors.sh` to update
+GTK3/GTK4 colors, write Thunar-specific GTK3 CSS, and configure Qt5/Qt6
+palettes through qt5ct/qt6ct.
 
 To benchmark one image resize without opening GTK:
 

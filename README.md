@@ -46,14 +46,12 @@ The main requirements are:
 - A C compiler, `pkg-config`, GTK4 development files, GTK4 Layer Shell, JSON-GLib,
   and GIO for the launcher.
 - GTK 4.10 or newer and libvips development files for `lpaper`.
-- Pywal16 (`wal`) to apply wallpapers and generate `~/.cache/wal/colors.json`.
+- Pywal16 (`wal`), jq, GTK3, qt5ct, and qt6ct for dynamic wallpaper colors.
+- Thunar as the file manager; the wallpaper workflow generates its GTK3 CSS.
 - `xdg-utils` (`xdg-mime`), `gtk-launch`, and Python 3 for default-app Wayfire
   shortcuts managed by deployment.
 - Node.js 24 or newer, `wf-ipcli` 0.1.8 or newer, Python 3, and PyWayfire for
   `wayfire-ipc.ts`.
-- `jq` and KDE Frameworks' `kwriteconfig6` for the GTK/Qt palette script at
-  `scripts/test-pywal-gtk-colors.sh`.
-
 The `requirements.txt` file has additional notes for individual features and
 optional Wayfire plugins.
 
@@ -90,14 +88,15 @@ Deployment builds both C apps, then installs:
 - The repository wallpapers into `$XDG_CONFIG_HOME/los/walls/` (normally
   `~/.config/los/walls/`). Files are copied additively; existing files in the
   target are not removed.
+- Thunar as the XDG default for `inode/directory` and for the Super+E shortcut.
 - Wayfire browser and file-manager shortcuts in the existing Wayfire config.
   Existing configs are backed up once as `wayfire.ini.bak`. If there is no
   Wayfire config yet, deployment installs `config/wayfire.ini` first.
 
-Deployment reads the XDG defaults using `xdg-mime`, then writes those desktop
-entry IDs into the Wayfire keybinding commands. If you change the defaults,
-rerun deployment to update the shortcuts. Reload or restart Wayfire to apply
-changed keybindings, and restart AGS to load a newly deployed bar.
+Deployment reads the XDG browser default and uses Thunar for the file-manager
+shortcut. If you change the browser default, rerun deployment to update its
+shortcut. Reload or restart Wayfire to apply changed keybindings, and restart
+AGS to load a newly deployed bar.
 
 ## Wayfire and default applications
 
@@ -113,7 +112,7 @@ The current project shortcuts are:
 | Super+Enter | Open Ghostty |
 | Super+B | Open the default browser (deployment resolves the XDG browser) |
 | Super+Shift+Enter | Open `llauncher` |
-| Super+E | Open the default file manager in the home directory |
+| Super+E | Open Thunar in the home directory |
 | Super+F | Toggle fullscreen for the focused window |
 | Super+O | Focus the next output |
 | Super+Shift+O | Move/focus a window on the next output |
@@ -137,15 +136,16 @@ xdg-mime query default x-scheme-handler/https
 xdg-mime query default inode/directory
 ```
 
-Change them with `xdg-mime default DESKTOP_ID MIME_TYPE`, for example:
+Deployment sets Thunar as the file-manager default. Change it manually with
+`xdg-mime default DESKTOP_ID MIME_TYPE`, for example:
 
 ```sh
 xdg-mime default brave-browser.desktop x-scheme-handler/https
-xdg-mime default org.kde.dolphin.desktop inode/directory
+xdg-mime default thunar.desktop inode/directory
 ```
 
-The browser shortcut uses the HTTPS default. Super+E uses the default
-`inode/directory` application and passes it the home directory.
+The browser shortcut uses the HTTPS default. Super+E launches Thunar and passes
+it the home directory.
 
 ## AGS bar
 
@@ -201,11 +201,12 @@ different folder into the same picker. Folder scanning is non-recursive and
 supports BMP, GIF, JPEG, PNG, TIFF, and WebP images.
 
 Click **Apply wallpaper** to run `wal -i` for the selected image and then run
-`scripts/test-pywal-gtk-colors.sh`. That script rewrites the configured GTK3
-and GTK4 color files and creates/applies a test Qt color scheme through
-`kwriteconfig6`. It keeps backups of existing files and prints a reminder to
-restart GTK/Qt apps before they show the new colors. This is a palette test
-workflow, not a
+`scripts/test-pywal-gtk-colors.sh`. It updates GTK3 and GTK4 palettes, writes
+Thunar-only rules to `~/.config/gtk-3.0/thunar.css`, and configures qt5ct/qt6ct
+palettes. The GTK3 user stylesheet imports the Thunar rules. LiakOs selects
+`QT_QPA_PLATFORMTHEME=qt5ct:qt6ct` for apps launched by its Wayfire launcher,
+so Qt platform-theme selection stays separate from other desktop sessions.
+Restart apps to see the new colors. This is a palette workflow, not a
 general-purpose theme manager yet.
 
 See [`wallpaper-app/README.md`](wallpaper-app/README.md) for C build details and
@@ -221,8 +222,8 @@ wal -i ~/Pictures/example-wallpaper.jpg
 
 Pywal writes colors to `~/.cache/wal/colors.json`. The AGS bar watches that
 file. `lpaper` also runs Pywal when **Apply wallpaper** is selected, then runs
-the GTK/Qt test script. GTK and Qt applications may need a restart to pick up
-their generated colors.
+the GTK/Qt color script. It generates Thunar's GTK3 CSS and Qt5/Qt6 palettes
+alongside the GTK color files. Restart applications to pick up new colors.
 
 ## Wayfire IPC wrapper
 
@@ -249,8 +250,8 @@ subscriptions.
 - `tsconfig.json`, `env.d.ts`, and `@girs/` — AGS/GJS TypeScript editor types.
 - `app-launcher/compile_flags.txt` and
   `wallpaper-app/compile_flags.txt` — clangd include/compiler flags.
-- `scripts/test-pywal-gtk-colors.sh` — test application of Pywal colors to GTK
-  and Qt.
+- `scripts/test-pywal-gtk-colors.sh` — apply Pywal colors to GTK3, GTK4, Qt5,
+  and Qt6.
 - `wallpaper-app/tools/resize-test.c` — standalone image-resize benchmark.
 
 Refresh clangd flags after installing or changing development packages with:
