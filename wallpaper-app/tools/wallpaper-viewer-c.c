@@ -24,8 +24,11 @@ typedef struct {
   GtkWidget *next_button;
   GtkGrid *grid;
   GtkWidget *window;
+  GtkWindow *folders_window;
+  GtkListBox *folders_list;
   GThreadPool *workers;
-  char *directory;
+  GPtrArray *directories;
+  char *default_directory;
   guint selected;
   guint completed;
   guint generation;
@@ -54,6 +57,10 @@ typedef struct {
 } ApplyJob;
 
 static Viewer *active_viewer;
+
+static void reload_wallpapers(Viewer *viewer);
+static void refresh_folder_list(Viewer *viewer);
+static void remove_folder_action(Viewer *viewer, GtkButton *button);
 
 static double elapsed_ms(struct timespec start, struct timespec end) {
   return (end.tv_sec - start.tv_sec) * 1000.0 +
@@ -102,6 +109,69 @@ static GPtrArray *find_images(const char *directory) {
   g_dir_close(dir);
   g_ptr_array_sort(images, compare_paths);
   return images;
+}
+
+static char *folders_config_path(void) {
+  return g_build_filename(g_get_user_config_dir(), "los",
+                          "wallpaper-folders.ini", NULL);
+}
+
+static gboolean directory_is_listed(Viewer *viewer, const char *directory) {
+  char *canonical = g_canonicalize_filename(directory, NULL);
+  gboolean found = FALSE;
+  for (guint i = 0; i < viewer->directories->len; i++) {
+    char *existing = g_canonicalize_filename(
+        g_ptr_array_index(viewer->directories, i), NULL);
+    found = g_strcmp0(existing, canonical) == 0;
+    g_free(existing);
+    if (found)
+      break;
+  }
+  g_free(canonical);
+  return found;
+}
+
+static void save_directories(Viewer *viewer) {
+  GKeyFile *key_file = g_key_file_new();
+  if (viewer->directories->len > 1) {
+    gsize count = viewer->directories->len - 1;
+    const char **paths = g_new(const char *, count);
+    for (gsize i = 0; i < count; i++)
+      paths[i] = g_ptr_array_index(viewer->directories, i + 1);
+    g_key_file_set_string_list(key_file, "wallpapers", "folders", paths,
+                               count);
+    g_free(paths);
+  }
+  gsize length = 0;
+  char *contents = g_key_file_to_data(key_file, &length, NULL);
+  char *path = folders_config_path();
+  char *parent = g_path_get_dirname(path);
+  if (g_mkdir_with_parents(parent, 0700) != 0 ||
+      !g_file_set_contents(path, contents, length, NULL))
+    g_warning("Could not save wallpaper folders to %s", path);
+  g_free(parent);
+  g_free(path);
+  g_free(contents);
+  g_key_file_unref(key_file);
+}
+
+static void load_saved_directories(Viewer *viewer) {
+  char *path = folders_config_path();
+  GKeyFile *key_file = g_key_file_new();
+  if (g_key_file_load_from_file(key_file, path, G_KEY_FILE_NONE, NULL)) {
+    gsize count = 0;
+    char **paths = g_key_file_get_string_list(
+        key_file, "wallpapers", "folders", &count, NULL);
+    for (gsize i = 0; paths && i < count; i++) {
+      if (g_file_test(paths[i], G_FILE_TEST_IS_DIR) &&
+          !directory_is_listed(viewer, paths[i]))
+        g_ptr_array_add(viewer->directories,
+                        g_canonicalize_filename(paths[i], NULL));
+    }
+    g_strfreev(paths);
+  }
+  g_key_file_unref(key_file);
+  g_free(path);
 }
 
 static void show_current(Viewer *viewer) {
@@ -427,22 +497,37 @@ static void populate_thumbnail_grid(Viewer *viewer) {
   }
 }
 
-static void load_directory(Viewer *viewer, const char *directory) {
+static void reload_wallpapers(Viewer *viewer) {
   viewer->generation++;
   viewer->completed = 0;
   viewer->selected = 0;
   clear_thumbnail_grid(viewer);
   g_ptr_array_unref(viewer->images);
-  viewer->images = find_images(directory);
-  g_free(viewer->directory);
-  viewer->directory = g_strdup(directory);
+  viewer->images = g_ptr_array_new_with_free_func(g_free);
+  GHashTable *seen = g_hash_table_new_full(g_str_hash, g_str_equal, g_free,
+                                           NULL);
+  for (guint i = 0; i < viewer->directories->len; i++) {
+    const char *directory = g_ptr_array_index(viewer->directories, i);
+    GPtrArray *found = find_images(directory);
+    for (guint j = 0; j < found->len; j++) {
+      char *path = g_canonicalize_filename(g_ptr_array_index(found, j), NULL);
+      if (g_hash_table_add(seen, g_strdup(path)))
+        g_ptr_array_add(viewer->images, path);
+      else
+        g_free(path);
+    }
+    g_ptr_array_unref(found);
+  }
+  g_hash_table_unref(seen);
+  g_ptr_array_sort(viewer->images, compare_paths);
 
   gboolean has_images = viewer->images->len > 0;
   gtk_widget_set_sensitive(viewer->previous_button, has_images);
   gtk_widget_set_sensitive(viewer->next_button, has_images);
   gtk_widget_set_sensitive(GTK_WIDGET(viewer->apply_button), has_images);
   if (!has_images) {
-    char *message = g_strdup_printf("No images found in %s", directory);
+    char *message = g_strdup_printf("No images found in %u wallpaper folders",
+                                    viewer->directories->len);
     gtk_label_set_text(viewer->status, message);
     g_free(message);
     gtk_label_set_text(viewer->caption, "");
@@ -455,18 +540,67 @@ static void load_directory(Viewer *viewer, const char *directory) {
   start_thumbnails(viewer);
 }
 
-static void folder_dialog_finish(GObject *source, GAsyncResult *result,
-                                 gpointer data) {
+static void refresh_folder_list(Viewer *viewer) {
+  GtkWidget *child = gtk_widget_get_first_child(GTK_WIDGET(viewer->folders_list));
+  while (child) {
+    GtkWidget *next = gtk_widget_get_next_sibling(child);
+    gtk_list_box_remove(viewer->folders_list, child);
+    child = next;
+  }
+  for (guint i = 0; i < viewer->directories->len; i++) {
+    const char *path = g_ptr_array_index(viewer->directories, i);
+    GtkWidget *row = gtk_box_new(GTK_ORIENTATION_HORIZONTAL, 12);
+    GtkWidget *label = gtk_label_new(path);
+    gtk_label_set_xalign(GTK_LABEL(label), 0);
+    gtk_label_set_ellipsize(GTK_LABEL(label), PANGO_ELLIPSIZE_MIDDLE);
+    gtk_widget_set_hexpand(label, TRUE);
+    gtk_box_append(GTK_BOX(row), label);
+    if (i == 0) {
+      GtkWidget *badge = gtk_label_new("Current");
+      gtk_widget_add_css_class(badge, "dim-label");
+      gtk_box_append(GTK_BOX(row), badge);
+    } else {
+      GtkWidget *remove = gtk_button_new_from_icon_name("user-trash-symbolic");
+      gtk_widget_set_tooltip_text(remove, "Remove folder");
+      g_object_set_data(G_OBJECT(remove), "folder-index",
+                        GUINT_TO_POINTER(i));
+      g_signal_connect_swapped(remove, "clicked",
+                               G_CALLBACK(remove_folder_action), viewer);
+      gtk_box_append(GTK_BOX(row), remove);
+    }
+    gtk_list_box_append(viewer->folders_list, row);
+  }
+}
+
+static void remove_folder_action(Viewer *viewer, GtkButton *button) {
+  guint index = GPOINTER_TO_UINT(
+      g_object_get_data(G_OBJECT(button), "folder-index"));
+  if (index == 0 || index >= viewer->directories->len)
+    return;
+  g_ptr_array_remove_index(viewer->directories, index);
+  save_directories(viewer);
+  refresh_folder_list(viewer);
+  reload_wallpapers(viewer);
+}
+
+static void add_folder_dialog_finish(GObject *source, GAsyncResult *result,
+                                     gpointer data) {
   Viewer *viewer = data;
   GtkFileDialog *dialog = GTK_FILE_DIALOG(source);
   GError *error = NULL;
   GFile *folder = gtk_file_dialog_select_folder_finish(dialog, result, &error);
   if (folder) {
     char *path = g_file_get_path(folder);
-    if (path) {
-      load_directory(viewer, path);
-      g_free(path);
+    if (path && !directory_is_listed(viewer, path)) {
+      g_ptr_array_add(viewer->directories, g_canonicalize_filename(path, NULL));
+      save_directories(viewer);
+      refresh_folder_list(viewer);
+      reload_wallpapers(viewer);
+    } else if (path) {
+      gtk_label_set_text(viewer->status, "That folder is already in the list.");
     }
+    if (path)
+      g_free(path);
     g_object_unref(folder);
   } else if (error && !g_error_matches(error, GTK_DIALOG_ERROR,
                                        GTK_DIALOG_ERROR_DISMISSED) &&
@@ -477,20 +611,60 @@ static void folder_dialog_finish(GObject *source, GAsyncResult *result,
   g_object_unref(source);
 }
 
-static void open_folder_action(GSimpleAction *action, GVariant *parameter,
-                               gpointer data) {
+static void add_folder_clicked(GtkButton *button, gpointer data) {
+  (void)button;
+  Viewer *viewer = data;
+  GtkFileDialog *dialog = gtk_file_dialog_new();
+  gtk_file_dialog_set_title(dialog, "Add wallpaper folder");
+  gtk_file_dialog_set_accept_label(dialog, "Add folder");
+  gtk_file_dialog_set_modal(dialog, TRUE);
+  const char *initial = viewer->directories->len
+                            ? g_ptr_array_index(viewer->directories, 0)
+                            : viewer->default_directory;
+  GFile *current = g_file_new_for_path(initial);
+  gtk_file_dialog_set_initial_folder(dialog, current);
+  g_object_unref(current);
+  gtk_file_dialog_select_folder(dialog, viewer->folders_window, NULL,
+                                add_folder_dialog_finish, viewer);
+}
+
+static void open_folders_action(GSimpleAction *action, GVariant *parameter,
+                                gpointer data) {
   (void)action;
   (void)parameter;
   Viewer *viewer = data;
-  GtkFileDialog *dialog = gtk_file_dialog_new();
-  gtk_file_dialog_set_title(dialog, "Open wallpaper folder");
-  gtk_file_dialog_set_accept_label(dialog, "Open folder");
-  gtk_file_dialog_set_modal(dialog, TRUE);
-  GFile *current = g_file_new_for_path(viewer->directory);
-  gtk_file_dialog_set_initial_folder(dialog, current);
-  g_object_unref(current);
-  gtk_file_dialog_select_folder(dialog, GTK_WINDOW(viewer->window), NULL,
-                                folder_dialog_finish, viewer);
+  if (!viewer->folders_window) {
+    GtkWidget *content = gtk_box_new(GTK_ORIENTATION_VERTICAL, 12);
+    gtk_widget_set_margin_top(content, 16);
+    gtk_widget_set_margin_bottom(content, 16);
+    gtk_widget_set_margin_start(content, 16);
+    gtk_widget_set_margin_end(content, 16);
+    GtkWidget *explanation = gtk_label_new(
+        "Wallpapers are scanned from these folders. The current location stays first.");
+    gtk_label_set_wrap(GTK_LABEL(explanation), TRUE);
+    gtk_label_set_xalign(GTK_LABEL(explanation), 0);
+    gtk_box_append(GTK_BOX(content), explanation);
+    viewer->folders_list = GTK_LIST_BOX(gtk_list_box_new());
+    gtk_list_box_set_selection_mode(viewer->folders_list, GTK_SELECTION_NONE);
+    gtk_box_append(GTK_BOX(content), GTK_WIDGET(viewer->folders_list));
+    GtkWidget *add = gtk_button_new_with_label("Add folder…");
+    gtk_widget_set_halign(add, GTK_ALIGN_END);
+    g_signal_connect(add, "clicked", G_CALLBACK(add_folder_clicked), viewer);
+    gtk_box_append(GTK_BOX(content), add);
+    viewer->folders_window = GTK_WINDOW(gtk_window_new());
+    gtk_window_set_title(viewer->folders_window, "Wallpaper folders");
+    gtk_window_set_default_size(viewer->folders_window, 560, 280);
+    gtk_window_set_transient_for(viewer->folders_window,
+                                 GTK_WINDOW(viewer->window));
+    gtk_window_set_modal(viewer->folders_window, TRUE);
+    gtk_window_set_child(viewer->folders_window, content);
+    g_object_add_weak_pointer(G_OBJECT(viewer->folders_window),
+                              (gpointer *)&viewer->folders_window);
+    g_object_add_weak_pointer(G_OBJECT(viewer->folders_window),
+                              (gpointer *)&viewer->folders_list);
+  }
+  refresh_folder_list(viewer);
+  gtk_window_present(viewer->folders_window);
 }
 
 static void build_ui(GtkApplication *application, gpointer user_data) {
@@ -501,6 +675,7 @@ static void build_ui(GtkApplication *application, gpointer user_data) {
   viewer->images = g_ptr_array_new_with_free_func(g_free);
   viewer->buttons = g_ptr_array_new();
   viewer->thumbnail_pictures = g_ptr_array_new();
+  viewer->directories = g_ptr_array_new_with_free_func(g_free);
   viewer->preview = GTK_PICTURE(gtk_picture_new());
   gtk_widget_set_hexpand(GTK_WIDGET(viewer->preview), TRUE);
   gtk_widget_set_vexpand(GTK_WIDGET(viewer->preview), TRUE);
@@ -560,18 +735,20 @@ static void build_ui(GtkApplication *application, gpointer user_data) {
                             gtk_image_new_from_icon_name("open-menu-symbolic"));
   gtk_widget_set_tooltip_text(menu_button, "Wallpaper options");
   GMenu *menu = g_menu_new();
-  g_menu_append(menu, "Open another folder…", "win.open-folder");
+  g_menu_append(menu, "Wallpaper folders…", "win.wallpaper-folders");
   gtk_menu_button_set_menu_model(GTK_MENU_BUTTON(menu_button),
                                  G_MENU_MODEL(menu));
   gtk_header_bar_pack_end(GTK_HEADER_BAR(header), menu_button);
   gtk_window_set_titlebar(GTK_WINDOW(viewer->window), header);
   g_object_unref(menu);
 
-  GSimpleAction *open_folder = g_simple_action_new("open-folder", NULL);
-  g_signal_connect(open_folder, "activate", G_CALLBACK(open_folder_action),
-                   viewer);
-  g_action_map_add_action(G_ACTION_MAP(viewer->window), G_ACTION(open_folder));
-  g_object_unref(open_folder);
+  GSimpleAction *folders_action =
+      g_simple_action_new("wallpaper-folders", NULL);
+  g_signal_connect(folders_action, "activate",
+                   G_CALLBACK(open_folders_action), viewer);
+  g_action_map_add_action(G_ACTION_MAP(viewer->window),
+                          G_ACTION(folders_action));
+  g_object_unref(folders_action);
 
   g_signal_connect(viewer->previous_button, "clicked",
                    G_CALLBACK(previous_clicked), viewer);
@@ -580,14 +757,15 @@ static void build_ui(GtkApplication *application, gpointer user_data) {
   g_signal_connect(viewer->apply_button, "clicked", G_CALLBACK(apply_clicked),
                    viewer);
 
-  char *directory =
+  viewer->default_directory =
       g_build_filename(g_get_user_config_dir(), "los", "walls", NULL);
-  viewer->directory = g_strdup(directory);
+  g_ptr_array_add(viewer->directories,
+                  g_canonicalize_filename(viewer->default_directory, NULL));
+  load_saved_directories(viewer);
   gtk_window_present(GTK_WINDOW(viewer->window));
   g_print("[timing-c] window-presented total_ui_ms=%.3f\n",
           (g_get_monotonic_time() - ui_started) / 1000.0);
-  load_directory(viewer, directory);
-  g_free(directory);
+  reload_wallpapers(viewer);
 }
 
 int main(int argc, char **argv) {

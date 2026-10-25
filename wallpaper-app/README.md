@@ -2,8 +2,10 @@
 
 The viewer starts in `$XDG_CONFIG_HOME/los/walls` (normally
 `~/.config/los/walls`), provides Previous/Next navigation, and shows a
-vertically scrollable five-column thumbnail grid. Use the menu in the
-top-right header bar to open another wallpaper folder. It generates
+vertically scrollable five-column thumbnail grid. Use **Wallpaper folders…**
+in the top-right menu to add or remove folders scanned by the picker. The
+current location stays first and cannot be removed; extra locations are saved
+in `$XDG_CONFIG_HOME/los/wallpaper-folders.ini`. It generates
 256×144 thumbnails in the background with libvips and keeps them in memory;
 it does not create a thumbnail cache on disk.
 
