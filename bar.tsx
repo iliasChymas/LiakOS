@@ -66,6 +66,13 @@ function barCss(palette: Palette) {
       box-shadow: 0 6px 22px rgba(0, 0, 0, 0.28);
     }
 
+    .brand {
+      padding: 0 8px;
+      color: ${palette.accent};
+      font-size: 12px;
+      font-weight: 700;
+    }
+
     .system-tray {
       padding: 0 2px;
     }
@@ -994,7 +1001,9 @@ app.start({
         anchor={TOP | LEFT | RIGHT}
       >
         <centerbox class="bar">
-          <box $type="start" />
+          <box $type="start" class="brand">
+            <label label="LiakOS" />
+          </box>
           {/* TODO: Add Wayfire desktop/workspace handling when working in a Wayfire session. */}
           <box $type="center">
             <DateControl />

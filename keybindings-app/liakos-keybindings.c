@@ -472,35 +472,35 @@ static void apply_css(void) {
         ".shortcut-preview { background: %s; color: %s; padding: 18px; border-radius: 10px; font-size: 19px; font-weight: 700; }"
         ".record-heading { font-size: 20px; font-weight: 700; }"
         "button { border-radius: 9px; background: %s; color: %s; border: 1px solid %s; }"
-        "button:hover { background: %s; color: %s; }"
-        "button:active, button:checked { background: %s; color: %s; }"
-        "button.suggested-action { background: %s; color: %s; }"
-        "button.suggested-action:hover { background: %s; }"
+        "button:hover { background: alpha(%s, 0.12); color: %s; }"
+        "button:active, button:checked { background: alpha(%s, 0.22); color: %s; }"
+        "button.suggested-action { background: %s; color: %s; border-color: %s; }"
+        "button.suggested-action:hover { background: alpha(%s, 0.16); }"
         "entry, dropdown { border-radius: 9px; background: %s; color: %s; border: 1px solid %s; caret-color: %s; }"
-        "entry:focus, dropdown:focus { border-color: %s; box-shadow: 0 0 0 2px %s; }"
-        "entry selection { background: %s; color: %s; }"
+        "entry:focus, dropdown:focus { border-color: %s; box-shadow: 0 0 0 2px alpha(%s, 0.20); }"
+        "entry selection { background: alpha(%s, 0.24); color: %s; }"
         "popover, popover contents { background: %s; color: %s; border: 1px solid %s; }"
         "popover listview, popover row { background: %s; color: %s; }"
-        "popover row:hover, popover row:selected { background: %s; color: %s; }"
+        "popover row:hover, popover row:selected { background: alpha(%s, 0.16); color: %s; }"
         "scrolledwindow, list { background: transparent; }"
         "list row { background: %s; border: 1px solid %s; border-radius: 12px; margin: 5px 18px; }"
-        "list row:hover { background: %s; border-color: %s; }"
+        "list row:hover { background: alpha(%s, 0.10); border-color: %s; }"
         "scrollbar trough { background: %s; border-radius: 8px; }"
         "scrollbar slider { min-width: 8px; min-height: 8px; background: %s; border-radius: 8px; }"
-        "scrollbar slider:hover { background: %s; }"
+        "scrollbar slider:hover { background: alpha(%s, 0.55); }"
         "*:focus-visible { outline-color: %s; }",
         p.background, p.foreground, p.surface, p.muted, p.muted,
         p.surface, p.accent,
-        p.surface, p.foreground, p.secondary, p.secondary, p.foreground,
-        p.accent, p.background,
-        p.accent, p.background, p.secondary,
+        p.surface, p.foreground, p.muted, p.accent, p.foreground,
+        p.accent, p.accent, p.foreground,
+        p.surface, p.accent, p.accent, p.accent,
         p.surface, p.foreground, p.secondary, p.accent, p.accent,
-        p.accent, p.background,
+        p.accent, p.foreground,
         p.surface, p.foreground, p.secondary,
         p.surface, p.foreground,
-        p.accent, p.background,
-        p.surface, p.secondary, p.accent, p.accent, p.background,
-        p.surface, p.secondary, p.accent, p.accent);
+        p.accent, p.foreground,
+        p.surface, p.muted, p.accent, p.accent,
+        p.surface, p.muted, p.accent, p.accent);
     if (!app_css_provider) {
         app_css_provider = gtk_css_provider_new();
         gtk_style_context_add_provider_for_display(gdk_display_get_default(), GTK_STYLE_PROVIDER(app_css_provider), GTK_STYLE_PROVIDER_PRIORITY_APPLICATION);
