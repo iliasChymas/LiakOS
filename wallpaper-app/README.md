@@ -36,9 +36,15 @@ The run script compiles `lpaper` if it is missing or stale, then runs it.
 Timing output is printed to the terminal with a `[timing-c]` prefix. **Apply wallpaper** runs
 `wal -i <selected-image>` and then `scripts/test-pywal-gtk-colors.sh` to update
 GTK3/GTK4 colors, write Thunar-specific GTK3 CSS, and configure Qt5/Qt6
-palettes through qt5ct/qt6ct. Deployment installs the color script under
-`$XDG_DATA_HOME/liakos/scripts/` for the installed `lpaper` binary. On
-Wayland, Pywal16 needs a wallpaper setter; install `swaybg` on Arch with
+palettes through qt5ct/qt6ct. It also writes a persistent Ghostty theme under
+`$XDG_CONFIG_HOME/ghostty/themes/` and sets Ghostty's `theme` option in its
+configuration. Deployment installs the color script under
+`$XDG_DATA_HOME/liakos/scripts/` for the installed `lpaper` binary. Applying a
+wallpaper also reloads a running Ghostty instance so newly opened windows use
+the updated theme and sends live color sequences to its open terminal sessions.
+It runs `systemctl reload --user app-com.mitchellh.ghostty.service` after
+writing the theme. On Wayland, Pywal16 needs a wallpaper setter; install
+`swaybg` on Arch with
 `sudo pacman -S swaybg`. The app reports a missing Wayland wallpaper setter
 before changing colors.
 

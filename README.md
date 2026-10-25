@@ -246,10 +246,17 @@ supports BMP, GIF, JPEG, PNG, TIFF, and WebP images.
 Click **Apply wallpaper** to run `wal -i` for the selected image and then run
 `scripts/test-pywal-gtk-colors.sh`. It updates GTK3 and GTK4 palettes, writes
 Thunar-only rules to `~/.config/gtk-3.0/thunar.css`, and configures qt5ct/qt6ct
-palettes. The GTK3 user stylesheet imports the Thunar rules. LiakOs selects
+palettes. It also writes a Pywal theme under `~/.config/ghostty/themes/` and
+sets Ghostty's `theme` option to that file, so new Ghostty windows keep the
+selected colors after restart. The script backs up an existing Ghostty config
+before changing its theme. It also sends Pywal's live OSC color sequences to
+all open Ghostty terminal sessions, so they update immediately, and reloads the
+Ghostty user service with `systemctl reload --user
+app-com.mitchellh.ghostty.service` so open terminals and subsequent windows
+pick up the new theme. The GTK3 user stylesheet imports the Thunar rules. LiakOs selects
 `QT_QPA_PLATFORMTHEME=qt5ct:qt6ct` for apps launched by its Wayfire launcher,
 so Qt platform-theme selection stays separate from other desktop sessions.
-Restart apps to see the new colors. This is a palette workflow, not a
+Restart other applications to see the new colors. This is a palette workflow, not a
 general-purpose theme manager yet.
 
 See [`wallpaper-app/README.md`](wallpaper-app/README.md) for C build details and
@@ -265,8 +272,10 @@ wal -i ~/Pictures/example-wallpaper.jpg
 
 Pywal writes colors to `~/.cache/wal/colors.json`. The AGS bar watches that
 file. `lpaper` also runs Pywal when **Apply wallpaper** is selected, then runs
-the GTK/Qt color script. It generates Thunar's GTK3 CSS and Qt5/Qt6 palettes
-alongside the GTK color files. Restart applications to pick up new colors.
+the GTK/Qt color script. It generates Thunar's GTK3 CSS, Qt5/Qt6 palettes, and
+a persistent Ghostty theme alongside the GTK color files, then sends live color
+sequences to the invoking terminal. New Ghostty windows keep the selected
+colors after restart.
 
 ## Wayfire IPC wrapper
 
