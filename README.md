@@ -170,6 +170,19 @@ Wayland output management; the command runs behind the GTK interface. Install
 the package listed in `requirements.txt` if the app reports that the backend is
 missing.
 
+LiakOS Settings is the GTK4 hub for desktop preferences. Its welcome page
+launches the wallpaper picker and shortcut editor. Updates lists pending
+pacman, AUR, and Flatpak updates in a table with individual actions and an
+Update all button. Update actions open an interactive terminal; repository
+package actions perform a full system upgrade, while AUR and Flatpak items
+can be updated individually. Flatpak checks cover user and system installations.
+Refresh the list after an update finishes. Displays summarizes
+connected outputs and opens the existing display setup app. Mouse & Touchpad
+edits active Wayfire input options and keeps a one-time `.liakos-backup` copy
+beside the config. Sound controls app streams and output/input devices through
+the same Astal WirePlumber integration as the bar. About shows system details
+in a compact table. The app uses the Pywal palette and watches for color changes.
+
 Wayfire shortcuts and system defaults are separate. The active browser and file
 manager defaults are XDG MIME associations, usually stored in
 `~/.config/mimeapps.list`. Check them with:

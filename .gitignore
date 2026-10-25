@@ -4,3 +4,5 @@ node_modules/
 /keybindings-app/build/
 /monitor-app/build/
 /wallpaper-app/build/
+
+/settings-app/build/

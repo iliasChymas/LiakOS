@@ -1,0 +1,8 @@
+[Desktop Entry]
+Type=Application
+Name=LiakOS Settings
+Comment=Configure the LiakOs desktop
+Exec=lsettings
+Icon=preferences-system
+Terminal=false
+Categories=Settings;DesktopSettings;
