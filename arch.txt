@@ -1,0 +1,17 @@
+# Arch Linux packages used by LiakOs display setup and the AGS bar.
+# Build tools and native UI/runtime packages for the display setup app:
+sudo pacman -S --needed gcc pkgconf gtk4 json-glib wlr-randr
+
+# AGS v3 plus AstalTray, AstalWp, and AstalBluetooth used by bar.tsx.
+# These two packages are in the AUR; yay can be replaced with another AUR helper.
+yay -S --needed aylurs-gtk-shell-git libastal-meta
+
+# Bar audio and Bluetooth services/tools (rfkill is provided by util-linux).
+# gtk4-layer-shell is used for Wayland bar windows; pipewire-audio and
+# pipewire-pulse provide audio support for desktop apps and the volume widget.
+sudo pacman -S --needed gtk4-layer-shell pipewire pipewire-audio pipewire-pulse wireplumber bluez bluez-utils util-linux
+
+# Start Bluetooth once if the bar should control Bluetooth devices:
+sudo systemctl enable --now bluetooth.service
+
+# The bar and display app run inside the Wayfire session.

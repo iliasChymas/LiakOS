@@ -27,6 +27,11 @@
 # GTK 4 and JSON-GLib development libraries
 # Wayfire; the editor reads and updates ~/.config/wayfire.ini (or wayfire/wayfire.ini)
 
+# Display setup app (monitor-app/)
+# C compiler, pkg-config, GTK 4 and JSON-GLib development libraries
+# wlr-randr for reading and applying Wayland output configurations on Wayfire
+# The app uses wlr-randr internally; users configure displays from its GTK UI.
+
 # Wallpaper color theming (lpaper and scripts/test-pywal-gtk-colors.sh)
 # Pywal16 (`wal`) to set wallpapers and generate ~/.cache/wal/colors.json
 # jq to read the Pywal palette

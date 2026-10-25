@@ -13,7 +13,7 @@ There is no installer or bootable image yet. For now, “install LiakOs” means
 happens.” We have successfully automated the part after the hard part.
 
 The components are developed independently and deployed together with
-`scripts/deploy.sh`. The ambition is an OS; the current delivery format is a
+`deployment/deploy.sh`. The ambition is an OS; the current delivery format is a
 Git checkout and a shell script. Progress is progress.
 
 ## Components
@@ -23,18 +23,21 @@ Git checkout and a shell script. Progress is progress.
 | AGS bar | `bar.tsx` | GTK4 bar, system tray, audio and Bluetooth popovers, date, and Pywal colors |
 | App launcher | `app-launcher/` | C/GTK4 fuzzy launcher for installed desktop applications |
 | Keybindings editor | `keybindings-app/` | C/GTK4 search and editor for Wayfire keyboard shortcuts |
+| Display setup | `monitor-app/` | C/GTK4 monitor layout, resolution, scale, and saved profiles |
 | Wallpaper picker | `wallpaper-app/` | C/GTK4 wallpaper preview and selection app using libvips thumbnails |
 | Wallpapers | `wallpapers/` | Wallpapers copied to the deployed LiakOs wallpaper directory |
 | Wayfire config | `config/wayfire.ini` | Example Wayfire settings and keybindings |
 | Keybinding reference | `config/wayfire-keybinds.html` | Visual guide to the checked-in Wayfire keybindings |
 | Wayfire IPC wrapper | `wayfire-ipc.ts` | TypeScript wrapper for `wf-ipcli` |
-| Deployment | `scripts/deploy.sh` | Builds the C apps and installs the bar, icons, wallpapers, and Wayfire app shortcuts |
+| Deployment | `deployment/` | Builds and installs C apps, the AGS bar, wallpapers, and Wayfire shortcuts |
 
 ## Requirements
 
 `requirements.txt` is a cross-language system inventory, **not** a pip file.
 Do not run `pip install -r requirements.txt`. Package names vary by Linux
 distribution; use the list there to find the corresponding packages.
+For Arch Linux, [arch.txt](arch.txt) lists packages for the display setup app
+and AGS bar, with separate commands for official repository and AUR packages.
 
 The main requirements are:
 
@@ -63,29 +66,36 @@ From the repository root, build an individual C application with:
 ```sh
 app-launcher/build.sh
 keybindings-app/build.sh
+monitor-app/build.sh
 wallpaper-app/build.sh
 ```
 
 The binaries are created at `app-launcher/build/llauncher`,
-`keybindings-app/build/lkeybinds`, and `wallpaper-app/build/lpaper`. The run
-helpers compile them when needed:
+`keybindings-app/build/lkeybinds`, `monitor-app/build/ldisplays`, and
+`wallpaper-app/build/lpaper`. The run helpers compile them when needed:
 
 ```sh
 app-launcher/run.sh
 keybindings-app/run.sh
+monitor-app/run.sh
 wallpaper-app/tools/run-c-viewer.sh
 ```
 
 Deploy the current setup with:
 
 ```sh
-scripts/deploy.sh
+deployment/deploy.sh
 ```
 
-Deployment builds all three C apps, then installs:
+`scripts/deploy.sh` remains as a compatibility wrapper for the deployment
+entrypoint. The native app build/install stage lives in
+`deployment/install-c-apps.sh`; it builds all four C apps and installs their
+binaries and desktop entries. The main deploy script then installs desktop
+configuration and assets:
 
-- `llauncher`, `lkeybinds`, and `lpaper` into `~/.local/bin`.
+- `llauncher`, `lkeybinds`, `ldisplays`, and `lpaper` into `~/.local/bin`.
 - The keybindings app desktop entry and Super+Shift+K shortcut.
+- The display setup app desktop entry and Super+Shift+D shortcut.
 - The wallpaper color script into `$XDG_DATA_HOME/liakos/scripts/` (normally
   `~/.local/share/liakos/scripts/`) so installed `lpaper` can apply palettes
   from any working directory.
@@ -121,6 +131,7 @@ The current project shortcuts are:
 | Super+B | Open the default browser (deployment resolves the XDG browser) |
 | Super+Shift+Enter | Open `llauncher` |
 | Super+Shift+K | Open the keybindings editor |
+| Super+Shift+D | Open display setup |
 | Super+E | Open Thunar in the home directory |
 | Super+F | Toggle fullscreen for the focused window |
 | Super+O | Focus the next output |
@@ -144,6 +155,15 @@ change. Keyboard shortcuts defined by Wayfire plugins are editable too; mouse
 gestures are not shown. It uses the same Pywal palette as the bar and reloads
 its colors when `~/.cache/wal/colors.json` changes. To edit a different config,
 set `LIAKOS_WAYFIRE_CONFIG` before launching it.
+
+The display setup app shows each connected screen, its available resolutions
+and refresh rates, scale, rotation, and position. Drag screens in the layout
+preview to arrange them, then choose **Apply changes**. The app checks the
+configuration and gives 15 seconds to keep it before restoring the previous
+layout. Save named layouts and load them later. It requires `wlr-randr` for
+Wayland output management; the command runs behind the GTK interface. Install
+the package listed in `requirements.txt` if the app reports that the backend is
+missing.
 
 Wayfire shortcuts and system defaults are separate. The active browser and file
 manager defaults are XDG MIME associations, usually stored in
