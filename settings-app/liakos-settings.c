@@ -723,7 +723,7 @@ static void add_overview_page(Settings *settings) {
     gtk_box_append(GTK_BOX(hero), about);
     gtk_box_append(GTK_BOX(settings->content), hero);
 
-    gtk_box_append(GTK_BOX(settings->content), label("Quick buttons", "section-heading"));
+    gtk_box_append(GTK_BOX(settings->content), label("Quick actions", "section-heading"));
     GtkWidget *quick_actions = gtk_box_new(GTK_ORIENTATION_VERTICAL, 0);
     gtk_box_append(GTK_BOX(quick_actions), quick_tile(settings, "Choose wallpaper", "Set your background and colors", "preferences-desktop-wallpaper-symbolic", "lpaper"));
     gtk_box_append(GTK_BOX(quick_actions), quick_tile(settings, "Edit shortcuts", "Search and change keybindings", "preferences-desktop-keyboard-shortcuts-symbolic", "lkeybinds"));
