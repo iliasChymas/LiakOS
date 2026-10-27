@@ -292,22 +292,41 @@ colors after restart.
 
 ## Wayfire IPC wrapper
 
-`wayfire-ipc.ts` wraps `wf-ipcli`, returning parsed JSON when available and
-plain text otherwise. It currently exposes these CLI commands:
+`wayfire-ipc.ts` keeps the small `wf-ipcli` helpers for keyboard, touch, config,
+and focused-window queries. For window/workspace management it also speaks
+Wayfire's framed Unix-socket IPC directly from Node, so session tooling does
+not need another Python layer. Those calls require a running Wayfire session,
+`WAYFIRE_SOCKET`, and the `ipc` plus `ipc-rules` plugins.
+
+The wrapper exposes these CLI commands:
 
 ```sh
 node wayfire-ipc.ts active-window
 node wayfire-ipc.ts config
 node wayfire-ipc.ts kb-layout
 node wayfire-ipc.ts touch-state enabled
+node wayfire-ipc.ts outputs
+node wayfire-ipc.ts views
+node wayfire-ipc.ts workspace DP-1 0 0
+node wayfire-ipc.ts move-view 42 DP-1 1 0
+node wayfire-ipc.ts fullscreen 42 true
+node wayfire-ipc.ts tile 42 slot_l
+node wayfire-ipc.ts launch -- ghostty
 ```
 
-`touch-state` accepts `enabled` or `disabled`. The TypeScript exports
-`runWfIpcli`, `getFocusedView`, and `getWayfireConfiguration` for other Node
-code. Set `WF_IPCLI_BIN` if the executable is not named `wf-ipcli` or is not in
-`PATH`. The wrapper currently covers these basic queries/actions; future
-workspace and fullscreen behavior will need additional commands and event
-subscriptions.
+Workspace coordinates are zero-based (`0, 0` is Wayfire's top-left
+workspace). `move-view` moves the selected view to the named output and
+workspace; `workspace` changes the active workspace on the named output.
+`launch` accepts an argv list and does not invoke a shell. The `tile` command
+accepts Wayfire grid slots such as `slot_l`, `slot_r`, and `slot_c`.
+
+For other Node code, the module exports `callWayfire`, `listWayfireOutputs`,
+`listWayfireViews`, `setOutputWorkspace`, `moveViewToWorkspace`,
+`moveViewToOutputWorkspace`, `setViewFullscreen`, `tileView`,
+`launchApplication`, and `watchWayfireEvents`, alongside the original
+`runWfIpcli`, `getFocusedView`, and `getWayfireConfiguration`. Event
+subscriptions return a function that closes the subscription. Set
+`WF_IPCLI_BIN` if the executable is not named `wf-ipcli` or is not in `PATH`.
 
 ## Development files
 
