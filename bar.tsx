@@ -5,6 +5,7 @@ import Gdk from "gi://Gdk?version=4.0"
 import Gio from "gi://Gio"
 import GLib from "gi://GLib"
 import Gtk from "gi://Gtk?version=4.0"
+import Gtk4LayerShell from "gi://Gtk4LayerShell?version=1.0"
 import Pango from "gi://Pango?version=1.0"
 import AstalTray from "gi://AstalTray?version=0.1"
 import AstalWp from "gi://AstalWp?version=0.1"
@@ -137,6 +138,185 @@ function barCss(palette: Palette) {
       font-size: 15px;
       font-weight: 700;
       color: ${palette.accent};
+    }
+
+    .transit-result {
+      color: ${palette.foreground};
+      font-size: 13px;
+    }
+
+    .transit-kicker {
+      color: ${palette.secondary};
+      font-size: 10px;
+      font-weight: 750;
+      letter-spacing: 1px;
+    }
+
+    .transit-line-title {
+      color: ${palette.foreground};
+      font-size: 16px;
+      font-weight: 750;
+    }
+
+    .transit-card-row {
+      margin-top: 4px;
+    }
+
+    .transit-card {
+      min-width: 88px;
+      min-height: 76px;
+      padding: 10px;
+      border: 1px solid ${withAlpha(palette.accent, 0.22)};
+      border-radius: 12px;
+      background: ${withAlpha(palette.surface, 0.94)};
+    }
+
+    .transit-card:first-child {
+      border-color: ${withAlpha(palette.accent, 0.42)};
+      background: ${withAlpha(palette.accent, 0.14)};
+    }
+
+    .transit-card-label {
+      color: ${palette.secondary};
+      font-size: 10px;
+      font-weight: 700;
+    }
+
+    .transit-card-time {
+      color: ${palette.foreground};
+      font-size: 18px;
+      font-weight: 750;
+      font-variant-numeric: tabular-nums;
+    }
+
+    .transit-picker {
+      min-width: 340px;
+    }
+
+    .transit-choose {
+      min-height: 36px;
+      padding: 0;
+      border: 0;
+      background: transparent;
+      box-shadow: none;
+      color: ${palette.foreground};
+    }
+
+    .transit-choose > button {
+      padding: 0 10px;
+      border: 1px solid ${withAlpha(palette.accent, 0.28)};
+      border-radius: 9px;
+      background: ${withAlpha(palette.surface, 0.94)};
+      color: ${palette.foreground};
+      font-weight: 650;
+      box-shadow: none;
+    }
+
+    .transit-choose > button:hover {
+      background: ${withAlpha(palette.accent, 0.2)};
+    }
+
+    .transit-option-row {
+      padding: 3px 5px;
+      border-radius: 8px;
+      background: transparent;
+      color: ${palette.foreground};
+    }
+
+    .transit-option-row:hover {
+      background: ${withAlpha(palette.accent, 0.12)};
+    }
+
+    .transit-option-row.transit-option-selected {
+      background: ${withAlpha(palette.accent, 0.24)};
+      color: ${palette.accent};
+    }
+
+    .transit-option-row check {
+      border: 1px solid ${withAlpha(palette.foreground, 0.35)};
+      border-radius: 5px;
+      background: ${withAlpha(palette.surface, 0.9)};
+    }
+
+    .transit-option-row check:checked {
+      border-color: ${palette.accent};
+      background: ${palette.accent};
+      color: ${palette.background};
+    }
+
+    .transit-option-row label {
+      color: inherit;
+    }
+
+    .transit-search {
+      min-height: 36px;
+      padding: 0 10px;
+      border: 1px solid ${withAlpha(palette.accent, 0.28)};
+      border-radius: 9px;
+      background: ${withAlpha(palette.surface, 0.94)};
+      color: ${palette.foreground};
+      caret-color: ${palette.accent};
+      selection-background-color: ${withAlpha(palette.accent, 0.55)};
+    }
+
+    .transit-search:focus {
+      border-color: ${palette.accent};
+      box-shadow: 0 0 0 2px ${withAlpha(palette.accent, 0.18)};
+    }
+
+    .transit-selected-label {
+      color: ${palette.secondary};
+      font-size: 12px;
+      font-weight: 700;
+    }
+
+    popover.menu > contents {
+      border: 1px solid ${withAlpha(palette.accent, 0.3)};
+      border-radius: 11px;
+      background: ${palette.background};
+      color: ${palette.foreground};
+    }
+
+    popover.menu listview,
+    popover.menu row {
+      background: ${palette.background};
+      color: ${palette.foreground};
+    }
+
+    popover.menu row:hover,
+    popover.menu row:selected {
+      background: ${withAlpha(palette.accent, 0.32)};
+      color: ${palette.foreground};
+    }
+
+    .transit-entry {
+      min-height: 34px;
+      padding: 0 10px;
+      border: 1px solid ${withAlpha(palette.accent, 0.32)};
+      border-radius: 8px;
+      background: ${withAlpha(palette.surface, 0.92)};
+      color: ${palette.foreground};
+      caret-color: ${palette.accent};
+      selection-background-color: ${withAlpha(palette.accent, 0.55)};
+    }
+
+    .transit-entry:focus {
+      border-color: ${palette.accent};
+      box-shadow: 0 0 0 2px ${withAlpha(palette.accent, 0.18)};
+    }
+
+    .transit-save {
+      min-height: 34px;
+      padding: 0 12px;
+      border: 1px solid ${withAlpha(palette.accent, 0.38)};
+      border-radius: 8px;
+      background: ${withAlpha(palette.accent, 0.20)};
+      color: ${palette.foreground};
+      font-weight: 650;
+    }
+
+    .transit-save:hover {
+      background: ${withAlpha(palette.accent, 0.38)};
     }
 
     .audio-section-title {
@@ -423,6 +603,298 @@ function DateControl() {
     return GLib.SOURCE_CONTINUE
   })
   update()
+  return button
+}
+
+function transitConfigPath() {
+  return GLib.build_filenamev([GLib.get_user_config_dir(), "ags", "oasa-line"])
+}
+
+function validLineId(value: string) {
+  return /^[\p{L}\p{N}]{1,8}$/u.test(value)
+}
+
+function displayLineId(value: string) {
+  const latin = "ABEZHIKMNOPTYX"
+  const greek = "ΑΒΕΖΗΙΚΜΝΟΡΤΥΧ"
+  return [...value].map(character => {
+    const index = greek.indexOf(character.toUpperCase())
+    return index >= 0 && character === character.toUpperCase() ? latin[index] : character
+  }).join("")
+}
+
+function selectedBusLines(): string[] {
+  try {
+    const [, bytes] = Gio.File.new_for_path(transitConfigPath()).load_contents(null)
+    const value = new TextDecoder().decode(bytes).trim()
+    const parsed = JSON.parse(value)
+    if (Array.isArray(parsed)) {
+      const lines = parsed.filter((line): line is string => typeof line === "string" && validLineId(line))
+      return [...new Set(lines)]
+    }
+    return typeof parsed === "string" && validLineId(parsed) ? [parsed] : ["524"]
+  } catch (_error) {
+    const raw = (() => {
+      try {
+        const [, bytes] = Gio.File.new_for_path(transitConfigPath()).load_contents(null)
+        return new TextDecoder().decode(bytes).trim()
+      } catch (_readError) { return "524" }
+    })()
+    return validLineId(raw) ? [raw] : ["524"]
+  }
+}
+
+function saveBusLines(values: string[]) {
+  const lines = [...new Set(values.filter(validLineId))]
+  const path = transitConfigPath()
+  GLib.mkdir_with_parents(GLib.path_get_dirname(path)!, 0o755)
+  const data = new TextEncoder().encode(JSON.stringify(lines))
+  return Gio.File.new_for_path(path).replace_contents(data, null, false, Gio.FileCreateFlags.REPLACE_DESTINATION, null)[0]
+}
+
+function readOasaLineCatalog() {
+  const path = GLib.build_filenamev([GLib.get_user_cache_dir(), "liakos", "oasa-lines.json"])
+  try {
+    const [, bytes] = Gio.File.new_for_path(path).load_contents(null)
+    const payload = JSON.parse(new TextDecoder().decode(bytes))
+    const byId = new Map<string, { id: string; description: string; master: boolean }>()
+    for (const line of payload.lines ?? []) {
+      const id = String(line.line_id ?? "").trim()
+      if (!validLineId(id)) continue
+      const candidate = {
+        id,
+        description: String(line.line_descr_eng || line.line_descr || "").trim(),
+        master: String(line.mld_master ?? "") === "1",
+      }
+      const previous = byId.get(id)
+      if (!previous || (!previous.master && candidate.master)) byId.set(id, candidate)
+    }
+    return [...byId.values()].sort((a, b) => a.id.localeCompare(b.id, undefined, { numeric: true, sensitivity: "base" }))
+  } catch (_error) {
+    return []
+  }
+}
+
+function OasaControl() {
+  const button = new Gtk.Button({ tooltip_text: "Next departures for selected lines (left click); select lines (right click)" })
+  const icon = new Gtk.Image({ icon_name: "bus-symbolic" })
+  const iconPaths = [
+    GLib.build_filenamev([GLib.get_user_config_dir(), "ags", "icons", "oasa-bus.svg"]),
+    GLib.build_filenamev([GLib.get_current_dir(), "assets", "icons", "oasa-bus.svg"]),
+  ]
+  const iconPath = iconPaths.find(path => Gio.File.new_for_path(path).query_exists(null))
+  if (iconPath) icon.set_from_file(iconPath)
+  icon.set_pixel_size(ICON_SIZE)
+  button.set_child(icon)
+  button.add_css_class("tray-item")
+  const panel = new Gtk.Box({ orientation: Gtk.Orientation.VERTICAL, spacing: 8 })
+  panel.add_css_class("audio-panel")
+  const kicker = new Gtk.Label({ label: "UPCOMING DEPARTURES", xalign: 0 })
+  kicker.add_css_class("transit-kicker")
+  const status = new Gtk.Label({ label: "", xalign: 0, wrap: true })
+  status.add_css_class("transit-result")
+  const lineSections = new Gtk.Box({ orientation: Gtk.Orientation.VERTICAL, spacing: 12 })
+  panel.append(kicker)
+  panel.append(status)
+  panel.append(lineSections)
+  const showStatus = (message: string) => {
+    status.set_label(message)
+    status.set_visible(Boolean(message))
+  }
+  const showDepartures = (section: Gtk.Box, data: { line_id: string; description: string; departures: Array<{ time: string; direction: string }> }) => {
+    const lineTitle = new Gtk.Label({ label: `${displayLineId(data.line_id)} — ${data.description}`, xalign: 0, wrap: true, max_width_chars: 34 })
+    lineTitle.add_css_class("transit-line-title")
+    const cards = new Gtk.Box({ orientation: Gtk.Orientation.HORIZONTAL, spacing: 7 })
+    cards.add_css_class("transit-card-row")
+    for (const [index, departure] of data.departures.entries()) {
+      const card = new Gtk.Box({ orientation: Gtk.Orientation.VERTICAL, spacing: 7, hexpand: true, halign: Gtk.Align.FILL })
+      card.add_css_class("transit-card")
+      const caption = new Gtk.Label({ label: index === 0 ? "NEXT" : `NEXT +${index}`, xalign: 0 })
+      caption.add_css_class("transit-card-label")
+      const time = new Gtk.Label({ label: departure.time, xalign: 0 })
+      time.add_css_class("transit-card-time")
+      card.append(caption)
+      card.append(time)
+      cards.append(card)
+    }
+    while (section.get_first_child()) section.remove(section.get_first_child()!)
+    section.append(lineTitle)
+    if (data.departures.length) section.append(cards)
+    else {
+      const empty = new Gtk.Label({ label: "No more departures today.", xalign: 0 })
+      empty.add_css_class("transit-result")
+      section.append(empty)
+    }
+  }
+  const popover = new Gtk.Popover()
+  popover.add_css_class("audio-popover")
+  popover.set_has_arrow(false)
+  popover.set_position(Gtk.PositionType.BOTTOM)
+  popover.set_offset(0, 8)
+  popover.set_child(panel)
+  popover.set_parent(button)
+  let layerKeyboardEnabled = false
+  popover.connect("closed", () => {
+    if (!layerKeyboardEnabled) return
+    const root = button.get_root()
+    if (root instanceof Gtk.Window) {
+      Gtk4LayerShell.set_keyboard_mode(root, Gtk4LayerShell.KeyboardMode.NONE)
+    }
+    layerKeyboardEnabled = false
+  })
+  const schedulePath = GLib.build_filenamev([GLib.get_user_data_dir(), "liakos", "scripts", "oasa-schedule.py"])
+  const sourcePath = GLib.build_filenamev([GLib.get_current_dir(), "scripts", "oasa-schedule.py"])
+  const runLine = (line: string, section: Gtk.Box, onComplete: () => void) => {
+    const script = Gio.File.new_for_path(schedulePath).query_exists(null) ? schedulePath : sourcePath
+    try {
+      const process = Gio.Subprocess.new(["python3", script, line, "--upcoming", "3"], Gio.SubprocessFlags.STDOUT_PIPE | Gio.SubprocessFlags.STDERR_PIPE)
+      process.communicate_utf8_async(null, null, (proc, result) => {
+        try {
+          const [, stdout, stderr] = proc.communicate_utf8_finish(result)
+          if (!proc.get_successful()) throw new Error((stderr || stdout || "Schedule request failed.").trim())
+          showDepartures(section, JSON.parse(stdout.trim()))
+        } catch (error) {
+          while (section.get_first_child()) section.remove(section.get_first_child()!)
+          const failure = new Gtk.Label({ label: `Line ${line}: ${error}`, xalign: 0, wrap: true })
+          failure.add_css_class("transit-result")
+          section.append(failure)
+        } finally {
+          onComplete()
+        }
+      })
+    } catch (error) {
+      const failure = new Gtk.Label({ label: `Could not start schedule fetcher: ${error}`, xalign: 0, wrap: true })
+      failure.add_css_class("transit-result")
+      section.append(failure)
+      onComplete()
+    }
+  }
+  button.connect("clicked", () => {
+    const lines = selectedBusLines()
+    popover.set_child(panel)
+    popover.popup()
+    while (lineSections.get_first_child()) lineSections.remove(lineSections.get_first_child()!)
+    if (!lines.length) {
+      showStatus("Right click to select one or more OASA lines.")
+      return
+    }
+    showStatus(`Fetching schedules for ${lines.length} selected line${lines.length === 1 ? "" : "s"}…`)
+    let pending = lines.length
+    const onComplete = () => {
+      pending -= 1
+      if (pending === 0) showStatus("")
+    }
+    for (const line of lines) {
+      const section = new Gtk.Box({ orientation: Gtk.Orientation.VERTICAL, spacing: 5 })
+      lineSections.append(section)
+      runLine(line, section, onComplete)
+    }
+  })
+  const rightClick = new Gtk.GestureClick({ button: 3 })
+  rightClick.connect("pressed", () => {
+    const renderSelector = (catalog: Array<{ id: string; description: string }>) => {
+      const contents = new Gtk.Box({ orientation: Gtk.Orientation.VERTICAL, spacing: 10 })
+      contents.add_css_class("audio-panel")
+      contents.add_css_class("transit-picker")
+      const heading = new Gtk.Label({ label: "Select bus lines", xalign: 0 })
+      heading.add_css_class("audio-title")
+      const selectedHeading = new Gtk.Label({ label: "", xalign: 0, wrap: true })
+      selectedHeading.add_css_class("transit-selected-label")
+      contents.append(heading)
+      contents.append(selectedHeading)
+      const updateSelected = () => {
+        const lines = selectedBusLines().map(displayLineId)
+        selectedHeading.set_label(`Selected (${lines.join(", ") || "none"})`)
+      }
+      updateSelected()
+      if (!catalog.length) {
+        const message = new Gtk.Label({ label: "Loading OASA lines…", xalign: 0, wrap: true })
+        message.add_css_class("transit-result")
+        contents.append(message)
+      } else {
+        const choose = new Gtk.MenuButton({ label: "Choose lines", hexpand: true })
+        choose.add_css_class("transit-choose")
+        const choosePopover = new Gtk.Popover()
+        choosePopover.add_css_class("audio-popover")
+        choosePopover.set_has_arrow(false)
+        const choosePanel = new Gtk.Box({ orientation: Gtk.Orientation.VERTICAL, spacing: 8 })
+        choosePanel.add_css_class("audio-panel")
+        const search = new Gtk.SearchEntry({ placeholder_text: "Search by line or destination" })
+        search.add_css_class("transit-search")
+        const scroll = new Gtk.ScrolledWindow()
+        scroll.set_policy(Gtk.PolicyType.NEVER, Gtk.PolicyType.AUTOMATIC)
+        scroll.set_size_request(360, 300)
+        const list = new Gtk.ListBox({ selection_mode: Gtk.SelectionMode.NONE })
+        const renderOptions = () => {
+          const query = search.get_text().trim().toLocaleLowerCase()
+          while (list.get_first_child()) list.remove(list.get_first_child()!)
+          const matches = catalog.filter(item => `${displayLineId(item.id)} ${item.description}`.toLocaleLowerCase().includes(query))
+          for (const item of matches) {
+            const selected = selectedBusLines().includes(item.id)
+            const row = new Gtk.ListBoxRow()
+            row.add_css_class("transit-option-row")
+            if (selected) row.add_css_class("transit-option-selected")
+            const check = new Gtk.CheckButton({ label: `${displayLineId(item.id)} — ${item.description}`, active: selected })
+            check.connect("toggled", () => {
+              const current = selectedBusLines()
+              const updated = check.get_active()
+                ? [...current, item.id]
+                : current.filter(line => line !== item.id)
+              saveBusLines(updated)
+              if (check.get_active()) row.add_css_class("transit-option-selected")
+              else row.remove_css_class("transit-option-selected")
+              updateSelected()
+            })
+            row.set_child(check)
+            list.append(row)
+          }
+        }
+        search.connect("search-changed", renderOptions)
+        choosePanel.append(search)
+        scroll.set_child(list)
+        choosePanel.append(scroll)
+        choosePopover.set_child(choosePanel)
+        choose.set_popover(choosePopover)
+        choosePopover.connect("notify::visible", () => {
+          if (!choosePopover.get_visible()) return
+          GLib.idle_add(GLib.PRIORITY_DEFAULT_IDLE, () => {
+            if (choosePopover.get_visible()) search.grab_focus()
+            return GLib.SOURCE_REMOVE
+          })
+        })
+        renderOptions()
+        contents.append(choose)
+      }
+      popover.set_child(contents)
+    }
+    const catalog = readOasaLineCatalog()
+    renderSelector(catalog)
+    const root = button.get_root()
+    if (root instanceof Gtk.Window) {
+      Gtk4LayerShell.set_keyboard_mode(root, Gtk4LayerShell.KeyboardMode.ON_DEMAND)
+      layerKeyboardEnabled = true
+    }
+    popover.set_focusable(true)
+    popover.popup()
+    if (!catalog.length) {
+      const script = Gio.File.new_for_path(schedulePath).query_exists(null) ? schedulePath : sourcePath
+      try {
+        const process = Gio.Subprocess.new(["python3", script, "--refresh-lines"], Gio.SubprocessFlags.STDOUT_PIPE | Gio.SubprocessFlags.STDERR_PIPE)
+        process.communicate_utf8_async(null, null, (proc, result) => {
+          try {
+            const [, stdout, stderr] = proc.communicate_utf8_finish(result)
+            if (!proc.get_successful()) throw new Error((stderr || stdout || "Could not load OASA lines.").trim())
+            renderSelector(readOasaLineCatalog())
+          } catch (error) {
+            showStatus(`Could not load OASA lines: ${error}`)
+          }
+        })
+      } catch (error) {
+        showStatus(`Could not load OASA lines: ${error}`)
+      }
+    }
+  })
+  button.add_controller(rightClick)
   return button
 }
 
@@ -1009,6 +1481,7 @@ app.start({
             <DateControl />
           </box>
           <box $type="end" spacing={0}>
+            <OasaControl />
             <SoundControl />
             <BluetoothControl />
             <SystemTray />
