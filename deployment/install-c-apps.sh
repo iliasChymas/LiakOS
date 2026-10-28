@@ -29,6 +29,8 @@ build_and_install lpaper wallpaper-app/build.sh wallpaper-app/build/lpaper
 
 install -m 644 "$ROOT_DIR/keybindings-app/org.liakos.Keybindings.desktop" \
   "$APPLICATIONS_DIR/org.liakos.Keybindings.desktop"
+install -m 644 "$ROOT_DIR/app-launcher/org.liakos.Launcher.desktop" \
+  "$APPLICATIONS_DIR/org.liakos.Launcher.desktop"
 install -m 644 "$ROOT_DIR/monitor-app/org.liakos.Displays.desktop" \
   "$APPLICATIONS_DIR/org.liakos.Displays.desktop"
 install -m 644 "$ROOT_DIR/settings-app/org.liakos.Settings.desktop" \

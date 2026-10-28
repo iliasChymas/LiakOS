@@ -89,6 +89,13 @@ Deploy the current setup with:
 deployment/deploy.sh
 ```
 
+To rebuild and update the native apps and their application-menu entries
+without rerunning the full desktop deployment, use:
+
+```sh
+scripts/update-apps.sh
+```
+
 `scripts/deploy.sh` remains as a compatibility wrapper for the deployment
 entrypoint. The native app build/install stage lives in
 `deployment/install-c-apps.sh`; it builds the native C apps and installs their
