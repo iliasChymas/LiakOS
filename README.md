@@ -232,6 +232,12 @@ provides:
   and output/input device selection.
 - Bluetooth power control, scanning, pairing, and device connect/disconnect.
   Discovery is manual: enable Bluetooth, then choose **Scan for devices**.
+- An OASA bus control that shows upcoming departures for selected lines on
+  left click. Right click opens a searchable multi-select dropdown; click a
+  selected line chip to remove it. The selected lines are also listed on the
+  Transit page in LiakOS Settings. IDs are validated against a local OASA line
+  catalog refreshed weekly. Schedule data is cached per line until one minute
+  after the next departure, under `~/.cache/liakos/`.
 - A centered date button that switches between full and compact formats when
   clicked.
 - Dynamic CSS colors loaded from `~/.cache/wal/colors.json`. The bar watches the
