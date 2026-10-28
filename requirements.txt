@@ -28,6 +28,10 @@
 # GTK 4 and JSON-GLib development libraries
 # Wayfire; the editor reads and updates ~/.config/wayfire.ini (or wayfire/wayfire.ini)
 
+# Startup application manager (autostart-app/)
+# C compiler, pkg-config, GTK 4, GIO Unix and JSON-GLib development libraries
+# Wayfire; the app saves selected XDG desktop entry Exec commands to [autostart]
+
 # Display setup app (monitor-app/)
 # C compiler, pkg-config, GTK 4 and JSON-GLib development libraries
 # wlr-randr for reading and applying Wayland output configurations on Wayfire

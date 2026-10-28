@@ -39,7 +39,7 @@ typedef struct {
 struct _UpdateResult { char *text; GPtrArray *items; };
 
 static const char *sections[] = {
-    "Overview", "Displays", "Mouse & Touchpad", "Sound", "Updates", "About"
+    "Overview", "Displays", "Mouse & Touchpad", "Sound", "Transit", "Updates", "About"
 };
 static gboolean valid_color(const char *s) {
     if (!s || s[0] != '#' || strlen(s) != 7) return FALSE;
@@ -645,7 +645,7 @@ static void on_updates_finished(GObject *source, GAsyncResult *result, gpointer 
         settings->update_result = updates;
     }
     render_update_table(settings);
-    if (error && settings->active == 4 && settings->updates)
+    if (error && settings->active == 5 && settings->updates)
         gtk_label_set_text(settings->updates, error->message);
     g_clear_error(&error);
 }
@@ -915,6 +915,40 @@ static void add_sound_page(Settings *settings) {
     rebuild_sound_page(settings);
 }
 
+static void add_transit_page(Settings *settings) {
+    page_title(settings, "Transit", "Manage the OASA lines shown in your top bar.");
+    char *path = g_build_filename(g_get_user_config_dir(), "ags", "oasa-line", NULL);
+    char *contents = NULL;
+    char *selected = NULL;
+    if (g_file_get_contents(path, &contents, NULL, NULL) && contents && contents[0] == '[') {
+        JsonParser *parser = json_parser_new();
+        if (json_parser_load_from_data(parser, contents, -1, NULL)) {
+            JsonArray *array = json_node_get_array(json_parser_get_root(parser));
+            GString *joined = g_string_new(NULL);
+            for (guint i = 0; array && i < json_array_get_length(array); i++) {
+                const char *line = json_array_get_string_element(array, i);
+                if (!line) continue;
+                if (joined->len) g_string_append(joined, ", ");
+                g_string_append(joined, line);
+            }
+            selected = g_string_free(joined, FALSE);
+        }
+        g_object_unref(parser);
+    } else if (contents && *contents) {
+        selected = g_strdup(contents);
+    }
+    if (!selected || !*selected) {
+        g_free(selected);
+        selected = g_strdup("524");
+    }
+    g_free(contents); g_free(path);
+    char *summary = g_strdup_printf("Selected lines: %s", selected);
+    gtk_box_append(GTK_BOX(settings->content), info_card("Selected lines", summary));
+    gtk_box_append(GTK_BOX(settings->content), info_card("Change selection", "Right click the bus icon on the top bar to search the OASA line dropdown. Click a selected line chip to remove it; add as many lines as you like."));
+    gtk_box_append(GTK_BOX(settings->content), info_card("Local line catalog", "The OASA catalog is cached locally and refreshed weekly. Line IDs are validated against this catalog before they are added."));
+    g_free(summary); g_free(selected);
+}
+
 static void about_row(GtkGrid *grid, int row, const char *key, const char *value) {
     GtkWidget *key_label = label(key, "about-key");
     GtkWidget *value_label = label(value, NULL);
@@ -964,8 +998,9 @@ static void show_section(Settings *settings, guint index) {
     case 1: add_displays_page(settings); break;
     case 2: add_mouse_page(settings); break;
     case 3: add_sound_page(settings); break;
-    case 4: add_updates_page(settings); break;
-    case 5: add_about_page(settings); break;
+    case 4: add_transit_page(settings); break;
+    case 5: add_updates_page(settings); break;
+    case 6: add_about_page(settings); break;
     default: break;
     }
 }
