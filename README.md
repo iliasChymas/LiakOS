@@ -23,6 +23,7 @@ Git checkout and a shell script. Progress is progress.
 | AGS bar | `bar.tsx` | GTK4 bar, system tray, audio and Bluetooth popovers, date, and Pywal colors |
 | App launcher | `app-launcher/` | C/GTK4 fuzzy launcher for installed desktop applications |
 | Keybindings editor | `keybindings-app/` | C/GTK4 search and editor for Wayfire keyboard shortcuts |
+| Startup applications | `autostart-app/` | C/GTK4 search and toggle manager for Wayfire startup applications |
 | Display setup | `monitor-app/` | C/GTK4 monitor layout, resolution, scale, and saved profiles |
 | Wallpaper picker | `wallpaper-app/` | C/GTK4 wallpaper preview and selection app using libvips thumbnails |
 | Wallpapers | `wallpapers/` | Wallpapers copied to the deployed LiakOs wallpaper directory |
@@ -90,12 +91,14 @@ deployment/deploy.sh
 
 `scripts/deploy.sh` remains as a compatibility wrapper for the deployment
 entrypoint. The native app build/install stage lives in
-`deployment/install-c-apps.sh`; it builds all four C apps and installs their
+`deployment/install-c-apps.sh`; it builds the native C apps and installs their
 binaries and desktop entries. The main deploy script then installs desktop
 configuration and assets:
 
-- `llauncher`, `lkeybinds`, `ldisplays`, and `lpaper` into `~/.local/bin`.
+- `llauncher`, `lkeybinds`, `ldisplays`, `lsettings`, `lautostart`, and `lpaper`
+  into `~/.local/bin`.
 - The keybindings app desktop entry and Super+Shift+K shortcut.
+- The startup applications manager desktop entry (`org.liakos.Autostart.desktop`).
 - The display setup app desktop entry and Super+Shift+D shortcut.
 - The wallpaper color script into `$XDG_DATA_HOME/liakos/scripts/` (normally
   `~/.local/share/liakos/scripts/`) so installed `lpaper` can apply palettes
@@ -160,6 +163,21 @@ change. Keyboard shortcuts defined by Wayfire plugins are editable too; mouse
 gestures are not shown. It uses the same Pywal palette as the bar and reloads
 its colors when `~/.cache/wal/colors.json` changes. To edit a different config,
 set `LIAKOS_WAYFIRE_CONFIG` before launching it.
+
+The Startup Applications app lists installed, launchable XDG desktop entries.
+Search by name or description, or switch on **Show enabled only** to filter the
+list to applications already selected for startup. Toggle the applications to
+launch when Wayfire starts, then choose **Save**. It writes each selected desktop entry's
+`Exec` command into `[autostart]` using app-specific `liakos_app_*` keys;
+unrelated autostart settings are preserved. It keeps a one-time
+`.liakos-backup` beside the Wayfire config and uses the same config lookup as
+the keybindings and settings apps (`LIAKOS_WAYFIRE_CONFIG`, then
+`~/.config/wayfire.ini` or `~/.config/wayfire/wayfire.ini`). Build and run it
+directly with `autostart-app/build.sh` and `autostart-app/run.sh`. Reload or
+restart Wayfire after saving to apply changes. Saving requires an existing
+Wayfire config file; deployment creates one from `config/wayfire.ini` when
+needed. The app follows the Pywal palette in `~/.cache/wal/colors.json` and
+updates its colors when the palette changes.
 
 The display setup app shows each connected screen, its available resolutions
 and refresh rates, scale, rotation, and position. Drag screens in the layout
@@ -271,6 +289,11 @@ pick up the new theme. The GTK3 user stylesheet imports the Thunar rules. LiakOs
 so Qt platform-theme selection stays separate from other desktop sessions.
 Restart other applications to see the new colors. This is a palette workflow, not a
 general-purpose theme manager yet.
+
+After a wallpaper is applied, `lpaper` also updates `liakos_wallpaper` in
+Wayfire's `[autostart]` section to run `wal -i` with the selected image at the
+next Wayfire start. Other autostart entries are preserved, and the first
+change keeps a `.liakos-backup` beside the active Wayfire config.
 
 See [`wallpaper-app/README.md`](wallpaper-app/README.md) for C build details and
 the standalone resize benchmark.

@@ -42,6 +42,12 @@ configuration. Deployment installs the color script under
 `$XDG_DATA_HOME/liakos/scripts/` for the installed `lpaper` binary. Applying a
 wallpaper also reloads a running Ghostty instance so newly opened windows use
 the updated theme and sends live color sequences to its open terminal sessions.
+After a successful apply, `lpaper` updates `liakos_wallpaper` in Wayfire's
+`[autostart]` section to run `wal -i` with the selected image at the next
+Wayfire start. It preserves other autostart entries and keeps a one-time
+`.liakos-backup` beside the config. The config path follows
+`LIAKOS_WAYFIRE_CONFIG`, then `~/.config/wayfire.ini` or
+`~/.config/wayfire/wayfire.ini`.
 It runs `systemctl reload --user app-com.mitchellh.ghostty.service` after
 writing the theme. On Wayland, Pywal16 needs a wallpaper setter; install
 `swaybg` on Arch with

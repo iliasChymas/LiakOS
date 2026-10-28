@@ -24,6 +24,7 @@ build_and_install llauncher app-launcher/build.sh app-launcher/build/llauncher
 build_and_install lkeybinds keybindings-app/build.sh keybindings-app/build/lkeybinds
 build_and_install ldisplays monitor-app/build.sh monitor-app/build/ldisplays
 build_and_install lsettings settings-app/build.sh settings-app/build/lsettings
+build_and_install lautostart autostart-app/build.sh autostart-app/build/lautostart
 build_and_install lpaper wallpaper-app/build.sh wallpaper-app/build/lpaper
 
 install -m 644 "$ROOT_DIR/keybindings-app/org.liakos.Keybindings.desktop" \
@@ -32,6 +33,8 @@ install -m 644 "$ROOT_DIR/monitor-app/org.liakos.Displays.desktop" \
   "$APPLICATIONS_DIR/org.liakos.Displays.desktop"
 install -m 644 "$ROOT_DIR/settings-app/org.liakos.Settings.desktop" \
   "$APPLICATIONS_DIR/org.liakos.Settings.desktop"
+install -m 644 "$ROOT_DIR/autostart-app/org.liakos.Autostart.desktop" \
+  "$APPLICATIONS_DIR/org.liakos.Autostart.desktop"
 install -m 644 "$ROOT_DIR/wallpaper-app/lpaper.desktop" \
   "$APPLICATIONS_DIR/lpaper.desktop"
 install -D -m 644 "$ROOT_DIR/assets/icons/lpaper.svg" \
