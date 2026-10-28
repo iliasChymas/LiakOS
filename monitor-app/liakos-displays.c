@@ -262,7 +262,13 @@ static gboolean detect_monitors(App *app, GError **error) {
         cur->transform = strip_line(trim + 10);
       } else if (g_str_has_prefix(trim, "Scale:")) {
         in_modes = FALSE;
-        sscanf(trim + 6, "%lf", &cur->scale);
+        const char *scale_text = trim + 6;
+        while (g_ascii_isspace(*scale_text))
+          scale_text++;
+        char *end = NULL;
+        double scale = g_ascii_strtod(scale_text, &end);
+        if (end != scale_text)
+          cur->scale = scale;
       } else if (in_modes) {
         Mode *mode = NULL;
         if (parse_mode_line(trim, &mode)) {
