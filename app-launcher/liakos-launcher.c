@@ -346,7 +346,6 @@ static void update_search(GtkEditable *editable, gpointer data) {
   g_free(folded_query);
 
   gtk_list_box_select_row(state->list, first_visible_row(state, 1, NULL));
-  scroll_row_into_view(state, gtk_list_box_get_selected_row(state->list));
 
   char *footer = g_strdup_printf(
       "%u applications   ·   ↑↓ navigate   ·   Enter focus/open   ·   "
