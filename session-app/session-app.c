@@ -45,7 +45,7 @@ static void apply_palette(SessionApp *state) {
   const char *surface = palette_value(root, "colors", "color0", "#202431");
   const char *muted = palette_value(root, "colors", "color8", "#9298a8");
   char *css = g_strdup_printf(
-      "window.session-overlay { background: rgba(8, 10, 15, 0.70); }"
+      "window.session-overlay { background: rgba(0, 0, 0, 0.30); }"
       ".session-card { background: %s; color: %s; border: 1px solid alpha(%s, .18); border-radius: 24px; padding: 38px; min-width: 630px; box-shadow: 0 28px 90px rgba(0,0,0,.38); }"
       ".eyebrow { color: %s; font-size: 11px; font-weight: 800; letter-spacing: 2px; }"
       ".heading { color: %s; font-size: 34px; font-weight: 750; letter-spacing: -1px; }"
@@ -142,7 +142,10 @@ static GtkWidget *action_button(const char *title, const char *description,
 static gboolean key_pressed(GtkEventControllerKey *controller, guint keyval,
                             guint keycode, GdkModifierType state, gpointer data) {
   (void)controller; (void)keycode; (void)state; (void)data;
-  if (keyval == GDK_KEY_Escape) { gtk_window_destroy(app->window); return TRUE; }
+  if (keyval == GDK_KEY_Escape) {
+    gtk_window_destroy(app->window);
+    return TRUE;
+  }
   return FALSE;
 }
 
@@ -163,16 +166,24 @@ static void activate(GtkApplication *application, gpointer data) {
   gtk_layer_set_anchor(app->window, GTK_LAYER_SHELL_EDGE_BOTTOM, TRUE);
   gtk_layer_set_anchor(app->window, GTK_LAYER_SHELL_EDGE_LEFT, TRUE);
   gtk_layer_set_anchor(app->window, GTK_LAYER_SHELL_EDGE_RIGHT, TRUE);
+  GListModel *monitors = gdk_display_get_monitors(gdk_display_get_default());
+  if (g_list_model_get_n_items(monitors) > 0) {
+    GdkMonitor *monitor = g_list_model_get_item(monitors, 0);
+    gtk_layer_set_monitor(app->window, monitor);
+    g_object_unref(monitor);
+  }
   gtk_layer_set_keyboard_mode(app->window, GTK_LAYER_SHELL_KEYBOARD_MODE_EXCLUSIVE);
 
-  GtkWidget *center = gtk_box_new(GTK_ORIENTATION_VERTICAL, 0);
+  GtkWidget *center = gtk_center_box_new();
   gtk_widget_set_halign(center, GTK_ALIGN_FILL);
   gtk_widget_set_valign(center, GTK_ALIGN_FILL);
+  gtk_widget_set_hexpand(center, TRUE);
+  gtk_widget_set_vexpand(center, TRUE);
   GtkWidget *card = gtk_box_new(GTK_ORIENTATION_VERTICAL, 0);
   gtk_widget_add_css_class(card, "session-card");
   gtk_widget_set_halign(card, GTK_ALIGN_CENTER);
   gtk_widget_set_valign(card, GTK_ALIGN_CENTER);
-  gtk_box_append(GTK_BOX(center), card);
+  gtk_center_box_set_center_widget(GTK_CENTER_BOX(center), card);
 
   GtkWidget *top = gtk_box_new(GTK_ORIENTATION_HORIZONTAL, 0);
   GtkWidget *eyebrow = gtk_label_new("LIAKOS  /  SESSION");

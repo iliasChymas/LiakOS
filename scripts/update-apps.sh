@@ -23,6 +23,8 @@ fi
 . "$DEPLOYMENT_DIR/lib.sh"
 backup_once "$WAYFIRE_CONFIG" "$WAYFIRE_CONFIG.bak"
 set_wayfire_option "$WAYFIRE_CONFIG" core auto_reload_config true
+set_wayfire_command_option "$WAYFIRE_CONFIG" binding_logout '<super> <shift> KEY_Q'
+set_wayfire_command_option "$WAYFIRE_CONFIG" command_logout 'lsession'
 touch "$WAYFIRE_CONFIG"
 
 if pgrep -x wayfire >/dev/null 2>&1; then

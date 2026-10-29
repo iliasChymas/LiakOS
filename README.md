@@ -159,6 +159,7 @@ The current project shortcuts are:
 | Super+Shift+Enter | Open `llauncher` |
 | Super+Shift+K | Open the keybindings editor |
 | Super+Shift+D | Open display setup |
+| Super+Shift+Q | Open LiakOs session actions |
 | Super+E | Open Thunar in the home directory |
 | Super+F | Toggle fullscreen for the focused window |
 | Super+O | Focus the next output |

@@ -95,6 +95,7 @@ static char *friendly_action(const char *value) {
     if (g_str_has_prefix(value, "ghostty")) return g_strdup("Open Ghostty terminal");
     if (g_str_has_prefix(value, "thunar")) return g_strdup("Open Thunar file manager");
     if (g_str_has_prefix(value, "swaylock")) return g_strdup("Lock the screen");
+    if (g_str_equal(value, "lsession")) return g_strdup("Open LiakOs session actions");
     if (g_str_has_prefix(value, "wlogout")) return g_strdup("Show the logout menu");
     if (g_str_has_prefix(value, "grim") || g_str_has_prefix(value, "slurp")) return g_strdup("Take a screenshot");
     if (!strchr(value, ' ') && strchr(value, '_')) return title_words(value);
