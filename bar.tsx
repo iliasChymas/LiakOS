@@ -1226,6 +1226,10 @@ function SettingsControl() {
   const popover = new Gtk.Popover()
   popover.add_css_class("utility-popover")
   popover.set_has_arrow(false)
+  popover.set_position(Gtk.PositionType.BOTTOM)
+  popover.set_halign(Gtk.Align.START)
+  // Keep the left alignment adjustment and match the other bar popups' gap.
+  popover.set_offset(1, 8)
   const scroll = new Gtk.ScrolledWindow()
   scroll.set_policy(Gtk.PolicyType.NEVER, Gtk.PolicyType.AUTOMATIC)
   scroll.set_max_content_height(640)
