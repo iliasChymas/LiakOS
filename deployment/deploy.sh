@@ -35,17 +35,9 @@ if [ ! -f "$PORTAL_CONFIG_DIR/wayfire-portals.conf" ]; then
     "$PORTAL_CONFIG_DIR/wayfire-portals.conf"
 fi
 
-if [ -f "$AGS_ENTRY" ] && ! cmp -s "$ROOT_DIR/bar.tsx" "$AGS_ENTRY"; then
-  backup_once "$AGS_ENTRY" "$AGS_ENTRY.bak"
-fi
-install -m 644 "$ROOT_DIR/bar.tsx" "$AGS_ENTRY"
+"$DEPLOYMENT_DIR/install-bar.sh"
 install -m 755 "$ROOT_DIR/scripts/test-pywal-gtk-colors.sh" \
   "$LIAKOS_DATA_DIR/scripts/test-pywal-gtk-colors.sh"
-install -m 755 "$ROOT_DIR/scripts/oasa-schedule.py" \
-  "$LIAKOS_DATA_DIR/scripts/oasa-schedule.py"
-install -m 644 "$ROOT_DIR/assets/icons/bluetooth-open.svg" "$AGS_CONFIG_DIR/icons/bluetooth-open.svg"
-install -m 644 "$ROOT_DIR/assets/icons/bluetooth-closed.svg" "$AGS_CONFIG_DIR/icons/bluetooth-closed.svg"
-install -m 644 "$ROOT_DIR/assets/icons/oasa-bus.svg" "$AGS_CONFIG_DIR/icons/oasa-bus.svg"
 cp -a "$ROOT_DIR/wallpapers/." "$WALLPAPER_DIR/"
 
 DEFAULT_BROWSER=$(xdg-mime query default x-scheme-handler/https 2>/dev/null || true)

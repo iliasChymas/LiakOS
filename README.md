@@ -101,8 +101,9 @@ Deploy the current setup with:
 deployment/deploy.sh
 ```
 
-To rebuild and update the native apps and their application-menu entries
-without changing or reloading the active Wayfire config, use:
+To rebuild and update the native apps and their application-menu entries,
+and install the AGS bar with its icons and OASA helper, use the following
+command. It preserves the active Wayfire config; restart AGS to load bar changes.
 
 ```sh
 scripts/update-apps.sh
@@ -127,6 +128,9 @@ configuration and assets:
   `app.tsx.bak`. Deployment also adds `ags run <installed app.tsx>` to
   Wayfire's `[autostart]` section so the bar starts at login.
 - Bluetooth state icons into `$XDG_CONFIG_HOME/ags/icons/`.
+- The OASA bus icon into `$XDG_CONFIG_HOME/ags/icons/` and its schedule helper
+  into `$XDG_DATA_HOME/liakos/scripts/`. To repair or update just the bar and
+  these dependencies, run `deployment/install-bar.sh` and restart AGS.
 - The repository wallpapers into `$XDG_CONFIG_HOME/los/walls/` (normally
   `~/.config/los/walls/`). Files are copied additively; existing files in the
   target are not removed.
