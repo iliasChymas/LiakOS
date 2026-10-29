@@ -25,3 +25,11 @@ The script honors `XDG_DATA_HOME` and `XDG_CONFIG_HOME`.
 
 The scripts use paths relative to the repository, honor `XDG_CONFIG_HOME` and
 `XDG_DATA_HOME`, and install executables into `~/.local/bin`.
+
+The bar's LiakOS quick actions resolve executables in `~/.local/bin` directly,
+then fall back to the inherited PATH. Their child processes also receive that
+directory in PATH, so Settings can open the wallpaper and shortcut apps even
+when AGS was started with a restricted session PATH. See
+[the quick-action investigation](quick-actions-investigation.md) for evidence
+and validation. Run `scripts/test-bar-quick-actions.sh` for the isolated GJS
+regression checks (requires AGS and GJS; does not start the desktop bar).

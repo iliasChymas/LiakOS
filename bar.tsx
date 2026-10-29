@@ -734,13 +734,29 @@ function DateControl() {
 
 type CommandResult = { ok: boolean; stdout: string; stderr: string }
 
-function runCommand(argv: string[], callback: (result: CommandResult) => void) {
+function runCommand(
+  argv: string[],
+  callback: (result: CommandResult) => void,
+  { userInstalledApp = false }: { userInstalledApp?: boolean } = {},
+) {
   debugLog(`command start argv=${JSON.stringify(argv)}`)
   try {
-    const process = Gio.Subprocess.new(
-      argv,
-      Gio.SubprocessFlags.STDOUT_PIPE | Gio.SubprocessFlags.STDERR_PIPE,
-    )
+    const launcher = new Gio.SubprocessLauncher({
+      flags: Gio.SubprocessFlags.STDOUT_PIPE | Gio.SubprocessFlags.STDERR_PIPE,
+    })
+    if (userInstalledApp) {
+      // The installer uses ~/.local/bin, which need not be in AGS's session PATH.
+      const binDir = GLib.build_filenamev([GLib.get_home_dir(), ".local", "bin"])
+      const installedApp = GLib.build_filenamev([binDir, argv[0]])
+      if (GLib.file_test(installedApp, GLib.FileTest.IS_EXECUTABLE)) {
+        argv = [installedApp, ...argv.slice(1)]
+      }
+      // Gio searches the parent's PATH for bare argv[0]; the absolute path above
+      // handles that. Pass the augmented PATH on for the app's own launchers too.
+      const path = GLib.getenv("PATH")
+      launcher.setenv("PATH", path ? `${binDir}:${path}` : `${binDir}:/usr/local/bin:/usr/bin:/bin`, true)
+    }
+    const process = launcher.spawnv(argv)
     process.communicate_utf8_async(null, null, (source, result) => {
       try {
         const process = source as Gio.Subprocess
@@ -1289,7 +1305,7 @@ function SettingsControl() {
       debugLog(`quick settings button clicked label=${JSON.stringify(label)} command=${JSON.stringify(command)}`)
       runCommand([command], result => {
         if (!result.ok) sendBarNotification(`Could not open ${label}`, result.stderr.trim() || `Command failed: ${command}`)
-      })
+      }, { userInstalledApp: true })
       popover.popdown()
     })
     quickAccess.attach(item, index % 2, Math.floor(index / 2), 1, 1)
