@@ -25,3 +25,10 @@ The script honors `XDG_DATA_HOME` and `XDG_CONFIG_HOME`.
 
 The scripts use paths relative to the repository, honor `XDG_CONFIG_HOME` and
 `XDG_DATA_HOME`, and install executables into `~/.local/bin`.
+
+Display persistence requires Kanshi >=1.9 with `kanshictl`. Deployment creates
+`~/.config/kanshi/config` from the empty shipped template if missing, sets
+Wayfire's external-output ownership option, and adds the guarded Kanshi session
+launcher. The display app saves layouts only to Kanshi. Deployment does not
+start/reload Kanshi; it starts next session or after **Keep settings** in Displays.
+See [display persistence](../monitor-app/README.md) for details.

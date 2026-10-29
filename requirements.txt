@@ -40,7 +40,8 @@
 # Display setup app (monitor-app/)
 # C compiler, pkg-config, GTK 4 and JSON-GLib development libraries
 # wlr-randr for reading and applying Wayland output configurations on Wayfire
-# The app uses wlr-randr internally; users configure displays from its GTK UI.
+# Kanshi >=1.9 with kanshictl IPC support for persistence, startup and reconnects
+# The app previews with wlr-randr and saves confirmed layouts to Kanshi.
 
 # Wallpaper color theming (lpaper and scripts/test-pywal-gtk-colors.sh)
 # Pywal16 (`wal`) to set wallpapers and generate ~/.cache/wal/colors.json

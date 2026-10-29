@@ -15,13 +15,22 @@ AGS_ENTRY="$AGS_CONFIG_DIR/app.tsx"
 WALLPAPER_DIR="$CONFIG_HOME/los/walls"
 LIAKOS_DATA_DIR="$DATA_HOME/liakos"
 
-if [ -f "$CONFIG_HOME/wayfire.ini" ]; then
-  WAYFIRE_CONFIG="$CONFIG_HOME/wayfire.ini"
+if [ -n "${LIAKOS_WAYFIRE_CONFIG:-}" ]; then
+  WAYFIRE_CONFIG=$LIAKOS_WAYFIRE_CONFIG
+elif [ -n "${WAYFIRE_CONFIG_FILE:-}" ]; then
+  WAYFIRE_CONFIG=$WAYFIRE_CONFIG_FILE
 elif [ -f "$CONFIG_HOME/wayfire/wayfire.ini" ]; then
   WAYFIRE_CONFIG="$CONFIG_HOME/wayfire/wayfire.ini"
 else
   WAYFIRE_CONFIG="$CONFIG_HOME/wayfire.ini"
 fi
+
+for dependency in kanshi kanshictl; do
+  if ! command -v "$dependency" >/dev/null 2>&1; then
+    printf 'Missing %s: install Kanshi with IPC support before deployment.\n' "$dependency" >&2
+    exit 1
+  fi
+done
 
 printf 'Installing native LiakOs apps...\n'
 "$DEPLOYMENT_DIR/install-c-apps.sh"
@@ -55,6 +64,14 @@ if [ ! -f "$WAYFIRE_CONFIG" ]; then
 else
   backup_once "$WAYFIRE_CONFIG" "$WAYFIRE_CONFIG.bak"
 fi
+
+# Kanshi owns monitor layouts; Wayfire only starts the manager and defers to it.
+mkdir -p "$CONFIG_HOME/kanshi"
+if [ ! -f "$CONFIG_HOME/kanshi/config" ]; then
+  install -m 600 "$ROOT_DIR/config/kanshi/config" "$CONFIG_HOME/kanshi/config"
+fi
+set_wayfire_option "$WAYFIRE_CONFIG" autostart liakos_kanshi 'ldisplays --start-kanshi'
+set_wayfire_option "$WAYFIRE_CONFIG" workarounds use_external_output_configuration true
 
 set_wayfire_command_option "$WAYFIRE_CONFIG" binding_keybindings '<super> <shift> KEY_K'
 set_wayfire_command_option "$WAYFIRE_CONFIG" command_keybindings 'lkeybinds'
@@ -102,3 +119,4 @@ printf 'Wallpapers: %s\n' "$WALLPAPER_DIR"
 printf 'Color script: %s/scripts\n' "$LIAKOS_DATA_DIR"
 printf 'Wayfire config: %s\n' "$WAYFIRE_CONFIG"
 printf 'Restart AGS and reload/restart Wayfire to use the updated desktop.\n'
+printf 'Kanshi starts next session, or when you keep a layout in Displays.\n'

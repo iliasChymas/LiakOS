@@ -1,6 +1,6 @@
 # Arch Linux packages used by LiakOs display setup and the AGS bar.
 # Build tools and native UI/runtime packages for the display setup app:
-sudo pacman -S --needed gcc pkgconf gtk4 json-glib wlr-randr
+sudo pacman -S --needed gcc pkgconf gtk4 json-glib wlr-randr kanshi
 
 # AGS v3 plus AstalTray, AstalWp, AstalBluetooth, and AstalPowerProfiles.
 # These two packages are in the AUR; yay can be replaced with another AUR helper.

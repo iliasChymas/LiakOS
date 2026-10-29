@@ -6,7 +6,7 @@
 #include <json-glib/json-glib.h>
 #include <math.h>
 #include <string.h>
-#include <sys/stat.h>
+#include "display-config.h"
 
 typedef struct {
   int width, height;
@@ -27,12 +27,6 @@ typedef struct {
   GtkDrawingArea *preview;
 } Monitor;
 typedef struct {
-  char *name, *mode, *transform;
-  gboolean enabled;
-  double scale;
-  int x, y;
-} MonitorSetting;
-typedef struct {
   char *name;
   GPtrArray *settings;
 } Profile;
@@ -46,9 +40,8 @@ typedef struct {
   GtkDrawingArea *layout_preview;
   GPtrArray *monitors, *profiles;
   GPtrArray *rollback;
-  GPtrArray *kept_settings;
   char *profile_path;
-  guint rollback_timer, countdown_timer, reapply_timer;
+  guint rollback_timer, countdown_timer;
   GtkWindow *confirm_window;
   GtkLabel *countdown_label;
   guint countdown_left;
@@ -360,7 +353,7 @@ static gboolean run_wlr(GPtrArray *settings, gboolean dry_run, GError **error) {
     g_ptr_array_add(args, g_strdup("--pos"));
     g_ptr_array_add(args, g_strdup_printf("%d,%d", s->x, s->y));
     char scale[G_ASCII_DTOSTR_BUF_SIZE];
-    g_ascii_formatd(scale, sizeof(scale), "%.2f", s->scale);
+    g_ascii_dtostr(scale, sizeof(scale), s->scale);
     g_ptr_array_add(args, g_strdup("--scale"));
     g_ptr_array_add(args, g_strdup(scale));
     g_ptr_array_add(args, g_strdup("--transform"));
@@ -379,167 +372,6 @@ static gboolean run_wlr(GPtrArray *settings, gboolean dry_run, GError **error) {
   g_free(stderr_text);
   g_ptr_array_unref(args);
   return ok;
-}
-
-static char *wayfire_config_path(void) {
-  const char *override = g_getenv("LIAKOS_WAYFIRE_CONFIG");
-  if (override && *override)
-    return g_canonicalize_filename(override, NULL);
-  const char *config_home = g_get_user_config_dir();
-  char *root = g_build_filename(config_home, "wayfire.ini", NULL);
-  char *nested = g_build_filename(config_home, "wayfire", "wayfire.ini", NULL);
-  char *found = g_file_test(root, G_FILE_TEST_IS_REGULAR)
-                    ? g_strdup(root)
-                    : g_file_test(nested, G_FILE_TEST_IS_REGULAR) ? g_strdup(nested)
-                                                                  : g_strdup(root);
-  g_free(root);
-  g_free(nested);
-  return found;
-}
-
-static void append_command_arg(GString *command, const char *arg) {
-  char *quoted = g_shell_quote(arg);
-  if (command->len)
-    g_string_append_c(command, ' ');
-  g_string_append(command, quoted);
-  g_free(quoted);
-}
-
-static char *layout_command(GPtrArray *settings) {
-  GString *command = g_string_new("wlr-randr");
-  for (guint i = 0; i < settings->len; i++) {
-    MonitorSetting *s = g_ptr_array_index(settings, i);
-    append_command_arg(command, "--output");
-    append_command_arg(command, s->name);
-    append_command_arg(command, s->enabled ? "--on" : "--off");
-    if (!s->enabled)
-      continue;
-
-    append_command_arg(command, "--mode");
-    append_command_arg(command, s->mode);
-    append_command_arg(command, "--pos");
-    char *position = g_strdup_printf("%d,%d", s->x, s->y);
-    append_command_arg(command, position);
-    g_free(position);
-
-    char scale[G_ASCII_DTOSTR_BUF_SIZE];
-    g_ascii_formatd(scale, sizeof(scale), "%.2f", s->scale);
-    append_command_arg(command, "--scale");
-    append_command_arg(command, scale);
-    append_command_arg(command, "--transform");
-    append_command_arg(command, s->transform);
-  }
-  return g_string_free(command, FALSE);
-}
-
-static gboolean save_layout_autostart(GPtrArray *settings, GError **error) {
-  char *config_path = wayfire_config_path();
-  char *contents = NULL;
-  if (!g_file_get_contents(config_path, &contents, NULL, error)) {
-    g_free(config_path);
-    return FALSE;
-  }
-
-  char *command = layout_command(settings);
-  gchar **lines = g_strsplit(contents, "\n", -1);
-  GString *updated = g_string_new(NULL);
-  gboolean in_autostart = FALSE, have_autostart = FALSE;
-  gboolean wrote_command = FALSE;
-  for (guint i = 0; lines[i]; i++) {
-    char *trimmed = strip_line(lines[i]);
-    if (*trimmed == '[') {
-      if (in_autostart && !wrote_command) {
-        g_string_append_printf(updated, "liakos_display_layout = %s\n", command);
-        wrote_command = TRUE;
-      }
-      in_autostart = g_str_equal(trimmed, "[autostart]");
-      if (in_autostart)
-        have_autostart = TRUE;
-      g_string_append_printf(updated, "%s\n", lines[i]);
-      g_free(trimmed);
-      continue;
-    }
-
-    if (in_autostart && *trimmed && *trimmed != '#' && *trimmed != ';') {
-      char *equal = strchr(trimmed, '=');
-      if (equal) {
-        *equal = '\0';
-        g_strstrip(trimmed);
-        if (g_str_equal(trimmed, "liakos_display_layout")) {
-          if (!wrote_command) {
-            g_string_append_printf(updated, "liakos_display_layout = %s\n",
-                                   command);
-            wrote_command = TRUE;
-          }
-          g_free(trimmed);
-          continue;
-        }
-      }
-    }
-    g_string_append_printf(updated, "%s\n", lines[i]);
-    g_free(trimmed);
-  }
-  if (in_autostart && !wrote_command)
-    g_string_append_printf(updated, "liakos_display_layout = %s\n", command);
-  if (!have_autostart)
-    g_string_append_printf(updated,
-                           "\n[autostart]\nliakos_display_layout = %s\n",
-                           command);
-
-  struct stat config_stat;
-  gboolean have_mode = stat(config_path, &config_stat) == 0;
-  char *backup_path = g_strconcat(config_path, ".liakos-backup", NULL);
-  if (!g_file_test(backup_path, G_FILE_TEST_EXISTS)) {
-    if (!g_file_set_contents(backup_path, contents, -1, error)) {
-      g_free(backup_path);
-      g_string_free(updated, TRUE);
-      g_strfreev(lines);
-      g_free(contents);
-      g_free(command);
-      g_free(config_path);
-      return FALSE;
-    }
-    if (have_mode)
-      g_chmod(backup_path, config_stat.st_mode & 07777);
-  }
-
-  char *temporary_path = g_strconcat(config_path, ".liakos-display-tmp", NULL);
-  gboolean ok = g_file_set_contents(temporary_path, updated->str,
-                                    updated->len, error);
-  if (ok && have_mode)
-    g_chmod(temporary_path, config_stat.st_mode & 07777);
-  if (ok && g_rename(temporary_path, config_path) != 0) {
-    g_set_error(error, G_FILE_ERROR, g_file_error_from_errno(errno),
-                "Could not replace Wayfire config: %s", g_strerror(errno));
-    ok = FALSE;
-  }
-  if (!ok)
-    g_unlink(temporary_path);
-
-  g_free(temporary_path);
-  g_free(backup_path);
-  g_string_free(updated, TRUE);
-  g_strfreev(lines);
-  g_free(contents);
-  g_free(command);
-  g_free(config_path);
-  return ok;
-}
-
-static gboolean reapply_kept_layout(gpointer data) {
-  App *app = data;
-  app->reapply_timer = 0;
-  GError *error = NULL;
-  if (!run_wlr(app->kept_settings, FALSE, &error)) {
-    char *message = g_strdup_printf(
-        "Layout saved for startup, but could not reapply it after Wayfire reloaded: %s",
-        error ? error->message : "unknown error");
-    set_status(app, message);
-    g_free(message);
-  }
-  g_clear_error(&error);
-  g_clear_pointer(&app->kept_settings, g_ptr_array_unref);
-  return G_SOURCE_REMOVE;
 }
 
 static const char *transforms[] = {"normal",      "90",          "180",
@@ -1053,23 +885,28 @@ static void keep_settings(GtkButton *b, gpointer data) {
 
   GPtrArray *settings = snapshot(app);
   GError *error = NULL;
-  if (!save_layout_autostart(settings, &error)) {
+  char *kanshi_path = kanshi_config_path();
+  gboolean saved = save_display_config(kanshi_path, settings, &error);
+  g_free(kanshi_path);
+  g_ptr_array_unref(settings);
+  if (!saved) {
     char *message = g_strdup_printf(
-        "Display setup kept for this session, but could not save it for startup: %s",
+        "Display setup kept for this session, but persistent configuration setup failed: %s",
         error ? error->message : "unknown error");
     set_status(app, message);
     g_free(message);
     g_clear_error(&error);
-    g_ptr_array_unref(settings);
     return;
   }
 
-  g_clear_pointer(&app->kept_settings, g_ptr_array_unref);
-  app->kept_settings = settings;
-  if (app->reapply_timer)
-    g_source_remove(app->reapply_timer);
-  app->reapply_timer = g_timeout_add(500, reapply_kept_layout, app);
-  set_status(app, "Display setup saved to Wayfire startup.");
+  if (!activate_kanshi(TRUE, &error)) {
+    char *message = g_strdup_printf("Layout saved to Kanshi, but could not activate it: %s", error->message);
+    set_status(app, message);
+    g_free(message);
+    g_clear_error(&error);
+    return;
+  }
+  set_status(app, "Display setup saved to Kanshi for startup and reconnects.");
 }
 static void revert_settings(GtkButton *b, gpointer data) {
   (void)b;
@@ -1404,6 +1241,15 @@ static void activate(GtkApplication *application, gpointer data) {
   gtk_window_present(app->window);
 }
 int main(int argc, char **argv) {
+  if (argc == 2 && g_str_equal(argv[1], "--start-kanshi")) {
+    GError *error = NULL;
+    if (!activate_kanshi(FALSE, &error)) {
+      g_printerr("Could not start Kanshi: %s\n", error->message);
+      g_error_free(error);
+      return 1;
+    }
+    return 0;
+  }
   GtkApplication *app = gtk_application_new("org.liakos.DisplaySetup",
                                             G_APPLICATION_DEFAULT_FLAGS);
   g_signal_connect(app, "activate", G_CALLBACK(activate), NULL);

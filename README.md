@@ -58,7 +58,7 @@ Edit your current Wayfire shortcuts through a GUI instead of modifying `wayfire.
 
 ### MonitorApp
 
-Configure your monitor setup from a simple interface. The app saves the corresponding startup commands so your display setup persists across sessions.
+Configure your monitor setup from a simple interface. After the 15-second preview, **Keep settings** saves position, resolution/refresh, scale, rotation, and enabled state in `~/.config/kanshi/config`. Kanshi restores the saved layout when the session starts or monitors reconnect. See [display persistence and migration](monitor-app/README.md) for details and limitations.
 
 <img src="screenshots/monitor.png" alt="Display setup app showing a two-monitor layout and output configuration controls" width="800">
 
