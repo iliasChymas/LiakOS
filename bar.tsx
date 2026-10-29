@@ -1226,6 +1226,10 @@ function SettingsControl() {
   const popover = new Gtk.Popover()
   popover.add_css_class("utility-popover")
   popover.set_has_arrow(false)
+  popover.set_position(Gtk.PositionType.BOTTOM)
+  popover.set_halign(Gtk.Align.START)
+  // Keep the left alignment adjustment and match the other bar popups' gap.
+  popover.set_offset(1, 8)
   const scroll = new Gtk.ScrolledWindow()
   scroll.set_policy(Gtk.PolicyType.NEVER, Gtk.PolicyType.AUTOMATIC)
   scroll.set_max_content_height(640)
@@ -1396,7 +1400,7 @@ function OasaControl() {
   const icon = new Gtk.Image({ icon_name: "bus-symbolic" })
   const iconPaths = [
     GLib.build_filenamev([GLib.get_user_config_dir(), "ags", "icons", "oasa-bus.svg"]),
-    GLib.build_filenamev([GLib.get_current_dir(), "assets", "icons", "oasa-bus.svg"]),
+    GLib.build_filenamev([SRC, "assets", "icons", "oasa-bus.svg"]),
   ]
   const iconPath = iconPaths.find(path => Gio.File.new_for_path(path).query_exists(null))
   if (iconPath) icon.set_from_file(iconPath)
@@ -1459,7 +1463,7 @@ function OasaControl() {
     layerKeyboardEnabled = false
   })
   const schedulePath = GLib.build_filenamev([GLib.get_user_data_dir(), "liakos", "scripts", "oasa-schedule.py"])
-  const sourcePath = GLib.build_filenamev([GLib.get_current_dir(), "scripts", "oasa-schedule.py"])
+  const sourcePath = GLib.build_filenamev([SRC, "scripts", "oasa-schedule.py"])
   const runLine = (line: string, section: Gtk.Box, onComplete: () => void) => {
     const script = Gio.File.new_for_path(schedulePath).query_exists(null) ? schedulePath : sourcePath
     try {
