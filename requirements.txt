@@ -4,11 +4,16 @@
 
 # Desktop bar
 # AGS v3 with GTK 4 / GJS support
-# libastal with AstalTray, AstalWp, and AstalBluetooth 0.1
+# libastal with AstalTray, AstalWp, AstalBluetooth, and AstalPowerProfiles 0.1
 # BlueZ and rfkill for Bluetooth control
 # xdg-utils (`xdg-mime`) and GTK 3 (`gtk-launch`) for default-app Wayfire bindings
 # Thunar as the LiakOs file manager
 # PipeWire and WirePlumber for the bar's per-app audio and device controls
+# power-profiles-daemon for the bar's Full performance, Balanced, and Power saver choices
+# wf-recorder for screen recording; `slurp` enables optional area selection
+# Flameshot plus `xdg-desktop-portal-wlr` for bar screenshots on Wayfire;
+# `grim` is used by the example Print keybinding
+# `light` for internal backlights, or `ddcutil` for DDC/CI monitor brightness
 
 # Wallpaper slideshow (wallpaper-app/)
 # C compiler and pkg-config

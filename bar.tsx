@@ -10,8 +10,33 @@ import Pango from "gi://Pango?version=1.0"
 import AstalTray from "gi://AstalTray?version=0.1"
 import AstalWp from "gi://AstalWp?version=0.1"
 import AstalBluetooth from "gi://AstalBluetooth?version=0.1"
+import AstalPowerProfiles from "gi://AstalPowerProfiles?version=0.1"
 
 const ICON_SIZE=18
+const DEBUG_LOG_PATH = "/tmp/liakos-bar-debug.log"
+
+function debugLog(message: string) {
+  const timestamp = GLib.DateTime.new_now_local().format("%Y-%m-%d %H:%M:%S") || "unknown-time"
+  try {
+    const stream = Gio.File.new_for_path(DEBUG_LOG_PATH).append_to(Gio.FileCreateFlags.NONE, null)
+    const [written] = stream.write_all(new TextEncoder().encode(`[${timestamp}] ${message}\n`), null)
+    if (!written) printerr(`Could not append to ${DEBUG_LOG_PATH}`)
+    stream.close(null)
+  } catch (error) {
+    printerr(`Could not write ${DEBUG_LOG_PATH}: ${error}`)
+  }
+}
+
+function resetDebugLog() {
+  const timestamp = GLib.DateTime.new_now_local().format("%Y-%m-%d %H:%M:%S") || "unknown-time"
+  try {
+    const written = GLib.file_set_contents(DEBUG_LOG_PATH, `=== LiakOS bar debug session ${timestamp} ===\n`)
+    if (!written) printerr(`Could not reset ${DEBUG_LOG_PATH}`)
+  } catch (error) {
+    printerr(`Could not reset ${DEBUG_LOG_PATH}: ${error}`)
+  }
+}
+
 const tray = AstalTray.Tray.get_default()
 const wireplumber = AstalWp.Wp.get_default()
 const audio = wireplumber.audio
@@ -107,6 +132,107 @@ function barCss(palette: Palette) {
 
     .date-button:hover {
       background: ${withAlpha(palette.secondary, 0.28)};
+    }
+
+    .utility-button {
+      min-width: 28px;
+      min-height: 26px;
+      padding: 0 5px;
+      border: 0;
+      border-radius: 9px;
+      background: transparent;
+      color: ${palette.foreground};
+    }
+
+    .utility-button:hover {
+      background: ${withAlpha(palette.accent, 0.28)};
+    }
+
+    .brand-button {
+      padding: 0 8px;
+      border: 0;
+      background: transparent;
+      color: ${palette.accent};
+      font-size: 12px;
+      font-weight: 700;
+    }
+
+    .brand-button:hover {
+      background: ${withAlpha(palette.accent, 0.16)};
+    }
+
+    .brand-button.hover-suppressed:hover {
+      background: transparent;
+    }
+
+    .recording-indicator {
+      min-width: 20px;
+      min-height: 22px;
+      padding: 0 4px;
+      border: 0;
+      background: transparent;
+      color: #ff5a66;
+      font-size: 14px;
+      font-weight: 900;
+    }
+
+    .recording-indicator:hover {
+      background: ${withAlpha("#ff5a66", 0.12)};
+    }
+
+    .utility-popover > contents {
+      padding: 12px;
+      border: 1px solid ${withAlpha(palette.foreground, 0.12)};
+      border-radius: 12px;
+      background: ${palette.background};
+      color: ${palette.foreground};
+    }
+
+    .utility-panel {
+      min-width: 340px;
+      padding: 2px;
+      color: ${palette.foreground};
+    }
+
+    .utility-title {
+      margin-bottom: 1px;
+      color: ${palette.accent};
+      font-weight: 700;
+    }
+
+    .quick-access-button {
+      min-height: 64px;
+      padding: 6px;
+      border-radius: 9px;
+      background: ${withAlpha(palette.surface, 0.82)};
+      color: ${palette.foreground};
+    }
+
+    .quick-access-button:hover {
+      background: ${withAlpha(palette.accent, 0.22)};
+    }
+
+    .capture-button {
+      min-height: 38px;
+      border-radius: 8px;
+    }
+
+    .utility-muted {
+      color: ${withAlpha(palette.foreground, 0.68)};
+      font-size: 11px;
+    }
+
+    .recording-window {
+      min-width: 380px;
+      padding: 18px;
+      color: ${palette.foreground};
+      background: ${palette.background};
+    }
+
+    .recording-window-title {
+      color: ${palette.accent};
+      font-size: 17px;
+      font-weight: 700;
     }
 
     .audio-popover {
@@ -604,6 +730,596 @@ function DateControl() {
   })
   update()
   return button
+}
+
+type CommandResult = { ok: boolean; stdout: string; stderr: string }
+
+function runCommand(argv: string[], callback: (result: CommandResult) => void) {
+  debugLog(`command start argv=${JSON.stringify(argv)}`)
+  try {
+    const process = Gio.Subprocess.new(
+      argv,
+      Gio.SubprocessFlags.STDOUT_PIPE | Gio.SubprocessFlags.STDERR_PIPE,
+    )
+    process.communicate_utf8_async(null, null, (source, result) => {
+      try {
+        const process = source as Gio.Subprocess
+        const [, stdout, stderr] = process.communicate_utf8_finish(result)
+        const ok = process.get_successful()
+        debugLog(`command exit ok=${ok} argv=${JSON.stringify(argv)} stdout=${JSON.stringify(stdout.slice(0, 1200))} stderr=${JSON.stringify(stderr.slice(0, 1200))}`)
+        callback({ ok, stdout, stderr })
+      } catch (error) {
+        debugLog(`command communication error argv=${JSON.stringify(argv)} error=${String(error)}`)
+        callback({ ok: false, stdout: "", stderr: String(error) })
+      }
+    })
+  } catch (error) {
+    debugLog(`command spawn error argv=${JSON.stringify(argv)} error=${String(error)}`)
+    callback({ ok: false, stdout: "", stderr: String(error) })
+  }
+}
+
+function sendBarNotification(title: string, body: string) {
+  debugLog(`notification title=${JSON.stringify(title)} body=${JSON.stringify(body)}`)
+  const notification = Gio.Notification.new(title)
+  notification.set_body(body)
+  try {
+    app.send_notification(null, notification)
+  } catch (error) {
+    printerr(`Could not show notification: ${error}`)
+  }
+}
+
+const powerProfiles = AstalPowerProfiles.PowerProfiles.get_default()
+
+function appendPowerProfileOptions(panel: Gtk.Box) {
+  const title = new Gtk.Label({ label: "Power profile", xalign: 0 })
+  title.add_css_class("utility-title")
+  panel.append(title)
+  const dropdown = Gtk.DropDown.new_from_strings(["Checking profiles…"])
+  dropdown.set_sensitive(false)
+  panel.append(dropdown)
+  const status = new Gtk.Label({ label: "", xalign: 0, wrap: true })
+  status.add_css_class("utility-muted")
+  panel.append(status)
+
+  const choices = [
+    { id: "performance", label: "Full performance" },
+    { id: "balanced", label: "Balanced" },
+    { id: "power-saver", label: "Power saver" },
+  ] as const
+  let available: Array<{ id: string; label: string }> = []
+  let syncing = false
+  const refresh = () => {
+    const selected = available.findIndex(choice => choice.id === powerProfiles.active_profile)
+    if (selected < 0) return
+    syncing = true
+    dropdown.set_selected(selected)
+    syncing = false
+  }
+
+  dropdown.connect("notify::selected", () => {
+    if (syncing) return
+    const choice = available[dropdown.get_selected()]
+    if (!choice) return
+    debugLog(`power profile selection id=${choice.id}`)
+    try {
+      powerProfiles.active_profile = choice.id
+      refresh()
+    } catch (error) {
+      sendBarNotification("Power profile unavailable", String(error))
+    }
+  })
+
+  const refreshAvailable = () => {
+    status.set_text("Checking available profiles…")
+    runCommand(["powerprofilesctl", "list"], result => {
+      const ids = result.ok
+        ? new Set([...result.stdout.matchAll(/^\s*(?:\*\s*)?(performance|balanced|power-saver):/gm)].map(match => match[1]))
+        : new Set<string>()
+      available = choices.filter(choice => ids.has(choice.id))
+      syncing = true
+      dropdown.set_model(Gtk.StringList.new(available.map(choice => choice.label)))
+      syncing = false
+      dropdown.set_sensitive(available.length > 0)
+      status.set_text(available.length ? "" : "Power Profiles service is unavailable.")
+      refresh()
+    })
+  }
+  powerProfiles.connect("notify::active-profile", refresh)
+  refreshAvailable()
+  refresh()
+  return refreshAvailable
+}
+
+type DisplayChoice = { name: string; label: string }
+
+function readDisplayChoices(): DisplayChoice[] {
+  try {
+    debugLog("reading enabled displays with wlr-randr --json")
+    const [ok, stdout, stderr, status] = GLib.spawn_sync(null, ["wlr-randr", "--json"], null, GLib.SpawnFlags.SEARCH_PATH, null)
+    debugLog(`wlr-randr result spawned=${ok} status=${status} stderr=${JSON.stringify(new TextDecoder().decode(stderr ?? new Uint8Array()).slice(0, 1200))}`)
+    if (!ok) return []
+    const outputs = JSON.parse(new TextDecoder().decode(stdout ?? new Uint8Array()))
+    const choices = outputs.filter((output: any) => output.enabled).map((output: any) => ({
+      name: String(output.name),
+      label: `${output.description || output.name} (${output.name})`,
+    }))
+    debugLog(`enabled displays=${JSON.stringify(choices)}`)
+    return choices
+  } catch (_error) {
+    debugLog(`could not read displays: ${String(_error)}`)
+    return []
+  }
+}
+
+type AudioChoice = { name: string; label: string }
+
+function readAudioChoices(): AudioChoice[] {
+  try {
+    debugLog("reading audio sources with pactl list short sources")
+    const [ok, stdout, stderr, status] = GLib.spawn_sync(null, ["pactl", "list", "short", "sources"], null, GLib.SpawnFlags.SEARCH_PATH, null)
+    debugLog(`pactl result spawned=${ok} status=${status} stderr=${JSON.stringify(new TextDecoder().decode(stderr ?? new Uint8Array()).slice(0, 1200))}`)
+    if (!ok) return []
+    const lines = new TextDecoder().decode(stdout ?? new Uint8Array()).trim().split("\n")
+    const choices = lines.filter(Boolean).map(line => {
+      const fields = line.split("\t")
+      const name = fields[1] || fields[0]
+      const friendly = name
+        .replace(/^alsa_(input|output)\./, "")
+        .replace(/\.monitor$/, " (system audio)")
+        .replace(/[._-]+/g, " ")
+      return { name, label: friendly }
+    })
+    debugLog(`available audio sources=${JSON.stringify(choices)}`)
+    return choices
+  } catch (_error) {
+    debugLog(`could not read audio sources: ${String(_error)}`)
+    return []
+  }
+}
+
+function videoFolder() {
+  return GLib.get_user_special_dir(GLib.UserDirectory.DIRECTORY_VIDEOS)
+    || GLib.build_filenamev([GLib.get_home_dir(), "Videos"])
+}
+
+function makeRecordingPath() {
+  const folder = videoFolder()
+  GLib.mkdir_with_parents(folder, 0o755)
+  const stamp = GLib.DateTime.new_now_local().format("%Y-%m-%d_%H-%M-%S") || "recording"
+  return GLib.build_filenamev([folder, `LiakOs-${stamp}.mp4`])
+}
+
+let recorderProcess: Gio.Subprocess | null = null
+let recordingIndicator: Gtk.Button | null = null
+let recorderAction: Gtk.Button | null = null
+
+function updateRecordingButton() {
+  if (!recordingIndicator) return
+  const recording = recorderProcess !== null
+  recordingIndicator.set_visible(recording)
+  if (recorderAction) recorderAction.set_label(recording ? "Stop recording" : "Start recording")
+}
+
+function finishRecording(savedPath: string | null, successful: boolean) {
+  recorderProcess = null
+  updateRecordingButton()
+  if (!savedPath) return
+  if (successful) {
+    sendBarNotification("Recording finished", `Saved in ${GLib.path_get_dirname(savedPath)} (${GLib.path_get_basename(savedPath)})`)
+  } else {
+    sendBarNotification("Recording stopped", `The file may be incomplete: ${savedPath}`)
+  }
+}
+
+function stopRecording() {
+  if (!recorderProcess) {
+    debugLog("stop recording requested but no recorder process is active")
+    return
+  }
+  debugLog("sending SIGINT to wf-recorder")
+  recorderProcess.send_signal(2)
+}
+
+function startRecording(output: string, audioSource: string | null, region: boolean) {
+  debugLog(`start recording requested output=${output} audio=${audioSource ?? "none"} region=${region}`)
+  let savedPath: string
+  try {
+    savedPath = makeRecordingPath()
+  } catch (error) {
+    debugLog(`could not create recording output path: ${String(error)}`)
+    sendBarNotification("Could not prepare recording folder", String(error))
+    return
+  }
+  const begin = (geometry?: string) => {
+    const argv = ["wf-recorder", "-f", savedPath]
+    if (geometry) argv.push("-g", geometry)
+    else if (output) argv.push("-o", output)
+    if (audioSource) argv.push(`--audio=${audioSource}`)
+    try {
+      debugLog(`spawning wf-recorder argv=${JSON.stringify(argv)}`)
+      const process = Gio.Subprocess.new(argv, Gio.SubprocessFlags.STDOUT_PIPE | Gio.SubprocessFlags.STDERR_PIPE)
+      recorderProcess = process
+      updateRecordingButton()
+      process.communicate_utf8_async(null, null, (source, result) => {
+        const child = source as Gio.Subprocess
+        let successful = false
+        try {
+          const [, stdout, stderr] = child.communicate_utf8_finish(result)
+          successful = child.get_successful()
+          debugLog(`wf-recorder exited success=${successful} status=${child.get_exit_status()} signal=${child.get_term_sig()} stdout=${JSON.stringify(stdout.slice(0, 1600))} stderr=${JSON.stringify(stderr.slice(0, 3000))}`)
+        } catch (error) {
+          debugLog(`wf-recorder wait error: ${String(error)}`)
+          printerr(`Could not finish wf-recorder: ${error}`)
+        }
+        if (recorderProcess === child) finishRecording(savedPath, successful)
+      })
+    } catch (error) {
+      debugLog(`wf-recorder spawn error argv=${JSON.stringify(argv)} error=${String(error)}`)
+      sendBarNotification("Could not start recording", String(error))
+    }
+  }
+
+  if (!region) {
+    begin()
+    return
+  }
+  runCommand(["slurp"], result => {
+    const geometry = result.stdout.trim()
+    debugLog(`slurp selection ok=${result.ok} geometry=${JSON.stringify(geometry)} stderr=${JSON.stringify(result.stderr.slice(0, 1200))}`)
+    if (!result.ok || !geometry) {
+      sendBarNotification("Recording cancelled", result.stderr.trim() || "Area selection did not complete.")
+      return
+    }
+    begin(geometry)
+  })
+}
+
+function recordingSetupWindow() {
+  debugLog("opening recording setup window")
+  const screens = readDisplayChoices()
+  const sources = readAudioChoices()
+  debugLog(`recording setup choices displays=${JSON.stringify(screens)} audio=${JSON.stringify(sources)}`)
+  const window = new Gtk.Window({
+    title: "Screen recording",
+    modal: true,
+    resizable: false,
+    transient_for: app.get_windows()[0] ?? null,
+  })
+  const root = new Gtk.Box({ orientation: Gtk.Orientation.VERTICAL, spacing: 12 })
+  root.add_css_class("recording-window")
+  const heading = new Gtk.Label({ label: "Set up your recording", xalign: 0 })
+  heading.add_css_class("recording-window-title")
+  root.append(heading)
+
+  const screenLabel = new Gtk.Label({ label: "Screen", xalign: 0 })
+  root.append(screenLabel)
+  const screenNames = screens.map(screen => screen.label)
+  const screenDropDown = Gtk.DropDown.new_from_strings(screenNames.length ? screenNames : ["No displays found"])
+  screenDropDown.set_sensitive(screens.length > 0)
+  root.append(screenDropDown)
+
+  const regionCheck = new Gtk.CheckButton({ label: "Select a screen area" })
+  regionCheck.set_sensitive(GLib.find_program_in_path("slurp") !== null)
+  regionCheck.connect("toggled", () => {
+    screenDropDown.set_sensitive(screens.length > 0 && !regionCheck.get_active())
+  })
+  root.append(regionCheck)
+
+  const audioLabel = new Gtk.Label({ label: "Audio source", xalign: 0 })
+  root.append(audioLabel)
+  const audioNames = ["No audio", ...sources.map(source => source.label)]
+  const audioDropDown = Gtk.DropDown.new_from_strings(audioNames)
+  root.append(audioDropDown)
+  const audioHint = new Gtk.Label({
+    label: sources.length ? "Choose a microphone or a system-audio monitor." : "No PipeWire audio sources were found.",
+    xalign: 0,
+    wrap: true,
+  })
+  audioHint.add_css_class("utility-muted")
+  root.append(audioHint)
+
+  const status = new Gtk.Label({ label: `Videos folder: ${videoFolder()}`, xalign: 0, wrap: true })
+  status.add_css_class("utility-muted")
+  root.append(status)
+
+  const buttons = new Gtk.Box({ orientation: Gtk.Orientation.HORIZONTAL, spacing: 8, halign: Gtk.Align.END })
+  const cancel = new Gtk.Button({ label: "Cancel" })
+  cancel.connect("clicked", () => window.close())
+  const start = new Gtk.Button({ label: "Start recording" })
+  start.add_css_class("suggested-action")
+  start.set_sensitive(screens.length > 0)
+  start.connect("clicked", () => {
+    const screenIndex = screenDropDown.get_selected()
+    const audioIndex = audioDropDown.get_selected()
+    const output = screens[screenIndex]?.name
+    const audioSource = audioIndex > 0 ? sources[audioIndex - 1]?.name ?? null : null
+    debugLog(`record setup submitted screen=${output ?? "none"} audio=${audioSource ?? "none"} region=${regionCheck.get_active()}`)
+    if (!output) return
+    window.close()
+    startRecording(output, audioSource, regionCheck.get_active())
+  })
+  buttons.append(cancel)
+  buttons.append(start)
+  root.append(buttons)
+  window.set_child(root)
+  window.present()
+}
+
+function RecordingMenuButton(popover: Gtk.Popover) {
+  const button = new Gtk.Button({ label: "Start recording" })
+  recorderAction = button
+  button.set_halign(Gtk.Align.FILL)
+  button.add_css_class("audio-device-row")
+  button.connect("clicked", () => {
+    debugLog(`record menu button clicked active=${recorderProcess !== null}`)
+    if (recorderProcess) {
+      stopRecording()
+    } else {
+      popover.popdown()
+      recordingSetupWindow()
+    }
+  })
+  return button
+}
+
+function ScreenshotMenuButton(popover: Gtk.Popover) {
+  const button = new Gtk.Button({ label: "Take screenshot" })
+  button.set_halign(Gtk.Align.FILL)
+  button.add_css_class("audio-device-row")
+  button.connect("clicked", () => {
+    debugLog("screenshot menu button clicked")
+    popover.popdown()
+    // Let GTK dismiss the settings popover before Flameshot starts its
+    // full-screen selection overlay. Otherwise the popover can keep focus
+    // and interfere with the selector.
+    GLib.idle_add(GLib.PRIORITY_DEFAULT, () => {
+      try {
+        debugLog("spawning flameshot gui with QT_QPA_PLATFORM=wayland")
+        // Flameshot's Wayland backend needs to be selected explicitly when
+        // it is launched by a GTK process; otherwise it may inherit an
+        // incompatible Qt platform setting from the desktop session.
+        const launcher = new Gio.SubprocessLauncher({
+          flags: Gio.SubprocessFlags.STDOUT_SILENCE | Gio.SubprocessFlags.STDERR_PIPE,
+        })
+        launcher.setenv("QT_QPA_PLATFORM", "wayland", true)
+        const userFlameshot = GLib.build_filenamev([GLib.get_home_dir(), ".local", "bin", "flameshot"])
+        const flameshotCommand = GLib.file_test(userFlameshot, GLib.FileTest.IS_EXECUTABLE)
+          ? userFlameshot
+          : "flameshot"
+        const process = launcher.spawnv([flameshotCommand, "gui"])
+        process.communicate_utf8_async(null, null, (_process, result) => {
+          try {
+            const [, , stderr] = process.communicate_utf8_finish(result)
+            const status = process.get_exit_status()
+            debugLog(`Flameshot exited success=${process.get_successful()} status=${status} stderr=${JSON.stringify(stderr?.slice(0, 2500) ?? "")}`)
+            if (!process.get_successful()) {
+              sendBarNotification("Flameshot failed", stderr?.trim() || `Exited with status ${status}`)
+            }
+          } catch (error) {
+            debugLog(`Flameshot wait error: ${String(error)}`)
+            sendBarNotification("Flameshot failed", String(error))
+          }
+        })
+      } catch (error) {
+        debugLog(`Flameshot spawn error: ${String(error)}`)
+        sendBarNotification("Flameshot unavailable", String(error))
+      }
+      return GLib.SOURCE_REMOVE
+    })
+  })
+  return button
+}
+
+type BrightnessTarget = { kind: "light" | "ddc"; display?: string; maximum?: number; label: string }
+
+function findBrightnessTarget(callback: (target: BrightnessTarget | null, value: number) => void) {
+  runCommand(["light", "-G"], result => {
+    const value = Number.parseFloat(result.stdout.trim())
+    if (result.ok && Number.isFinite(value)) {
+      callback({ kind: "light", label: "Main display" }, Math.max(0, Math.min(100, value)))
+      return
+    }
+
+    runCommand(["wlr-randr", "--json"], displaysResult => {
+      let mainConnector: string | null = null
+      try {
+        const displays = JSON.parse(displaysResult.stdout)
+        const enabled = displays.filter((display: any) => display.enabled)
+        const main = enabled.find((display: any) => display.position?.x === 0 && display.position?.y === 0) || enabled[0]
+        mainConnector = main?.name ?? null
+      } catch (_error) {}
+
+      runCommand(["ddcutil", "detect", "--brief"], detectResult => {
+        if (!detectResult.ok) {
+          callback(null, 0)
+          return
+        }
+        const blocks = detectResult.stdout.split(/(?=Display \d+)/)
+        const displays = blocks.map(block => {
+          const number = block.match(/Display (\d+)/)?.[1]
+          const connector = block.match(/DRM connector:\s+(?:card\d+-)?([^\s]+)/)?.[1]
+          return number && connector ? { number, connector } : null
+        }).filter((display): display is { number: string; connector: string } => display !== null)
+        const selected = displays.find(display => display.connector === mainConnector) || displays[0]
+        if (!selected) {
+          callback(null, 0)
+          return
+        }
+        runCommand(["ddcutil", "--display", selected.number, "getvcp", "10", "--brief"], currentResult => {
+          const match = currentResult.stdout.match(/VCP 10 \w+ (\d+) (\d+)/)
+          if (!currentResult.ok || !match) {
+            callback(null, 0)
+            return
+          }
+          const current = Number(match[1])
+          const maximum = Number(match[2]) || 100
+          callback({ kind: "ddc", display: selected.number, maximum, label: selected.connector }, Math.round(current * 100 / maximum))
+        })
+      })
+    })
+  })
+}
+
+function appendBrightnessSlider(panel: Gtk.Box) {
+  const title = new Gtk.Label({ label: "Main display brightness", xalign: 0 })
+  title.add_css_class("utility-title")
+  title.set_margin_top(4)
+  panel.append(title)
+  const scale = Gtk.Scale.new_with_range(Gtk.Orientation.HORIZONTAL, 0, 100, 1)
+  scale.set_draw_value(true)
+  scale.set_hexpand(true)
+  scale.set_sensitive(false)
+  panel.append(scale)
+  const status = new Gtk.Label({ label: "Checking display support…", xalign: 0, wrap: true })
+  status.add_css_class("utility-muted")
+  panel.append(status)
+  let target: BrightnessTarget | null = null
+  let loading = false
+  let initialized = false
+  let applying = false
+  let debounce = 0
+  const load = () => {
+    if (loading) return
+    loading = true
+    status.set_text("Checking display support…")
+    findBrightnessTarget((found, value) => {
+      loading = false
+      target = found
+      initialized = false
+      if (!found) {
+        status.set_text("No brightness control is available for the main display.")
+        scale.set_sensitive(false)
+        return
+      }
+      applying = true
+      scale.set_value(value)
+      applying = false
+      initialized = true
+      scale.set_sensitive(true)
+      status.set_text(`${found.label}: ${Math.round(value)}%`)
+    })
+  }
+  scale.connect("value-changed", () => {
+    if (!initialized || applying || !target) return
+    const value = Math.round(scale.get_value())
+    status.set_text(`${target.label}: ${value}%`)
+    if (debounce) GLib.source_remove(debounce)
+    debounce = GLib.timeout_add(GLib.PRIORITY_DEFAULT, 250, () => {
+      debounce = 0
+      const argv = target?.kind === "light"
+        ? ["light", "-S", String(value)]
+        : ["ddcutil", "--display", target?.display ?? "1", "setvcp", "10", String(Math.round(value * (target?.maximum ?? 100) / 100))]
+      runCommand(argv, result => {
+        if (!result.ok) status.set_text(`Could not change brightness: ${result.stderr.trim()}`)
+      })
+      return GLib.SOURCE_REMOVE
+    })
+  })
+  return load
+}
+
+function SettingsControl() {
+  const button = new Gtk.Button({ label: "LiakOS", tooltip_text: "Desktop controls and settings" })
+  button.add_css_class("brand-button")
+  const popover = new Gtk.Popover()
+  popover.add_css_class("utility-popover")
+  popover.set_has_arrow(false)
+  const scroll = new Gtk.ScrolledWindow()
+  scroll.set_policy(Gtk.PolicyType.NEVER, Gtk.PolicyType.AUTOMATIC)
+  scroll.set_max_content_height(640)
+  scroll.set_propagate_natural_height(true)
+  const panel = new Gtk.Box({ orientation: Gtk.Orientation.VERTICAL, spacing: 3 })
+  panel.add_css_class("utility-panel")
+  const profileRefresh = appendPowerProfileOptions(panel)
+  const brightnessRefresh = appendBrightnessSlider(panel)
+  const captureTitle = new Gtk.Label({ label: "Capture", xalign: 0 })
+  captureTitle.add_css_class("utility-title")
+  captureTitle.set_margin_top(4)
+  panel.append(captureTitle)
+  const captureButtons = new Gtk.Box({ orientation: Gtk.Orientation.HORIZONTAL, spacing: 8 })
+  const recordButton = RecordingMenuButton(popover)
+  const screenshotButton = ScreenshotMenuButton(popover)
+  recordButton.add_css_class("capture-button")
+  screenshotButton.add_css_class("capture-button")
+  recordButton.set_hexpand(true)
+  screenshotButton.set_hexpand(true)
+  captureButtons.append(recordButton)
+  captureButtons.append(screenshotButton)
+  panel.append(captureButtons)
+
+  const quickAccessTitle = new Gtk.Label({ label: "Quick settings", xalign: 0 })
+  quickAccessTitle.add_css_class("utility-title")
+  quickAccessTitle.set_margin_top(4)
+  panel.append(quickAccessTitle)
+  const quickAccess = new Gtk.Grid({ column_spacing: 8, row_spacing: 8, column_homogeneous: true })
+  quickAccess.add_css_class("quick-access-grid")
+  const items = [
+    ["System settings", "preferences-system-symbolic", "lsettings"],
+    ["Displays", "video-display-symbolic", "ldisplays"],
+    ["Shortcuts", "input-keyboard-symbolic", "lkeybinds"],
+    ["Startup apps", "system-run-symbolic", "lautostart"],
+    ["Wallpaper", "preferences-desktop-wallpaper-symbolic", "lpaper"],
+  ] as const
+  for (let index = 0; index < items.length; index++) {
+    const [label, iconName, command] = items[index]
+    const item = new Gtk.Button({ tooltip_text: label })
+    item.add_css_class("quick-access-button")
+    item.set_hexpand(true)
+    const content = new Gtk.Box({ orientation: Gtk.Orientation.VERTICAL, spacing: 4 })
+    content.set_halign(Gtk.Align.CENTER)
+    content.set_valign(Gtk.Align.CENTER)
+    const icon = new Gtk.Image({ icon_name: iconName })
+    icon.set_pixel_size(20)
+    icon.set_halign(Gtk.Align.CENTER)
+    const name = new Gtk.Label({ label, xalign: 0.5, justify: Gtk.Justification.CENTER })
+    name.set_halign(Gtk.Align.CENTER)
+    name.set_ellipsize(Pango.EllipsizeMode.END)
+    content.append(icon)
+    content.append(name)
+    item.set_child(content)
+    item.set_halign(Gtk.Align.FILL)
+    item.set_valign(Gtk.Align.FILL)
+    item.connect("clicked", () => {
+      debugLog(`quick settings button clicked label=${JSON.stringify(label)} command=${JSON.stringify(command)}`)
+      runCommand([command], result => {
+        if (!result.ok) sendBarNotification(`Could not open ${label}`, result.stderr.trim() || `Command failed: ${command}`)
+      })
+      popover.popdown()
+    })
+    quickAccess.attach(item, index % 2, Math.floor(index / 2), 1, 1)
+  }
+  panel.append(quickAccess)
+  scroll.set_child(panel)
+  popover.set_child(scroll)
+  popover.set_parent(button)
+  popover.set_autohide(true)
+  const hoverMotion = new Gtk.EventControllerMotion()
+  hoverMotion.connect("leave", () => button.remove_css_class("hover-suppressed"))
+  button.add_controller(hoverMotion)
+  popover.connect("closed", () => {
+    button.add_css_class("hover-suppressed")
+    popover.unparent()
+  })
+  button.connect("clicked", () => {
+    button.remove_css_class("hover-suppressed")
+    debugLog("LiakOS menu opened")
+    if (!popover.get_parent()) popover.set_parent(button)
+    profileRefresh()
+    brightnessRefresh()
+    popover.popup()
+  })
+  return button
+}
+
+function RecordingIndicator() {
+  const indicator = new Gtk.Button({ label: "●", tooltip_text: "Stop recording" })
+  indicator.add_css_class("recording-indicator")
+  indicator.set_visible(false)
+  indicator.connect("clicked", stopRecording)
+  recordingIndicator = indicator
+  return indicator
 }
 
 function transitConfigPath() {
@@ -1432,6 +2148,8 @@ function SoundControl() {
 
 app.start({
   main() {
+    resetDebugLog()
+    debugLog(`AGS bar main started PATH=${JSON.stringify(GLib.getenv("PATH") ?? "")} HOME=${JSON.stringify(GLib.getenv("HOME") ?? "")}`)
     const { TOP, LEFT, RIGHT } = Astal.WindowAnchor
     const cssProvider = Gtk.CssProvider.new()
     const display = Gdk.Display.get_default()
@@ -1461,6 +2179,7 @@ app.start({
         })
       })
     } catch (error) {
+      debugLog(`could not watch Pywal colors at ${walPath}: ${String(error)}`)
       printerr(`Could not watch Pywal colors at ${walPath}: ${error}`)
     }
 
@@ -1474,7 +2193,8 @@ app.start({
       >
         <centerbox class="bar">
           <box $type="start" class="brand">
-            <label label="LiakOS" />
+            <SettingsControl />
+            <RecordingIndicator />
           </box>
           {/* TODO: Add Wayfire desktop/workspace handling when working in a Wayfire session. */}
           <box $type="center">
