@@ -1396,7 +1396,7 @@ function OasaControl() {
   const icon = new Gtk.Image({ icon_name: "bus-symbolic" })
   const iconPaths = [
     GLib.build_filenamev([GLib.get_user_config_dir(), "ags", "icons", "oasa-bus.svg"]),
-    GLib.build_filenamev([GLib.get_current_dir(), "assets", "icons", "oasa-bus.svg"]),
+    GLib.build_filenamev([SRC, "assets", "icons", "oasa-bus.svg"]),
   ]
   const iconPath = iconPaths.find(path => Gio.File.new_for_path(path).query_exists(null))
   if (iconPath) icon.set_from_file(iconPath)
@@ -1459,7 +1459,7 @@ function OasaControl() {
     layerKeyboardEnabled = false
   })
   const schedulePath = GLib.build_filenamev([GLib.get_user_data_dir(), "liakos", "scripts", "oasa-schedule.py"])
-  const sourcePath = GLib.build_filenamev([GLib.get_current_dir(), "scripts", "oasa-schedule.py"])
+  const sourcePath = GLib.build_filenamev([SRC, "scripts", "oasa-schedule.py"])
   const runLine = (line: string, section: Gtk.Box, onComplete: () => void) => {
     const script = Gio.File.new_for_path(schedulePath).query_exists(null) ? schedulePath : sourcePath
     try {

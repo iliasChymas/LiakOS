@@ -3,9 +3,15 @@
 Run `deployment/deploy.sh` from any working directory, or use the compatibility
 wrapper at `scripts/deploy.sh`.
 
+Run `deployment/install-bar.sh` to install or repair just the AGS bar, its icons,
+and the OASA schedule helper, then restart AGS. This can be run from any working
+directory and does not change Wayfire settings or rebuild the native apps.
+
 Run `scripts/update-apps.sh` to rebuild and refresh the native applications in
 `~/.local/bin` and update their desktop entries in
-`~/.local/share/applications`. It does not touch or reload the active Wayfire
+`~/.local/share/applications`. It also runs `install-bar.sh` to install the AGS
+bar, icons, and OASA helper; restart AGS to load bar changes.
+It does not touch or reload the active Wayfire
 configuration. Missing entries, including the application launcher entry, are
 installed too.
 The script honors `XDG_DATA_HOME` and `XDG_CONFIG_HOME`.
@@ -14,6 +20,7 @@ The script honors `XDG_DATA_HOME` and `XDG_CONFIG_HOME`.
   and updates the Wayfire application shortcuts.
 - `install-c-apps.sh` builds and installs the native C apps and their
   desktop entries into the current user's local directories.
+- `install-bar.sh` installs the bar and all its icons and OASA helper together.
 - `lib.sh` contains the shared backup and Wayfire INI helpers.
 
 The scripts use paths relative to the repository, honor `XDG_CONFIG_HOME` and
