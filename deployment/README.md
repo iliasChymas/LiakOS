@@ -17,7 +17,8 @@ installed too.
 The script honors `XDG_DATA_HOME` and `XDG_CONFIG_HOME`.
 
 - `deploy.sh` installs the AGS bar and assets, sets the default file manager,
-  and updates the Wayfire application shortcuts.
+  updates the Wayfire application shortcuts, and installs `wal -R` to restore
+  the cached wallpaper at login without per-wallpaper compositor config edits.
 - `install-c-apps.sh` builds and installs the native C apps and their
   desktop entries into the current user's local directories.
 - `install-bar.sh` installs the bar and all its icons and OASA helper together.
