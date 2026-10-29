@@ -1618,7 +1618,7 @@ function OasaControl() {
   return button
 }
 
-function radioPopover(anchor: Gtk.Button, title: string, content: Gtk.Widget, cleanup: () => void = () => {}) {
+function radioPopover(anchor: Gtk.Button, title: string, content: Gtk.Widget, cleanup: () => void = () => {}, headerAction?: Gtk.Widget) {
   const popover = new Gtk.Popover()
   popover.add_css_class("audio-popover")
   popover.set_has_arrow(false)
@@ -1628,7 +1628,11 @@ function radioPopover(anchor: Gtk.Button, title: string, content: Gtk.Widget, cl
   panel.add_css_class("radio-panel")
   const heading = new Gtk.Label({ label: title, xalign: 0 })
   heading.add_css_class("audio-title")
-  panel.append(heading)
+  const header = new Gtk.Box({ orientation: Gtk.Orientation.HORIZONTAL, spacing: 10 })
+  heading.set_hexpand(true)
+  header.append(heading)
+  if (headerAction) header.append(headerAction)
+  panel.append(header)
   panel.append(content)
   popover.set_child(panel)
   popover.set_parent(anchor)
@@ -1649,17 +1653,6 @@ function radioRow(label: string, detail = "") {
     status.add_css_class("radio-status")
     row.append(status)
   }
-  return row
-}
-
-function radioToggle(label: string, enabled: boolean, onToggle: (enabled: boolean) => void) {
-  const row = new Gtk.Box({ orientation: Gtk.Orientation.HORIZONTAL, spacing: 10 })
-  row.add_css_class("radio-row")
-  row.set_halign(Gtk.Align.START)
-  const toggle = new Gtk.Switch({ active: enabled, valign: Gtk.Align.CENTER })
-  toggle.connect("notify::active", () => onToggle(toggle.active))
-  row.append(toggle)
-  row.append(new Gtk.Label({ label, xalign: 0 }))
   return row
 }
 
@@ -1693,6 +1686,7 @@ function BluetoothControl() {
 
   button.connect("clicked", () => {
     const body = new Gtk.Box({ orientation: Gtk.Orientation.VERTICAL, spacing: 4 })
+    const headerAction = new Gtk.Box({ valign: Gtk.Align.CENTER })
     let timeout = 0
     let lastToggleAt = 0
     let discoveryPending = false
@@ -1704,7 +1698,11 @@ function BluetoothControl() {
       while (body.get_first_child()) body.remove(body.get_first_child()!)
       const enabled = bluetooth.is_powered
       const adapter = bluetooth.adapter
-      const toggle = radioToggle("Bluetooth", enabled, (state) => {
+      while (headerAction.get_first_child()) headerAction.remove(headerAction.get_first_child()!)
+      const toggle = new Gtk.Switch({ active: enabled, valign: Gtk.Align.CENTER, tooltip_text: "Bluetooth" })
+      toggle.update_property([Gtk.AccessibleProperty.LABEL], ["Bluetooth"])
+      toggle.connect("notify::active", () => {
+        const state = toggle.active
         lastToggleAt = Date.now()
         try {
           if (!adapter) return
@@ -1718,19 +1716,14 @@ function BluetoothControl() {
             if (!rfkill.wait_check(null)) throw new Error("rfkill could not unblock Bluetooth")
           } else {
             discoveryPending = false
-            let child = toggle.get_next_sibling()
-            while (child) {
-              const next = child.get_next_sibling()
-              body.remove(child)
-              child = next
-            }
+            while (body.get_first_child()) body.remove(body.get_first_child()!)
             body.append(new Gtk.Label({ label: "Bluetooth is turning off…", xalign: 0, wrap: true }))
           }
           adapter.powered = state
         } catch (error) { printerr(`Could not toggle Bluetooth: ${error}`) }
       })
-      toggle.get_first_child()?.set_sensitive(!!adapter)
-      body.append(toggle)
+      toggle.set_sensitive(!!adapter)
+      headerAction.append(toggle)
 
       if (!enabled) {
         body.append(new Gtk.Label({
@@ -1815,7 +1808,7 @@ function BluetoothControl() {
       if (timeout) GLib.source_remove(timeout)
       for (const [object, signalId] of refreshSignals) object.disconnect(signalId)
       try { bluetooth.adapter?.stop_discovery() } catch (_error) {}
-    })
+    }, headerAction)
   })
   updateIcon()
   return button
