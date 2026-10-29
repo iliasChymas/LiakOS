@@ -219,6 +219,7 @@ static void rebuild_rows(AppState *state) {
         gtk_widget_add_css_class(meta, "binding-meta");
         gtk_box_append(GTK_BOX(text), title); gtk_box_append(GTK_BOX(text), meta);
         GtkWidget *edit = gtk_button_new_with_label("Edit shortcut");
+        gtk_widget_set_cursor_from_name(edit, "pointer");
         gtk_widget_add_css_class(edit, "suggested-action");
         EditData *edit_data = g_new0(EditData, 1);
         edit_data->state = state; edit_data->binding = b;
@@ -475,33 +476,29 @@ static void apply_css(void) {
         "button { border-radius: 9px; background: %s; color: %s; border: 1px solid %s; }"
         "button:hover { background: alpha(%s, 0.12); color: %s; }"
         "button:active, button:checked { background: alpha(%s, 0.22); color: %s; }"
-        "button.suggested-action { background: %s; color: %s; border-color: %s; }"
-        "button.suggested-action:hover { background: alpha(%s, 0.16); }"
-        "entry, dropdown { border-radius: 9px; background: %s; color: %s; border: 1px solid %s; caret-color: %s; }"
-        "entry:focus, dropdown:focus { border-color: %s; box-shadow: 0 0 0 2px alpha(%s, 0.20); }"
-        "entry selection { background: alpha(%s, 0.24); color: %s; }"
+        "button.suggested-action, button.suggested-action:hover, button.suggested-action:active { background: %s; color: %s; border-color: %s; box-shadow: none; text-shadow: none; transition: none; }"
+        "entry:not(.shortcut-search), dropdown { border-radius: 9px; background: %s; color: %s; border: 1px solid %s; caret-color: %s; }"
+        "entry:not(.shortcut-search):focus, dropdown:focus { border-color: %s; box-shadow: 0 0 0 2px alpha(%s, 0.20); }"
+        "entry:not(.shortcut-search) selection { background: alpha(%s, 0.24); color: %s; }"
         "popover, popover contents { background: %s; color: %s; border: 1px solid %s; }"
         "popover listview, popover row { background: %s; color: %s; }"
         "popover row:hover, popover row:selected { background: alpha(%s, 0.16); color: %s; }"
         "scrolledwindow, list { background: transparent; }"
         "list row { background: %s; border: 1px solid %s; border-radius: 12px; margin: 5px 18px; }"
         "list row:hover { background: alpha(%s, 0.10); border-color: %s; }"
-        "scrollbar trough { background: %s; border-radius: 8px; }"
-        "scrollbar slider { min-width: 8px; min-height: 8px; background: %s; border-radius: 8px; }"
-        "scrollbar slider:hover { background: alpha(%s, 0.55); }"
         "*:focus-visible { outline-color: %s; }",
         p.background, p.foreground, p.surface, p.muted, p.muted,
         p.surface, p.accent,
         p.surface, p.foreground, p.muted, p.accent, p.foreground,
         p.accent, p.accent, p.foreground,
-        p.surface, p.accent, p.accent, p.accent,
+        p.surface, p.foreground, p.accent,
         p.surface, p.foreground, p.secondary, p.accent, p.accent,
         p.accent, p.foreground,
         p.surface, p.foreground, p.secondary,
         p.surface, p.foreground,
         p.accent, p.foreground,
         p.surface, p.muted, p.accent, p.accent,
-        p.surface, p.muted, p.accent, p.accent);
+        p.accent);
     if (!app_css_provider) {
         app_css_provider = gtk_css_provider_new();
         gtk_style_context_add_provider_for_display(gdk_display_get_default(), GTK_STYLE_PROVIDER(app_css_provider), GTK_STYLE_PROVIDER_PRIORITY_APPLICATION);
@@ -565,6 +562,7 @@ static void activate(GtkApplication *app, gpointer user_data) {
     gtk_widget_set_margin_start(filters, 22); gtk_widget_set_margin_end(filters, 22);
     gtk_widget_set_margin_top(filters, 12); gtk_widget_set_margin_bottom(filters, 8);
     s->search = GTK_SEARCH_ENTRY(gtk_search_entry_new());
+    gtk_widget_add_css_class(GTK_WIDGET(s->search), "shortcut-search");
     gtk_widget_set_hexpand(GTK_WIDGET(s->search), TRUE);
     gtk_search_entry_set_placeholder_text(s->search, "Search shortcuts or actions…");
     GtkStringList *categories = gtk_string_list_new(NULL);
