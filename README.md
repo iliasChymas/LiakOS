@@ -190,7 +190,9 @@ The display setup app shows each connected screen, its available resolutions
 and refresh rates, scale, rotation, and position. Drag screens in the layout
 preview to arrange them, then choose **Apply changes**. The app checks the
 configuration and gives 15 seconds to keep it before restoring the previous
-layout. Save named layouts and load them later. It requires `wlr-randr` for
+layout. Choosing **Keep settings** also saves a `wlr-randr` command in Wayfire's
+`[autostart]` section, so the accepted layout is restored at the next login.
+Save named layouts and load them later. It requires `wlr-randr` for
 Wayland output management; the command runs behind the GTK interface. Install
 the package listed in `requirements.txt` if the app reports that the backend is
 missing.
