@@ -20,7 +20,7 @@ Git checkout and a shell script. Progress is progress.
 
 | Component | Location | Purpose |
 | --- | --- | --- |
-| AGS bar | `bar.tsx` | GTK4 bar, system tray, audio and Bluetooth popovers, date, and Pywal colors |
+| AGS bar | `bar.tsx` | GTK4 bar, desktop controls, settings shortcuts, system tray, transit, and Pywal colors |
 | App launcher | `app-launcher/` | C/GTK4 fuzzy launcher for installed desktop applications |
 | Keybindings editor | `keybindings-app/` | C/GTK4 search and editor for Wayfire keyboard shortcuts |
 | Startup applications | `autostart-app/` | C/GTK4 search and toggle manager for Wayfire startup applications |
@@ -44,8 +44,15 @@ The main requirements are:
 
 - Wayfire 0.10 or newer, with the `ipc` and `ipc-rules` plugins enabled for
   launcher focus support and the TypeScript IPC wrapper.
-- AGS v3, GTK4, libastal with AstalTray, AstalWp, and AstalBluetooth, PipeWire,
-  and WirePlumber for the bar.
+- AGS v3, GTK4, libastal with AstalTray, AstalWp, AstalBluetooth, and
+  AstalPowerProfiles, PipeWire, and WirePlumber for the bar.
+- `power-profiles-daemon`, `wf-recorder`, and Flameshot for bar controls;
+  `slurp` enables selecting a recording region, and `xdg-desktop-portal-wlr`
+  provides screenshot capture in Wayfire. The deployment configures the
+  Wayfire portal preference and restarts the portal after session startup.
+- `light` or `ddcutil` for bar brightness control. DDC/CI support varies by
+  monitor; the slider is unavailable when the main display exposes no usable
+  brightness interface.
 - BlueZ and `rfkill` for Bluetooth control. The current bar does not include a
   Wi-Fi control.
 - A C compiler, `pkg-config`, GTK4 development files, GTK4 Layer Shell, JSON-GLib,
@@ -249,6 +256,13 @@ provides:
   after the next departure, under `~/.cache/liakos/`.
 - A centered date button that switches between full and compact formats when
   clicked.
+- Clicking the LiakOS name opens a menu with a titled power-profile dropdown,
+  the main display's brightness slider, recording and screenshot buttons, and a
+  quick-settings grid for the desktop apps. A red dot appears beside LiakOS only
+  while a recording is active.
+- Screen recording with a setup window for display, capture area, and audio
+  source. Recordings are saved in the user's Videos folder, and stopping a
+  recording shows a notification with its file path.
 - Dynamic CSS colors loaded from `~/.cache/wal/colors.json`. The bar watches the
   file and updates its styling when Pywal writes a new palette.
 

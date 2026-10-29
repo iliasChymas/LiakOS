@@ -28,6 +28,13 @@ printf 'Installing native LiakOs apps...\n'
 
 mkdir -p "$AGS_CONFIG_DIR/icons" "$WALLPAPER_DIR" "$LIAKOS_DATA_DIR/scripts"
 
+PORTAL_CONFIG_DIR="$CONFIG_HOME/xdg-desktop-portal"
+mkdir -p "$PORTAL_CONFIG_DIR"
+if [ ! -f "$PORTAL_CONFIG_DIR/wayfire-portals.conf" ]; then
+  install -m 644 "$ROOT_DIR/config/xdg-desktop-portal/wayfire-portals.conf" \
+    "$PORTAL_CONFIG_DIR/wayfire-portals.conf"
+fi
+
 if [ -f "$AGS_ENTRY" ] && ! cmp -s "$ROOT_DIR/bar.tsx" "$AGS_ENTRY"; then
   backup_once "$AGS_ENTRY" "$AGS_ENTRY.bak"
 fi
@@ -64,6 +71,8 @@ set_wayfire_command_option "$WAYFIRE_CONFIG" command_displays 'ldisplays'
 set_wayfire_option "$WAYFIRE_CONFIG" core preferred_decoration_mode server
 set_wayfire_option "$WAYFIRE_CONFIG" decoration title_height 0
 set_wayfire_option "$WAYFIRE_CONFIG" decoration border_size 0
+set_wayfire_option "$WAYFIRE_CONFIG" autostart xdg_portals \
+  'sleep 1 && systemctl --user restart xdg-desktop-portal xdg-desktop-portal-wlr'
 AGS_ENTRY_URI=$(python3 -c 'from pathlib import Path; import sys; print(Path(sys.argv[1]).as_posix())' "$AGS_ENTRY")
 set_wayfire_option "$WAYFIRE_CONFIG" autostart bar "ags run '$AGS_ENTRY_URI'"
 
