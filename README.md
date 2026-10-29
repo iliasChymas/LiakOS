@@ -26,6 +26,7 @@ Git checkout and a shell script. Progress is progress.
 | Startup applications | `autostart-app/` | C/GTK4 search and toggle manager for Wayfire startup applications |
 | Display setup | `monitor-app/` | C/GTK4 monitor layout, resolution, scale, and saved profiles |
 | Wallpaper picker | `wallpaper-app/` | C/GTK4 wallpaper preview and selection app using libvips thumbnails |
+| Session menu | `session-app/` | Pywal-themed overlay for logging out, restarting, or powering off |
 | Wallpapers | `wallpapers/` | Wallpapers copied to the deployed LiakOs wallpaper directory |
 | Wayfire config | `config/wayfire.ini` | Example Wayfire settings and keybindings |
 | Keybinding reference | `config/wayfire-keybinds.html` | Visual guide to the checked-in Wayfire keybindings |
@@ -50,6 +51,7 @@ The main requirements are:
   Wi-Fi control.
 - A C compiler, `pkg-config`, GTK4 development files, GTK4 Layer Shell, JSON-GLib,
   and GIO for the launcher.
+- GTK4, GTK4 Layer Shell, and JSON-GLib for the Pywal-themed session menu.
 - GTK 4.10 or newer and libvips development files for `lpaper`.
 - Pywal16 (`wal`), `swaybg` for setting the Wayland wallpaper, jq, GTK3,
   qt5ct, and qt6ct for dynamic wallpaper colors.
@@ -70,17 +72,20 @@ app-launcher/build.sh
 keybindings-app/build.sh
 monitor-app/build.sh
 wallpaper-app/build.sh
+session-app/build.sh
 ```
 
 The binaries are created at `app-launcher/build/llauncher`,
-`keybindings-app/build/lkeybinds`, `monitor-app/build/ldisplays`, and
-`wallpaper-app/build/lpaper`. The run helpers compile them when needed:
+`keybindings-app/build/lkeybinds`, `monitor-app/build/ldisplays`,
+`wallpaper-app/build/lpaper`, and `session-app/build/lsession`. The run helpers
+compile them when needed:
 
 ```sh
 app-launcher/run.sh
 keybindings-app/run.sh
 monitor-app/run.sh
 wallpaper-app/tools/run-c-viewer.sh
+session-app/run.sh
 ```
 
 Deploy the current setup with:
@@ -89,8 +94,8 @@ Deploy the current setup with:
 deployment/deploy.sh
 ```
 
-To rebuild and update the native apps and their application-menu entries
-without rerunning the full desktop deployment, use:
+To rebuild and update the native apps and their application-menu entries, then
+reload the Wayfire config without rerunning the full desktop deployment, use:
 
 ```sh
 scripts/update-apps.sh

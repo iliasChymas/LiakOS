@@ -5,13 +5,13 @@ wrapper at `scripts/deploy.sh`.
 
 Run `scripts/update-apps.sh` to rebuild and refresh the native applications in
 `~/.local/bin` and update their desktop entries in
-`~/.local/share/applications`. Missing entries, including the application
-launcher entry, are installed too. The script honors `XDG_DATA_HOME` for
-application entries.
+`~/.local/share/applications`, then trigger Wayfire to reload its configuration.
+Missing entries, including the application launcher entry, are installed too.
+The script honors `XDG_DATA_HOME` and `XDG_CONFIG_HOME`.
 
 - `deploy.sh` installs the AGS bar and assets, sets the default file manager,
   and updates the Wayfire application shortcuts.
-- `install-c-apps.sh` builds and installs the six native C apps and their
+- `install-c-apps.sh` builds and installs the native C apps and their
   desktop entries into the current user's local directories.
 - `lib.sh` contains the shared backup and Wayfire INI helpers.
 

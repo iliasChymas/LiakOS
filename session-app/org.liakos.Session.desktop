@@ -1,0 +1,8 @@
+[Desktop Entry]
+Type=Application
+Name=Ending Session
+Comment=Log out, restart, or power off
+Exec=lsession
+Icon=system-shutdown-symbolic
+Terminal=false
+Categories=System;

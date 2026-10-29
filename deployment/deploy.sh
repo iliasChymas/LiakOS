@@ -61,6 +61,8 @@ set_wayfire_command_option "$WAYFIRE_CONFIG" binding_keybindings '<super> <shift
 set_wayfire_command_option "$WAYFIRE_CONFIG" command_keybindings 'lkeybinds'
 set_wayfire_command_option "$WAYFIRE_CONFIG" binding_displays '<super> <shift> KEY_D'
 set_wayfire_command_option "$WAYFIRE_CONFIG" command_displays 'ldisplays'
+set_wayfire_command_option "$WAYFIRE_CONFIG" binding_logout '<ctrl> <shift> KEY_Q'
+set_wayfire_command_option "$WAYFIRE_CONFIG" command_logout 'lsession'
 set_wayfire_option "$WAYFIRE_CONFIG" core preferred_decoration_mode server
 set_wayfire_option "$WAYFIRE_CONFIG" decoration title_height 0
 set_wayfire_option "$WAYFIRE_CONFIG" decoration border_size 0
