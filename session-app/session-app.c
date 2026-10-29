@@ -8,6 +8,12 @@ typedef struct {
   GtkApplication *application;
   GtkWindow *window;
   GtkCssProvider *css;
+  GtkStack *pages;
+  GtkLabel *confirmation_title;
+  GtkButton *confirm_button;
+  GtkWidget *cancel_button;
+  GtkWidget *selected_button;
+  char *pending_action;
   char *colors_file;
   GFileMonitor *monitor;
   guint reload_timeout;
@@ -84,37 +90,44 @@ static void palette_changed(GFileMonitor *monitor, GFile *file, GFile *other,
   state->reload_timeout = g_timeout_add(120, reload_palette, state);
 }
 
-static void dialog_response(GtkDialog *dialog, int response, gpointer user_data) {
-  const char *command = user_data;
-  if (response == GTK_RESPONSE_ACCEPT) {
-    if (g_str_equal(command, "logout")) {
-      const char *session_id = g_getenv("XDG_SESSION_ID");
-      if (session_id && *session_id) {
-        char *argv[] = { (char *)"loginctl", (char *)"terminate-session",
-                         (char *)session_id, NULL };
-        g_spawn_async(NULL, argv, NULL, G_SPAWN_SEARCH_PATH, NULL, NULL, NULL, NULL);
-      }
-    } else {
-      char *argv[] = { (char *)"systemctl", (char *)command, NULL };
+static void cancel_action(GtkButton *button, gpointer data) {
+  (void)button; (void)data;
+  g_clear_pointer(&app->pending_action, g_free);
+  gtk_stack_set_visible_child_name(app->pages, "actions");
+  if (app->selected_button) gtk_widget_grab_focus(app->selected_button);
+}
+
+static void accept_action(GtkButton *button, gpointer data) {
+  (void)button; (void)data;
+  const char *command = app->pending_action;
+  if (!command) return;
+  if (g_str_equal(command, "logout")) {
+    const char *session_id = g_getenv("XDG_SESSION_ID");
+    if (session_id && *session_id) {
+      char *argv[] = { (char *)"loginctl", (char *)"terminate-session",
+                       (char *)session_id, NULL };
       g_spawn_async(NULL, argv, NULL, G_SPAWN_SEARCH_PATH, NULL, NULL, NULL, NULL);
     }
+  } else {
+    char *argv[] = { (char *)"systemctl", (char *)command, NULL };
+    g_spawn_async(NULL, argv, NULL, G_SPAWN_SEARCH_PATH, NULL, NULL, NULL, NULL);
   }
-  gtk_window_destroy(GTK_WINDOW(dialog));
+  cancel_action(NULL, NULL);
 }
 
 static void confirm_action(GtkButton *button, gpointer data) {
+  (void)data;
   const char *action = g_object_get_data(G_OBJECT(button), "action");
   const char *label = g_object_get_data(G_OBJECT(button), "label");
-  GtkWidget *dialog = gtk_message_dialog_new(app->window, GTK_DIALOG_MODAL,
-      GTK_MESSAGE_QUESTION, GTK_BUTTONS_NONE, "%s this session?", label);
-  gtk_message_dialog_format_secondary_text(GTK_MESSAGE_DIALOG(dialog),
-      "Any unsaved work may be lost.");
-  gtk_dialog_add_button(GTK_DIALOG(dialog), "Cancel", GTK_RESPONSE_CANCEL);
-  gtk_dialog_add_button(GTK_DIALOG(dialog), label, GTK_RESPONSE_ACCEPT);
-  gtk_dialog_set_default_response(GTK_DIALOG(dialog), GTK_RESPONSE_CANCEL);
-  (void)data;
-  g_signal_connect(dialog, "response", G_CALLBACK(dialog_response), (gpointer)action);
-  gtk_window_present(GTK_WINDOW(dialog));
+  g_free(app->pending_action);
+  app->pending_action = g_strdup(action);
+  app->selected_button = GTK_WIDGET(button);
+  char *title = g_strdup_printf("%s this session?", label);
+  gtk_label_set_text(app->confirmation_title, title);
+  g_free(title);
+  gtk_button_set_label(app->confirm_button, label);
+  gtk_stack_set_visible_child_name(app->pages, "confirmation");
+  gtk_widget_grab_focus(app->cancel_button);
 }
 
 static GtkWidget *action_button(const char *title, const char *description,
@@ -143,7 +156,8 @@ static gboolean key_pressed(GtkEventControllerKey *controller, guint keyval,
                             guint keycode, GdkModifierType state, gpointer data) {
   (void)controller; (void)keycode; (void)state; (void)data;
   if (keyval == GDK_KEY_Escape) {
-    gtk_window_destroy(app->window);
+    if (app->pending_action) cancel_action(NULL, NULL);
+    else gtk_window_destroy(app->window);
     return TRUE;
   }
   return FALSE;
@@ -209,8 +223,28 @@ static void activate(GtkApplication *application, gpointer data) {
   gtk_box_append(GTK_BOX(actions), action_button("Log Out", "End this session", "system-log-out-symbolic", "logout"));
   gtk_box_append(GTK_BOX(actions), action_button("Restart", "Start fresh", "system-reboot-symbolic", "reboot"));
   gtk_box_append(GTK_BOX(actions), action_button("Power Off", "Shut down device", "system-shutdown-symbolic", "poweroff"));
-  gtk_box_append(GTK_BOX(card), actions);
-  GtkWidget *hint = gtk_label_new("Press Esc to return to your desktop");
+  // Keep confirmation inside the overlay: a normal dialog is below the layer
+  // surface and cannot receive keyboard input while it has exclusive focus.
+  app->pages = GTK_STACK(gtk_stack_new());
+  gtk_stack_add_named(app->pages, actions, "actions");
+  GtkWidget *confirmation = gtk_box_new(GTK_ORIENTATION_VERTICAL, 18);
+  gtk_widget_set_margin_top(confirmation, 30);
+  app->confirmation_title = GTK_LABEL(gtk_label_new(""));
+  gtk_widget_add_css_class(GTK_WIDGET(app->confirmation_title), "action-label");
+  gtk_box_append(GTK_BOX(confirmation), GTK_WIDGET(app->confirmation_title));
+  gtk_box_append(GTK_BOX(confirmation), gtk_label_new("Any unsaved work may be lost."));
+  GtkWidget *confirmation_buttons = gtk_box_new(GTK_ORIENTATION_HORIZONTAL, 14);
+  gtk_widget_set_halign(confirmation_buttons, GTK_ALIGN_CENTER);
+  app->cancel_button = gtk_button_new_with_label("Cancel");
+  g_signal_connect(app->cancel_button, "clicked", G_CALLBACK(cancel_action), NULL);
+  app->confirm_button = GTK_BUTTON(gtk_button_new_with_label("Confirm"));
+  g_signal_connect(app->confirm_button, "clicked", G_CALLBACK(accept_action), NULL);
+  gtk_box_append(GTK_BOX(confirmation_buttons), app->cancel_button);
+  gtk_box_append(GTK_BOX(confirmation_buttons), GTK_WIDGET(app->confirm_button));
+  gtk_box_append(GTK_BOX(confirmation), confirmation_buttons);
+  gtk_stack_add_named(app->pages, confirmation, "confirmation");
+  gtk_box_append(GTK_BOX(card), GTK_WIDGET(app->pages));
+  GtkWidget *hint = gtk_label_new("Press Esc to go back");
   gtk_widget_add_css_class(hint, "hint");
   gtk_widget_set_halign(hint, GTK_ALIGN_CENTER);
   gtk_widget_set_margin_top(hint, 22);
@@ -239,6 +273,7 @@ int main(int argc, char **argv) {
     if (app->reload_timeout) g_source_remove(app->reload_timeout);
     g_clear_object(&app->monitor);
     g_clear_object(&app->css);
+    g_free(app->pending_action);
     g_free(app->colors_file);
     g_free(app);
   }

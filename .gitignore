@@ -7,3 +7,5 @@ node_modules/
 
 /settings-app/build/
 /autostart-app/build/
+
+/session-app/build/

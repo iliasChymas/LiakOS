@@ -95,6 +95,10 @@ wallpaper-app/tools/run-c-viewer.sh
 session-app/run.sh
 ```
 
+Run `session-app/tests/run.sh` inside a Wayland session to check session-menu
+confirmation, cancellation, keyboard focus, and action dispatch. The test captures
+commands without executing logout, restart, or power off.
+
 Deploy the current setup with:
 
 ```sh
