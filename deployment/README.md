@@ -5,8 +5,9 @@ wrapper at `scripts/deploy.sh`.
 
 Run `scripts/update-apps.sh` to rebuild and refresh the native applications in
 `~/.local/bin` and update their desktop entries in
-`~/.local/share/applications`, then trigger Wayfire to reload its configuration.
-Missing entries, including the application launcher entry, are installed too.
+`~/.local/share/applications`. It does not touch or reload the active Wayfire
+configuration. Missing entries, including the application launcher entry, are
+installed too.
 The script honors `XDG_DATA_HOME` and `XDG_CONFIG_HOME`.
 
 - `deploy.sh` installs the AGS bar and assets, sets the default file manager,

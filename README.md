@@ -101,8 +101,8 @@ Deploy the current setup with:
 deployment/deploy.sh
 ```
 
-To rebuild and update the native apps and their application-menu entries, then
-reload the Wayfire config without rerunning the full desktop deployment, use:
+To rebuild and update the native apps and their application-menu entries
+without changing or reloading the active Wayfire config, use:
 
 ```sh
 scripts/update-apps.sh
