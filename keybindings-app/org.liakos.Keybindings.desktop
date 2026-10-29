@@ -1,6 +1,6 @@
 [Desktop Entry]
 Type=Application
-Name=LiakOs Keybindings
+Name=LiakOS Keybindings
 Comment=Search and edit Wayfire keyboard shortcuts
 Exec=lkeybinds
 Icon=input-keyboard

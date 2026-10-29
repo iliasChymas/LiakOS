@@ -827,7 +827,7 @@ static void build_ui(GtkApplication *application, gpointer data) {
       g_build_filename(g_get_user_cache_dir(), "wal", "colors.json", NULL);
 
   state->window = GTK_WINDOW(gtk_application_window_new(application));
-  gtk_window_set_title(state->window, "LiakOs Launcher");
+  gtk_window_set_title(state->window, "LiakOS Launcher");
   gtk_window_set_default_size(state->window, 620, 590);
   gtk_window_set_decorated(state->window, FALSE);
   gtk_widget_add_css_class(GTK_WIDGET(state->window), "launcher-overlay");

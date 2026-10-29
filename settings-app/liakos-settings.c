@@ -1055,7 +1055,7 @@ static void activate(GtkApplication *app, gpointer data) {
     gtk_widget_set_tooltip_text(settings->toggle, "Hide categories");
     g_signal_connect(settings->toggle, "clicked", G_CALLBACK(on_sidebar_toggle), settings);
     gtk_box_append(GTK_BOX(toolbar), settings->toggle);
-    GtkWidget *app_name = label("LiakOs Settings", "brand");
+    GtkWidget *app_name = label("LiakOS Settings", "brand");
     gtk_box_append(GTK_BOX(toolbar), app_name);
     gtk_box_append(GTK_BOX(root), toolbar);
 

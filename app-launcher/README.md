@@ -1,4 +1,4 @@
-# LiakOs application launcher
+# LiakOS application launcher
 
 A small GTK4/Wayland launcher written in C. It lists visible `.desktop`
 applications as icon-and-name rows, filters as you type, and reads its colors
@@ -13,7 +13,7 @@ app-launcher/run.sh
 
 The first run compiles the program to `app-launcher/build/llauncher`; later runs
 reuse that binary. In Wayfire, point the launcher command in your keybinding at
-`/absolute/path/to/iShell/app-launcher/run.sh`.
+`/absolute/path/to/LiakOS/app-launcher/run.sh`.
 
 Press **Enter** to focus a matching open Wayfire window, or launch the app if
 there is no match. Press **Shift+Enter** to invoke the desktop entry's `Exec`

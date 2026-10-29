@@ -1,6 +1,6 @@
 [Desktop Entry]
 Type=Application
-Name=LiakOs Application Launcher
+Name=LiakOS Application Launcher
 Comment=Search and launch installed applications
 Exec=llauncher
 Icon=system-search

@@ -729,13 +729,13 @@ static void build_ui(GtkApplication *application, gpointer user_data) {
   gtk_box_append(GTK_BOX(content), GTK_WIDGET(viewer->status));
 
   viewer->window = gtk_application_window_new(application);
-  gtk_window_set_title(GTK_WINDOW(viewer->window), "LiakOs Wallpapers");
+  gtk_window_set_title(GTK_WINDOW(viewer->window), "LiakOS Wallpapers");
   gtk_window_set_default_size(GTK_WINDOW(viewer->window), 1600, 900);
   gtk_window_set_child(GTK_WINDOW(viewer->window), content);
 
   GtkWidget *header = gtk_header_bar_new();
   gtk_header_bar_set_title_widget(GTK_HEADER_BAR(header),
-                                  gtk_label_new("LiakOs Wallpapers"));
+                                  gtk_label_new("LiakOS Wallpapers"));
   GtkWidget *menu_button = gtk_menu_button_new();
   gtk_menu_button_set_child(GTK_MENU_BUTTON(menu_button),
                             gtk_image_new_from_icon_name("open-menu-symbolic"));

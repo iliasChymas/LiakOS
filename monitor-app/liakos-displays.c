@@ -1124,7 +1124,7 @@ static void activate(GtkApplication *application, gpointer data) {
   GError *err = NULL;
   if (!detect_monitors(app, &err)) {
     app->window = GTK_WINDOW(gtk_application_window_new(application));
-    gtk_window_set_title(app->window, "LiakOs Display Setup");
+    gtk_window_set_title(app->window, "LiakOS Display Setup");
     gtk_window_set_default_size(app->window, 640, 380);
     update_css();
     GtkWidget *box = gtk_box_new(GTK_ORIENTATION_VERTICAL, 12);
@@ -1146,7 +1146,7 @@ static void activate(GtkApplication *application, gpointer data) {
     return;
   }
   app->window = GTK_WINDOW(gtk_application_window_new(application));
-  gtk_window_set_title(app->window, "LiakOs Display Setup");
+  gtk_window_set_title(app->window, "LiakOS Display Setup");
   gtk_window_set_default_size(app->window, 900, 720);
   update_css();
   watch_wal();

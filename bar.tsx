@@ -904,7 +904,7 @@ function makeRecordingPath() {
   const folder = videoFolder()
   GLib.mkdir_with_parents(folder, 0o755)
   const stamp = GLib.DateTime.new_now_local().format("%Y-%m-%d_%H-%M-%S") || "recording"
-  return GLib.build_filenamev([folder, `LiakOs-${stamp}.mp4`])
+  return GLib.build_filenamev([folder, `LiakOS-${stamp}.mp4`])
 }
 
 let recorderProcess: Gio.Subprocess | null = null

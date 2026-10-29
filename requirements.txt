@@ -1,4 +1,4 @@
-# iShell system requirements
+# LiakOS system requirements
 # This is a cross-language system inventory, not a pip requirements file.
 # Do not run `pip install -r requirements.txt`.
 
@@ -7,7 +7,7 @@
 # libastal with AstalTray, AstalWp, AstalBluetooth, and AstalPowerProfiles 0.1
 # BlueZ and rfkill for Bluetooth control
 # xdg-utils (`xdg-mime`) and GTK 3 (`gtk-launch`) for default-app Wayfire bindings
-# Thunar as the LiakOs file manager
+# Thunar as the LiakOS file manager
 # PipeWire and WirePlumber for the bar's per-app audio and device controls
 # power-profiles-daemon for the bar's Full performance, Balanced, and Power saver choices
 # wf-recorder for screen recording; `slurp` enables optional area selection
@@ -49,7 +49,9 @@
 # GTK 3 and GTK 4 runtimes for GTK application colors
 # Thunar (GTK 3); the wallpaper script writes a Thunar-specific stylesheet
 # qt5ct and qt6ct for Qt 5/Qt 6 palette support outside Plasma/GNOME
-# Restart themed applications after applying a wallpaper to load new colors.
+# gsettings (GLib) and gsettings-desktop-schemas for live GTK/Chromium theme notifications
+# KDE's colorreload-gtk-module (kde-gtk-config on Arch), enabled in GTK3's gtk-modules,
+# reloads the generated palette in running GTK3 apps. Other apps may need reopening.
 # The AGS bar also watches ~/.cache/wal/colors.json.
 
 # Wayfire IPC wrapper (wayfire-ipc.ts)

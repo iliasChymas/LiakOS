@@ -35,6 +35,10 @@ with tempfile.TemporaryDirectory(prefix="lpaper-layout-") as temporary:
            "PATH": f"{commands}:/usr/bin:/bin", "WAYLAND_DISPLAY": "fake-test-only",
            "XDG_SESSION_TYPE": "wayland", "XDG_CURRENT_DESKTOP": "wayfire",
            "TEST_LOG": str(base / "commands.jsonl")}
+    env["DBUS_SESSION_BUS_ADDRESS"] = "test-only-no-real-session"
+    env["THEME_LOG"] = str(base / "theme.jsonl")
+    env["THEME_STATE"] = str(base / "theme-state")
+    Path(env["THEME_STATE"]).write_text("'Breeze'")
     # No real wal, setter, display manager, service manager or terminal discovery
     # is allowed. The actual color script runs against fixture files only.
     executable(commands / "wal", '''#!/usr/bin/python3
@@ -63,6 +67,26 @@ else:
 exit 0
 ''')
     executable(commands / "pgrep", "#!/bin/sh\nexit 1\n")
+    executable(commands / "gsettings", '''#!/usr/bin/python3
+import json, os, pathlib, sys
+args = sys.argv[1:]
+assert args[1:3] == ['org.gnome.desktop.interface', 'gtk-theme'], args
+state = pathlib.Path(os.environ['THEME_STATE'])
+if args[0] == 'get': print(state.read_text())
+elif args[0] == 'writable': print('true')
+elif args[0] == 'set':
+    # Notifications must happen after both GTK palettes and the Thunar CSS
+    # have been committed, so clients read the new palette on refresh.
+    config = pathlib.Path(os.environ['XDG_CONFIG_HOME'])
+    for version in ('gtk-3.0', 'gtk-4.0'):
+        assert '#123456' in (config / version / 'colors.css').read_text()
+    assert '#123456' in (config / 'gtk-3.0/thunar.css').read_text()
+    with open(os.environ['THEME_LOG'], 'a') as f:
+        f.write(json.dumps(args) + '\\n')
+    if os.environ.get('THEME_FAIL') and args[3] == 'Adwaita-dark': sys.exit(1)
+    state.write_text(args[3] if args[3].startswith("'") else "'" + args[3] + "'")
+else: raise AssertionError(args)
+''')
     color_script = data / "liakos/scripts/test-pywal-gtk-colors.sh"
     color_script.parent.mkdir(parents=True)
     shutil.copyfile(ROOT / "scripts/test-pywal-gtk-colors.sh", color_script)
@@ -71,6 +95,8 @@ exit 0
         directory = config / toolkit
         directory.mkdir()
         (directory / "colors.css").write_text("@define-color theme_bg_color #000000;\n")
+    palette_inodes = {config / version / 'colors.css': (config / version / 'colors.css').stat().st_ino
+                      for version in ('gtk-3.0', 'gtk-4.0')}
 
     # Deliberately different persistent output settings and live-layout fixture:
     # a config reload would replace the latter even if INI bytes were preserved.
@@ -106,6 +132,8 @@ xwayland = true
                        env=env | (extra_env or {}), check=True, stdout=subprocess.DEVNULL)
         for path in protected:
             assert snapshot(path) == before[path], f"Wallpaper apply modified {path}"
+        for path, inode in palette_inodes.items():
+            assert path.stat().st_ino == inode, f"Wallpaper apply broke GTK's file watch: {path}"
         assert not list(config.rglob('*.liakos-*')), "Unexpected compositor backup/temp files"
 
     images = [str(base / "wall ' one;$(touch forbidden).jpg"), str(base / "other wallpaper.jpg")]
@@ -117,6 +145,12 @@ xwayland = true
     protected[1].unlink()
     before.pop(protected.pop(1))
     apply(images[1])
+    notifications = [json.loads(line)[3] for line in Path(env["THEME_LOG"]).read_text().splitlines()]
+    assert notifications == ['Adwaita-dark', "'Breeze'"] * 4, notifications
+    assert Path(env["THEME_STATE"]).read_text() == "'Breeze'"
+    # A failed notification is nonfatal and still restores the original theme.
+    apply(images[1], {"THEME_FAIL": "1"})
+    assert Path(env["THEME_STATE"]).read_text() == "'Breeze'"
     apply(images[0], {"WAL_FAIL": "1"}, expected="Child process exited with code 7")
     assert json.loads((cache / "wal/colors.json").read_text())["wallpaper"] == images[1]
     color_script.write_text("#!/bin/sh\nexit 8\n")
@@ -132,7 +166,7 @@ xwayland = true
     subprocess.run([str(commands / "wal"), "-R"], env=env, check=True)
     calls = [json.loads(line) for line in Path(env["TEST_LOG"]).read_text().splitlines()]
     assert calls == [["-i", images[0]], ["-i", images[1]], ["-i", images[0]],
-                     ["-i", images[1]], ["-i", images[0]], ["-i", images[0]], ["-R"]], calls
+                     ["-i", images[1]], ["-i", images[1]], ["-i", images[0]], ["-i", images[0]], ["-R"]], calls
     assert not (base / "forbidden").exists(), "Image path was interpreted as shell code"
     assert (config / "ghostty/themes/liakos-pywal").exists()
     assert (config / "qt6ct/colors/liakos-pywal.conf").exists()

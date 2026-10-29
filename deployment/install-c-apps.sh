@@ -59,4 +59,4 @@ if command -v update-desktop-database >/dev/null 2>&1; then
   update-desktop-database "$APPLICATIONS_DIR" >/dev/null 2>&1 || true
 fi
 
-printf 'Installed LiakOs desktop entries to %s\n' "$APPLICATIONS_DIR"
+printf 'Installed LiakOS desktop entries to %s\n' "$APPLICATIONS_DIR"

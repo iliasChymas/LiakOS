@@ -1,6 +1,6 @@
 [Desktop Entry]
 Type=Application
-Name=LiakOs Display Setup
+Name=LiakOS Display Setup
 Comment=Arrange monitors and save display layouts
 Exec=ldisplays
 Icon=video-display

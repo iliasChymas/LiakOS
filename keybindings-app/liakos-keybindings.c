@@ -89,13 +89,13 @@ static char *option_action(const char *key) {
 
 static char *friendly_action(const char *value) {
     if (!value || !*value) return g_strdup("Wayfire action");
-    if (g_str_has_prefix(value, "env QT_QPA_PLATFORMTHEME=")) return g_strdup("Open the LiakOs application launcher");
+    if (g_str_has_prefix(value, "env QT_QPA_PLATFORMTHEME=")) return g_strdup("Open the LiakOS application launcher");
     if (g_str_has_prefix(value, "gtk-launch")) return g_strdup("Open the selected default application");
     if (g_str_has_prefix(value, "xdg-open")) return g_strdup("Open the default web browser");
     if (g_str_has_prefix(value, "ghostty")) return g_strdup("Open Ghostty terminal");
     if (g_str_has_prefix(value, "thunar")) return g_strdup("Open Thunar file manager");
     if (g_str_has_prefix(value, "swaylock")) return g_strdup("Lock the screen");
-    if (g_str_equal(value, "lsession")) return g_strdup("Open LiakOs session actions");
+    if (g_str_equal(value, "lsession")) return g_strdup("Open LiakOS session actions");
     if (g_str_has_prefix(value, "wlogout")) return g_strdup("Show the logout menu");
     if (g_str_has_prefix(value, "grim") || g_str_has_prefix(value, "slurp")) return g_strdup("Take a screenshot");
     if (!strchr(value, ' ') && strchr(value, '_')) return title_words(value);
@@ -542,7 +542,7 @@ static void activate(GtkApplication *app, gpointer user_data) {
     s->config_path = find_config();
     load_bindings(s);
     s->window = GTK_WINDOW(gtk_application_window_new(app));
-    gtk_window_set_title(s->window, "LiakOs Keybindings");
+    gtk_window_set_title(s->window, "LiakOS Keybindings");
     gtk_window_set_default_size(s->window, 820, 650);
     gtk_widget_set_size_request(GTK_WIDGET(s->window), 650, 480);
     apply_css();

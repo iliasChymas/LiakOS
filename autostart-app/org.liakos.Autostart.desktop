@@ -1,6 +1,6 @@
 [Desktop Entry]
 Type=Application
-Name=LiakOs Startup Applications
+Name=LiakOS Startup Applications
 Comment=Choose applications to start with Wayfire
 Exec=lautostart
 Icon=system-run

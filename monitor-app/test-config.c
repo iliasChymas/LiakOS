@@ -203,7 +203,7 @@ static void test_runtime(void) {
 }
 int main(int argc, char **argv) {
   g_test_init(&argc, &argv, NULL);
-  directory = g_dir_make_tmp("ishell-displays-XXXXXX", NULL); g_assert_nonnull(directory);
+  directory = g_dir_make_tmp("liakos-displays-XXXXXX", NULL); g_assert_nonnull(directory);
   kanshi = g_build_filename(directory, "config", NULL);
   g_test_add_func("/config/save", test_save);
   g_test_add_func("/config/topologies", test_topologies);

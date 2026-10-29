@@ -1,4 +1,4 @@
-# LiakOs Wallpapers (C / GTK4)
+# LiakOS Wallpapers (C / GTK4)
 
 The viewer starts in `$XDG_CONFIG_HOME/los/walls` (normally
 `~/.config/los/walls`), provides Previous/Next navigation, and shows a
@@ -21,8 +21,8 @@ Run from any directory with:
 wallpaper-app/tools/run-c-viewer.sh
 ```
 
-Deployment adds **LiakOs Wallpaper** to the application menu with a custom
-wallpaper icon. Launch it by searching for “LiakOs Wallpaper” or running
+Deployment adds **LiakOS Wallpaper** to the application menu with a custom
+wallpaper icon. Launch it by searching for “LiakOS Wallpaper” or running
 `lpaper`.
 
 For Zed/clangd, `compile_flags.txt` supplies the GTK4 and libvips include flags
@@ -42,6 +42,19 @@ configuration. Deployment installs the color script under
 `$XDG_DATA_HOME/liakos/scripts/` for the installed `lpaper` binary. Applying a
 wallpaper also reloads a running Ghostty instance so newly opened windows use
 the updated theme and sends live color sequences to its open terminal sessions.
+GTK palette writes preserve the files watched by KDE's `colorreload-gtk-module`.
+After writing the stylesheets, the script briefly switches the desktop GTK theme
+and restores it to invalidate Chromium/Electron menu color caches. This requires
+`gsettings` and a session bus; it may cause a brief theme redraw. Apps that ignore
+desktop theme changes, use their own themes, or have already lost their file
+watch may still need reopening. X11 sessions also need their settings manager to
+forward desktop theme changes.
+
+Run `sh wallpaper-app/tests/run.sh` for isolated wallpaper and notification
+checks. With PyGObject, a graphical session and KDE's GTK color reload module,
+`/usr/bin/python3 wallpaper-app/tests/live-gtk-colors.py` also verifies two live
+palette updates against a running GTK3 window using the production script.
+
 Pywal saves the selected image and palette in `$XDG_CACHE_HOME/wal/`.
 Full deployment installs the fixed `liakos_wallpaper = wal -R` command in
 Wayfire's `[autostart]` section to restore that cache at the next login.

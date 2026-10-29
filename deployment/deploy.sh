@@ -32,7 +32,7 @@ for dependency in kanshi kanshictl; do
   fi
 done
 
-printf 'Installing native LiakOs apps...\n'
+printf 'Installing native LiakOS apps...\n'
 "$DEPLOYMENT_DIR/install-c-apps.sh"
 
 mkdir -p "$AGS_CONFIG_DIR/icons" "$WALLPAPER_DIR" "$LIAKOS_DATA_DIR/scripts"
@@ -115,7 +115,7 @@ if [ -n "$DEFAULT_FILE_MANAGER" ]; then
   printf 'Wayfire Super+E opens Thunar (%s)\n' "$DEFAULT_FILE_MANAGER"
 fi
 
-printf '\nLiakOs deployment complete.\n'
+printf '\nLiakOS deployment complete.\n'
 printf 'Apps: %s (PATH must include this directory)\n' "$BIN_DIR"
 printf 'AGS bar: %s\n' "$AGS_ENTRY"
 printf 'Wallpapers: %s\n' "$WALLPAPER_DIR"

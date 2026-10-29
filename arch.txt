@@ -1,4 +1,4 @@
-# Arch Linux packages used by LiakOs display setup and the AGS bar.
+# Arch Linux packages used by LiakOS display setup and the AGS bar.
 # Build tools and native UI/runtime packages for the display setup app:
 sudo pacman -S --needed gcc pkgconf gtk4 json-glib wlr-randr kanshi
 
