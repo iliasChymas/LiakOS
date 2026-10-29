@@ -7,7 +7,6 @@
 #include <string.h>
 #include <time.h>
 #include <errno.h>
-#include <sys/stat.h>
 #include <glib/gstdio.h>
 
 #define THUMB_WIDTH 256
@@ -57,7 +56,6 @@ typedef struct {
 typedef struct {
   Viewer *viewer;
   GSubprocess *process;
-  char *path;
 } ApplyJob;
 
 static Viewer *active_viewer;
@@ -65,103 +63,6 @@ static Viewer *active_viewer;
 static void reload_wallpapers(Viewer *viewer);
 static void refresh_folder_list(Viewer *viewer);
 static void remove_folder_action(Viewer *viewer, GtkButton *button);
-
-static char *wayfire_config_path(void) {
-  const char *override = g_getenv("LIAKOS_WAYFIRE_CONFIG");
-  if (override && *override)
-    return g_canonicalize_filename(override, NULL);
-  const char *config_home = g_get_user_config_dir();
-  char *root = g_build_filename(config_home, "wayfire.ini", NULL);
-  char *nested = g_build_filename(config_home, "wayfire", "wayfire.ini", NULL);
-  char *found = g_file_test(root, G_FILE_TEST_IS_REGULAR)
-                    ? g_strdup(root)
-                    : g_file_test(nested, G_FILE_TEST_IS_REGULAR) ? g_strdup(nested)
-                                                                  : g_strdup(root);
-  g_free(root);
-  g_free(nested);
-  return found;
-}
-
-static gboolean save_wallpaper_startup(const char *image_path, GError **error) {
-  char *config_path = wayfire_config_path();
-  char *contents = NULL;
-  if (!g_file_get_contents(config_path, &contents, NULL, error)) {
-    g_free(config_path);
-    return FALSE;
-  }
-
-  char *absolute_path = g_canonicalize_filename(image_path, NULL);
-  char *quoted_path = g_shell_quote(absolute_path);
-  char *command = g_strdup_printf("wal -i %s", quoted_path);
-  g_free(quoted_path);
-  g_free(absolute_path);
-  gchar **lines = g_strsplit(contents, "\n", -1);
-  GString *updated = g_string_new(NULL);
-  gboolean in_autostart = FALSE, have_autostart = FALSE, wrote_command = FALSE;
-  for (guint i = 0; lines[i]; i++) {
-    char *line = lines[i];
-    char *trimmed = g_strdup(line);
-    g_strstrip(trimmed);
-    if (*trimmed == '[') {
-      if (in_autostart && !wrote_command) {
-        g_string_append_printf(updated, "liakos_wallpaper = %s\n", command);
-        wrote_command = TRUE;
-      }
-      in_autostart = g_str_equal(trimmed, "[autostart]");
-      if (in_autostart)
-        have_autostart = TRUE;
-      g_string_append_printf(updated, "%s\n", line);
-      g_free(trimmed);
-      continue;
-    }
-    if (in_autostart && *trimmed && *trimmed != '#' && *trimmed != ';') {
-      char *equal = strchr(trimmed, '=');
-      if (equal) {
-        *equal = '\0';
-        g_strstrip(trimmed);
-        if (g_str_equal(trimmed, "liakos_wallpaper")) {
-          g_string_append_printf(updated, "liakos_wallpaper = %s\n", command);
-          wrote_command = TRUE;
-          g_free(trimmed);
-          continue;
-        }
-      }
-    }
-    g_string_append_printf(updated, "%s\n", line);
-    g_free(trimmed);
-  }
-  if (in_autostart && !wrote_command)
-    g_string_append_printf(updated, "liakos_wallpaper = %s\n", command);
-  if (!have_autostart)
-    g_string_append_printf(updated, "\n[autostart]\nliakos_wallpaper = %s\n", command);
-
-  struct stat config_stat;
-  char *backup_path = g_strconcat(config_path, ".liakos-backup", NULL);
-  if (!g_file_test(backup_path, G_FILE_TEST_EXISTS)) {
-    if (!g_file_set_contents(backup_path, contents, -1, error)) {
-      g_free(backup_path); g_string_free(updated, TRUE); g_strfreev(lines);
-      g_free(contents); g_free(command); g_free(config_path);
-      return FALSE;
-    }
-    if (stat(config_path, &config_stat) == 0)
-      g_chmod(backup_path, config_stat.st_mode & 07777);
-  }
-  gboolean have_mode = stat(config_path, &config_stat) == 0;
-  char *temporary_path = g_strconcat(config_path, ".liakos-tmp", NULL);
-  gboolean ok = g_file_set_contents(temporary_path, updated->str, updated->len, error);
-  if (ok && have_mode)
-    g_chmod(temporary_path, config_stat.st_mode & 07777);
-  if (ok && g_rename(temporary_path, config_path) != 0) {
-    g_set_error(error, G_FILE_ERROR, g_file_error_from_errno(errno),
-                "Could not update %s: %s", config_path, g_strerror(errno));
-    ok = FALSE;
-  }
-  if (!ok)
-    g_unlink(temporary_path);
-  g_free(temporary_path); g_free(backup_path); g_string_free(updated, TRUE);
-  g_strfreev(lines); g_free(contents); g_free(command); g_free(config_path);
-  return ok;
-}
 
 static double elapsed_ms(struct timespec start, struct timespec end) {
   return (end.tv_sec - start.tv_sec) * 1000.0 +
@@ -454,31 +355,17 @@ static void apply_finished(GObject *source, GAsyncResult *result,
   GError *error = NULL;
   gboolean success =
       g_subprocess_wait_check_finish(G_SUBPROCESS(source), result, &error);
-  if (success) {
-    GError *save_error = NULL;
-    if (save_wallpaper_startup(job->path, &save_error)) {
-      gtk_label_set_text(job->viewer->status,
-                         "Wallpaper applied and saved for the next Wayfire session. GTK/Qt colors updated; restart apps to see them.");
-    } else if (g_error_matches(save_error, G_FILE_ERROR, G_FILE_ERROR_NOENT)) {
-      g_print("lpaper: no Wayfire config found; wallpaper startup command was not saved.\n");
-      gtk_label_set_text(job->viewer->status,
-                         "Wallpaper applied and GTK/Qt colors updated. Restart apps to see them.");
-    } else {
-      char *message = g_strdup_printf(
-          "Wallpaper applied, but its Wayfire startup command could not be saved: %s",
-          save_error ? save_error->message : "unknown error");
-      gtk_label_set_text(job->viewer->status, message);
-      g_free(message);
-    }
-    g_clear_error(&save_error);
-  } else {
-    gtk_label_set_text(job->viewer->status,
-                       error ? error->message : "Could not apply wallpaper.");
-  }
+  /* wal persists the image in its own cache. Never rewrite wayfire.ini here:
+   * even an autostart-only edit reloads output configuration and can replace a
+   * live layout set by wlr-randr/kanshi. Deployment installs a fixed wal -R
+   * startup command instead. */
+  gtk_label_set_text(job->viewer->status,
+                     success ? "Wallpaper applied and GTK/Qt colors updated. "
+                               "Restart apps to see them."
+                             : error ? error->message : "Could not apply wallpaper.");
   gtk_widget_set_sensitive(GTK_WIDGET(job->viewer->apply_button), TRUE);
   g_clear_error(&error);
   g_object_unref(job->process);
-  g_free(job->path);
   g_free(job);
 }
 
@@ -535,7 +422,6 @@ static void apply_clicked(GtkButton *button, gpointer data) {
   ApplyJob *job = g_new0(ApplyJob, 1);
   job->viewer = viewer;
   job->process = process;
-  job->path = g_strdup(path);
   g_subprocess_wait_check_async(process, NULL, apply_finished, job);
 }
 

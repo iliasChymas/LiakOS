@@ -17,7 +17,8 @@ installed too.
 The script honors `XDG_DATA_HOME` and `XDG_CONFIG_HOME`.
 
 - `deploy.sh` installs the AGS bar and assets, sets the default file manager,
-  and updates the Wayfire application shortcuts.
+  updates the Wayfire application shortcuts, and installs `wal -R` to restore
+  the cached wallpaper at login without per-wallpaper compositor config edits.
 - `install-c-apps.sh` builds and installs the native C apps and their
   desktop entries into the current user's local directories.
 - `install-bar.sh` installs the bar and all its icons and OASA helper together.
@@ -32,3 +33,11 @@ Wayfire's external-output ownership option, and adds the guarded Kanshi session
 launcher. The display app saves layouts only to Kanshi. Deployment does not
 start/reload Kanshi; it starts next session or after **Keep settings** in Displays.
 See [display persistence](../monitor-app/README.md) for details.
+
+The bar's LiakOS quick actions resolve executables in `~/.local/bin` directly,
+then fall back to the inherited PATH. Their child processes also receive that
+directory in PATH, so Settings can open the wallpaper and shortcut apps even
+when AGS was started with a restricted session PATH. See
+[the quick-action investigation](quick-actions-investigation.md) for evidence
+and validation. Run `scripts/test-bar-quick-actions.sh` for the isolated GJS
+regression checks (requires AGS and GJS; does not start the desktop bar).

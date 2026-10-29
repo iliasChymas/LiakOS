@@ -86,6 +86,9 @@ set_wayfire_option "$WAYFIRE_CONFIG" autostart xdg_portals \
   'sleep 1 && systemctl --user restart xdg-desktop-portal xdg-desktop-portal-wlr'
 AGS_ENTRY_URI=$(python3 -c 'from pathlib import Path; import sys; print(Path(sys.argv[1]).as_posix())' "$AGS_ENTRY")
 set_wayfire_option "$WAYFIRE_CONFIG" autostart bar "ags run '$AGS_ENTRY_URI'"
+# Pywal caches the latest selected image. Keep this command stable so applying
+# a wallpaper never needs to rewrite (and reload) the compositor configuration.
+set_wayfire_option "$WAYFIRE_CONFIG" autostart liakos_wallpaper 'wal -R'
 
 if [ -n "$DEFAULT_BROWSER" ]; then
   case "$DEFAULT_BROWSER" in

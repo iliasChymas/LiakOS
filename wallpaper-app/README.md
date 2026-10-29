@@ -42,12 +42,20 @@ configuration. Deployment installs the color script under
 `$XDG_DATA_HOME/liakos/scripts/` for the installed `lpaper` binary. Applying a
 wallpaper also reloads a running Ghostty instance so newly opened windows use
 the updated theme and sends live color sequences to its open terminal sessions.
-After a successful apply, `lpaper` updates `liakos_wallpaper` in Wayfire's
-`[autostart]` section to run `wal -i` with the selected image at the next
-Wayfire start. It preserves other autostart entries and keeps a one-time
-`.liakos-backup` beside the config. The config path follows
-`LIAKOS_WAYFIRE_CONFIG`, then `~/.config/wayfire.ini` or
-`~/.config/wayfire/wayfire.ini`.
+Pywal saves the selected image and palette in `$XDG_CACHE_HOME/wal/`.
+Full deployment installs the fixed `liakos_wallpaper = wal -R` command in
+Wayfire's `[autostart]` section to restore that cache at the next login.
+Applying a wallpaper never reads or writes `wayfire.ini`, enumerates monitors,
+or runs display configuration commands. This avoids a Wayfire config reload,
+which can replace a live layout set by `wlr-randr` or `kanshi` even when output
+sections themselves are unchanged.
+
+For an existing installation with an image-specific `wal -i` startup
+entry, change that entry to `liakos_wallpaper = wal -R` while the Wayfire
+session is stopped, or let the next full deployment update it. Updating only
+the apps fixes live wallpaper application but leaves the old startup entry in
+place. Clearing the Pywal cache also clears the wallpaper restored by `wal -R`.
+
 It runs `systemctl reload --user app-com.mitchellh.ghostty.service` after
 writing the theme. On Wayland, Pywal16 needs a wallpaper setter; install
 `swaybg` on Arch with
@@ -61,3 +69,12 @@ cc -O2 -Wall -Wextra wallpaper-app/tools/resize-test.c \
   -o /tmp/liakos-resize-test $(pkg-config --cflags --libs vips)
 /tmp/liakos-resize-test INPUT_IMAGE OUTPUT_IMAGE
 ```
+
+Run the isolated wallpaper regression checks without opening a desktop window:
+
+```sh
+wallpaper-app/tests/run.sh
+```
+
+The checks use temporary XDG directories and stub external commands; they never
+connect to the running compositor or apply a real wallpaper.
