@@ -156,6 +156,7 @@ static gboolean save_wayfire_option(const char *section, const char *key, const 
     gboolean in_section = FALSE, have_section = FALSE, wrote_option = FALSE;
     for (guint i = 0; lines[i]; i++) {
         char *line = lines[i];
+        if (!*line && !lines[i + 1]) break;
         if (line[0] == '[') {
             if (in_section && !wrote_option) {
                 g_string_append_printf(updated, "%s = %s\n", key, value);
@@ -224,9 +225,9 @@ static void on_input_switch_changed(GtkSwitch *control, GParamSpec *pspec, gpoin
 
 static void on_input_scale_changed(GtkRange *control, gpointer data) {
     SettingBinding *binding = data;
-    char *value = g_strdup_printf("%.2f", gtk_range_get_value(control));
+    char value[G_ASCII_DTOSTR_BUF_SIZE];
+    g_ascii_formatd(value, sizeof(value), "%.2f", gtk_range_get_value(control));
     save_setting(binding->settings, binding->key, value);
-    g_free(value);
 }
 
 static void on_input_choice_changed(GObject *control, GParamSpec *pspec, gpointer data) {
@@ -583,9 +584,10 @@ static void add_mouse_page(Settings *settings) {
     append_choice(settings, "Acceleration profile", "mouse_accel_profile", "default", profiles, profile_values, G_N_ELEMENTS(profiles));
     gtk_box_append(GTK_BOX(settings->content), label("Buttons & scrolling", "lui-heading"));
     append_switch(settings, "Left-handed buttons", "left_handed_mode", FALSE);
-    append_switch(settings, "Natural scrolling", "natural_scroll", FALSE);
+    append_switch(settings, "Mouse natural scrolling", "mouse_natural_scroll", FALSE);
     append_switch(settings, "Middle-button emulation", "middle_emulation", FALSE);
     gtk_box_append(GTK_BOX(settings->content), label("Touchpad", "lui-heading"));
+    append_switch(settings, "Touchpad natural scrolling", "natural_scroll", FALSE);
     append_switch(settings, "Touchpad tap to click", "tap_to_click", TRUE);
     append_switch(settings, "Disable touchpad while typing", "disable_touchpad_while_typing", FALSE);
     append_status(settings);
@@ -897,7 +899,7 @@ static void on_sidebar_toggle(GtkButton *button, gpointer data) {
     Settings *settings = data;
     gboolean visible = gtk_widget_get_visible(settings->sidebar);
     gtk_widget_set_visible(settings->sidebar, !visible);
-    gtk_button_set_icon_name(GTK_BUTTON(settings->toggle), visible ? "sidebar-show-symbolic" : "sidebar-hide-symbolic");
+    gtk_button_set_icon_name(GTK_BUTTON(settings->toggle), visible ? "sidebar-show-symbolic" : "go-previous-symbolic");
     lui_icon_button_set_label(settings->toggle, visible ? "Show categories" : "Hide categories");
 }
 
@@ -924,7 +926,7 @@ static void activate(GtkApplication *app, gpointer data) {
     GtkWidget *toolbar = lui_box_new(GTK_ORIENTATION_HORIZONTAL, 12);
     gtk_widget_set_margin_start(toolbar, 14); gtk_widget_set_margin_end(toolbar, 14);
     gtk_widget_set_margin_top(toolbar, 10); gtk_widget_set_margin_bottom(toolbar, 10);
-    settings->toggle = lui_icon_button_new("sidebar-hide-symbolic", "Hide categories");
+    settings->toggle = lui_icon_button_new("go-previous-symbolic", "Hide categories");
     g_signal_connect(settings->toggle, "clicked", G_CALLBACK(on_sidebar_toggle), settings);
     gtk_box_append(GTK_BOX(toolbar), settings->toggle);
     GtkWidget *app_name = label("LiakOS Settings", "brand");
