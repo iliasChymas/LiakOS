@@ -1,0 +1,3 @@
+/* Shared presentation rules. GTK retains control behavior and accessibility. */
+window { background: @lui_background; color: @lui_foreground; }
+headerbar { background: @lui_background; color: @lui_foreground; }

@@ -1,0 +1,11 @@
+/* Original application appearance, maintained by LUI. */
+window.launcher-overlay { background-color: transparent; }
+.launcher-panel { background-color: @lui_background; color: @lui_foreground; border: 1px solid @lui_border; border-radius: 10px; }
+.launcher-search { margin: 14px 14px 8px; min-height: 42px; padding: 0 12px; background-color: @lui_surface; color: @lui_foreground; caret-color: @lui_accent; border: 1px solid @lui_border; border-radius: 8px; }
+.launcher-search:focus { border-color: @lui_accent; box-shadow: none; }
+.launcher-list { background-color: transparent; padding: 2px 0; }
+.launcher-row { min-height: 54px; margin: 2px 8px; padding: 0 12px; border-radius: 8px; }
+.launcher-row:hover { background-color: alpha(@lui_accent, 0.14); }
+.launcher-row:selected { background-color: @lui_accent; color: @lui_foreground; }
+.launcher-row image { -gtk-icon-size: 32px; }
+.launcher-footer { color: @lui_muted; font-size: 11px; margin: 8px 14px 12px; }

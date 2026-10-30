@@ -1,0 +1,12 @@
+/* Original application appearance, maintained by LUI. */
+window { background:@lui_background; color:@lui_foreground; }
+ headerbar { background:@lui_background; }
+.lui-title { font-size:24px; font-weight:700; }
+ .lui-subtitle { opacity:.72; }
+.lui-card { background:alpha(@lui_foreground,.12); border:1px solid alpha(@lui_accent,.28); border-radius:16px; padding:16px; }
+.monitor-name { font-size:17px; font-weight:700; }
+button.suggested-action { background:@lui_accent; color:@lui_background; border-radius:10px; }
+button { border-radius:9px; }
+ button.compact-button { min-height:0; padding:8px; margin:0px;}
+ entry, dropdown, spinbutton { border-radius:8px; }
+.lui-status { color:@lui_accent; }

@@ -1,0 +1,12 @@
+<gresources>
+  <gresource prefix="/org/liakos/lui">
+    <file>styles/common.css</file>
+    <file>styles/components.css</file>
+    <file>styles/settings.css</file>
+    <file>styles/autostart.css</file>
+    <file>styles/keybindings.css</file>
+    <file>styles/displays.css</file>
+    <file>styles/launcher.css</file>
+    <file>styles/session.css</file>
+  </gresource>
+</gresources>

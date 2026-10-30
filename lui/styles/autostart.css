@@ -1,0 +1,15 @@
+/* Original application appearance, maintained by LUI. */
+window.autostart-window { background-color:@lui_background; color:@lui_foreground; }
+.autostart-panel { background-color:@lui_background; color:@lui_foreground; }
+.lui-title { color:@lui_foreground; font-size:25px; font-weight:750; }
+.lui-subtitle { color:@lui_muted; }
+.search-entry { background-color:@lui_surface; color:@lui_foreground; caret-color:@lui_accent; border:1px solid alpha(@lui_border,.8); border-radius:9px; padding:7px 12px; }
+.search-entry:focus { border-color:@lui_accent; box-shadow:none; }
+.application-list { background-color:transparent; }
+.application-list row { background-color:transparent; box-shadow:none; }
+.application-row { min-height:58px; margin:2px 4px; padding:7px 10px; border-radius:9px; background-color:alpha(@lui_surface,.82); }
+.application-row:hover { background-color:alpha(@lui_accent,.12); }
+.application-name { color:@lui_foreground; font-weight:650; }
+switch:checked { background-color:@lui_accent; border-color:@lui_accent; }
+button.suggested-action { background-color:@lui_accent; color:@lui_background; border-radius:9px; }
+.lui-status { color:@lui_muted; }

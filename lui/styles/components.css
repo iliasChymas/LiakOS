@@ -1,0 +1,27 @@
+.lui-title { font-size: 26px; font-weight: 750; }
+.lui-subtitle, .lui-caption, .lui-status { color: @lui_muted; }
+.lui-heading { font-size: 18px; font-weight: 700; }
+.lui-caption { font-size: 12px; }
+.lui-page-header { margin-bottom: 12px; }
+.lui-card { background: alpha(@lui_surface, .82); border: 1px solid alpha(@lui_foreground, .16); border-radius: 12px; padding: 16px; }
+.lui-setting-row { min-height: 44px; padding: 10px 0; border-bottom: 1px solid alpha(@lui_foreground, .12); }
+button.lui-button { border-radius: 9px; padding: 8px 12px; background: @lui_surface; color: @lui_foreground; border: 1px solid alpha(@lui_foreground, .22); box-shadow: none; text-shadow: none; }
+button.lui-button:hover { background: mix(@lui_surface, @lui_accent, .16); }
+button.lui-button:active, button.lui-button:checked { background: mix(@lui_surface, @lui_accent, .28); }
+button.lui-button.suggested-action { background: @lui_accent; color: @lui_on_accent; border-color: @lui_accent; }
+button.lui-button.destructive-action { background: @lui_destructive; color: @lui_on_destructive; border-color: @lui_destructive; }
+button.lui-button.flat { background: transparent; border-color: transparent; }
+button.lui-button.flat:hover { background: alpha(@lui_accent, .12); }
+button.lui-button:disabled { opacity: .5; }
+button.lui-icon-button { min-width: 32px; min-height: 32px; padding: 6px; }
+entry, dropdown > button, spinbutton, searchentry { background: @lui_surface; color: @lui_foreground; border-radius: 9px; border-color: alpha(@lui_foreground, .25); }
+entry, searchentry { caret-color: @lui_accent; }
+searchentry.lui-search { padding: 7px 12px; }
+entry selection, searchentry selection { background: @lui_accent; color: @lui_on_accent; }
+switch:checked, checkbutton:checked check { background: @lui_accent; color: @lui_on_accent; }
+popover contents { background: @lui_surface; color: @lui_foreground; }
+*:focus-visible { outline-color: @lui_accent; outline-width: 2px; outline-offset: 2px; }
+row.lui-list-row { background: @lui_surface; color: @lui_foreground; border: 1px solid alpha(@lui_foreground, .16); border-radius: 9px; margin: 3px 0; padding: 10px 12px; }
+row.lui-list-row:hover { background: mix(@lui_surface, @lui_accent, .12); }
+row.lui-list-row:selected { background: @lui_accent; color: @lui_on_accent; }
+row.lui-list-row:selected .lui-subtitle { color: @lui_on_accent; }

@@ -1,0 +1,33 @@
+/* Original application appearance, maintained by LUI. */
+window { background:@lui_background; color:@lui_foreground; }
+.sidebar { background:transparent; border-right:1px solid alpha(@lui_foreground,.12); }
+.brand { font-size:18px; font-weight:750; }
+.nav-list { background:transparent; }
+ .nav-list row { background:transparent; border-bottom:1px solid alpha(@lui_foreground,.12); padding:13px 8px; }
+.nav-list row:selected { background:transparent; color:@lui_accent; }
+.lui-title { font-size:27px; font-weight:750; }
+ .lui-subtitle { opacity:.72; }
+.lui-card { padding:8px 0; }
+ .lui-setting-row { min-height:44px; padding:10px 0; border-bottom:1px solid alpha(@lui_foreground,.12); }
+.welcome-hero { padding:0 0 18px; }
+ .lui-page-header { margin-bottom:12px; }
+.welcome-title { font-size:36px; font-weight:800; }
+ .lui-heading { font-size:18px; font-weight:750; }
+.lui-heading { margin-top:12px; }
+button.quick-tile { min-height:62px; padding:12px 0; background:transparent; border:0; border-bottom:1px solid alpha(@lui_foreground,.12); border-radius:0; box-shadow:none; }
+button.quick-tile:hover { background:alpha(@lui_accent,.08); }
+.audio-panel { padding:8px 0; border-bottom:1px solid alpha(@lui_foreground,.12); }
+.audio-section-title { font-size:12px; font-weight:750; color:@lui_accent; margin-top:20px; }
+.audio-stream-row { padding:10px 0; border-bottom:1px solid alpha(@lui_foreground,.12); }
+.audio-master-row { border:0; padding:4px 0; }
+.audio-volume-scale trough { min-height:6px; border-radius:99px; background:alpha(@lui_foreground,.16); }
+.audio-volume-scale highlight { min-height:6px; border-radius:99px; background:@lui_accent; }
+.audio-volume-scale slider { min-width:14px; min-height:14px; border:2px solid @lui_foreground; border-radius:99px; background:@lui_accent; }
+button.audio-button { min-width:34px; min-height:34px; border:0; background:transparent; box-shadow:none; }
+button.audio-button:checked { color:@lui_accent; }
+button.device-row { background:transparent; border:0; border-radius:0; padding:8px 0; box-shadow:none; }
+ button.device-row.selected { color:@lui_accent; }
+.about-table { padding:8px 0; }
+ .about-key { opacity:.66; }
+.eyebrow { color:@lui_accent; font-size:12px; font-weight:700; }
+button { border-radius:9px; }

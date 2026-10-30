@@ -1,0 +1,13 @@
+/* Original application appearance, maintained by LUI. */
+window.session-overlay { background: rgba(0, 0, 0, 0.30); }
+.session-card { background: @lui_background; color: @lui_foreground; border: 1px solid alpha(@lui_foreground, .18); border-radius: 24px; padding: 38px; min-width: 630px; box-shadow: 0 28px 90px rgba(0,0,0,.38); }
+.eyebrow { color: @lui_accent; font-size: 11px; font-weight: 800; letter-spacing: 2px; }
+.lui-title { color: @lui_foreground; font-size: 34px; font-weight: 750; letter-spacing: -1px; }
+.lui-subtitle { color: @lui_muted; font-size: 14px; }
+.action { min-height: 122px; min-width: 150px; padding: 18px 14px; border-radius: 17px; border: 1px solid alpha(@lui_foreground, .12); background: @lui_surface; color: @lui_foreground; }
+.action:hover { background: alpha(@lui_accent, .13); border-color: alpha(@lui_accent, .55); }
+.action image { -gtk-icon-size: 30px; color: @lui_secondary; }
+.action-label { font-size: 14px; font-weight: 700; }
+.hint { color: @lui_muted; font-size: 11px; }
+.close-button { min-width: 34px; min-height: 34px; border-radius: 17px; color: @lui_muted; background: alpha(@lui_foreground, .08); }
+.close-button:hover { background: alpha(@lui_foreground, .18); }

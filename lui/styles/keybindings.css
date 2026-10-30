@@ -1,0 +1,26 @@
+/* Original application appearance, maintained by LUI. */
+window { background: @lui_background; color: @lui_foreground; }
+headerbar { background: @lui_surface; border: none; }
+.lui-title { font-size: 22px; font-weight: 700; }
+.lui-subtitle { color: @lui_muted; }
+.toolbar { padding: 18px 22px 8px; }
+.binding-list { background: transparent; }
+.binding-row { padding: 15px 18px; }
+.binding-title { font-size: 14px; font-weight: 600; }
+.binding-meta { color: @lui_muted; font-size: 12px; }
+.shortcut-preview { background: @lui_surface; color: @lui_accent; padding: 18px; border-radius: 10px; font-size: 19px; font-weight: 700; }
+.record-heading { font-size: 20px; font-weight: 700; }
+button { border-radius: 9px; background: @lui_surface; color: @lui_foreground; border: 1px solid @lui_muted; }
+button:hover { background: alpha(@lui_accent, 0.12); color: @lui_foreground; }
+button:active, button:checked { background: alpha(@lui_accent, 0.22); color: @lui_accent; }
+button.suggested-action, button.suggested-action:hover, button.suggested-action:active { background: @lui_foreground; color: @lui_surface; border-color: @lui_foreground; box-shadow: none; text-shadow: none; transition: none; }
+entry:not(.shortcut-search), dropdown { border-radius: 9px; background: @lui_accent; color: @lui_surface; border: 1px solid @lui_foreground; caret-color: @lui_secondary; }
+entry:not(.shortcut-search):focus, dropdown:focus { border-color: @lui_accent; box-shadow: 0 0 0 2px alpha(@lui_accent, 0.20); }
+entry:not(.shortcut-search) selection { background: alpha(@lui_accent, 0.24); color: @lui_foreground; }
+popover, popover contents { background: @lui_surface; color: @lui_foreground; border: 1px solid @lui_secondary; }
+popover listview, popover row { background: @lui_surface; color: @lui_foreground; }
+popover row:hover, popover row:selected { background: alpha(@lui_accent, 0.16); color: @lui_foreground; }
+scrolledwindow, list { background: transparent; }
+list row { background: @lui_surface; border: 1px solid @lui_muted; border-radius: 12px; margin: 5px 18px; }
+list row:hover { background: alpha(@lui_accent, 0.10); border-color: @lui_accent; }
+*:focus-visible { outline-color: @lui_accent; }
