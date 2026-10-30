@@ -1,6 +1,7 @@
 #define _POSIX_C_SOURCE 200809L
 
 #include <gtk/gtk.h>
+#include "../../lui/lui.h"
 #include <vips/vips.h>
 
 #include <stdio.h>
@@ -479,14 +480,14 @@ static void populate_thumbnail_grid(Viewer *viewer) {
     gtk_picture_set_can_shrink(GTK_PICTURE(picture), TRUE);
     gtk_picture_set_content_fit(GTK_PICTURE(picture), GTK_CONTENT_FIT_COVER);
     char *filename = g_path_get_basename(path);
-    GtkWidget *label = gtk_label_new(filename);
+    GtkWidget *label = lui_label_new(filename);
     gtk_label_set_max_width_chars(GTK_LABEL(label), 18);
     gtk_label_set_ellipsize(GTK_LABEL(label), PANGO_ELLIPSIZE_MIDDLE);
     g_free(filename);
-    GtkWidget *card = gtk_box_new(GTK_ORIENTATION_VERTICAL, 4);
+    GtkWidget *card = lui_card_new(NULL);
     gtk_box_append(GTK_BOX(card), picture);
     gtk_box_append(GTK_BOX(card), label);
-    GtkWidget *button = gtk_button_new();
+    GtkWidget *button = lui_button_new(NULL, LUI_BUTTON_NORMAL);
     gtk_button_set_child(GTK_BUTTON(button), card);
     gtk_widget_set_tooltip_text(button, path);
     gtk_grid_attach(viewer->grid, button, i % THUMB_COLUMNS,
@@ -555,18 +556,18 @@ static void refresh_folder_list(Viewer *viewer) {
   }
   for (guint i = 0; i < viewer->directories->len; i++) {
     const char *path = g_ptr_array_index(viewer->directories, i);
-    GtkWidget *row = gtk_box_new(GTK_ORIENTATION_HORIZONTAL, 12);
-    GtkWidget *label = gtk_label_new(path);
+    GtkWidget *row = lui_box_new(GTK_ORIENTATION_HORIZONTAL, 12);
+    GtkWidget *label = lui_label_new(path);
     gtk_label_set_xalign(GTK_LABEL(label), 0);
     gtk_label_set_ellipsize(GTK_LABEL(label), PANGO_ELLIPSIZE_MIDDLE);
     gtk_widget_set_hexpand(label, TRUE);
     gtk_box_append(GTK_BOX(row), label);
     if (i == 0) {
-      GtkWidget *badge = gtk_label_new("Current");
+      GtkWidget *badge = lui_label_new("Current");
       gtk_widget_add_css_class(badge, "dim-label");
       gtk_box_append(GTK_BOX(row), badge);
     } else {
-      GtkWidget *remove = gtk_button_new_from_icon_name("user-trash-symbolic");
+      GtkWidget *remove = lui_icon_button_new("user-trash-symbolic", "Remove folder");
       gtk_widget_set_tooltip_text(remove, "Remove folder");
       g_object_set_data(G_OBJECT(remove), "folder-index",
                         GUINT_TO_POINTER(i));
@@ -640,12 +641,12 @@ static void open_folders_action(GSimpleAction *action, GVariant *parameter,
   (void)parameter;
   Viewer *viewer = data;
   if (!viewer->folders_window) {
-    GtkWidget *content = gtk_box_new(GTK_ORIENTATION_VERTICAL, 12);
+    GtkWidget *content = lui_box_new(GTK_ORIENTATION_VERTICAL, 12);
     gtk_widget_set_margin_top(content, 16);
     gtk_widget_set_margin_bottom(content, 16);
     gtk_widget_set_margin_start(content, 16);
     gtk_widget_set_margin_end(content, 16);
-    GtkWidget *explanation = gtk_label_new(
+    GtkWidget *explanation = lui_label_new(
         "Wallpapers are scanned from these folders. The current location stays first.");
     gtk_label_set_wrap(GTK_LABEL(explanation), TRUE);
     gtk_label_set_xalign(GTK_LABEL(explanation), 0);
@@ -653,7 +654,7 @@ static void open_folders_action(GSimpleAction *action, GVariant *parameter,
     viewer->folders_list = GTK_LIST_BOX(gtk_list_box_new());
     gtk_list_box_set_selection_mode(viewer->folders_list, GTK_SELECTION_NONE);
     gtk_box_append(GTK_BOX(content), GTK_WIDGET(viewer->folders_list));
-    GtkWidget *add = gtk_button_new_with_label("Add folder…");
+    GtkWidget *add = lui_button_new("Add folder…", LUI_BUTTON_NORMAL);
     gtk_widget_set_halign(add, GTK_ALIGN_END);
     g_signal_connect(add, "clicked", G_CALLBACK(add_folder_clicked), viewer);
     gtk_box_append(GTK_BOX(content), add);
@@ -674,6 +675,7 @@ static void open_folders_action(GSimpleAction *action, GVariant *parameter,
 }
 
 static void build_ui(GtkApplication *application, gpointer user_data) {
+    lui_init(LUI_STYLE_WALLPAPER);
   (void)user_data;
   gint64 ui_started = g_get_monotonic_time();
   Viewer *viewer = g_new0(Viewer, 1);
@@ -688,31 +690,27 @@ static void build_ui(GtkApplication *application, gpointer user_data) {
   gtk_picture_set_can_shrink(viewer->preview, TRUE);
   gtk_picture_set_content_fit(viewer->preview, GTK_CONTENT_FIT_CONTAIN);
 
-  viewer->caption = GTK_LABEL(gtk_label_new(NULL));
+  viewer->caption = GTK_LABEL(lui_label_new(NULL));
   gtk_label_set_ellipsize(viewer->caption, PANGO_ELLIPSIZE_MIDDLE);
-  viewer->status = GTK_LABEL(gtk_label_new(NULL));
+  viewer->status = GTK_LABEL(lui_label_new(NULL));
   gtk_label_set_wrap(viewer->status, TRUE);
 
-  GtkWidget *content = gtk_box_new(GTK_ORIENTATION_VERTICAL, 12);
-  gtk_widget_set_margin_top(content, 16);
-  gtk_widget_set_margin_bottom(content, 16);
-  gtk_widget_set_margin_start(content, 16);
-  gtk_widget_set_margin_end(content, 16);
+  GtkWidget *content = lui_page_new();
   gtk_box_append(GTK_BOX(content), GTK_WIDGET(viewer->preview));
   gtk_box_append(GTK_BOX(content), GTK_WIDGET(viewer->caption));
 
-  GtkWidget *controls = gtk_box_new(GTK_ORIENTATION_HORIZONTAL, 8);
+  GtkWidget *controls = lui_box_new(GTK_ORIENTATION_HORIZONTAL, 8);
   gtk_widget_set_halign(controls, GTK_ALIGN_CENTER);
-  viewer->previous_button = gtk_button_new_with_label("Previous");
-  viewer->next_button = gtk_button_new_with_label("Next");
+  viewer->previous_button = lui_button_new("Previous", LUI_BUTTON_NORMAL);
+  viewer->next_button = lui_button_new("Next", LUI_BUTTON_NORMAL);
   viewer->apply_button =
-      GTK_BUTTON(gtk_button_new_with_label("Apply wallpaper"));
+      GTK_BUTTON(lui_button_new("Apply wallpaper", LUI_BUTTON_NORMAL));
   gtk_box_append(GTK_BOX(controls), viewer->previous_button);
   gtk_box_append(GTK_BOX(controls), viewer->next_button);
   gtk_box_append(GTK_BOX(controls), GTK_WIDGET(viewer->apply_button));
   gtk_box_append(GTK_BOX(content), controls);
 
-  viewer->grid = GTK_GRID(gtk_grid_new());
+  viewer->grid = GTK_GRID(lui_grid_new());
   gtk_grid_set_column_spacing(viewer->grid, 8);
   gtk_grid_set_row_spacing(viewer->grid, 8);
   gtk_widget_set_halign(GTK_WIDGET(viewer->grid), GTK_ALIGN_CENTER);
@@ -735,7 +733,7 @@ static void build_ui(GtkApplication *application, gpointer user_data) {
 
   GtkWidget *header = gtk_header_bar_new();
   gtk_header_bar_set_title_widget(GTK_HEADER_BAR(header),
-                                  gtk_label_new("LiakOS Wallpapers"));
+                                  lui_label_new("LiakOS Wallpapers"));
   GtkWidget *menu_button = gtk_menu_button_new();
   gtk_menu_button_set_child(GTK_MENU_BUTTON(menu_button),
                             gtk_image_new_from_icon_name("open-menu-symbolic"));
@@ -786,6 +784,7 @@ int main(int argc, char **argv) {
   g_signal_connect(application, "activate", G_CALLBACK(build_ui), NULL);
   gint64 started = g_get_monotonic_time();
   int status = g_application_run(G_APPLICATION(application), argc, argv);
+  lui_shutdown();
   if (active_viewer && active_viewer->workers) {
     g_thread_pool_free(active_viewer->workers, FALSE, TRUE);
     while (g_main_context_pending(NULL))

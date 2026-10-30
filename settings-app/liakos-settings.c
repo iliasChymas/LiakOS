@@ -1,5 +1,6 @@
 #define _GNU_SOURCE
 #include <gtk/gtk.h>
+#include "../lui/lui.h"
 #include <gio/gio.h>
 #include <json-glib/json-glib.h>
 #include <string.h>
@@ -15,7 +16,6 @@ typedef struct {
     GtkWidget *sidebar;
     GtkWidget *content;
     GtkWidget *toggle;
-    GtkCssProvider *css;
     GtkListBox *navigation;
     GtkWidget *status;
     GtkLabel *updates;
@@ -25,8 +25,6 @@ typedef struct {
     UpdateResult *update_result;
     GtkWidget *sound_list;
     AstalWpAudio *audio;
-    GFileMonitor *palette_monitor;
-    guint palette_reload;
     guint active;
     gboolean updates_started;
     gboolean checking_updates;
@@ -41,101 +39,8 @@ struct _UpdateResult { char *text; GPtrArray *items; };
 static const char *sections[] = {
     "Overview", "Displays", "Mouse & Touchpad", "Sound", "Transit", "Updates", "About"
 };
-static gboolean valid_color(const char *s) {
-    if (!s || s[0] != '#' || strlen(s) != 7) return FALSE;
-    for (int i = 1; i < 7; i++) if (!g_ascii_isxdigit(s[i])) return FALSE;
-    return TRUE;
-}
-
-static char *palette_color(JsonObject *obj, const char *key, const char *fallback) {
-    if (obj && json_object_has_member(obj, key)) {
-        const char *value = json_object_get_string_member(obj, key);
-        if (valid_color(value)) return g_strdup(value);
-    }
-    return g_strdup(fallback);
-}
-
-static void load_css(Settings *settings) {
-    char *path = g_build_filename(g_get_user_cache_dir(), "wal", "colors.json", NULL);
-    JsonParser *parser = json_parser_new();
-    GError *error = NULL;
-    char *background = g_strdup("#181b24"), *foreground = g_strdup("#f3f4f6");
-    char *accent = g_strdup("#8aa4ff"), *surface = g_strdup("#252a38");
-    if (json_parser_load_from_file(parser, path, &error)) {
-        JsonObject *root = json_node_get_object(json_parser_get_root(parser));
-        JsonObject *special = json_object_get_object_member(root, "special");
-        JsonObject *colors = json_object_get_object_member(root, "colors");
-        g_free(background); background = palette_color(special, "background", "#181b24");
-        g_free(foreground); foreground = palette_color(special, "foreground", "#f3f4f6");
-        g_free(accent); accent = palette_color(colors, "color4", "#8aa4ff");
-        g_free(surface); surface = palette_color(colors, "color0", "#252a38");
-    }
-    g_clear_error(&error);
-    char *css = g_strdup_printf(
-        "@define-color page_bg %s; @define-color page_fg %s; @define-color accent %s; @define-color surface %s;"
-        "window { background:@page_bg; color:@page_fg; }"
-        ".sidebar { background:transparent; border-right:1px solid alpha(@page_fg,.12); }"
-        ".brand { font-size:18px; font-weight:750; }"
-        ".nav-list { background:transparent; } .nav-list row { background:transparent; border-bottom:1px solid alpha(@page_fg,.12); padding:13px 8px; }"
-        ".nav-list row:selected { background:transparent; color:@accent; } .nav-list row label { text-align:left; }"
-        ".page-title { font-size:27px; font-weight:750; } .page-subtitle,.muted { opacity:.72; }"
-        ".info-section { padding:8px 0; } .setting-row { min-height:44px; padding:10px 0; border-bottom:1px solid alpha(@page_fg,.12); }"
-        ".welcome-hero { padding:0 0 18px; } .page-header { margin-bottom:12px; }"
-        ".welcome-title { font-size:36px; font-weight:800; } .section-heading { font-size:18px; font-weight:750; }"
-        ".section-heading { margin-top:12px; }"
-        "button.quick-tile { min-height:62px; padding:12px 0; background:transparent; border:0; border-bottom:1px solid alpha(@page_fg,.12); border-radius:0; box-shadow:none; }"
-        "button.quick-tile:hover { background:alpha(@accent,.08); }"
-        ".audio-panel { padding:8px 0; border-bottom:1px solid alpha(@page_fg,.12); }"
-        ".audio-section-title { font-size:12px; font-weight:750; color:@accent; margin-top:20px; }"
-        ".audio-stream-row { padding:10px 0; border-bottom:1px solid alpha(@page_fg,.12); }"
-        ".audio-master-row { border:0; padding:4px 0; }"
-        ".audio-volume-scale trough { min-height:6px; border-radius:99px; background:alpha(@page_fg,.16); }"
-        ".audio-volume-scale highlight { min-height:6px; border-radius:99px; background:@accent; }"
-        ".audio-volume-scale slider { min-width:14px; min-height:14px; border:2px solid @page_fg; border-radius:99px; background:@accent; }"
-        "button.audio-button { min-width:34px; min-height:34px; border:0; background:transparent; box-shadow:none; }"
-        "button.audio-button:checked { color:@accent; }"
-        "button.device-row { background:transparent; border:0; border-radius:0; padding:8px 0; box-shadow:none; } button.device-row.selected { color:@accent; }"
-        ".about-table { padding:8px 0; } .about-key { opacity:.66; }"
-        ".eyebrow { color:@accent; font-size:12px; font-weight:700; }"
-        "button { border-radius:9px; }",
-        background, foreground, accent, surface);
-    gtk_css_provider_load_from_string(settings->css, css);
-    g_free(css); g_free(path); g_free(background); g_free(foreground);
-    g_free(accent); g_free(surface); g_object_unref(parser);
-}
-
-static gboolean reload_palette(gpointer data) {
-    Settings *settings = data;
-    settings->palette_reload = 0;
-    load_css(settings);
-    return G_SOURCE_REMOVE;
-}
-
-static void on_palette_changed(GFileMonitor *monitor, GFile *file, GFile *other,
-                               GFileMonitorEvent event, gpointer data) {
-    (void)monitor; (void)file; (void)other;
-    if (event != G_FILE_MONITOR_EVENT_CHANGED && event != G_FILE_MONITOR_EVENT_CREATED &&
-        event != G_FILE_MONITOR_EVENT_MOVED && event != G_FILE_MONITOR_EVENT_CHANGES_DONE_HINT &&
-        event != G_FILE_MONITOR_EVENT_RENAMED) return;
-    Settings *settings = data;
-    if (settings->palette_reload) g_source_remove(settings->palette_reload);
-    settings->palette_reload = g_timeout_add(120, reload_palette, settings);
-}
-
-static void watch_palette(Settings *settings) {
-    char *path = g_build_filename(g_get_user_cache_dir(), "wal", "colors.json", NULL);
-    GFile *file = g_file_new_for_path(path);
-    GError *error = NULL;
-    settings->palette_monitor = g_file_monitor_file(file, G_FILE_MONITOR_WATCH_MOVES, NULL, &error);
-    if (settings->palette_monitor)
-        g_signal_connect(settings->palette_monitor, "changed", G_CALLBACK(on_palette_changed), settings);
-    g_clear_error(&error);
-    g_object_unref(file);
-    g_free(path);
-}
-
 static GtkWidget *label(const char *text, const char *css_class) {
-    GtkWidget *widget = gtk_label_new(text);
+    GtkWidget *widget = lui_label_new(text);
     gtk_label_set_xalign(GTK_LABEL(widget), 0);
     gtk_widget_set_halign(widget, GTK_ALIGN_START);
     if (css_class) gtk_widget_add_css_class(widget, css_class);
@@ -143,10 +48,9 @@ static GtkWidget *label(const char *text, const char *css_class) {
 }
 
 static GtkWidget *info_card(const char *heading, const char *body) {
-    GtkWidget *card = gtk_box_new(GTK_ORIENTATION_VERTICAL, 9);
-    gtk_widget_add_css_class(card, "info-section");
-    if (heading && *heading) gtk_box_append(GTK_BOX(card), label(heading, "section-heading"));
-    GtkWidget *description = label(body, "muted");
+    GtkWidget *card = lui_card_new(NULL);
+    if (heading && *heading) gtk_box_append(GTK_BOX(card), label(heading, "lui-heading"));
+    GtkWidget *description = label(body, "lui-subtitle");
     gtk_label_set_wrap(GTK_LABEL(description), TRUE);
     gtk_label_set_justify(GTK_LABEL(description), GTK_JUSTIFY_LEFT);
     gtk_box_append(GTK_BOX(card), description);
@@ -154,15 +58,7 @@ static GtkWidget *info_card(const char *heading, const char *body) {
 }
 
 static GtkWidget *page_title(Settings *settings, const char *title, const char *subtitle) {
-    GtkWidget *header = gtk_box_new(GTK_ORIENTATION_VERTICAL, 6);
-    gtk_widget_add_css_class(header, "page-header");
-    gtk_box_append(GTK_BOX(header), label(title, "page-title"));
-    if (subtitle) {
-        GtkWidget *description = label(subtitle, "page-subtitle");
-        gtk_label_set_wrap(GTK_LABEL(description), TRUE);
-        gtk_label_set_justify(GTK_LABEL(description), GTK_JUSTIFY_LEFT);
-        gtk_box_append(GTK_BOX(header), description);
-    }
+    GtkWidget *header = lui_page_header_new(title, subtitle);
     gtk_box_append(GTK_BOX(settings->content), header);
     return settings->content;
 }
@@ -182,7 +78,7 @@ static void launch_app_clicked(GtkButton *button, gpointer data) {
 }
 
 static GtkWidget *action_button(Settings *settings, const char *title, const char *command) {
-    GtkWidget *button = gtk_button_new_with_label(title);
+    GtkWidget *button = lui_button_new(title, LUI_BUTTON_NORMAL);
     g_object_set_data_full(G_OBJECT(button), "launch-command", g_strdup(command), g_free);
     g_signal_connect(button, "clicked", G_CALLBACK(launch_app_clicked), settings);
     return button;
@@ -196,26 +92,15 @@ static void append_action(Settings *settings, const char *title, const char *com
 
 static GtkWidget *quick_tile(Settings *settings, const char *title, const char *subtitle,
                              const char *icon, const char *command) {
-    GtkWidget *button = action_button(settings, title, command);
+    GtkWidget *button = lui_action_tile_new(title, subtitle, icon, GTK_ORIENTATION_HORIZONTAL);
     gtk_widget_add_css_class(button, "quick-tile");
-    GtkWidget *box = gtk_box_new(GTK_ORIENTATION_HORIZONTAL, 14);
-    GtkWidget *image = gtk_image_new_from_icon_name(icon);
-    gtk_image_set_pixel_size(GTK_IMAGE(image), 28);
-    GtkWidget *texts = gtk_box_new(GTK_ORIENTATION_VERTICAL, 4);
-    GtkWidget *name = label(title, NULL);
-    GtkWidget *detail = label(subtitle, "muted");
-    gtk_widget_set_halign(name, GTK_ALIGN_START);
-    gtk_widget_set_halign(detail, GTK_ALIGN_START);
-    gtk_box_append(GTK_BOX(texts), name);
-    gtk_box_append(GTK_BOX(texts), detail);
-    gtk_box_append(GTK_BOX(box), image);
-    gtk_box_append(GTK_BOX(box), texts);
-    gtk_button_set_child(GTK_BUTTON(button), box);
+    g_object_set_data_full(G_OBJECT(button), "launch-command", g_strdup(command), g_free);
+    g_signal_connect(button, "clicked", G_CALLBACK(launch_app_clicked), settings);
     return button;
 }
 
 static void append_status(Settings *settings) {
-    settings->status = label("", "muted");
+    settings->status = label("", "lui-subtitle");
     gtk_label_set_wrap(GTK_LABEL(settings->status), TRUE);
     gtk_box_append(GTK_BOX(settings->content), settings->status);
 }
@@ -353,14 +238,7 @@ static void on_input_choice_changed(GObject *control, GParamSpec *pspec, gpointe
 }
 
 static GtkWidget *setting_row(Settings *settings, const char *title, GtkWidget *control) {
-    GtkWidget *row = gtk_box_new(GTK_ORIENTATION_HORIZONTAL, 20);
-    gtk_widget_add_css_class(row, "setting-row");
-    GtkWidget *name = label(title, NULL);
-    gtk_widget_set_halign(name, GTK_ALIGN_START);
-    gtk_widget_set_valign(control, GTK_ALIGN_CENTER);
-    gtk_widget_set_hexpand(name, TRUE);
-    gtk_box_append(GTK_BOX(row), name);
-    gtk_box_append(GTK_BOX(row), control);
+    GtkWidget *row = lui_setting_row_new(title, NULL, control);
     gtk_box_append(GTK_BOX(settings->content), row);
     return row;
 }
@@ -575,7 +453,7 @@ static void on_update_clicked(GtkButton *button, gpointer data) {
 
 static GtkWidget *update_button(Settings *settings, const char *title,
                                 const char *source, const char *target, const char *scope) {
-    GtkWidget *button = gtk_button_new_with_label(title);
+    GtkWidget *button = lui_button_new(title, LUI_BUTTON_NORMAL);
     char **args = g_new0(char *, 4);
     args[0] = g_strdup(source); args[1] = g_strdup(target); args[2] = g_strdup(scope);
     g_object_set_data_full(G_OBJECT(button), "update-args", args, (GDestroyNotify)g_strfreev);
@@ -666,20 +544,20 @@ static void on_refresh_updates(GtkButton *button, gpointer data) {
 
 static void add_updates_page(Settings *settings) {
     page_title(settings, "Updates", "Available software updates across your system.");
-    GtkWidget *actions = gtk_box_new(GTK_ORIENTATION_HORIZONTAL, 10);
-    settings->updates = GTK_LABEL(label("Check for available updates.", "muted"));
+    GtkWidget *actions = lui_box_new(GTK_ORIENTATION_HORIZONTAL, 10);
+    settings->updates = GTK_LABEL(label("Check for available updates.", "lui-subtitle"));
     gtk_widget_set_halign(GTK_WIDGET(settings->updates), GTK_ALIGN_FILL);
     gtk_label_set_xalign(settings->updates, 0);
     gtk_label_set_wrap(settings->updates, TRUE);
     gtk_box_append(GTK_BOX(settings->content), GTK_WIDGET(settings->updates));
-    settings->refresh_updates = gtk_button_new_with_label("Refresh");
+    settings->refresh_updates = lui_button_new("Refresh", LUI_BUTTON_NORMAL);
     g_signal_connect(settings->refresh_updates, "clicked", G_CALLBACK(on_refresh_updates), settings);
     settings->update_all = update_button(settings, "Update all", "all", "", "");
     gtk_widget_add_css_class(settings->update_all, "suggested-action");
     gtk_box_append(GTK_BOX(actions), settings->refresh_updates);
     gtk_box_append(GTK_BOX(actions), settings->update_all);
     gtk_box_append(GTK_BOX(settings->content), actions);
-    settings->updates_table = GTK_GRID(gtk_grid_new());
+    settings->updates_table = GTK_GRID(lui_grid_new());
     gtk_grid_set_column_spacing(settings->updates_table, 18);
     gtk_widget_set_hexpand(GTK_WIDGET(settings->updates_table), TRUE);
     gtk_box_append(GTK_BOX(settings->content), GTK_WIDGET(settings->updates_table));
@@ -700,31 +578,31 @@ static void add_mouse_page(Settings *settings) {
     page_title(settings, "Mouse & Touchpad", "Adjust pointer movement, buttons, and touchpad behavior.");
     static const char *profiles[] = {"Default", "None", "Adaptive", "Flat"};
     static const char *profile_values[] = {"default", "none", "adaptive", "flat"};
-    gtk_box_append(GTK_BOX(settings->content), label("Pointer", "section-heading"));
+    gtk_box_append(GTK_BOX(settings->content), label("Pointer", "lui-heading"));
     append_pointer_speed(settings);
     append_choice(settings, "Acceleration profile", "mouse_accel_profile", "default", profiles, profile_values, G_N_ELEMENTS(profiles));
-    gtk_box_append(GTK_BOX(settings->content), label("Buttons & scrolling", "section-heading"));
+    gtk_box_append(GTK_BOX(settings->content), label("Buttons & scrolling", "lui-heading"));
     append_switch(settings, "Left-handed buttons", "left_handed_mode", FALSE);
     append_switch(settings, "Natural scrolling", "natural_scroll", FALSE);
     append_switch(settings, "Middle-button emulation", "middle_emulation", FALSE);
-    gtk_box_append(GTK_BOX(settings->content), label("Touchpad", "section-heading"));
+    gtk_box_append(GTK_BOX(settings->content), label("Touchpad", "lui-heading"));
     append_switch(settings, "Touchpad tap to click", "tap_to_click", TRUE);
     append_switch(settings, "Disable touchpad while typing", "disable_touchpad_while_typing", FALSE);
     append_status(settings);
 }
 
 static void add_overview_page(Settings *settings) {
-    GtkWidget *hero = gtk_box_new(GTK_ORIENTATION_VERTICAL, 12);
+    GtkWidget *hero = lui_box_new(GTK_ORIENTATION_VERTICAL, 12);
     gtk_widget_add_css_class(hero, "welcome-hero");
     gtk_box_append(GTK_BOX(hero), label("Welcome to LiakOS", "welcome-title"));
-    GtkWidget *about = label("LiakOS is a personal Linux desktop built around Wayfire,\nwith a focused set of tools for shaping your workspace.", "page-subtitle");
+    GtkWidget *about = label("LiakOS is a personal Linux desktop built around Wayfire,\nwith a focused set of tools for shaping your workspace.", "lui-subtitle");
     gtk_label_set_justify(GTK_LABEL(about), GTK_JUSTIFY_LEFT);
     gtk_label_set_wrap(GTK_LABEL(about), TRUE);
     gtk_box_append(GTK_BOX(hero), about);
     gtk_box_append(GTK_BOX(settings->content), hero);
 
-    gtk_box_append(GTK_BOX(settings->content), label("Quick actions", "section-heading"));
-    GtkWidget *quick_actions = gtk_box_new(GTK_ORIENTATION_VERTICAL, 0);
+    gtk_box_append(GTK_BOX(settings->content), label("Quick actions", "lui-heading"));
+    GtkWidget *quick_actions = lui_box_new(GTK_ORIENTATION_VERTICAL, 0);
     gtk_box_append(GTK_BOX(quick_actions), quick_tile(settings, "Choose wallpaper", "Set your background and colors", "preferences-desktop-wallpaper-symbolic", "lpaper"));
     gtk_box_append(GTK_BOX(quick_actions), quick_tile(settings, "Edit shortcuts", "Search and change keybindings", "preferences-desktop-keyboard-shortcuts-symbolic", "lkeybinds"));
     gtk_box_append(GTK_BOX(settings->content), quick_actions);
@@ -789,10 +667,10 @@ static void on_audio_mute_toggled(GtkToggleButton *button, gpointer data) {
 }
 
 static GtkWidget *audio_node_row(AstalWpNode *node, gboolean master) {
-    GtkWidget *row = gtk_box_new(GTK_ORIENTATION_VERTICAL, 6);
+    GtkWidget *row = lui_box_new(GTK_ORIENTATION_VERTICAL, 6);
     gtk_widget_add_css_class(row, "audio-stream-row");
     if (master) gtk_widget_add_css_class(row, "audio-master-row");
-    GtkWidget *header = gtk_box_new(GTK_ORIENTATION_HORIZONTAL, 10);
+    GtkWidget *header = lui_box_new(GTK_ORIENTATION_HORIZONTAL, 10);
     if (!master) {
         GtkWidget *icon = gtk_image_new_from_icon_name("audio-x-generic-symbolic");
         GtkWidget *title = label(audio_node_title(node), NULL);
@@ -837,12 +715,12 @@ static void on_audio_endpoint_clicked(GtkButton *button, gpointer data) {
 }
 
 static GtkWidget *audio_endpoint_card(AstalWpEndpoint *endpoint) {
-    GtkWidget *card = gtk_box_new(GTK_ORIENTATION_VERTICAL, 8);
+    GtkWidget *card = lui_box_new(GTK_ORIENTATION_VERTICAL, 8);
     gtk_widget_add_css_class(card, "audio-panel");
-    GtkWidget *select = gtk_button_new();
+    GtkWidget *select = lui_button_new(NULL, LUI_BUTTON_NORMAL);
     gtk_widget_add_css_class(select, "device-row");
     if (astal_wp_endpoint_get_is_default(endpoint)) gtk_widget_add_css_class(select, "selected");
-    GtkWidget *line = gtk_box_new(GTK_ORIENTATION_HORIZONTAL, 10);
+    GtkWidget *line = lui_box_new(GTK_ORIENTATION_HORIZONTAL, 10);
     GtkWidget *icon = gtk_image_new_from_icon_name(astal_wp_node_get_icon(ASTAL_WP_NODE(endpoint)) ?: "audio-card-symbolic");
     GtkWidget *name = label(audio_node_title(ASTAL_WP_NODE(endpoint)), NULL);
     gtk_widget_set_halign(name, GTK_ALIGN_START);
@@ -853,7 +731,7 @@ static GtkWidget *audio_endpoint_card(AstalWpEndpoint *endpoint) {
     if (astal_wp_endpoint_get_is_default(endpoint))
         gtk_box_append(GTK_BOX(line), gtk_image_new_from_icon_name("emblem-ok-symbolic"));
     else
-        gtk_box_append(GTK_BOX(line), label("Use as default", "muted"));
+        gtk_box_append(GTK_BOX(line), label("Use as default", "lui-subtitle"));
     gtk_button_set_child(GTK_BUTTON(select), line);
     g_object_set_data_full(G_OBJECT(select), "audio-endpoint", g_object_ref(endpoint), g_object_unref);
     g_signal_connect(select, "clicked", G_CALLBACK(on_audio_endpoint_clicked), endpoint);
@@ -910,7 +788,7 @@ static void on_audio_collection_changed(GObject *audio, GParamSpec *pspec, gpoin
 
 static void add_sound_page(Settings *settings) {
     page_title(settings, "Sound", "App volume, playback devices, and microphones.");
-    settings->sound_list = gtk_box_new(GTK_ORIENTATION_VERTICAL, 12);
+    settings->sound_list = lui_box_new(GTK_ORIENTATION_VERTICAL, 12);
     gtk_box_append(GTK_BOX(settings->content), settings->sound_list);
     rebuild_sound_page(settings);
 }
@@ -968,7 +846,7 @@ static void add_about_page(Settings *settings) {
     struct utsname info;
     memset(&info, 0, sizeof(info));
     uname(&info);
-    GtkWidget *table = gtk_grid_new();
+    GtkWidget *table = lui_grid_new();
     gtk_widget_add_css_class(table, "about-table");
     gtk_grid_set_row_spacing(GTK_GRID(table), 16);
     gtk_grid_set_column_spacing(GTK_GRID(table), 50);
@@ -1020,18 +898,13 @@ static void on_sidebar_toggle(GtkButton *button, gpointer data) {
     gboolean visible = gtk_widget_get_visible(settings->sidebar);
     gtk_widget_set_visible(settings->sidebar, !visible);
     gtk_button_set_icon_name(GTK_BUTTON(settings->toggle), visible ? "sidebar-show-symbolic" : "sidebar-hide-symbolic");
-    gtk_widget_set_tooltip_text(settings->toggle, visible ? "Show categories" : "Hide categories");
+    lui_icon_button_set_label(settings->toggle, visible ? "Show categories" : "Hide categories");
 }
 
 static void activate(GtkApplication *app, gpointer data) {
+    lui_init(LUI_STYLE_SETTINGS);
     (void)data;
     Settings *settings = g_new0(Settings, 1);
-    settings->css = gtk_css_provider_new();
-    load_css(settings);
-    watch_palette(settings);
-    gtk_style_context_add_provider_for_display(gdk_display_get_default(),
-        GTK_STYLE_PROVIDER(settings->css), GTK_STYLE_PROVIDER_PRIORITY_APPLICATION);
-
     settings->window = GTK_WINDOW(gtk_application_window_new(app));
     gtk_window_set_title(settings->window, "LiakOS Settings");
     gtk_window_set_default_size(settings->window, 1020, 700);
@@ -1047,20 +920,19 @@ static void activate(GtkApplication *app, gpointer data) {
         g_signal_connect(settings->audio, "notify::default-microphone", G_CALLBACK(on_audio_collection_changed), settings);
     }
 
-    GtkWidget *root = gtk_box_new(GTK_ORIENTATION_VERTICAL, 0);
-    GtkWidget *toolbar = gtk_box_new(GTK_ORIENTATION_HORIZONTAL, 12);
+    GtkWidget *root = lui_box_new(GTK_ORIENTATION_VERTICAL, 0);
+    GtkWidget *toolbar = lui_box_new(GTK_ORIENTATION_HORIZONTAL, 12);
     gtk_widget_set_margin_start(toolbar, 14); gtk_widget_set_margin_end(toolbar, 14);
     gtk_widget_set_margin_top(toolbar, 10); gtk_widget_set_margin_bottom(toolbar, 10);
-    settings->toggle = gtk_button_new_from_icon_name("sidebar-show-symbolic");
-    gtk_widget_set_tooltip_text(settings->toggle, "Hide categories");
+    settings->toggle = lui_icon_button_new("sidebar-hide-symbolic", "Hide categories");
     g_signal_connect(settings->toggle, "clicked", G_CALLBACK(on_sidebar_toggle), settings);
     gtk_box_append(GTK_BOX(toolbar), settings->toggle);
     GtkWidget *app_name = label("LiakOS Settings", "brand");
     gtk_box_append(GTK_BOX(toolbar), app_name);
     gtk_box_append(GTK_BOX(root), toolbar);
 
-    GtkWidget *body = gtk_box_new(GTK_ORIENTATION_HORIZONTAL, 0);
-    settings->sidebar = gtk_box_new(GTK_ORIENTATION_VERTICAL, 5);
+    GtkWidget *body = lui_box_new(GTK_ORIENTATION_HORIZONTAL, 0);
+    settings->sidebar = lui_box_new(GTK_ORIENTATION_VERTICAL, 5);
     gtk_widget_add_css_class(settings->sidebar, "sidebar");
     gtk_widget_set_size_request(settings->sidebar, 236, -1);
     gtk_widget_set_margin_start(settings->sidebar, 12); gtk_widget_set_margin_end(settings->sidebar, 12);
@@ -1083,9 +955,7 @@ static void activate(GtkApplication *app, gpointer data) {
 
     GtkWidget *scroll = gtk_scrolled_window_new();
     gtk_widget_set_hexpand(scroll, TRUE); gtk_widget_set_vexpand(scroll, TRUE);
-    settings->content = gtk_box_new(GTK_ORIENTATION_VERTICAL, 16);
-    gtk_widget_set_margin_start(settings->content, 30); gtk_widget_set_margin_end(settings->content, 30);
-    gtk_widget_set_margin_top(settings->content, 12); gtk_widget_set_margin_bottom(settings->content, 24);
+    settings->content = lui_page_new();
     gtk_widget_set_valign(settings->content, GTK_ALIGN_START);
     gtk_scrolled_window_set_policy(GTK_SCROLLED_WINDOW(scroll), GTK_POLICY_NEVER, GTK_POLICY_AUTOMATIC);
     gtk_scrolled_window_set_child(GTK_SCROLLED_WINDOW(scroll), settings->content);
@@ -1100,6 +970,7 @@ int main(int argc, char **argv) {
     GtkApplication *app = gtk_application_new("org.liakos.Settings", G_APPLICATION_DEFAULT_FLAGS);
     g_signal_connect(app, "activate", G_CALLBACK(activate), NULL);
     int status = g_application_run(G_APPLICATION(app), argc, argv);
+    lui_shutdown();
     g_object_unref(app);
     return status;
 }

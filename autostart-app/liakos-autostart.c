@@ -1,7 +1,7 @@
 #define _GNU_SOURCE
 #include <gtk/gtk.h>
+#include "../lui/lui.h"
 #include <gio/gdesktopappinfo.h>
-#include <json-glib/json-glib.h>
 #include <glib/gstdio.h>
 #include <sys/stat.h>
 #include <errno.h>
@@ -22,96 +22,11 @@ typedef struct {
     GtkSwitch *enabled_only;
     GtkLabel *status;
     GtkWidget *save_button;
-    GtkCssProvider *css_provider;
-    GFileMonitor *colors_monitor;
-    char *colors_file;
-    guint colors_reload_timeout;
     GPtrArray *applications;
     char *config_path;
 } App;
 
-static gboolean valid_color(const char *value) {
-    if (!value || strlen(value) != 7 || value[0] != '#') return FALSE;
-    for (int i = 1; i < 7; i++) if (!g_ascii_isxdigit(value[i])) return FALSE;
-    return TRUE;
-}
-
-static const char *palette_value(JsonObject *root, const char *section,
-                                 const char *key, const char *fallback) {
-    if (!root || !json_object_has_member(root, section)) return fallback;
-    JsonNode *node = json_object_get_member(root, section);
-    if (!JSON_NODE_HOLDS_OBJECT(node)) return fallback;
-    JsonObject *object = json_node_get_object(node);
-    if (!json_object_has_member(object, key)) return fallback;
-    JsonNode *value_node = json_object_get_member(object, key);
-    if (!JSON_NODE_HOLDS_VALUE(value_node) || json_node_get_value_type(value_node) != G_TYPE_STRING)
-        return fallback;
-    const char *value = json_node_get_string(value_node);
-    return valid_color(value) ? value : fallback;
-}
-
-static void apply_palette(App *app) {
-    JsonParser *parser = json_parser_new(); GError *error = NULL; JsonObject *root = NULL;
-    if (g_file_test(app->colors_file, G_FILE_TEST_IS_REGULAR) &&
-        json_parser_load_from_file(parser, app->colors_file, &error)) {
-        JsonNode *node = json_parser_get_root(parser);
-        if (JSON_NODE_HOLDS_OBJECT(node)) root = json_node_get_object(node);
-    }
-    const char *background = palette_value(root, "special", "background", "#15171c");
-    const char *foreground = palette_value(root, "special", "foreground", "#e6e8ef");
-    const char *accent = palette_value(root, "colors", "color4", "#89b4fa");
-    const char *surface = palette_value(root, "colors", "color0", "#20232b");
-    const char *muted = palette_value(root, "colors", "color8", "#818595");
-    const char *border = palette_value(root, "colors", "color8", "#414653");
-    char *css = g_strdup_printf(
-        "@define-color page_bg %s; @define-color page_fg %s; @define-color accent %s; @define-color surface %s; @define-color muted %s; @define-color border %s;"
-        "window.autostart-window { background-color:@page_bg; color:@page_fg; }"
-        ".autostart-panel { background-color:@page_bg; color:@page_fg; }"
-        ".title { color:@page_fg; font-size:25px; font-weight:750; }"
-        ".muted { color:@muted; }"
-        ".search-entry { background-color:@surface; color:@page_fg; caret-color:@accent; border:1px solid alpha(@border,.8); border-radius:9px; padding:7px 12px; }"
-        ".search-entry:focus { border-color:@accent; box-shadow:none; }"
-        ".application-list { background-color:transparent; }"
-        ".application-list row { background-color:transparent; box-shadow:none; }"
-        ".application-row { min-height:58px; margin:2px 4px; padding:7px 10px; border-radius:9px; background-color:alpha(@surface,.82); }"
-        ".application-row:hover { background-color:alpha(@accent,.12); }"
-        ".application-name { color:@page_fg; font-weight:650; }"
-        "switch:checked { background-color:@accent; border-color:@accent; }"
-        "button.suggested-action { background-color:@accent; color:@page_bg; border-radius:9px; }"
-        ".status { color:@muted; }",
-        background, foreground, accent, surface, muted, border);
-    gtk_css_provider_load_from_string(app->css_provider, css);
-    g_free(css); g_clear_error(&error); g_object_unref(parser);
-}
-
-static gboolean reload_palette(gpointer data) {
-    App *app = data; app->colors_reload_timeout = 0; apply_palette(app); return G_SOURCE_REMOVE;
-}
-
 static void rebuild_rows(App *app);
-
-static void on_colors_changed(GFileMonitor *monitor, GFile *file, GFile *other,
-                              GFileMonitorEvent event, gpointer data) {
-    (void)monitor; (void)other;
-    char *path = g_file_get_path(file);
-    gboolean is_palette = path && g_str_has_suffix(path, "/colors.json");
-    g_free(path);
-    if (!is_palette || (event != G_FILE_MONITOR_EVENT_CHANGED &&
-        event != G_FILE_MONITOR_EVENT_CREATED && event != G_FILE_MONITOR_EVENT_MOVED_IN &&
-        event != G_FILE_MONITOR_EVENT_CHANGES_DONE_HINT && event != G_FILE_MONITOR_EVENT_RENAMED)) return;
-    App *app = data;
-    if (app->colors_reload_timeout) g_source_remove(app->colors_reload_timeout);
-    app->colors_reload_timeout = g_timeout_add(100, reload_palette, app);
-}
-
-static void watch_palette(App *app) {
-    char *directory_path = g_path_get_dirname(app->colors_file);
-    GFile *directory = g_file_new_for_path(directory_path); GError *error = NULL;
-    app->colors_monitor = g_file_monitor_directory(directory, G_FILE_MONITOR_WATCH_MOVES, NULL, &error);
-    if (app->colors_monitor)
-        g_signal_connect(app->colors_monitor, "changed", G_CALLBACK(on_colors_changed), app);
-    g_clear_error(&error); g_object_unref(directory); g_free(directory_path);
-}
 
 static void application_free(gpointer data) {
     Application *application = data;
@@ -256,24 +171,20 @@ static void rebuild_rows(App *app) {
         gboolean match = !*folded_query || strstr(folded_name, folded_query) || strstr(folded_description, folded_query);
         g_free(folded_name); g_free(folded_description);
         if (!match) continue;
-        GtkWidget *row = gtk_box_new(GTK_ORIENTATION_HORIZONTAL, 12);
+        GtkWidget *row = lui_box_new(GTK_ORIENTATION_HORIZONTAL, 12);
         gtk_widget_add_css_class(row, "application-row");
         GtkWidget *icon = gtk_image_new_from_icon_name(entry->icon_name && *entry->icon_name ? entry->icon_name : "application-x-executable");
         gtk_image_set_pixel_size(GTK_IMAGE(icon), 32);
-        GtkWidget *texts = gtk_box_new(GTK_ORIENTATION_VERTICAL, 3);
-        GtkWidget *name = gtk_label_new(entry->name); gtk_widget_add_css_class(name, "application-name");
-        gtk_widget_set_halign(name, GTK_ALIGN_START); gtk_label_set_ellipsize(GTK_LABEL(name), PANGO_ELLIPSIZE_END);
         const char *subtitle = entry->description && *entry->description ? entry->description : entry->command;
-        GtkWidget *detail = gtk_label_new(subtitle); gtk_widget_add_css_class(detail, "muted");
-        gtk_widget_set_halign(detail, GTK_ALIGN_START); gtk_label_set_ellipsize(GTK_LABEL(detail), PANGO_ELLIPSIZE_END);
-        gtk_box_append(GTK_BOX(texts), name); gtk_box_append(GTK_BOX(texts), detail);
-        gtk_widget_set_hexpand(texts, TRUE); gtk_box_append(GTK_BOX(row), icon); gtk_box_append(GTK_BOX(row), texts);
+        GtkWidget *texts = lui_text_group_new_ellipsized(entry->name, subtitle);
+        gtk_box_append(GTK_BOX(row), icon);
+        gtk_box_append(GTK_BOX(row), texts);
         GtkWidget *toggle = gtk_switch_new(); gtk_switch_set_active(GTK_SWITCH(toggle), entry->enabled);
         gtk_widget_set_valign(toggle, GTK_ALIGN_CENTER);
         g_object_set_data(G_OBJECT(toggle), "application-entry", entry);
         g_signal_connect(toggle, "notify::active", G_CALLBACK(toggle_changed), app);
         gtk_box_append(GTK_BOX(row), toggle);
-        gtk_list_box_append(app->list, row); shown++;
+        gtk_list_box_append(app->list, lui_list_row_new(row)); shown++;
     }
     if (!shown) {
         const char *empty_text = app->applications->len
@@ -281,8 +192,8 @@ static void rebuild_rows(App *app) {
                 ? "No enabled applications match your search."
                 : "No applications match your search."
             : "No launchable desktop applications were found.";
-        GtkWidget *empty = gtk_label_new(empty_text);
-        gtk_widget_add_css_class(empty, "muted"); gtk_widget_set_margin_top(empty, 24); gtk_widget_set_margin_bottom(empty, 24);
+        GtkWidget *empty = lui_label_new(empty_text);
+        gtk_widget_add_css_class(empty, "lui-subtitle"); gtk_widget_set_margin_top(empty, 24); gtk_widget_set_margin_bottom(empty, 24);
         gtk_list_box_append(app->list, empty);
     }
     g_free(folded_query);
@@ -377,20 +288,19 @@ static void on_enabled_only_changed(GObject *object, GParamSpec *pspec, gpointer
 }
 
 static void activate(GtkApplication *application, gpointer data) {
+    lui_init(LUI_STYLE_AUTOSTART);
     App *app = data;
     if (app->window) { gtk_window_present(app->window); return; }
     app->application = application; app->window = GTK_WINDOW(gtk_application_window_new(application));
     gtk_window_set_title(app->window, "Startup Applications"); gtk_window_set_default_size(app->window, 680, 720);
-    GtkWidget *outer = gtk_box_new(GTK_ORIENTATION_VERTICAL, 14); gtk_widget_add_css_class(outer, "autostart-panel"); gtk_widget_set_margin_top(outer, 20);
-    gtk_widget_set_margin_bottom(outer, 16); gtk_widget_set_margin_start(outer, 20); gtk_widget_set_margin_end(outer, 20);
-    GtkWidget *heading = gtk_label_new("Startup applications"); gtk_widget_add_css_class(heading, "title"); gtk_widget_set_halign(heading, GTK_ALIGN_START);
-    GtkWidget *hint = gtk_label_new("Choose which installed applications Wayfire starts when you log in.");
-    gtk_widget_add_css_class(hint, "muted"); gtk_widget_set_halign(hint, GTK_ALIGN_START);
-    app->search = GTK_SEARCH_ENTRY(gtk_search_entry_new()); gtk_widget_add_css_class(GTK_WIDGET(app->search), "search-entry"); gtk_search_entry_set_placeholder_text(app->search, "Search applications");
-    GtkWidget *filter_row = gtk_box_new(GTK_ORIENTATION_HORIZONTAL, 10);
+    GtkWidget *outer = lui_page_new();
+    GtkWidget *header = lui_page_header_new("Startup applications",
+        "Choose which installed applications Wayfire starts when you log in.");
+    app->search = GTK_SEARCH_ENTRY(lui_search_new()); gtk_widget_add_css_class(GTK_WIDGET(app->search), "search-entry"); gtk_search_entry_set_placeholder_text(app->search, "Search applications");
+    GtkWidget *filter_row = lui_box_new(GTK_ORIENTATION_HORIZONTAL, 10);
     gtk_widget_set_halign(filter_row, GTK_ALIGN_END);
-    GtkWidget *filter_label = gtk_label_new("Show enabled only");
-    gtk_widget_add_css_class(filter_label, "muted");
+    GtkWidget *filter_label = lui_label_new("Show enabled only");
+    gtk_widget_add_css_class(filter_label, "lui-subtitle");
     app->enabled_only = GTK_SWITCH(gtk_switch_new());
     gtk_widget_set_valign(GTK_WIDGET(app->enabled_only), GTK_ALIGN_CENTER);
     gtk_box_append(GTK_BOX(filter_row), filter_label);
@@ -404,20 +314,16 @@ static void activate(GtkApplication *application, gpointer data) {
     GtkWidget *scrollbar = gtk_scrolled_window_get_vscrollbar(GTK_SCROLLED_WINDOW(scroll));
     gtk_widget_set_opacity(scrollbar, 0.0);
     gtk_widget_set_can_target(scrollbar, FALSE);
-    app->status = GTK_LABEL(gtk_label_new("Changes are saved only when you select Save."));
-    gtk_widget_add_css_class(GTK_WIDGET(app->status), "status"); gtk_widget_set_halign(GTK_WIDGET(app->status), GTK_ALIGN_START); gtk_label_set_wrap(app->status, TRUE);
-    GtkWidget *actions = gtk_box_new(GTK_ORIENTATION_HORIZONTAL, 10); gtk_widget_set_halign(actions, GTK_ALIGN_END);
-    app->save_button = gtk_button_new_with_label("Save"); gtk_widget_add_css_class(app->save_button, "suggested-action");
+    app->status = GTK_LABEL(lui_label_new("Changes are saved only when you select Save."));
+    gtk_widget_add_css_class(GTK_WIDGET(app->status), "lui-status"); gtk_widget_set_halign(GTK_WIDGET(app->status), GTK_ALIGN_START); gtk_label_set_wrap(app->status, TRUE);
+    GtkWidget *actions = lui_action_bar_new();
+    app->save_button = lui_button_new("Save", LUI_BUTTON_NORMAL); gtk_widget_add_css_class(app->save_button, "suggested-action");
     gtk_box_append(GTK_BOX(actions), app->save_button);
-    gtk_box_append(GTK_BOX(outer), heading); gtk_box_append(GTK_BOX(outer), hint);
+    gtk_box_append(GTK_BOX(outer), header);
     gtk_box_append(GTK_BOX(outer), GTK_WIDGET(app->search)); gtk_box_append(GTK_BOX(outer), filter_row); gtk_box_append(GTK_BOX(outer), scroll);
     gtk_box_append(GTK_BOX(outer), GTK_WIDGET(app->status)); gtk_box_append(GTK_BOX(outer), actions);
     gtk_window_set_child(app->window, outer);
     gtk_widget_add_css_class(GTK_WIDGET(app->window), "autostart-window");
-    app->css_provider = gtk_css_provider_new();
-    gtk_style_context_add_provider_for_display(gdk_display_get_default(),
-        GTK_STYLE_PROVIDER(app->css_provider), GTK_STYLE_PROVIDER_PRIORITY_APPLICATION);
-    apply_palette(app); watch_palette(app);
     g_signal_connect(app->search, "search-changed", G_CALLBACK(on_search_changed), app);
     g_signal_connect(app->enabled_only, "notify::active", G_CALLBACK(on_enabled_only_changed), app);
     g_signal_connect(app->save_button, "clicked", G_CALLBACK(on_save), app);
@@ -427,18 +333,10 @@ static void activate(GtkApplication *application, gpointer data) {
 int main(int argc, char **argv) {
     App app = {0}; app.applications = g_ptr_array_new_with_free_func(application_free);
     app.config_path = wayfire_config_path();
-    app.colors_file = g_build_filename(g_get_user_cache_dir(), "wal", "colors.json", NULL);
     GtkApplication *application = gtk_application_new("org.liakos.Autostart", G_APPLICATION_DEFAULT_FLAGS);
     g_signal_connect(application, "activate", G_CALLBACK(activate), &app);
     int status = g_application_run(G_APPLICATION(application), argc, argv);
-    if (app.colors_reload_timeout) g_source_remove(app.colors_reload_timeout);
-    g_clear_object(&app.colors_monitor);
-    if (app.css_provider) {
-        gtk_style_context_remove_provider_for_display(gdk_display_get_default(),
-            GTK_STYLE_PROVIDER(app.css_provider));
-        g_clear_object(&app.css_provider);
-    }
+    lui_shutdown();
     g_object_unref(application); g_ptr_array_unref(app.applications); g_free(app.config_path);
-    g_free(app.colors_file);
     return status;
 }

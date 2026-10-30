@@ -41,3 +41,7 @@ when AGS was started with a restricted session PATH. See
 [the quick-action investigation](quick-actions-investigation.md) for evidence
 and validation. Run `scripts/test-bar-quick-actions.sh` for the isolated GJS
 regression checks (requires AGS and GJS; does not start the desktop bar).
+
+The native app builds automatically build and statically link [LUI](../lui/README.md),
+including its styles and palette service. Rebuild/reinstall all native apps to
+apply a shared component or theme change; no separate runtime LUI install is needed.

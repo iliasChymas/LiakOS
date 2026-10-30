@@ -3,6 +3,7 @@
 #include <gio/gdesktopappinfo.h>
 #include <gio/gunixsocketaddress.h>
 #include <gtk/gtk.h>
+#include "../lui/lui.h"
 #include <gtk4-layer-shell.h>
 #include <json-glib/json-glib.h>
 
@@ -29,11 +30,7 @@ typedef struct {
   GtkListBox *list;
   GtkAdjustment *scroll_adjustment;
   GtkLabel *footer;
-  GtkCssProvider *css_provider;
   GPtrArray *entries;
-  char *colors_file;
-  GFileMonitor *colors_monitor;
-  guint colors_reload_timeout;
 } Launcher;
 
 static Launcher *launcher;
@@ -58,99 +55,6 @@ static const char *json_string(JsonObject *object, const char *key) {
       json_node_get_value_type(node) != G_TYPE_STRING)
     return NULL;
   return json_node_get_string(node);
-}
-
-static const char *palette_value(JsonObject *root, const char *section,
-                                 const char *key, const char *fallback) {
-  if (!root || !json_object_has_member(root, section))
-    return fallback;
-  JsonNode *node = json_object_get_member(root, section);
-  if (!JSON_NODE_HOLDS_OBJECT(node))
-    return fallback;
-  const char *value = json_string(json_node_get_object(node), key);
-  if (!value || strlen(value) != 7 || value[0] != '#')
-    return fallback;
-  for (int i = 1; i < 7; i++)
-    if (!g_ascii_isxdigit(value[i]))
-      return fallback;
-  return value;
-}
-
-static void apply_palette(Launcher *state) {
-  JsonParser *parser = json_parser_new();
-  GError *error = NULL;
-  JsonObject *root = NULL;
-  if (g_file_test(state->colors_file, G_FILE_TEST_IS_REGULAR) &&
-      json_parser_load_from_file(parser, state->colors_file, &error)) {
-    JsonNode *node = json_parser_get_root(parser);
-    if (JSON_NODE_HOLDS_OBJECT(node))
-      root = json_node_get_object(node);
-  } else if (error) {
-    g_debug("Could not read Pywal colors: %s", error->message);
-    g_clear_error(&error);
-  }
-
-  const char *background =
-      palette_value(root, "special", "background", "#15171c");
-  const char *foreground =
-      palette_value(root, "special", "foreground", "#e6e8ef");
-  const char *accent = palette_value(root, "colors", "color4", "#89b4fa");
-  const char *surface = palette_value(root, "colors", "color0", "#20232b");
-  const char *muted = palette_value(root, "colors", "color8", "#818595");
-  const char *border = palette_value(root, "colors", "color8", "#414653");
-
-  char *css = g_strdup_printf(
-      "window.launcher-overlay { background-color: transparent; }"
-      ".launcher-panel { background-color: %s; color: %s; border: 1px solid "
-      "%s; border-radius: 10px; }"
-      ".launcher-search { margin: 14px 14px 8px; min-height: 42px; padding: 0 "
-      "12px;"
-      " background-color: %s; color: %s; caret-color: %s; border: 1px solid "
-      "%s; border-radius: "
-      "8px; }"
-      ".launcher-search:focus { border-color: %s; box-shadow: none; }"
-      ".launcher-list { background-color: transparent; padding: 2px 0; }"
-      ".launcher-row { min-height: 54px; margin: 2px 8px; padding: 0 12px; "
-      "border-radius: 8px; }"
-      ".launcher-row:hover { background-color: alpha(%s, 0.14); }"
-      ".launcher-row:selected { background-color: %s; color: %s; }"
-      ".launcher-row image { -gtk-icon-size: 32px; }"
-      ".launcher-footer { color: %s; font-size: 11px; margin: 8px 14px 12px; }",
-      background, foreground, border, surface, foreground, accent, border,
-      accent, accent, accent, foreground, muted);
-  gtk_css_provider_load_from_string(state->css_provider, css);
-  g_free(css);
-  g_object_unref(parser);
-}
-
-static gboolean reload_palette_timeout(gpointer data) {
-  Launcher *state = data;
-  state->colors_reload_timeout = 0;
-  apply_palette(state);
-  return G_SOURCE_REMOVE;
-}
-
-static void colors_changed(GFileMonitor *monitor, GFile *file,
-                           GFile *other_file, GFileMonitorEvent event,
-                           gpointer data) {
-  (void)monitor;
-  (void)other_file;
-  Launcher *state = data;
-  char *path = g_file_get_path(file);
-  gboolean palette_event = path && g_str_has_suffix(path, "/colors.json");
-  g_free(path);
-  if (!palette_event)
-    return;
-  if (event != G_FILE_MONITOR_EVENT_CHANGED &&
-      event != G_FILE_MONITOR_EVENT_CHANGES_DONE_HINT &&
-      event != G_FILE_MONITOR_EVENT_CREATED &&
-      event != G_FILE_MONITOR_EVENT_MOVED_IN &&
-      event != G_FILE_MONITOR_EVENT_RENAMED)
-    return;
-  if (state->colors_reload_timeout)
-    g_source_remove(state->colors_reload_timeout);
-  state->colors_reload_timeout =
-      g_timeout_add(100, reload_palette_timeout, state);
 }
 
 static char *join_terms(const char *a, const char *b, const char *c,
@@ -215,12 +119,12 @@ static void add_application(Launcher *state, GAppInfo *info) {
   g_free(keywords);
   g_free(generic_name);
 
-  GtkWidget *row = gtk_list_box_row_new();
+  GtkWidget *row = lui_list_row_new(NULL);
   entry->row = GTK_LIST_BOX_ROW(row);
   g_object_set_data(G_OBJECT(row), "app-entry", entry);
   gtk_widget_add_css_class(row, "launcher-row");
 
-  GtkWidget *line = gtk_box_new(GTK_ORIENTATION_HORIZONTAL, 14);
+  GtkWidget *line = lui_box_new(GTK_ORIENTATION_HORIZONTAL, 14);
   gtk_widget_set_valign(line, GTK_ALIGN_CENTER);
   GIcon *icon = g_app_info_get_icon(info);
   GtkWidget *image =
@@ -228,7 +132,7 @@ static void add_application(Launcher *state, GAppInfo *info) {
            : gtk_image_new_from_icon_name("application-x-executable-symbolic");
   gtk_image_set_pixel_size(GTK_IMAGE(image), 32);
   gtk_widget_set_size_request(image, 36, 36);
-  GtkWidget *label = gtk_label_new(g_app_info_get_display_name(info));
+  GtkWidget *label = lui_label_new(g_app_info_get_display_name(info));
   gtk_label_set_xalign(GTK_LABEL(label), 0.0f);
   gtk_label_set_ellipsize(GTK_LABEL(label), PANGO_ELLIPSIZE_END);
   gtk_widget_set_hexpand(label, TRUE);
@@ -800,31 +704,13 @@ static void append_applications(Launcher *state) {
   g_list_free_full(apps, g_object_unref);
 }
 
-static void setup_palette_monitor(Launcher *state) {
-  char *wal_dir = g_path_get_dirname(state->colors_file);
-  GFile *directory = g_file_new_for_path(wal_dir);
-  GError *error = NULL;
-  state->colors_monitor = g_file_monitor_directory(
-      directory, G_FILE_MONITOR_WATCH_MOVES, NULL, &error);
-  if (state->colors_monitor)
-    g_signal_connect(state->colors_monitor, "changed",
-                     G_CALLBACK(colors_changed), state);
-  else {
-    g_debug("Pywal live color monitoring unavailable: %s", error->message);
-    g_clear_error(&error);
-  }
-  g_object_unref(directory);
-  g_free(wal_dir);
-}
-
 static void build_ui(GtkApplication *application, gpointer data) {
+  lui_init(LUI_STYLE_LAUNCHER);
   (void)data;
   Launcher *state = g_new0(Launcher, 1);
   launcher = state;
   state->application = application;
   state->entries = g_ptr_array_new_with_free_func(app_entry_free);
-  state->colors_file =
-      g_build_filename(g_get_user_cache_dir(), "wal", "colors.json", NULL);
 
   state->window = GTK_WINDOW(gtk_application_window_new(application));
   gtk_window_set_title(state->window, "LiakOS Launcher");
@@ -843,17 +729,17 @@ static void build_ui(GtkApplication *application, gpointer data) {
   gtk_layer_set_keyboard_mode(state->window,
                               GTK_LAYER_SHELL_KEYBOARD_MODE_EXCLUSIVE);
 
-  GtkWidget *center = gtk_box_new(GTK_ORIENTATION_VERTICAL, 0);
+  GtkWidget *center = lui_box_new(GTK_ORIENTATION_VERTICAL, 0);
   gtk_widget_set_halign(center, GTK_ALIGN_FILL);
   gtk_widget_set_valign(center, GTK_ALIGN_FILL);
-  GtkWidget *panel = gtk_box_new(GTK_ORIENTATION_VERTICAL, 0);
+  GtkWidget *panel = lui_box_new(GTK_ORIENTATION_VERTICAL, 0);
   gtk_widget_add_css_class(panel, "launcher-panel");
   gtk_widget_set_size_request(panel, 620, 590);
   gtk_widget_set_halign(panel, GTK_ALIGN_CENTER);
   gtk_widget_set_valign(panel, GTK_ALIGN_CENTER);
   gtk_box_append(GTK_BOX(center), panel);
 
-  state->search = GTK_SEARCH_ENTRY(gtk_search_entry_new());
+  state->search = GTK_SEARCH_ENTRY(lui_search_new());
   gtk_widget_add_css_class(GTK_WIDGET(state->search), "launcher-search");
   gtk_search_entry_set_placeholder_text(state->search, "Search applications");
   gtk_box_append(GTK_BOX(panel), GTK_WIDGET(state->search));
@@ -873,7 +759,7 @@ static void build_ui(GtkApplication *application, gpointer data) {
       gtk_scrolled_window_get_vadjustment(GTK_SCROLLED_WINDOW(scroll));
   gtk_box_append(GTK_BOX(panel), scroll);
 
-  state->footer = GTK_LABEL(gtk_label_new("Loading applications…"));
+  state->footer = GTK_LABEL(lui_label_new("Loading applications…"));
   gtk_label_set_xalign(state->footer, 0.0f);
   gtk_widget_add_css_class(GTK_WIDGET(state->footer), "launcher-footer");
   gtk_box_append(GTK_BOX(panel), GTK_WIDGET(state->footer));
@@ -892,14 +778,6 @@ static void build_ui(GtkApplication *application, gpointer data) {
   g_signal_connect(keys, "key-pressed", G_CALLBACK(handle_key), state);
   gtk_widget_add_controller(GTK_WIDGET(state->window), keys);
 
-  state->css_provider = gtk_css_provider_new();
-  GdkDisplay *display = gdk_display_get_default();
-  gtk_style_context_add_provider_for_display(
-      display, GTK_STYLE_PROVIDER(state->css_provider),
-      GTK_STYLE_PROVIDER_PRIORITY_APPLICATION);
-  apply_palette(state);
-  setup_palette_monitor(state);
-
   gtk_window_present(state->window);
   gtk_widget_grab_focus(GTK_WIDGET(state->search));
 }
@@ -909,13 +787,9 @@ int main(int argc, char **argv) {
       gtk_application_new("com.liakos.Launcher", G_APPLICATION_DEFAULT_FLAGS);
   g_signal_connect(application, "activate", G_CALLBACK(build_ui), NULL);
   int status = g_application_run(G_APPLICATION(application), argc, argv);
+  lui_shutdown();
   if (launcher) {
-    if (launcher->colors_reload_timeout)
-      g_source_remove(launcher->colors_reload_timeout);
-    g_clear_object(&launcher->colors_monitor);
-    g_clear_object(&launcher->css_provider);
     g_ptr_array_unref(launcher->entries);
-    g_free(launcher->colors_file);
     g_free(launcher);
     launcher = NULL;
   }

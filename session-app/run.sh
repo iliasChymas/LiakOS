@@ -1,9 +1,8 @@
 #!/usr/bin/env sh
 set -eu
-
 APP_DIR=$(CDPATH= cd -- "$(dirname -- "$0")" && pwd)
 BIN_PATH="$APP_DIR/build/lsession"
-if [ ! -x "$BIN_PATH" ] || [ "$APP_DIR/session-app.c" -nt "$BIN_PATH" ]; then
+if "$APP_DIR/../lui/needs-build.sh" "$BIN_PATH" "$APP_DIR/"*.c "$APP_DIR/"*.h "$APP_DIR/build.sh"; then
   "$APP_DIR/build.sh"
 fi
 exec "$BIN_PATH" "$@"

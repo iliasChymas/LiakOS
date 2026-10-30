@@ -1,8 +1,8 @@
 #define _GNU_SOURCE
 #include <gtk/gtk.h>
+#include "../lui/lui.h"
 #include <gdk/gdkkeysyms.h>
 #include <gio/gio.h>
-#include <json-glib/json-glib.h>
 #include <glib/gstdio.h>
 #include <errno.h>
 #include <sys/stat.h>
@@ -37,17 +37,6 @@ typedef struct {
     GtkWidget *save_button;
     char *recorded;
 } Recorder;
-
-typedef struct {
-    const char *background, *foreground, *accent, *secondary, *tertiary, *surface, *muted;
-} Palette;
-
-static GtkCssProvider *app_css_provider;
-static GFileMonitor *wal_monitor;
-static guint wal_reload_source;
-static const Palette fallback_palette = {
-    "#181b24", "#f3f4f6", "#8aa4ff", "#d3869b", "#a3be8c", "#202431", "#a9aec7"
-};
 
 static void binding_free(gpointer data) {
     Binding *b = data;
@@ -204,21 +193,13 @@ static void rebuild_rows(AppState *state) {
     for (guint i = 0; i < state->bindings->len; i++) {
         Binding *b = g_ptr_array_index(state->bindings, i);
         if (!row_matches(state, b)) continue;
-        GtkWidget *row = gtk_list_box_row_new();
-        GtkWidget *box = gtk_box_new(GTK_ORIENTATION_HORIZONTAL, 16);
+        GtkWidget *row = lui_list_row_new(NULL);
+        GtkWidget *box = lui_box_new(GTK_ORIENTATION_HORIZONTAL, 16);
         gtk_widget_add_css_class(box, "binding-row");
-        GtkWidget *text = gtk_box_new(GTK_ORIENTATION_VERTICAL, 5);
-        gtk_widget_set_hexpand(text, TRUE);
-        GtkWidget *title = gtk_label_new(b->action);
-        gtk_label_set_xalign(GTK_LABEL(title), 0);
-        gtk_widget_add_css_class(title, "binding-title");
-        GtkWidget *meta = gtk_label_new(NULL);
         char *description = g_strdup_printf("%s  ·  %s", b->option, b->shortcut);
-        gtk_label_set_text(GTK_LABEL(meta), description); g_free(description);
-        gtk_label_set_xalign(GTK_LABEL(meta), 0);
-        gtk_widget_add_css_class(meta, "binding-meta");
-        gtk_box_append(GTK_BOX(text), title); gtk_box_append(GTK_BOX(text), meta);
-        GtkWidget *edit = gtk_button_new_with_label("Edit shortcut");
+        GtkWidget *text = lui_text_group_new(b->action, description);
+        g_free(description);
+        GtkWidget *edit = lui_button_new("Edit shortcut", LUI_BUTTON_NORMAL);
         gtk_widget_set_cursor_from_name(edit, "pointer");
         gtk_widget_add_css_class(edit, "suggested-action");
         EditData *edit_data = g_new0(EditData, 1);
@@ -370,20 +351,20 @@ static void edit_binding(AppState *state, Binding *binding) {
     gtk_window_set_title(r->dialog, "Record a shortcut");
     gtk_window_set_default_size(r->dialog, 420, 260);
     gtk_window_set_resizable(r->dialog, FALSE);
-    GtkWidget *box = gtk_box_new(GTK_ORIENTATION_VERTICAL, 14);
+    GtkWidget *box = lui_box_new(GTK_ORIENTATION_VERTICAL, 14);
     gtk_widget_set_margin_top(box, 24); gtk_widget_set_margin_bottom(box, 22);
     gtk_widget_set_margin_start(box, 24); gtk_widget_set_margin_end(box, 24);
-    GtkWidget *heading = gtk_label_new("Press the new shortcut");
+    GtkWidget *heading = lui_label_new("Press the new shortcut");
     gtk_widget_add_css_class(heading, "record-heading");
     gtk_label_set_xalign(GTK_LABEL(heading), 0);
-    GtkWidget *hint = gtk_label_new("Hold any modifiers (Super, Ctrl, Alt, Shift), then press a key. Use Cancel to leave without saving.");
+    GtkWidget *hint = lui_label_new("Hold any modifiers (Super, Ctrl, Alt, Shift), then press a key. Use Cancel to leave without saving.");
     gtk_label_set_wrap(GTK_LABEL(hint), TRUE); gtk_label_set_xalign(GTK_LABEL(hint), 0);
-    r->preview = GTK_LABEL(gtk_label_new("Waiting for a key…"));
+    r->preview = GTK_LABEL(lui_label_new("Waiting for a key…"));
     gtk_widget_add_css_class(GTK_WIDGET(r->preview), "shortcut-preview");
-    GtkWidget *actions = gtk_box_new(GTK_ORIENTATION_HORIZONTAL, 8);
+    GtkWidget *actions = lui_box_new(GTK_ORIENTATION_HORIZONTAL, 8);
     gtk_widget_set_halign(actions, GTK_ALIGN_END);
-    GtkWidget *cancel = gtk_button_new_with_label("Cancel");
-    r->save_button = gtk_button_new_with_label("Save shortcut");
+    GtkWidget *cancel = lui_button_new("Cancel", LUI_BUTTON_NORMAL);
+    r->save_button = lui_button_new("Save shortcut", LUI_BUTTON_NORMAL);
     gtk_widget_add_css_class(r->save_button, "suggested-action");
     gtk_widget_set_sensitive(r->save_button, FALSE);
     gtk_box_append(GTK_BOX(actions), cancel); gtk_box_append(GTK_BOX(actions), r->save_button);
@@ -419,124 +400,8 @@ static void on_category_changed(GObject *obj, GParamSpec *pspec, gpointer data) 
     (void)obj; (void)pspec; rebuild_rows(data);
 }
 
-static gboolean valid_hex(const char *value) {
-    if (!value || strlen(value) != 7 || value[0] != '#') return FALSE;
-    for (int i = 1; i < 7; i++) if (!g_ascii_isxdigit(value[i])) return FALSE;
-    return TRUE;
-}
-
-static const char *json_color(JsonObject *object, const char *key, const char *fallback) {
-    if (!object || !json_object_has_member(object, key)) return fallback;
-    const char *value = json_object_get_string_member(object, key);
-    return valid_hex(value) ? value : fallback;
-}
-
-static Palette load_palette(void) {
-    Palette palette = {
-        g_strdup(fallback_palette.background), g_strdup(fallback_palette.foreground),
-        g_strdup(fallback_palette.accent), g_strdup(fallback_palette.secondary),
-        g_strdup(fallback_palette.tertiary), g_strdup(fallback_palette.surface),
-        g_strdup(fallback_palette.muted)
-    };
-    char *path = g_build_filename(g_get_user_cache_dir(), "wal", "colors.json", NULL);
-    JsonParser *parser = json_parser_new();
-    GError *error = NULL;
-    if (json_parser_load_from_file(parser, path, &error)) {
-        JsonObject *root = json_node_get_object(json_parser_get_root(parser));
-        JsonObject *special = json_object_get_object_member(root, "special");
-        JsonObject *colors = json_object_get_object_member(root, "colors");
-        const char *v;
-        v = json_color(special, "background", fallback_palette.background); g_free((gpointer)palette.background); palette.background = g_strdup(v);
-        v = json_color(special, "foreground", fallback_palette.foreground); g_free((gpointer)palette.foreground); palette.foreground = g_strdup(v);
-        v = json_color(colors, "color4", fallback_palette.accent); g_free((gpointer)palette.accent); palette.accent = g_strdup(v);
-        v = json_color(colors, "color5", fallback_palette.secondary); g_free((gpointer)palette.secondary); palette.secondary = g_strdup(v);
-        v = json_color(colors, "color2", fallback_palette.tertiary); g_free((gpointer)palette.tertiary); palette.tertiary = g_strdup(v);
-        v = json_color(colors, "color0", fallback_palette.surface); g_free((gpointer)palette.surface); palette.surface = g_strdup(v);
-        v = json_color(colors, "color8", fallback_palette.muted); g_free((gpointer)palette.muted); palette.muted = g_strdup(v);
-    }
-    g_clear_error(&error);
-    g_object_unref(parser); g_free(path);
-    return palette;
-}
-
-static void apply_css(void) {
-    Palette p = load_palette();
-    char *css = g_strdup_printf(
-        "window { background: %s; color: %s; }"
-        "headerbar { background: %s; border: none; }"
-        ".page-title { font-size: 22px; font-weight: 700; }"
-        ".page-subtitle { color: %s; }"
-        ".toolbar { padding: 18px 22px 8px; }"
-        ".binding-list { background: transparent; }"
-        ".binding-row { padding: 15px 18px; }"
-        ".binding-title { font-size: 14px; font-weight: 600; }"
-        ".binding-meta { color: %s; font-size: 12px; }"
-        ".shortcut-preview { background: %s; color: %s; padding: 18px; border-radius: 10px; font-size: 19px; font-weight: 700; }"
-        ".record-heading { font-size: 20px; font-weight: 700; }"
-        "button { border-radius: 9px; background: %s; color: %s; border: 1px solid %s; }"
-        "button:hover { background: alpha(%s, 0.12); color: %s; }"
-        "button:active, button:checked { background: alpha(%s, 0.22); color: %s; }"
-        "button.suggested-action, button.suggested-action:hover, button.suggested-action:active { background: %s; color: %s; border-color: %s; box-shadow: none; text-shadow: none; transition: none; }"
-        "entry:not(.shortcut-search), dropdown { border-radius: 9px; background: %s; color: %s; border: 1px solid %s; caret-color: %s; }"
-        "entry:not(.shortcut-search):focus, dropdown:focus { border-color: %s; box-shadow: 0 0 0 2px alpha(%s, 0.20); }"
-        "entry:not(.shortcut-search) selection { background: alpha(%s, 0.24); color: %s; }"
-        "popover, popover contents { background: %s; color: %s; border: 1px solid %s; }"
-        "popover listview, popover row { background: %s; color: %s; }"
-        "popover row:hover, popover row:selected { background: alpha(%s, 0.16); color: %s; }"
-        "scrolledwindow, list { background: transparent; }"
-        "list row { background: %s; border: 1px solid %s; border-radius: 12px; margin: 5px 18px; }"
-        "list row:hover { background: alpha(%s, 0.10); border-color: %s; }"
-        "*:focus-visible { outline-color: %s; }",
-        p.background, p.foreground, p.surface, p.muted, p.muted,
-        p.surface, p.accent,
-        p.surface, p.foreground, p.muted, p.accent, p.foreground,
-        p.accent, p.accent, p.foreground,
-        p.surface, p.foreground, p.accent,
-        p.surface, p.foreground, p.secondary, p.accent, p.accent,
-        p.accent, p.foreground,
-        p.surface, p.foreground, p.secondary,
-        p.surface, p.foreground,
-        p.accent, p.foreground,
-        p.surface, p.muted, p.accent, p.accent,
-        p.accent);
-    if (!app_css_provider) {
-        app_css_provider = gtk_css_provider_new();
-        gtk_style_context_add_provider_for_display(gdk_display_get_default(), GTK_STYLE_PROVIDER(app_css_provider), GTK_STYLE_PROVIDER_PRIORITY_APPLICATION);
-    }
-    gtk_css_provider_load_from_string(app_css_provider, css);
-    g_free(css);
-    g_free((gpointer)p.background); g_free((gpointer)p.foreground);
-    g_free((gpointer)p.accent); g_free((gpointer)p.secondary);
-    g_free((gpointer)p.tertiary); g_free((gpointer)p.surface); g_free((gpointer)p.muted);
-}
-
-static gboolean reload_wal_css(gpointer data) {
-    (void)data;
-    wal_reload_source = 0;
-    apply_css();
-    return G_SOURCE_REMOVE;
-}
-
-static void on_wal_changed(GFileMonitor *monitor, GFile *file, GFile *other_file,
-                          GFileMonitorEvent event, gpointer data) {
-    (void)monitor; (void)file; (void)other_file; (void)data;
-    if (event != G_FILE_MONITOR_EVENT_CHANGED && event != G_FILE_MONITOR_EVENT_CREATED &&
-        event != G_FILE_MONITOR_EVENT_CHANGES_DONE_HINT && event != G_FILE_MONITOR_EVENT_MOVED &&
-        event != G_FILE_MONITOR_EVENT_RENAMED) return;
-    if (wal_reload_source) g_source_remove(wal_reload_source);
-    wal_reload_source = g_timeout_add(100, reload_wal_css, NULL);
-}
-
-static void watch_wal_palette(void) {
-    char *path = g_build_filename(g_get_user_cache_dir(), "wal", "colors.json", NULL);
-    GFile *file = g_file_new_for_path(path);
-    GError *error = NULL;
-    wal_monitor = g_file_monitor_file(file, G_FILE_MONITOR_WATCH_MOVES, NULL, &error);
-    if (wal_monitor) g_signal_connect(wal_monitor, "changed", G_CALLBACK(on_wal_changed), NULL);
-    g_clear_error(&error); g_object_unref(file); g_free(path);
-}
-
 static void activate(GtkApplication *app, gpointer user_data) {
+    lui_init(LUI_STYLE_KEYBINDINGS);
     (void)user_data;
     AppState *s = g_new0(AppState, 1); s->app = app; s->bindings = g_ptr_array_new_with_free_func(binding_free);
     s->config_path = find_config();
@@ -545,23 +410,17 @@ static void activate(GtkApplication *app, gpointer user_data) {
     gtk_window_set_title(s->window, "LiakOS Keybindings");
     gtk_window_set_default_size(s->window, 820, 650);
     gtk_widget_set_size_request(GTK_WIDGET(s->window), 650, 480);
-    apply_css();
-    watch_wal_palette();
 
-    GtkWidget *root = gtk_box_new(GTK_ORIENTATION_VERTICAL, 0);
-    GtkWidget *top = gtk_box_new(GTK_ORIENTATION_VERTICAL, 6);
+    GtkWidget *root = lui_box_new(GTK_ORIENTATION_VERTICAL, 0);
+    GtkWidget *top = lui_page_header_new("Keyboard shortcuts",
+        "Find a shortcut, then record a new key combination.");
     gtk_widget_add_css_class(top, "toolbar");
-    GtkWidget *title = gtk_label_new("Keyboard shortcuts");
-    gtk_widget_add_css_class(title, "page-title"); gtk_label_set_xalign(GTK_LABEL(title), 0);
-    GtkWidget *subtitle = gtk_label_new("Find a shortcut, then record a new key combination.");
-    gtk_widget_add_css_class(subtitle, "page-subtitle"); gtk_label_set_xalign(GTK_LABEL(subtitle), 0);
-    gtk_box_append(GTK_BOX(top), title); gtk_box_append(GTK_BOX(top), subtitle);
     gtk_box_append(GTK_BOX(root), top);
 
-    GtkWidget *filters = gtk_box_new(GTK_ORIENTATION_HORIZONTAL, 10);
+    GtkWidget *filters = lui_box_new(GTK_ORIENTATION_HORIZONTAL, 10);
     gtk_widget_set_margin_start(filters, 22); gtk_widget_set_margin_end(filters, 22);
     gtk_widget_set_margin_top(filters, 12); gtk_widget_set_margin_bottom(filters, 8);
-    s->search = GTK_SEARCH_ENTRY(gtk_search_entry_new());
+    s->search = GTK_SEARCH_ENTRY(lui_search_new());
     gtk_widget_add_css_class(GTK_WIDGET(s->search), "shortcut-search");
     gtk_widget_set_hexpand(GTK_WIDGET(s->search), TRUE);
     gtk_search_entry_set_placeholder_text(s->search, "Search shortcuts or actions…");
@@ -581,7 +440,7 @@ static void activate(GtkApplication *app, gpointer user_data) {
     gtk_scrolled_window_set_policy(GTK_SCROLLED_WINDOW(scroll), GTK_POLICY_NEVER, GTK_POLICY_AUTOMATIC);
     s->list = GTK_LIST_BOX(gtk_list_box_new());
     gtk_list_box_set_selection_mode(s->list, GTK_SELECTION_NONE);
-    GtkWidget *empty = gtk_label_new("No shortcuts found. This app reads keybindings from your Wayfire config file.");
+    GtkWidget *empty = lui_label_new("No shortcuts found. This app reads keybindings from your Wayfire config file.");
     gtk_label_set_wrap(GTK_LABEL(empty), TRUE);
     gtk_widget_set_margin_top(empty, 48); gtk_widget_set_margin_start(empty, 28); gtk_widget_set_margin_end(empty, 28);
     gtk_list_box_set_placeholder(s->list, empty);
@@ -589,10 +448,10 @@ static void activate(GtkApplication *app, gpointer user_data) {
     gtk_scrolled_window_set_child(GTK_SCROLLED_WINDOW(scroll), GTK_WIDGET(s->list));
     gtk_box_append(GTK_BOX(root), scroll);
 
-    GtkWidget *footer = gtk_label_new(NULL);
+    GtkWidget *footer = lui_label_new(NULL);
     char *foot = s->bindings->len ? g_strdup_printf("%u shortcuts  ·  %s", s->bindings->len, s->config_path) : g_strdup_printf("No shortcuts found in %s", s->config_path);
     gtk_label_set_text(GTK_LABEL(footer), foot); g_free(foot);
-    gtk_label_set_xalign(GTK_LABEL(footer), 0); gtk_widget_add_css_class(footer, "page-subtitle");
+    gtk_label_set_xalign(GTK_LABEL(footer), 0); gtk_widget_add_css_class(footer, "lui-subtitle");
     gtk_widget_set_margin_start(footer, 22); gtk_widget_set_margin_end(footer, 22);
     gtk_widget_set_margin_top(footer, 10); gtk_widget_set_margin_bottom(footer, 14);
     gtk_box_append(GTK_BOX(root), footer);
@@ -608,5 +467,6 @@ int main(int argc, char **argv) {
     GtkApplication *app = gtk_application_new("org.liakos.Keybindings", G_APPLICATION_DEFAULT_FLAGS);
     g_signal_connect(app, "activate", G_CALLBACK(activate), NULL);
     int status = g_application_run(G_APPLICATION(app), argc, argv);
+    lui_shutdown();
     g_object_unref(app); return status;
 }

@@ -3,6 +3,7 @@
 #include <gio/gio.h>
 #include <glib/gstdio.h>
 #include <gtk/gtk.h>
+#include "../lui/lui.h"
 #include <json-glib/json-glib.h>
 #include <math.h>
 #include <string.h>
@@ -50,12 +51,6 @@ typedef struct {
   Monitor *drag_monitor;
 } App;
 
-static const char *wal_bg = "#181b24", *wal_fg = "#f3f4f6",
-                  *wal_accent = "#8aa4ff";
-static GtkCssProvider *css_provider;
-static GFileMonitor *wal_monitor;
-static guint wal_reload_timer;
-
 static void mode_free(gpointer p) { g_free(p); }
 static void monitor_free(gpointer p) {
   Monitor *m = p;
@@ -77,96 +72,6 @@ static void profile_free(gpointer p) {
   g_free(profile->name);
   g_ptr_array_unref(profile->settings);
   g_free(profile);
-}
-
-static gboolean color_ok(const char *s) {
-  if (!s || strlen(s) != 7 || s[0] != '#')
-    return FALSE;
-  for (int i = 1; i < 7; i++)
-    if (!g_ascii_isxdigit(s[i]))
-      return FALSE;
-  return TRUE;
-}
-static const char *color_from(JsonObject *obj, const char *key,
-                              const char *fallback) {
-  if (!obj || !json_object_has_member(obj, key))
-    return fallback;
-  const char *s = json_object_get_string_member(obj, key);
-  return color_ok(s) ? s : fallback;
-}
-static void load_palette(void) {
-  char *path =
-      g_build_filename(g_get_user_cache_dir(), "wal", "colors.json", NULL);
-  JsonParser *parser = json_parser_new();
-  GError *error = NULL;
-  if (json_parser_load_from_file(parser, path, &error)) {
-    JsonObject *root = json_node_get_object(json_parser_get_root(parser));
-    JsonObject *special = json_object_get_object_member(root, "special");
-    JsonObject *colors = json_object_get_object_member(root, "colors");
-    wal_bg = g_strdup(color_from(special, "background", "#181b24"));
-    wal_fg = g_strdup(color_from(special, "foreground", "#f3f4f6"));
-    wal_accent = g_strdup(color_from(colors, "color4", "#8aa4ff"));
-  }
-  g_clear_error(&error);
-  g_object_unref(parser);
-  g_free(path);
-}
-static void update_css(void) {
-  load_palette();
-  char *css = g_strdup_printf(
-      "window { background:%s; color:%s; } headerbar { background:%s; }"
-      ".title { font-size:24px; font-weight:700; } .muted { opacity:.72; }"
-      ".monitor-card { background:alpha(%s,.12); border:1px solid "
-      "alpha(%s,.28); border-radius:16px; padding:16px; }"
-      ".monitor-name { font-size:17px; font-weight:700; }"
-      "button.suggested-action { background:%s; color:%s; border-radius:10px; }"
-      "button { border-radius:9px; } button.compact-button { min-height:0; "
-      "padding:8px; margin:0px;} entry, dropdown, spinbutton { "
-      "border-radius:8px; }"
-      ".status { color:%s; }",
-      wal_bg, wal_fg, wal_bg, wal_fg, wal_accent, wal_accent, wal_bg,
-      wal_accent);
-  if (!css_provider) {
-    css_provider = gtk_css_provider_new();
-    gtk_style_context_add_provider_for_display(
-        gdk_display_get_default(), GTK_STYLE_PROVIDER(css_provider),
-        GTK_STYLE_PROVIDER_PRIORITY_APPLICATION);
-  }
-  gtk_css_provider_load_from_string(css_provider, css);
-  g_free(css);
-}
-static gboolean wal_reload(gpointer data) {
-  (void)data;
-  wal_reload_timer = 0;
-  update_css();
-  return G_SOURCE_REMOVE;
-}
-static void on_wal_changed(GFileMonitor *m, GFile *f, GFile *o,
-                           GFileMonitorEvent e, gpointer d) {
-  (void)m;
-  (void)f;
-  (void)o;
-  (void)d;
-  if (e != G_FILE_MONITOR_EVENT_CHANGED && e != G_FILE_MONITOR_EVENT_CREATED &&
-      e != G_FILE_MONITOR_EVENT_MOVED &&
-      e != G_FILE_MONITOR_EVENT_CHANGES_DONE_HINT &&
-      e != G_FILE_MONITOR_EVENT_RENAMED)
-    return;
-  if (wal_reload_timer)
-    g_source_remove(wal_reload_timer);
-  wal_reload_timer = g_timeout_add(120, wal_reload, NULL);
-}
-static void watch_wal(void) {
-  char *path =
-      g_build_filename(g_get_user_cache_dir(), "wal", "colors.json", NULL);
-  GFile *f = g_file_new_for_path(path);
-  GError *err = NULL;
-  wal_monitor = g_file_monitor_file(f, G_FILE_MONITOR_WATCH_MOVES, NULL, &err);
-  if (wal_monitor)
-    g_signal_connect(wal_monitor, "changed", G_CALLBACK(on_wal_changed), NULL);
-  g_clear_error(&err);
-  g_object_unref(f);
-  g_free(path);
 }
 
 static char *strip_line(const char *s) {
@@ -429,9 +334,9 @@ static void on_y_changed(GtkSpinButton *spin, gpointer data) {
 }
 
 static GtkWidget *labeled_control(const char *label, GtkWidget *control) {
-  GtkWidget *box = gtk_box_new(GTK_ORIENTATION_VERTICAL, 5);
-  GtkWidget *l = gtk_label_new(label);
-  gtk_widget_add_css_class(l, "muted");
+  GtkWidget *box = lui_box_new(GTK_ORIENTATION_VERTICAL, 5);
+  GtkWidget *l = lui_label_new(label);
+  gtk_widget_add_css_class(l, "lui-subtitle");
   gtk_label_set_xalign(GTK_LABEL(l), 0);
   gtk_box_append(GTK_BOX(box), l);
   gtk_box_append(GTK_BOX(box), control);
@@ -492,7 +397,8 @@ static void draw_layout(GtkDrawingArea *area, cairo_t *cr, int width,
   app->layout_factor = factor;
   app->layout_offset_x = (width - worldw * factor) / 2 - minx * factor;
   app->layout_offset_y = (height - worldh * factor) / 2 - miny * factor;
-  cairo_set_source_rgba(cr, 0, 0, 0, .12);
+  GdkRGBA background = lui_preview_background();
+  cairo_set_source_rgba(cr, background.red, background.green, background.blue, background.alpha);
   cairo_paint(cr);
   gboolean drew = FALSE;
   for (guint i = 0; i < app->monitors->len; i++) {
@@ -507,14 +413,15 @@ static void draw_layout(GtkDrawingArea *area, cairo_t *cr, int width,
     h *= factor;
     drew = TRUE;
     GdkRGBA color;
-    gdk_rgba_parse(&color, wal_accent);
+    color = lui_color(LUI_COLOR_ACCENT);
     cairo_set_source_rgba(cr, color.red, color.green, color.blue, .75);
     cairo_rectangle(cr, x, y, w, h);
     cairo_fill_preserve(cr);
-    cairo_set_source_rgba(cr, 1, 1, 1, .75);
+    GdkRGBA text_color = lui_preview_foreground();
+    cairo_set_source_rgba(cr, text_color.red, text_color.green, text_color.blue, .75);
     cairo_set_line_width(cr, 1.5);
     cairo_stroke(cr);
-    cairo_set_source_rgb(cr, 1, 1, 1);
+    cairo_set_source_rgb(cr, text_color.red, text_color.green, text_color.blue);
     cairo_select_font_face(cr, "Sans", CAIRO_FONT_SLANT_NORMAL,
                            CAIRO_FONT_WEIGHT_BOLD);
     cairo_set_font_size(cr, MAX(10, MIN(14, h * .15)));
@@ -533,7 +440,8 @@ static void draw_layout(GtkDrawingArea *area, cairo_t *cr, int width,
     }
   }
   if (!drew) {
-    cairo_set_source_rgba(cr, 1, 1, 1, .7);
+    GdkRGBA text_color = lui_preview_foreground();
+    cairo_set_source_rgba(cr, text_color.red, text_color.green, text_color.blue, .7);
     cairo_select_font_face(cr, "Sans", CAIRO_FONT_SLANT_NORMAL,
                            CAIRO_FONT_WEIGHT_NORMAL);
     cairo_set_font_size(cr, 14);
@@ -600,17 +508,17 @@ static void rebuild_cards(App *app) {
     gtk_box_remove(app->monitor_list, child);
   for (guint i = 0; i < app->monitors->len; i++) {
     Monitor *m = g_ptr_array_index(app->monitors, i);
-    GtkWidget *card = gtk_box_new(GTK_ORIENTATION_VERTICAL, 12);
-    gtk_widget_add_css_class(card, "monitor-card");
+    GtkWidget *card = lui_card_new(NULL);
+
     m->card = card;
     m->preview = app->layout_preview;
-    GtkWidget *head = gtk_box_new(GTK_ORIENTATION_HORIZONTAL, 10);
-    GtkWidget *namebox = gtk_box_new(GTK_ORIENTATION_VERTICAL, 3);
-    GtkWidget *name = gtk_label_new(m->description);
+    GtkWidget *head = lui_box_new(GTK_ORIENTATION_HORIZONTAL, 10);
+    GtkWidget *namebox = lui_box_new(GTK_ORIENTATION_VERTICAL, 3);
+    GtkWidget *name = lui_label_new(m->description);
     gtk_widget_add_css_class(name, "monitor-name");
     gtk_label_set_xalign(GTK_LABEL(name), 0);
-    GtkWidget *connector = gtk_label_new(m->name);
-    gtk_widget_add_css_class(connector, "muted");
+    GtkWidget *connector = lui_label_new(m->name);
+    gtk_widget_add_css_class(connector, "lui-subtitle");
     gtk_label_set_xalign(GTK_LABEL(connector), 0);
     gtk_box_append(GTK_BOX(namebox), name);
     gtk_box_append(GTK_BOX(namebox), connector);
@@ -623,7 +531,7 @@ static void rebuild_cards(App *app) {
     gtk_box_append(GTK_BOX(head), namebox);
     gtk_box_append(GTK_BOX(head), GTK_WIDGET(m->enabled_switch));
     gtk_box_append(GTK_BOX(card), head);
-    GtkWidget *grid = gtk_grid_new();
+    GtkWidget *grid = lui_grid_new();
     gtk_grid_set_row_spacing(GTK_GRID(grid), 10);
     gtk_grid_set_column_spacing(GTK_GRID(grid), 12);
     GtkStringList *modes = gtk_string_list_new(NULL);
@@ -675,7 +583,7 @@ static void rebuild_cards(App *app) {
         GTK_GRID(grid),
         labeled_control("Rotation", GTK_WIDGET(m->transform_dropdown)), 1, 1, 1,
         1);
-    GtkWidget *position = gtk_box_new(GTK_ORIENTATION_HORIZONTAL, 8);
+    GtkWidget *position = lui_box_new(GTK_ORIENTATION_HORIZONTAL, 8);
     gtk_box_append(GTK_BOX(position),
                    labeled_control("Left position", GTK_WIDGET(m->x_spin)));
     gtk_box_append(GTK_BOX(position),
@@ -926,24 +834,24 @@ static void show_confirm(App *app) {
   gtk_window_set_resizable(app->confirm_window, FALSE);
   gtk_window_set_title(app->confirm_window, "Confirm display setup");
   gtk_window_set_default_size(app->confirm_window, 251, 101);
-  GtkWidget *box = gtk_box_new(GTK_ORIENTATION_VERTICAL, 8);
+  GtkWidget *box = lui_box_new(GTK_ORIENTATION_VERTICAL, 8);
   gtk_widget_set_margin_top(box, 5);
   gtk_widget_set_margin_bottom(box, 5);
   gtk_widget_set_margin_start(box, 5);
   gtk_widget_set_margin_end(box, 5);
-  app->countdown_label = GTK_LABEL(gtk_label_new(NULL));
+  app->countdown_label = GTK_LABEL(lui_label_new(NULL));
   gtk_label_set_wrap(app->countdown_label, TRUE);
   gtk_label_set_justify(app->countdown_label, GTK_JUSTIFY_LEFT);
   gtk_label_set_xalign(app->countdown_label, 0);
   gtk_label_set_max_width_chars(app->countdown_label, 28);
   gtk_widget_set_vexpand(GTK_WIDGET(app->countdown_label), TRUE);
   gtk_widget_set_valign(GTK_WIDGET(app->countdown_label), GTK_ALIGN_CENTER);
-  GtkWidget *buttons = gtk_box_new(GTK_ORIENTATION_HORIZONTAL, 5);
+  GtkWidget *buttons = lui_box_new(GTK_ORIENTATION_HORIZONTAL, 5);
   gtk_widget_set_halign(buttons, GTK_ALIGN_END);
   gtk_widget_set_margin_end(buttons, 2);
   gtk_widget_set_margin_bottom(buttons, 2);
-  GtkWidget *revert = gtk_button_new_with_label("Revert now");
-  GtkWidget *keep = gtk_button_new_with_label("Keep settings");
+  GtkWidget *revert = lui_button_new("Revert now", LUI_BUTTON_NORMAL);
+  GtkWidget *keep = lui_button_new("Keep settings", LUI_BUTTON_NORMAL);
   gtk_widget_add_css_class(keep, "suggested-action");
   gtk_box_append(GTK_BOX(buttons), revert);
   gtk_box_append(GTK_BOX(buttons), keep);
@@ -1091,15 +999,15 @@ static void save_profile_clicked(GtkButton *b, gpointer data) {
   gtk_window_set_modal(GTK_WINDOW(w), TRUE);
   gtk_window_set_title(GTK_WINDOW(w), "Save display profile");
   gtk_window_set_default_size(GTK_WINDOW(w), 360, 150);
-  GtkWidget *box = gtk_box_new(GTK_ORIENTATION_VERTICAL, 10);
+  GtkWidget *box = lui_box_new(GTK_ORIENTATION_VERTICAL, 10);
   gtk_widget_set_margin_top(box, 18);
   gtk_widget_set_margin_bottom(box, 18);
   gtk_widget_set_margin_start(box, 18);
   gtk_widget_set_margin_end(box, 18);
-  GtkWidget *label = gtk_label_new("Name this display layout");
+  GtkWidget *label = lui_label_new("Name this display layout");
   GtkWidget *entry = gtk_entry_new();
   gtk_entry_set_placeholder_text(GTK_ENTRY(entry), "Desk, Travel, Projector…");
-  GtkWidget *save = gtk_button_new_with_label("Save profile");
+  GtkWidget *save = lui_button_new("Save profile", LUI_BUTTON_NORMAL);
   gtk_widget_add_css_class(save, "suggested-action");
   gtk_widget_set_halign(save, GTK_ALIGN_END);
   GtkWidget **pair = g_new(GtkWidget *, 2);
@@ -1115,6 +1023,7 @@ static void save_profile_clicked(GtkButton *b, gpointer data) {
 }
 
 static void activate(GtkApplication *application, gpointer data) {
+  lui_init(LUI_STYLE_DISPLAYS);
   (void)data;
   App *app = g_new0(App, 1);
   app->app = application;
@@ -1126,15 +1035,15 @@ static void activate(GtkApplication *application, gpointer data) {
     app->window = GTK_WINDOW(gtk_application_window_new(application));
     gtk_window_set_title(app->window, "LiakOS Display Setup");
     gtk_window_set_default_size(app->window, 640, 380);
-    update_css();
-    GtkWidget *box = gtk_box_new(GTK_ORIENTATION_VERTICAL, 12);
+
+    GtkWidget *box = lui_box_new(GTK_ORIENTATION_VERTICAL, 12);
     gtk_widget_set_margin_top(box, 32);
     gtk_widget_set_margin_start(box, 32);
     gtk_widget_set_margin_end(box, 32);
-    GtkWidget *title = gtk_label_new("Display setup is unavailable");
-    gtk_widget_add_css_class(title, "title");
+    GtkWidget *title = lui_label_new("Display setup is unavailable");
+    gtk_widget_add_css_class(title, "lui-title");
     gtk_label_set_xalign(GTK_LABEL(title), 0);
-    GtkWidget *detail = gtk_label_new(
+    GtkWidget *detail = lui_label_new(
         err ? err->message : "Could not read the display configuration.");
     gtk_label_set_wrap(GTK_LABEL(detail), TRUE);
     gtk_label_set_xalign(GTK_LABEL(detail), 0);
@@ -1148,48 +1057,41 @@ static void activate(GtkApplication *application, gpointer data) {
   app->window = GTK_WINDOW(gtk_application_window_new(application));
   gtk_window_set_title(app->window, "LiakOS Display Setup");
   gtk_window_set_default_size(app->window, 900, 720);
-  update_css();
-  watch_wal();
-  GtkWidget *root = gtk_box_new(GTK_ORIENTATION_VERTICAL, 0);
-  GtkWidget *header = gtk_box_new(GTK_ORIENTATION_HORIZONTAL, 10);
+
+
+  GtkWidget *root = lui_box_new(GTK_ORIENTATION_VERTICAL, 0);
+  GtkWidget *header = lui_box_new(GTK_ORIENTATION_HORIZONTAL, 10);
   gtk_widget_set_margin_top(header, 20);
   gtk_widget_set_margin_bottom(header, 12);
   gtk_widget_set_margin_start(header, 24);
   gtk_widget_set_margin_end(header, 24);
-  GtkWidget *titlebox = gtk_box_new(GTK_ORIENTATION_VERTICAL, 4);
-  GtkWidget *title = gtk_label_new("Display setup");
-  gtk_widget_add_css_class(title, "title");
-  gtk_label_set_xalign(GTK_LABEL(title), 0);
-  GtkWidget *sub = gtk_label_new("Arrange screens and choose how they look.");
-  gtk_widget_add_css_class(sub, "muted");
-  gtk_label_set_xalign(GTK_LABEL(sub), 0);
-  gtk_box_append(GTK_BOX(titlebox), title);
-  gtk_box_append(GTK_BOX(titlebox), sub);
+  GtkWidget *titlebox = lui_page_header_new("Display setup",
+      "Arrange screens and choose how they look.");
   gtk_widget_set_hexpand(titlebox, TRUE);
-  GtkWidget *refresh = gtk_button_new_with_label("Refresh");
+  GtkWidget *refresh = lui_button_new("Refresh", LUI_BUTTON_NORMAL);
   gtk_widget_add_css_class(refresh, "compact-button");
   gtk_widget_set_valign(refresh, GTK_ALIGN_CENTER);
   gtk_box_append(GTK_BOX(header), titlebox);
   gtk_box_append(GTK_BOX(header), refresh);
   gtk_box_append(GTK_BOX(root), header);
-  GtkWidget *profiles = gtk_box_new(GTK_ORIENTATION_HORIZONTAL, 8);
+  GtkWidget *profiles = lui_box_new(GTK_ORIENTATION_HORIZONTAL, 8);
   gtk_widget_set_margin_start(profiles, 24);
   gtk_widget_set_margin_end(profiles, 24);
   gtk_widget_set_margin_bottom(profiles, 12);
   app->profile_dropdown = GTK_DROP_DOWN(gtk_drop_down_new(NULL, NULL));
   gtk_widget_set_hexpand(GTK_WIDGET(app->profile_dropdown), TRUE);
-  GtkWidget *load = gtk_button_new_with_label("Load profile");
-  GtkWidget *save = gtk_button_new_with_label("Save current layout…");
+  GtkWidget *load = lui_button_new("Load profile", LUI_BUTTON_NORMAL);
+  GtkWidget *save = lui_button_new("Save current layout…", LUI_BUTTON_NORMAL);
   gtk_box_append(GTK_BOX(profiles), GTK_WIDGET(app->profile_dropdown));
   gtk_box_append(GTK_BOX(profiles), load);
   gtk_box_append(GTK_BOX(profiles), save);
   gtk_box_append(GTK_BOX(root), profiles);
-  GtkWidget *previewbox = gtk_box_new(GTK_ORIENTATION_VERTICAL, 5);
+  GtkWidget *previewbox = lui_box_new(GTK_ORIENTATION_VERTICAL, 5);
   gtk_widget_set_margin_start(previewbox, 24);
   gtk_widget_set_margin_end(previewbox, 24);
   gtk_widget_set_margin_bottom(previewbox, 12);
-  GtkWidget *previewlabel = gtk_label_new("Drag screens to arrange them");
-  gtk_widget_add_css_class(previewlabel, "muted");
+  GtkWidget *previewlabel = lui_label_new("Drag screens to arrange them");
+  gtk_widget_add_css_class(previewlabel, "lui-subtitle");
   gtk_label_set_xalign(GTK_LABEL(previewlabel), 0);
   app->layout_preview = GTK_DRAWING_AREA(gtk_drawing_area_new());
   gtk_drawing_area_set_content_height(app->layout_preview, 190);
@@ -1208,24 +1110,24 @@ static void activate(GtkApplication *application, gpointer data) {
   gtk_widget_set_vexpand(scroll, TRUE);
   gtk_scrolled_window_set_policy(GTK_SCROLLED_WINDOW(scroll), GTK_POLICY_NEVER,
                                  GTK_POLICY_AUTOMATIC);
-  app->monitor_list = GTK_BOX(gtk_box_new(GTK_ORIENTATION_VERTICAL, 10));
+  app->monitor_list = GTK_BOX(lui_box_new(GTK_ORIENTATION_VERTICAL, 10));
   gtk_widget_set_margin_start(GTK_WIDGET(app->monitor_list), 24);
   gtk_widget_set_margin_end(GTK_WIDGET(app->monitor_list), 24);
   gtk_widget_set_margin_bottom(GTK_WIDGET(app->monitor_list), 12);
   gtk_scrolled_window_set_child(GTK_SCROLLED_WINDOW(scroll),
                                 GTK_WIDGET(app->monitor_list));
   gtk_box_append(GTK_BOX(root), scroll);
-  GtkWidget *footer = gtk_box_new(GTK_ORIENTATION_HORIZONTAL, 12);
+  GtkWidget *footer = lui_box_new(GTK_ORIENTATION_HORIZONTAL, 12);
   gtk_widget_set_margin_start(footer, 24);
   gtk_widget_set_margin_end(footer, 24);
   gtk_widget_set_margin_top(footer, 8);
   gtk_widget_set_margin_bottom(footer, 18);
-  app->status = GTK_LABEL(gtk_label_new(
+  app->status = GTK_LABEL(lui_label_new(
       "Changes are previewed for 15 seconds before they revert."));
-  gtk_widget_add_css_class(GTK_WIDGET(app->status), "status");
+  gtk_widget_add_css_class(GTK_WIDGET(app->status), "lui-status");
   gtk_label_set_xalign(app->status, 0);
   gtk_widget_set_hexpand(GTK_WIDGET(app->status), TRUE);
-  app->apply_button = gtk_button_new_with_label("Apply changes");
+  app->apply_button = lui_button_new("Apply changes", LUI_BUTTON_NORMAL);
   gtk_widget_add_css_class(app->apply_button, "suggested-action");
   gtk_box_append(GTK_BOX(footer), GTK_WIDGET(app->status));
   gtk_box_append(GTK_BOX(footer), app->apply_button);
@@ -1254,6 +1156,7 @@ int main(int argc, char **argv) {
                                             G_APPLICATION_DEFAULT_FLAGS);
   g_signal_connect(app, "activate", G_CALLBACK(activate), NULL);
   int status = g_application_run(G_APPLICATION(app), argc, argv);
+  lui_shutdown();
   g_object_unref(app);
   return status;
 }

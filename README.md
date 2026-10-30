@@ -2,7 +2,7 @@
 
 LiakOS combines the UI minimalism of a tiling window manager with the flow of a floating window manager. It is built on **Wayfire**, with a set of custom applications that tie the desktop experience together.
 
-The main bar is built with **AGS**, and the custom applications are written in **C with GTK 4**. Wallpaper-based colors bring the bar, apps, and desktop together.
+The main bar is built with **AGS**, and the custom applications are written in **C with GTK 4**. The native applications share **[LUI (LiakOS UI)](lui/README.md)** for reusable components, consistent styling, and live wallpaper colors. Wallpaper-based colors bring the bar, apps, and desktop together.
 
 ![LiakOS desktop overview](screenshots/full-screen.png)
 

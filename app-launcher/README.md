@@ -2,8 +2,8 @@
 
 A small GTK4/Wayland launcher written in C. It lists visible `.desktop`
 applications as icon-and-name rows, filters as you type, and reads its colors
-from Pywal's `colors.json`. A file monitor reloads the GTK stylesheet when that
-JSON changes. The panel corners are 10px.
+through the shared [LUI library](../lui/README.md) from Pywal's
+`colors.json`. LUI reloads the GTK stylesheet when that JSON changes. The panel corners are 10px.
 
 ## Run
 
