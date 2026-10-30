@@ -9,6 +9,7 @@ import Gtk4LayerShell from "gi://Gtk4LayerShell?version=1.0"
 import Pango from "gi://Pango?version=1.0"
 import AstalTray from "gi://AstalTray?version=0.1"
 import AstalWp from "gi://AstalWp?version=0.1"
+import AstalMpris from "gi://AstalMpris?version=0.1"
 import AstalBluetooth from "gi://AstalBluetooth?version=0.1"
 import AstalPowerProfiles from "gi://AstalPowerProfiles?version=0.1"
 
@@ -118,6 +119,13 @@ function barCss(palette: Palette) {
     .audio-button:checked {
       background: ${withAlpha(palette.accent, 0.28)};
       color: ${palette.accent};
+    }
+
+    .audio-spectrum {
+      font-family: monospace;
+      font-size: 20px;
+      color: ${palette.accent};
+      padding: 0 8px;
     }
 
     .date-button {
@@ -709,27 +717,202 @@ function SystemTray() {
   )
 }
 
-function DateControl() {
-  const button = new Gtk.Button({ tooltip_text: "Click to show a compact date" })
-  const label = new Gtk.Label({})
-  button.set_child(label)
-  button.add_css_class("date-button")
-  let compact = false
-  const update = () => {
-    const now = GLib.DateTime.new_now_local()
-    label.set_label(now.format(compact ? "%d %b" : "%A, %B %d, %Y") || "")
+// CAVA captures the output monitor; it is only running while this view is visible.
+function AudioVisualizer() {
+  const box = new Gtk.Box({ spacing: 6 })
+  const label = new Gtk.Label({ label: "", width_chars: 24 })
+  label.add_css_class("audio-spectrum")
+  box.append(label)
+  let process: Gio.Subprocess | null = null
+  let cancellable: Gio.Cancellable | null = null
+  const idle = "▁".repeat(24)
+  const stop = () => {
+    cancellable?.cancel()
+    cancellable = null
+    process?.force_exit()
+    process = null
   }
-  button.connect("clicked", () => {
-    compact = !compact
-    button.set_tooltip_text(compact ? "Click to show the full date" : "Click to show a compact date")
-    update()
+  const start = () => {
+    if (process) return
+    if (!GLib.find_program_in_path("cava")) {
+      label.set_label("Install CAVA for audio bars")
+      box.set_tooltip_text("Install the cava package, then switch back to this mode")
+      return
+    }
+    label.set_label(idle)
+    box.set_tooltip_text("Live desktop audio · Bass at the edges, treble in the center · Click to show the full date")
+    try {
+      const directory = GLib.build_filenamev([GLib.get_user_cache_dir(), "liakos"])
+      GLib.mkdir_with_parents(directory, 0o700)
+      const config = GLib.build_filenamev([directory, "bar-cava.conf"])
+      // Pulse's auto source explicitly selects the default output monitor.
+      // PipeWire desktops provide this through pipewire-pulse.
+      GLib.file_set_contents(config, `[general]
+bars = 24
+framerate = 24
+[input]
+method = pulse
+source = auto
+[output]
+method = raw
+channels = stereo
+reverse = 1
+raw_target = /dev/stdout
+data_format = ascii
+ascii_max_range = 1000
+bar_delimiter = 59
+frame_delimiter = 10
+`)
+      const child = Gio.Subprocess.new(["cava", "-p", config],
+        Gio.SubprocessFlags.STDOUT_PIPE | Gio.SubprocessFlags.STDERR_SILENCE)
+      process = child
+      const cancel = new Gio.Cancellable()
+      cancellable = cancel
+      const input = new Gio.DataInputStream({ base_stream: child.get_stdout_pipe()! })
+      const glyphs = "▁▂▃▄▅▆▇█"
+      const read = () => input.read_line_async(GLib.PRIORITY_DEFAULT, cancel, (stream, result) => {
+        try {
+          const [line] = (stream as Gio.DataInputStream).read_line_finish_utf8(result)
+          if (cancel.is_cancelled()) return
+          if (line === null) return
+          const values = line.split(";").filter(value => value.trim() !== "").map(Number)
+          if (values.length === 24 && values.every(Number.isFinite)) {
+            // Lift quieter levels visually while preserving silence and peaks.
+            label.set_label(values.map(value => {
+              const level = Math.max(0, Math.min(1, value / 1000))
+              return glyphs[Math.round(Math.pow(level, 0.7) * 7)]
+            }).join(""))
+          }
+          read()
+        } catch (error) {
+          if (!cancel.is_cancelled()) debugLog(`visualizer read failed: ${error}`)
+        }
+      })
+      child.wait_async(null, (source, result) => {
+        try { (source as Gio.Subprocess).wait_finish(result) } catch (error) {
+          debugLog(`visualizer wait failed: ${error}`)
+        }
+        if (process === child) {
+          process = null
+          cancel.cancel()
+          cancellable = null
+          label.set_label("Audio visualizer unavailable")
+          box.set_tooltip_text("Check CAVA and the pipewire-pulse output monitor; switch modes to retry")
+        }
+      })
+      read()
+    } catch (error) {
+      stop()
+      label.set_label("Audio visualizer unavailable")
+      debugLog(`visualizer start failed: ${error}`)
+    }
+  }
+  box.connect("map", start)
+  box.connect("unmap", stop)
+  return box
+}
+
+function CenterControl() {
+  const root = new Gtk.Box({ spacing: 4 })
+  const modes = ["Full date", "Compact date", "Media", "Audio visualizer"]
+  const stack = new Gtk.Stack({ transition_type: Gtk.StackTransitionType.CROSSFADE, hhomogeneous: false, vhomogeneous: false })
+  const cycle = new Gtk.Button({ icon_name: "view-refresh-symbolic" })
+  cycle.add_css_class("utility-button")
+  const date = new Gtk.Button({})
+  date.add_css_class("date-button")
+  const dateLabel = new Gtk.Label({})
+  date.set_child(dateLabel)
+  let mode = 0
+  const updateDate = () => {
+    dateLabel.set_label(GLib.DateTime.new_now_local().format(
+      mode === 1 ? "%d %b" : "%A, %B %d, %Y") || "")
+  }
+  const advance = () => {
+    mode = (mode + 1) % modes.length
+    updateDate()
+    stack.set_visible_child_name(mode < 2 ? "date" : mode === 2 ? "media" : "spectrum")
+    cycle.set_tooltip_text(`${modes[mode]} · Click for ${modes[(mode + 1) % modes.length]}`)
+  }
+  cycle.connect("clicked", advance)
+  date.connect("clicked", advance)
+  date.set_tooltip_text("Click to switch center mode")
+  cycle.set_tooltip_text("Full date · Click for Compact date")
+  stack.add_named(date, "date")
+
+  const media = new Gtk.Box({ spacing: 4 })
+  const title = new Gtk.Label({ label: "No media player", max_width_chars: 28,
+    ellipsize: Pango.EllipsizeMode.END })
+  const playerButton = new Gtk.Button({ child: title, tooltip_text: "Click to switch media player" })
+  playerButton.add_css_class("date-button")
+  media.append(playerButton)
+  const mpris = AstalMpris.Mpris.get_default()
+  let selected: AstalMpris.Player | null = null
+  let pinned: AstalMpris.Player | null = null
+  const control = (icon: string, tooltip: string, action: (player: AstalMpris.Player) => void) => {
+    const button = new Gtk.Button({ icon_name: icon, tooltip_text: tooltip, sensitive: false })
+    button.add_css_class("utility-button")
+    button.connect("clicked", () => {
+      if (selected) {
+        try { action(selected) } catch (error) { debugLog(`media ${tooltip}: ${error}`) }
+      }
+    })
+    media.append(button)
+    return button
+  }
+  const previous = control("media-skip-backward-symbolic", "Previous", player => player.previous())
+  const play = control("media-playback-start-symbolic", "Play", player => player.play_pause())
+  const stop = control("media-playback-stop-symbolic", "Stop", player => player.stop())
+  const next = control("media-skip-forward-symbolic", "Next", player => player.next())
+  const render = () => {
+    const players = mpris.players
+    if (pinned && !players.includes(pinned)) pinned = null
+    selected = pinned || players.find(player => player.playback_status === AstalMpris.PlaybackStatus.PLAYING)
+      || (selected && players.includes(selected) ? selected : null) || players[0] || null
+    const playing = selected?.playback_status === AstalMpris.PlaybackStatus.PLAYING
+    title.set_label(selected ? [selected.artist, selected.title].filter(Boolean).join(" — ")
+      || selected.identity : "No media player")
+    playerButton.set_tooltip_text(selected
+      ? `${selected.identity}: ${title.label} · Click to switch player` : "Open a media player with MPRIS support")
+    playerButton.set_sensitive(players.length > 1)
+    previous.set_sensitive(!!selected?.can_control && !!selected?.can_go_previous)
+    next.set_sensitive(!!selected?.can_control && !!selected?.can_go_next)
+    stop.set_sensitive(!!selected?.can_control)
+    play.set_sensitive(!!selected?.can_control && (playing ? !!selected?.can_pause : !!selected?.can_play))
+    play.set_icon_name(playing ? "media-playback-pause-symbolic" : "media-playback-start-symbolic")
+    play.set_tooltip_text(playing ? "Pause" : "Play")
+  }
+  playerButton.connect("clicked", () => {
+    const players = mpris.players
+    pinned = players[(players.indexOf(selected!) + 1) % players.length] || null
+    render()
   })
-  GLib.timeout_add_seconds(GLib.PRIORITY_DEFAULT, 60, () => {
-    update()
+  let playerSignals: [AstalMpris.Player, number][] = []
+  const refresh = () => {
+    playerSignals.forEach(([player, id]) => player.disconnect(id))
+    playerSignals = mpris.players.map(player => [player, player.connect("notify", render)])
+    render()
+  }
+  const playersChanged = mpris.connect("notify::players", refresh)
+  refresh()
+  stack.add_named(media, "media")
+  const spectrum = new Gtk.Button({ child: AudioVisualizer(), tooltip_text: "Click to show the full date" })
+  spectrum.add_css_class("date-button")
+  spectrum.connect("clicked", advance)
+  stack.add_named(spectrum, "spectrum")
+  stack.set_visible_child_name("date")
+  root.append(stack)
+  media.append(cycle)
+  const timer = GLib.timeout_add_seconds(GLib.PRIORITY_DEFAULT, 60, () => {
+    updateDate()
     return GLib.SOURCE_CONTINUE
   })
-  update()
-  return button
+  root.connect("unrealize", () => {
+    GLib.source_remove(timer)
+    mpris.disconnect(playersChanged)
+    playerSignals.forEach(([player, id]) => player.disconnect(id))
+  })
+  updateDate()
+  return root
 }
 
 type CommandResult = { ok: boolean; stdout: string; stderr: string }
@@ -2211,7 +2394,7 @@ app.start({
           </box>
           {/* TODO: Add Wayfire desktop/workspace handling when working in a Wayfire session. */}
           <box $type="center">
-            <DateControl />
+            <CenterControl />
           </box>
           <box $type="end" spacing={0}>
             <OasaControl />

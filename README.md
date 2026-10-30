@@ -11,8 +11,22 @@ The main bar is built with **AGS**, and the custom applications are written in *
 The bar keeps everyday controls within reach:
 
 - **Left:** click the LiakOS name to open a quick menu for common settings and tools.
-- **Center:** click the date to switch to a more compact format.
+- **Center:** switch between full date, compact date, media controls, and live audio bars. Click the dates or audio bars to change modes; media mode has its own change button.
 - **Right:** a system tray for applications such as Discord, Steam, and Spotify, alongside custom bus schedule, sound, and Bluetooth controls.
+
+### Media controls
+
+See what's playing and control it directly from the bar with **previous, play/pause, stop, and next**. Media mode follows a playing MPRIS player automatically; click the track to switch between available players. Use the change button beside the controls to move to the audio visualizer.
+
+![Bar media mode showing a YouTube track with previous, pause, stop, next, and mode controls](screenshots/bar-media-controls.png)
+
+### Live audio visualizer
+
+Turn the center of the bar into moving audio bars that follow your desktop's sound, including apps without media metadata. Bass sits at the outer edges, with higher frequencies toward the center, and the bars use the wallpaper's accent color. Click the visualizer to return to the full date.
+
+![Wallpaper-colored audio spectrum in the center of the bar](screenshots/bar-media-vis.png)
+
+The visualizer requires `cava` and `pipewire-pulse`. Audio capture runs only while this mode is visible.
 
 ### Quick menu
 
