@@ -99,3 +99,5 @@ A simple application launcher with search as you type. Launch an application or 
 A simple settings app, still growing, for displays, mouse and touchpad, sound, and system updates, with shortcuts to wallpaper and keybinding tools.
 
 <img src="screenshots/settings-app.png" alt="LiakOS Settings overview with navigation for displays, input, sound, themes, and updates" width="800">
+
+Wayfire screen and workspace shortcuts, diagnosis, and manual checks: [navigation guide](config/wayfire-navigation.md).
