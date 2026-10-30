@@ -65,6 +65,8 @@ else
   backup_once "$WAYFIRE_CONFIG" "$WAYFIRE_CONFIG.bak"
 fi
 
+python3 "$DEPLOYMENT_DIR/merge-navigation.py" "$WAYFIRE_CONFIG" "$ROOT_DIR/config/wayfire.ini"
+
 # Kanshi owns monitor layouts; Wayfire only starts the manager and defers to it.
 mkdir -p "$CONFIG_HOME/kanshi"
 if [ ! -f "$CONFIG_HOME/kanshi/config" ]; then
